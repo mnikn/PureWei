@@ -1,0 +1,21 @@
+<resources>
+    <string name="app_name">PureWei</string>
+
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
+
+
+    <string name="action_search">搜索</string>
+    <string name="action_notification">通知</string>
+    <string name="action_around">周边</string>
+    <string name="action_favorite">收藏</string>
+    <string name="action_draft">草稿</string>
+    <string name="action_home">主页</string>
+    <string name="action_hot">热门</string>
+    <string name="action_special_focus">特别关注</string>
+    <string name="action_stars">名人明星</string>
+    <string name="action_group">管理分组</string>
+    <string name="action_night_mode">夜间模式</string>
+    <string name="action_settings">设置</string>
+
+</resources>
