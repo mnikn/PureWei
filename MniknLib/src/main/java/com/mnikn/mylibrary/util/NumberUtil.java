@@ -5,8 +5,11 @@ package com.mnikn.mylibrary.util;
  */
 public class NumberUtil {
 
-    public static boolean notZero(int num){
-        return num != 0;
+    public static boolean isZero(int num){
+        return num == 0;
+    }
+    public static boolean isZero(long num){
+        return num == 0;
     }
 
     public static String longToString(long num){

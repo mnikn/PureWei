@@ -5,7 +5,9 @@ import android.os.Bundle;
 
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.AccessTokenKeeper;
+import com.mnikn.purewei.support.entity.AccountEntity;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -26,6 +28,8 @@ public class AuthListener implements WeiboAuthListener {
         Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
         if (token.isSessionValid()) {
             AccessTokenKeeper.writeAccessToken(mContext, token);
+            mContext.getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
+                    new AccountEntity(token).toContentValues());
             ToastUtil.makeToastShort(mContext, "授权成功");
         } else {
             String errorMessage = "授权失败";

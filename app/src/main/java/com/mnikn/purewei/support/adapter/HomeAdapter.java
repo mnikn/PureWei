@@ -9,12 +9,12 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
-import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.mvp.model.HomeModel;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
@@ -66,6 +66,8 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
     public void bindView(final RecyclerView.ViewHolder holder) {
         Cursor cursor = getCursor();
 
+        HomeModel model = new HomeModel(cursor);
+
         if(holder instanceof NoRetweetHolder){
             NoRetweetHolder noRetweetHolder = (NoRetweetHolder) holder;
 
@@ -73,13 +75,13 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
                     mContext,
                     WeiboContract.UserEntry.getProfileImageUrl(cursor),
                     noRetweetHolder.cvUserIcon);
-            noRetweetHolder.tvText.setText(WeiboContract.WeiboEntry.getText(cursor));
-            noRetweetHolder.tvCreatedTime.setText(DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor)));
-            noRetweetHolder.tvSource.setText(WeiboContract.WeiboEntry.getSource(cursor));
-            noRetweetHolder.tvUserName.setText(WeiboContract.UserEntry.getName(cursor));
-            noRetweetHolder.tvAltitudesCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getAltitudesCount(cursor)));
-            noRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor)));
-            noRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor)));
+            noRetweetHolder.tvText.setText(model.getText());
+            noRetweetHolder.tvCreatedTime.setText(model.getCreatedTime());
+            noRetweetHolder.tvSource.setText(model.getSource());
+            noRetweetHolder.tvUserName.setText(model.getUserName());
+            noRetweetHolder.tvAttitudesCount.setText(NumberUtil.longToString(model.getAttitudesCount()));
+            noRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(model.getCommentsCount()));
+            noRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(model.getReportsCount()));
         }
         else if(holder instanceof WithRetweetHolder){
             WithRetweetHolder withRetweetHolder = (WithRetweetHolder) holder;
@@ -88,15 +90,15 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
                     mContext,
                     WeiboContract.UserEntry.getProfileImageUrl(cursor),
                     withRetweetHolder.cvUserIcon);
-            withRetweetHolder.tvText.setText(WeiboContract.WeiboEntry.getText(cursor));
-            withRetweetHolder.tvRetweet.setText(String.format("%s:%s", WeiboContract.WeiboEntry.getRetweetUserName(cursor), WeiboContract.WeiboEntry.getRetweetText(cursor)));
-            withRetweetHolder.tvText.setText(WeiboContract.WeiboEntry.getText(cursor));
-            withRetweetHolder.tvCreatedTime.setText(DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor)));
-            withRetweetHolder.tvSource.setText(WeiboContract.WeiboEntry.getSource(cursor));
-            withRetweetHolder.tvUserName.setText(WeiboContract.UserEntry.getName(cursor));
-            withRetweetHolder.tvAltitudesCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getAltitudesCount(cursor)));
-            withRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor)));
-            withRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor)));
+            withRetweetHolder.tvText.setText(model.getText());
+            withRetweetHolder.tvRetweet.setText(model.getRetweetText());
+            withRetweetHolder.tvText.setText(model.getText());
+            withRetweetHolder.tvCreatedTime.setText(model.getCreatedTime());
+            withRetweetHolder.tvSource.setText(model.getSource());
+            withRetweetHolder.tvUserName.setText(model.getUserName());
+            withRetweetHolder.tvAttitudesCount.setText(NumberUtil.longToString(model.getAttitudesCount()));
+            withRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(model.getCommentsCount()));
+            withRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(model.getReportsCount()));
         }
 
 
@@ -110,7 +112,7 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
         public TextView tvCreatedTime;
         public TextView tvSource;
         public TextView tvText;
-        public TextView tvAltitudesCount;
+        public TextView tvAttitudesCount;
         public TextView tvCommentsCount;
         public TextView tvReportsCount;
 
@@ -121,7 +123,7 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
             tvCreatedTime = (TextView) itemView.findViewById(R.id.tv_home_created_time);
             tvSource = (TextView) itemView.findViewById(R.id.tv_home_source);
             tvUserName = (TextView) itemView.findViewById(R.id.tv_home_user_name);
-            tvAltitudesCount = (TextView) itemView.findViewById(R.id.tv_altitudes_count);
+            tvAttitudesCount = (TextView) itemView.findViewById(R.id.tv_attitudes_count);
             tvCommentsCount= (TextView) itemView.findViewById(R.id.tv_comments_count);
             tvReportsCount = (TextView) itemView.findViewById(R.id.tv_reports_count);
         }
@@ -134,7 +136,7 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
         public TextView tvCreatedTime;
         public TextView tvSource;
         public TextView tvText;
-        public TextView tvAltitudesCount;
+        public TextView tvAttitudesCount;
         public TextView tvCommentsCount;
         public TextView tvReportsCount;
         public TextView tvRetweet;
@@ -146,7 +148,7 @@ public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> 
             tvCreatedTime = (TextView) itemView.findViewById(R.id.tv_home_created_time);
             tvSource = (TextView) itemView.findViewById(R.id.tv_home_source);
             tvUserName = (TextView) itemView.findViewById(R.id.tv_home_user_name);
-            tvAltitudesCount = (TextView) itemView.findViewById(R.id.tv_altitudes_count);
+            tvAttitudesCount = (TextView) itemView.findViewById(R.id.tv_attitudes_count);
             tvCommentsCount= (TextView) itemView.findViewById(R.id.tv_comments_count);
             tvReportsCount = (TextView) itemView.findViewById(R.id.tv_reports_count);
             tvRetweet = (TextView) itemView.findViewById(R.id.tv_home_reweet);

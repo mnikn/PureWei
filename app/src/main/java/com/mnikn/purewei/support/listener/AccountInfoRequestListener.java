@@ -2,11 +2,11 @@ package com.mnikn.purewei.support.listener;
 
 import android.content.Context;
 
+import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.mvp.IHomeView;
-import com.mnikn.purewei.mvp.model.UserModel;
 import com.mnikn.purewei.support.bean.UserBean;
-import com.mnikn.purewei.support.util.DataUtil;
+import com.mnikn.purewei.support.entity.UserEntity;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
@@ -25,9 +25,9 @@ public class AccountInfoRequestListener implements RequestListener {
 
     @Override
     public void onComplete(String s) {
-        UserModel model = new UserModel(DataUtil.jsonToBean(s,UserBean.class));
-        mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,model.toContentValues());
-        mView.setUserView(model.getProfileImageUrl(), model.getUserName());
+        UserEntity entity = new UserEntity(DataUtil.jsonToBean(s,UserBean.class));
+        mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,entity.toContentValues());
+        mView.setUserView(entity.getProfileImageUrl(), entity.getUserName());
     }
 
     @Override

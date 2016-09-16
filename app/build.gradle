@@ -31,5 +31,4 @@ dependencies {
     compile 'com.android.support:design:23.4.0'
     compile 'com.android.support:support-v4:23.4.0'
     compile files('src/weiboSDKCore_3.1.4.jar')
-    compile 'com.google.code.gson:gson:2.7'
 }

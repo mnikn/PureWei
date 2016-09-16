@@ -5,13 +5,13 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
+import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.mvp.IHomeView;
-import com.mnikn.purewei.mvp.model.UserModel;
-import com.mnikn.purewei.mvp.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.bean.WeiboBean;
-import com.mnikn.purewei.support.util.DataUtil;
+import com.mnikn.purewei.support.bean.TimelineBean;
+import com.mnikn.purewei.support.entity.UserEntity;
+import com.mnikn.purewei.support.entity.WeiboEntity;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
@@ -44,19 +44,19 @@ public class WeiboRequestListener implements RequestListener {
             mResolver.delete(WeiboContract.UserEntry.CONTENT_URI,null,null);
         }
 
-        WeiboBean weiboBean = DataUtil.jsonToBean(s,WeiboBean.class);
+        TimelineBean timelineBean = DataUtil.jsonToBean(s,TimelineBean.class);
 
         //把bean转换成ContentValues,并插入到数据库中
-        int size = weiboBean.getStatuses().size();
+        int size = timelineBean.getStatuses().size();
         ContentValues[] weiboValues = new ContentValues[size];
         for(int i = 0;i < size; ++i){
-            weiboValues[i] = new WeiboModel(weiboBean,i).toContentValues();
+            weiboValues[i] = new WeiboEntity(timelineBean,i).toContentValues();
 
             //先查询是否有这位用户信息,没有就插入数据
-            long userId = weiboBean.getStatuses().get(i).getUser().getId();
-            if(!DataUtil.hasUserId(mContext,userId)){
+            long userId = timelineBean.getStatuses().get(i).getUser().getId();
+            if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
                 mResolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserModel(weiboBean,i).toContentValues());
+                        new UserEntity(timelineBean,i).toContentValues());
             }
         }
         mResolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI, weiboValues);

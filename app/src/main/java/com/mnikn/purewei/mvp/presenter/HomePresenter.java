@@ -15,7 +15,7 @@ import com.mnikn.purewei.support.bean.UserBean;
 import com.mnikn.purewei.support.listener.AccountInfoRequestListener;
 import com.mnikn.purewei.support.listener.AuthListener;
 import com.mnikn.purewei.support.listener.WeiboRequestListener;
-import com.mnikn.purewei.support.util.DataUtil;
+import com.mnikn.mylibrary.util.DataUtil;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;

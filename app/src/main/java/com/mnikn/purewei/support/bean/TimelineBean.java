@@ -7,7 +7,7 @@ import java.util.List;
 /**
  * Created by Administrator on 2016/9/11 0011.
  */
-public class WeiboBean {
+public class TimelineBean {
     @SerializedName("hasvisible")
     private boolean hasvisible;
     @SerializedName("previous_cursor")

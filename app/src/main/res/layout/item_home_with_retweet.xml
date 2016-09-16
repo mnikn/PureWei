@@ -89,7 +89,6 @@
         <TextView
             android:id="@+id/tv_home_reweet"
             style="@style/normalText"
-            android:text="SDADADSDASASDADW\nQWREWREWTW"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -104,7 +103,7 @@
         android:layout_marginTop="@dimen/item_vertical_margin">
 
         <TextView
-            android:id="@+id/tv_altitudes_count"
+            android:id="@+id/tv_attitudes_count"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:drawableLeft="@drawable/heart_not_clicked"
