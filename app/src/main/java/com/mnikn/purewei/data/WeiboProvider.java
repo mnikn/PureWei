@@ -10,15 +10,21 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
+import com.mnikn.purewei.data.WeiboContract.AccountEntry;
+import com.mnikn.purewei.data.WeiboContract.UserEntry;
+import com.mnikn.purewei.data.WeiboContract.WeiboDetailEntry;
+import com.mnikn.purewei.data.WeiboContract.WeiboEntry;
+
 /**
  * Created by Administrator on 2016/9/12 0012.
  */
 public class WeiboProvider extends ContentProvider {
 
     private static final int WEIBO = 100;
-    private static final int USER = 101;
-    private static final int ACCOUNT = 102;
-    private static final int WEIBO_WITH_USER = 103;
+    private static final int WEIBO_DETAIL = 101;
+    private static final int USER = 102;
+    private static final int ACCOUNT = 103;
+    private static final int WEIBO_WITH_USER = 104;
     private static UriMatcher sUriMatcher;
 
     private WeiboDbHelper mDbHelper;
@@ -27,9 +33,10 @@ public class WeiboProvider extends ContentProvider {
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO,WEIBO);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_DETAIL,WEIBO_DETAIL);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_USER,USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_ACCOUNT,ACCOUNT);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/*",WEIBO_WITH_USER);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/user",WEIBO_WITH_USER);
     }
 
     @Override
@@ -47,10 +54,21 @@ public class WeiboProvider extends ContentProvider {
         int code = sUriMatcher.match(uri);
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         Cursor cursor;
+        String tableName;
         switch (code){
             case WEIBO:
                 cursor = db.query(
-                        WeiboContract.WeiboEntry.TABLE_NAME,
+                        WeiboEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case WEIBO_DETAIL:
+                cursor = db.query(
+                        WeiboDetailEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -60,7 +78,7 @@ public class WeiboProvider extends ContentProvider {
                 break;
             case USER:
                 cursor = db.query(
-                            WeiboContract.UserEntry.TABLE_NAME,
+                            UserEntry.TABLE_NAME,
                             projection,
                             selection,
                             selectionArgs,
@@ -70,7 +88,7 @@ public class WeiboProvider extends ContentProvider {
                 break;
             case ACCOUNT:
                 cursor = db.query(
-                        WeiboContract.AccountEntry.TABLE_NAME,
+                        AccountEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -79,10 +97,10 @@ public class WeiboProvider extends ContentProvider {
                         sortOrder);
                 break;
             case WEIBO_WITH_USER:
-                String tableName = WeiboContract.WeiboEntry.TABLE_NAME + " INNER JOIN " +
-                        WeiboContract.UserEntry.TABLE_NAME +" ON " + WeiboContract.WeiboEntry.TABLE_NAME +
-                        "." + WeiboContract.WeiboEntry.COLUMN_USER_ID + " = " + WeiboContract.UserEntry.TABLE_NAME +
-                        "." + WeiboContract.UserEntry.COLUMN_USER_ID;
+                tableName = WeiboEntry.TABLE_NAME + " INNER JOIN " +
+                        UserEntry.TABLE_NAME +" ON " + WeiboEntry.TABLE_NAME +
+                        "." + WeiboEntry.COLUMN_USER_ID + " = " + UserEntry.TABLE_NAME +
+                        "." + UserEntry.COLUMN_USER_ID;
                 cursor = db.query(
                             tableName,
                             projection,
@@ -108,13 +126,16 @@ public class WeiboProvider extends ContentProvider {
         String type;
         switch (code){
             case WEIBO:
-                type = WeiboContract.WeiboEntry.CONTENT_TYPE;
+                type = WeiboEntry.CONTENT_TYPE;
+                break;
+            case WEIBO_DETAIL:
+                type = WeiboDetailEntry.CONTENT_TYPE;
                 break;
             case USER:
-                type = WeiboContract.UserEntry.CONTENT_TYPE;
+                type = UserEntry.CONTENT_TYPE;
                 break;
             case ACCOUNT:
-                type = WeiboContract.AccountEntry.CONTENT_TYPE;
+                type = AccountEntry.CONTENT_TYPE;
                 break;
             default:
                 throw new IllegalArgumentException("No such a uri: " + uri.toString());
@@ -131,16 +152,20 @@ public class WeiboProvider extends ContentProvider {
         long rowId;
         switch (code){
             case WEIBO:
-                rowId = db.insert(WeiboContract.WeiboEntry.TABLE_NAME,null,values);
-                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboContract.WeiboEntry.buildWeiboUri(rowId));
+                rowId = db.insert(WeiboEntry.TABLE_NAME,null,values);
+                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboEntry.buildWeiboUri(rowId));
+                break;
+            case WEIBO_DETAIL:
+                rowId = db.insert(WeiboDetailEntry.TABLE_NAME,null,values);
+                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboEntry.buildWeiboUri(rowId));
                 break;
             case USER:
-                rowId = db.insert(WeiboContract.UserEntry.TABLE_NAME,null,values);
-                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboContract.UserEntry.buildUserUri(rowId));
+                rowId = db.insert(UserEntry.TABLE_NAME,null,values);
+                retUri = insertSuccessfulOrThrow(rowId,uri, UserEntry.buildUserUri(rowId));
                 break;
             case ACCOUNT:
-                rowId = db.insert(WeiboContract.AccountEntry.TABLE_NAME,null,values);
-                retUri = insertSuccessfulOrThrow(rowId, uri, WeiboContract.AccountEntry.buildAccountUri(rowId));
+                rowId = db.insert(AccountEntry.TABLE_NAME,null,values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, AccountEntry.buildAccountUri(rowId));
                 break;
             default:
                 throw new IllegalArgumentException("No such a uri: " + uri.toString());
@@ -160,7 +185,17 @@ public class WeiboProvider extends ContentProvider {
             case WEIBO:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.insert(WeiboContract.WeiboEntry.TABLE_NAME,null,contentValues);
+                    rowId = db.insert(WeiboEntry.TABLE_NAME,null,contentValues);
+                    insertSuccessfulOrThrow(rowId,uri,null);
+                    ++count;
+                }
+                db.setTransactionSuccessful();
+                db.endTransaction();
+                break;
+            case WEIBO_DETAIL:
+                db.beginTransaction();
+                for(ContentValues contentValues : values){
+                    rowId = db.insert(WeiboDetailEntry.TABLE_NAME,null,contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
@@ -181,13 +216,16 @@ public class WeiboProvider extends ContentProvider {
         int rowId;
         switch (code){
             case WEIBO:
-                rowId = db.delete(WeiboContract.WeiboEntry.TABLE_NAME, selection, selectionArgs);
+                rowId = db.delete(WeiboEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case WEIBO_DETAIL:
+                rowId = db.delete(WeiboDetailEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case USER:
-                rowId = db.delete(WeiboContract.UserEntry.TABLE_NAME, selection, selectionArgs);
+                rowId = db.delete(UserEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case ACCOUNT:
-                rowId = db.delete(WeiboContract.AccountEntry.TABLE_NAME, selection, selectionArgs);
+                rowId = db.delete(AccountEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             default:
                 throw new android.database.SQLException("No such a uri" + uri);
@@ -205,15 +243,19 @@ public class WeiboProvider extends ContentProvider {
         int rowId;
         switch (matchCode){
             case WEIBO:
-                rowId = db.update(WeiboContract.WeiboEntry.TABLE_NAME, values, selection, selectionArgs);
+                rowId = db.update(WeiboEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId, uri,null);
                 break;
+            case WEIBO_DETAIL:
+                rowId = db.update(WeiboDetailEntry.TABLE_NAME, values, selection, selectionArgs);
+                insertSuccessfulOrThrow(rowId,uri,null);
+                break;
             case USER:
-                rowId = db.update(WeiboContract.UserEntry.TABLE_NAME, values, selection, selectionArgs);
+                rowId = db.update(UserEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId,uri,null);
                 break;
             case ACCOUNT:
-                rowId = db.update(WeiboContract.AccountEntry.TABLE_NAME, values, selection, selectionArgs);
+                rowId = db.update(AccountEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId,uri,null);
                 break;
             default:

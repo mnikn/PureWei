@@ -17,6 +17,7 @@ public class WeiboContract {
     public static final Uri BASE_CONTENT_URI = Uri.parse(SCHEME + CONTENT_AUTHORITY);
 
     public static final String PATH_WEIBO = "weibo";
+    public static final String PATH_WEIBO_DETAIL = "weibo_detail";
     public static final String PATH_USER = "user";
     public static final String PATH_ACCOUNT = "account";
 
@@ -42,8 +43,11 @@ public class WeiboContract {
         public static Uri buildWeiboUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
-        public static Uri buildWeiboUriWithUser(String userName){
-            return CONTENT_URI.buildUpon().appendPath(userName).build();
+        public static Uri buildWeiboUriWithUser(){
+            return CONTENT_URI.buildUpon().appendPath("user").build();
+        }
+        public static Uri buildWeiboUriWithDetail(){
+            return CONTENT_URI.buildUpon().appendPath("detail").build();
         }
 
         public static long getWeiboId(Cursor cursor){
@@ -75,11 +79,32 @@ public class WeiboContract {
         }
         public static String getRetweetText(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_RETWEET_TEXT));
-        }public static String getRetweetUserName(Cursor cursor){
+        }
+        public static String getRetweetUserName(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_RETWEET_USER_NAME));
         }
+    }
 
+    public static class WeiboDetailEntry implements BaseColumns{
+        public static final String TABLE_NAME = "weibo_detail";
 
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEIBO_DETAIL).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
+                + "/" + CONTENT_AUTHORITY + "/" + PATH_WEIBO_DETAIL;
+
+        public static final String COLUMN_WEIBO_ID = "weibo_id";
+        public static final String COLUMN_PICS_URL = "pics_url";
+
+        public static Uri buildWeiboDetailUri(long id){
+            return ContentUris.withAppendedId(CONTENT_URI,id);
+        }
+
+        public static long getWeiboId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        }
+        public static String getPicsUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_PICS_URL));
+        }
     }
 
     public static class UserEntry implements BaseColumns{

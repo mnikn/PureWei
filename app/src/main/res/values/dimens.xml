@@ -8,7 +8,61 @@
     <dimen name="activity_vertical_margin">16dp</dimen>
     <dimen name="fab_margin">16dp</dimen>
 
+    <dimen name="divider">1dp</dimen>
 
-    <dimen name="item_horizontal_margin">16dp</dimen>
-    <dimen name="item_vertical_margin">16dp</dimen>
+    <!-- margin -->
+    <dimen name="app_margin">16dp</dimen>
+    <dimen name="app_margin_1dp">1dp</dimen>
+    <dimen name="app_margin_2dp">2dp</dimen>
+    <dimen name="app_margin_4dp">4dp</dimen>
+    <dimen name="app_margin_6dp">6dp</dimen>
+    <dimen name="app_margin_8dp">8dp</dimen>
+    <dimen name="app_margin_10dp">10dp</dimen>
+    <dimen name="app_margin_12dp">12dp</dimen>
+    <dimen name="app_margin_14dp">14dp</dimen>
+    <dimen name="app_margin_18dp">18dp</dimen>
+    <dimen name="app_margin_24dp">24dp</dimen>
+    <dimen name="app_margin_40dp">40dp</dimen>
+    <dimen name="app_margin_58dp">58dp</dimen>
+    <dimen name="app_margin_72dp">72dp</dimen>
+    <dimen name="app_margin_112dp">112dp</dimen>
+
+    <!-- layout_width -->
+    <dimen name="layout_width_45dp">45dp</dimen>
+    <dimen name="layout_width_50dp">50dp</dimen>
+    <dimen name="layout_width_76dp">76dp</dimen>
+    <dimen name="layout_width_85dp">85dp</dimen>
+    <dimen name="layout_width_120dp">120dp</dimen>
+    <dimen name="layout_width_130dp">130dp</dimen>
+    <dimen name="layout_width_260dp">260dp</dimen>
+
+    <!-- layout_height -->
+    <dimen name="layout_height_40dp">40dp</dimen>
+    <dimen name="layout_height_45dp">45dp</dimen>
+    <dimen name="layout_height_50dp">50dp</dimen>
+    <dimen name="layout_height_76dp">76dp</dimen>
+    <dimen name="layout_height_120dp">120dp</dimen>
+    <dimen name="layout_height_130dp">130dp</dimen>
+    <dimen name="layout_height_260dp">260dp</dimen>
+
+    <!-- text -->
+    <dimen name="text_size_10sp">10sp</dimen>
+    <dimen name="text_size_12sp">12sp</dimen>
+    <dimen name="text_size_14sp">14sp</dimen>
+    <dimen name="text_size_16sp">16sp</dimen>
+    <dimen name="text_size_18sp">18sp</dimen>
+    <dimen name="text_size_20sp">20sp</dimen>
+    <dimen name="text_size_22sp">22sp</dimen>
+    <dimen name="text_size_24sp">24sp</dimen>
+    <dimen name="text_size_32sp">32sp</dimen>
+
+    <!-- user icon -->
+    <dimen name="icon_small_width">36dp</dimen>
+    <dimen name="icon_small_height">36dp</dimen>
+    <dimen name="icon_medium_width">64dp</dimen>
+    <dimen name="icon_medium_height">64dp</dimen>
+
+    <!-- item -->
+    <dimen name="text_drawable_padding">4dp</dimen>
+    <dimen name="item_margin">14sp</dimen>
 </resources>

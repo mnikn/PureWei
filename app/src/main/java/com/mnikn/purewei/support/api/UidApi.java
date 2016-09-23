@@ -31,11 +31,13 @@ public class UidApi extends BaseApi{
         return parameters;
     }
 
+    @Override
     public void requestAsync(String httpMethod, RequestListener listener) {
-        super.requestAsync(BASE_URL, httpMethod, listener);
+        super.requestAsyncHelper(BASE_URL, httpMethod, listener);
     }
 
+    @Override
     public String requestSync(String httpMethod) {
-        return super.requestSync(BASE_URL, httpMethod);
+        return super.requestSyncHelper(BASE_URL, httpMethod);
     }
 }

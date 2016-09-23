@@ -11,17 +11,16 @@ import com.mnikn.purewei.support.util.TextUtil;
  * 储存微博的信息实体
  */
 public class HomeModel {
-    private long reportsCount;
-    private long commentsCount;
-    private long attitudesCount;
-    private String createdTime;
-    private String text;
-    private String source;
-    private String userName;
-    private String profileImageUrl;
-    private String retweetText;
-
-
+    public String weiboId;
+    public String reportsCount;
+    public String commentsCount;
+    public String attitudesCount;
+    public String createdTime;
+    public String text;
+    public String source;
+    public String userName;
+    public String profileImageUrl;
+    public String retweetText;
 
     public HomeModel(){}
 
@@ -34,84 +33,15 @@ public class HomeModel {
             retweetText = WeiboContract.WeiboEntry.getRetweetUserName(cursor) + ":" +
                     WeiboContract.WeiboEntry.getRetweetText(cursor);
         }
-        reportsCount = WeiboContract.WeiboEntry.getReportsCount(cursor);
-        commentsCount = WeiboContract.WeiboEntry.getCommentsCount(cursor);
-        attitudesCount = WeiboContract.WeiboEntry.getAttitudesCount(cursor);
+
+        weiboId = NumberUtil.longToString(WeiboContract.WeiboEntry.getWeiboId(cursor));
+        reportsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor));
+        commentsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor));
+        attitudesCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getAttitudesCount(cursor));
         createdTime = DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor));
         text = WeiboContract.WeiboEntry.getText(cursor);
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboEntry.getSource(cursor));
         userName = WeiboContract.UserEntry.getName(cursor);
     }
 
-    public String getText() {
-        return text;
-    }
-
-    public void setText(String text) {
-        this.text = text;
-    }
-
-    public long getReportsCount() {
-        return reportsCount;
-    }
-
-    public void setReportsCount(long reportsCount) {
-        this.reportsCount = reportsCount;
-    }
-
-    public long getCommentsCount() {
-        return commentsCount;
-    }
-
-    public void setCommentsCount(long commentsCount) {
-        this.commentsCount = commentsCount;
-    }
-
-    public long getAttitudesCount() {
-        return attitudesCount;
-    }
-
-    public void setAttitudesCount(long attitudesCount) {
-        this.attitudesCount = attitudesCount;
-    }
-
-    public String getCreatedTime() {
-        return createdTime;
-    }
-
-    public void setCreatedTime(String createdTime) {
-        this.createdTime = createdTime;
-    }
-
-    public String getSource() {
-        return source;
-    }
-
-    public void setSource(String source) {
-        this.source = source;
-    }
-
-    public String getUserName() {
-        return userName;
-    }
-
-    public void setUserName(String userName) {
-        this.userName = userName;
-    }
-
-    public String getProfileImageUrl() {
-        return profileImageUrl;
-    }
-
-    public void setProfileImageUrl(String profileImageUrl) {
-        this.profileImageUrl = profileImageUrl;
-    }
-
-    public String getRetweetText() {
-        return retweetText;
-    }
-
-    public void setRetweetText(String retweetText) {
-        this.retweetText = retweetText;
-    }
 }

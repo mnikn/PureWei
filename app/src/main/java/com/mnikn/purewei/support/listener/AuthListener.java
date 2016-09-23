@@ -7,7 +7,7 @@ import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.AccessTokenKeeper;
-import com.mnikn.purewei.support.entity.AccountEntity;
+import com.mnikn.purewei.data.entity.AccountEntity;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;

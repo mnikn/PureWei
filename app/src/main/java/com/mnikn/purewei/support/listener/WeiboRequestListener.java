@@ -7,11 +7,12 @@ import android.util.Log;
 
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.entity.UserEntity;
+import com.mnikn.purewei.data.entity.WeiboDetailEntity;
+import com.mnikn.purewei.data.entity.WeiboEntity;
 import com.mnikn.purewei.mvp.IHomeView;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.bean.TimelineBean;
-import com.mnikn.purewei.support.entity.UserEntity;
-import com.mnikn.purewei.support.entity.WeiboEntity;
 import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
@@ -41,19 +42,23 @@ public class WeiboRequestListener implements RequestListener {
         //刷新时先删除数据
         if(mType == Constant.REFRESH){
             mResolver.delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
+            mResolver.delete(WeiboContract.WeiboDetailEntry.CONTENT_URI,null,null);
             mResolver.delete(WeiboContract.UserEntry.CONTENT_URI,null,null);
         }
 
-        TimelineBean timelineBean = DataUtil.jsonToBean(s,TimelineBean.class);
+        TimelineBean timelineBean = DataUtil.jsonToBean(s, TimelineBean.class);
 
         //把bean转换成ContentValues,并插入到数据库中
-        int size = timelineBean.getStatuses().size();
+        int size = timelineBean.statuses.size();
         ContentValues[] weiboValues = new ContentValues[size];
         for(int i = 0;i < size; ++i){
             weiboValues[i] = new WeiboEntity(timelineBean,i).toContentValues();
 
+            ContentValues[] weiboDetailValues = new WeiboDetailEntity(timelineBean,i).toContentValuesArray();
+            mResolver.bulkInsert(WeiboContract.WeiboDetailEntry.CONTENT_URI,weiboDetailValues);
+
             //先查询是否有这位用户信息,没有就插入数据
-            long userId = timelineBean.getStatuses().get(i).getUser().getId();
+            long userId = timelineBean.statuses.get(i).user.id;
             if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
                 mResolver.insert(WeiboContract.UserEntry.CONTENT_URI,
                         new UserEntity(timelineBean,i).toContentValues());

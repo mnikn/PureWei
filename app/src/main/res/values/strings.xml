@@ -17,5 +17,12 @@
     <string name="action_group">管理分组</string>
     <string name="action_night_mode">夜间模式</string>
     <string name="action_settings">设置</string>
+    <string name="action_follow">关注</string>
+    <string name="action_cancel_follow">取消关注</string>
+
+
+    <string name="title_followers">粉丝</string>
+    <string name="title_friends">关注</string>
+    <string name="title_weibo">微博</string>
 
 </resources>

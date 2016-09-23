@@ -11,18 +11,14 @@ import com.mnikn.mylibrary.fragment.BaseFragment;
  */
 public abstract class BaseActivity extends AppCompatActivity {
 
-    protected abstract int getContentViewId();
-
     protected abstract int getFragmentContainerId();
 
     protected void addFragment(BaseFragment fragment){
         FragmentManager fm = getSupportFragmentManager();
         if(fragment != null){
-            String tag = fragment.getClass().getSimpleName();
             fm.beginTransaction()
-                    .replace(getFragmentContainerId(),fragment,tag)
-                    .addToBackStack(tag)
-                    .commitAllowingStateLoss();
+                    .replace(getFragmentContainerId(),fragment)
+                    .commit();
         }
     }
 

@@ -6,152 +6,103 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
+import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.WeiboContract.UserEntry;
+import com.mnikn.purewei.data.WeiboContract.WeiboDetailEntry;
+import com.mnikn.purewei.data.WeiboContract.WeiboEntry;
 import com.mnikn.purewei.mvp.model.HomeModel;
-
-import de.hdodenhof.circleimageview.CircleImageView;
+import com.mnikn.purewei.support.viewholder.HomeViewHolder;
 
 /**
  * Created by Administrator on 2016/9/9 0009.
  */
-public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> {
-
-    private static final int NO_RETWEET = 1;
-    private static final int WITH_RETWEET = 2;
+public class HomeAdapter extends RecyclerCursorAdapter<RecyclerView.ViewHolder> implements View.OnClickListener {
 
     private Context mContext;
+    private LayoutInflater mLayoutInflater;
+    private OnRecyclerItemClickListener mListener;
 
     public HomeAdapter(Context context) {
-        mContext = context;
+        this(context,null);
     }
 
-    @Override
-    public int getItemViewType(int position) {
-        Cursor cursor = getCursor();
-        cursor.moveToPosition(position);
-        if(TextUtil.isEmpty(WeiboContract.WeiboEntry.getRetweetText(cursor))){
-            return NO_RETWEET;
-        }
-        else{
-            return WITH_RETWEET;
-        }
+    public HomeAdapter(Context context,OnRecyclerItemClickListener listener) {
+        mContext = context;
+        mLayoutInflater = LayoutInflater.from(context);
+        mListener = listener;
     }
 
     @Override
     public RecyclerView.ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         RecyclerView.ViewHolder holder;
-        switch (viewType){
-            case NO_RETWEET:
-                holder = new NoRetweetHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_no_retweet,parent,false));
-                break;
-            case WITH_RETWEET:
-                holder = new WithRetweetHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_with_retweet,parent,false));
-                break;
-            default:
-                throw new IllegalArgumentException("No such a view type:" + viewType);
-        }
-        //return new NoRetweetHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_no_retweet,parent,false));
-        //return new WithRetweetHolder(LayoutInflater.from(mContext).inflate(R.layout.item_home_with_retweet,parent,false));
+        View view = mLayoutInflater.inflate(R.layout.item_home,parent,false);
+        holder = new HomeViewHolder(view);
+        view.setOnClickListener(this);
         return holder;
     }
 
     @Override
     public void bindView(final RecyclerView.ViewHolder holder) {
         Cursor cursor = getCursor();
-
         HomeModel model = new HomeModel(cursor);
 
-        if(holder instanceof NoRetweetHolder){
-            NoRetweetHolder noRetweetHolder = (NoRetweetHolder) holder;
-
-            GlideUtil.setCircleImage(
-                    mContext,
-                    WeiboContract.UserEntry.getProfileImageUrl(cursor),
-                    noRetweetHolder.cvUserIcon);
-            noRetweetHolder.tvText.setText(model.getText());
-            noRetweetHolder.tvCreatedTime.setText(model.getCreatedTime());
-            noRetweetHolder.tvSource.setText(model.getSource());
-            noRetweetHolder.tvUserName.setText(model.getUserName());
-            noRetweetHolder.tvAttitudesCount.setText(NumberUtil.longToString(model.getAttitudesCount()));
-            noRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(model.getCommentsCount()));
-            noRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(model.getReportsCount()));
-        }
-        else if(holder instanceof WithRetweetHolder){
-            WithRetweetHolder withRetweetHolder = (WithRetweetHolder) holder;
-
-            GlideUtil.setCircleImage(
-                    mContext,
-                    WeiboContract.UserEntry.getProfileImageUrl(cursor),
-                    withRetweetHolder.cvUserIcon);
-            withRetweetHolder.tvText.setText(model.getText());
-            withRetweetHolder.tvRetweet.setText(model.getRetweetText());
-            withRetweetHolder.tvText.setText(model.getText());
-            withRetweetHolder.tvCreatedTime.setText(model.getCreatedTime());
-            withRetweetHolder.tvSource.setText(model.getSource());
-            withRetweetHolder.tvUserName.setText(model.getUserName());
-            withRetweetHolder.tvAttitudesCount.setText(NumberUtil.longToString(model.getAttitudesCount()));
-            withRetweetHolder.tvCommentsCount.setText(NumberUtil.longToString(model.getCommentsCount()));
-            withRetweetHolder.tvReportsCount.setText(NumberUtil.longToString(model.getReportsCount()));
+        HomeViewHolder homeViewHolder = (HomeViewHolder) holder;
+        LinearLayout layout = homeViewHolder.layout;
+        if(homeViewHolder.txtRetweet == null && NumberUtil.notZero(WeiboEntry.getRetweetId(cursor))){
+            View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet,null);
+            layout.addView(retweet, 2);
+            homeViewHolder.txtRetweet = (TextView) homeViewHolder.itemView.findViewById(R.id.txt_reweet);
         }
 
 
+        GlideUtil.setCircleImage(
+                mContext,
+                UserEntry.getProfileImageUrl(cursor),
+                homeViewHolder.circleImgUserIcon);
+        homeViewHolder.txtText.setText(model.text);
+        homeViewHolder.txtCreatedTime.setText(model.createdTime);
+        homeViewHolder.txtSource.setText(model.source);
+        homeViewHolder.txtUserName.setText(model.userName);
+        homeViewHolder.txtAttitudesCount.setText(model.attitudesCount);
+        homeViewHolder.txtCommentsCount.setText(model.commentsCount);
+        homeViewHolder.txtReportsCount.setText(model.reportsCount);
+        if(homeViewHolder.txtRetweet != null){
+            homeViewHolder.txtRetweet.setText(model.retweetText);
+        }
+        Cursor picsCursor = mContext.getContentResolver().query(
+                WeiboDetailEntry.CONTENT_URI,
+                null,
+                WeiboDetailEntry.COLUMN_WEIBO_ID + " = ?",
+                new String[]{model.weiboId},
+                null);
+        if(DataUtil.isEmpty(picsCursor)) return;
+        picsCursor.moveToFirst();
+        do {
+            String url = WeiboDetailEntry.getPicsUrl(picsCursor);
+            if(url == null) return;
+            ImageView imageView = new ImageView(mContext);
+            imageView.setLayoutParams(new LinearLayout.LayoutParams(
+                    ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT));
+            GlideUtil.setImage(mContext,url,imageView);
+            layout.addView(imageView);
+        } while (picsCursor.moveToNext());
+        picsCursor.close();
     }
 
-
-    public static class NoRetweetHolder extends RecyclerView.ViewHolder{
-
-        public CircleImageView cvUserIcon;
-        public TextView tvUserName;
-        public TextView tvCreatedTime;
-        public TextView tvSource;
-        public TextView tvText;
-        public TextView tvAttitudesCount;
-        public TextView tvCommentsCount;
-        public TextView tvReportsCount;
-
-        public NoRetweetHolder(View itemView) {
-            super(itemView);
-            cvUserIcon = (CircleImageView) itemView.findViewById(R.id.cv_home_user_icon);
-            tvText = (TextView) itemView.findViewById(R.id.tv_home_text);
-            tvCreatedTime = (TextView) itemView.findViewById(R.id.tv_home_created_time);
-            tvSource = (TextView) itemView.findViewById(R.id.tv_home_source);
-            tvUserName = (TextView) itemView.findViewById(R.id.tv_home_user_name);
-            tvAttitudesCount = (TextView) itemView.findViewById(R.id.tv_attitudes_count);
-            tvCommentsCount= (TextView) itemView.findViewById(R.id.tv_comments_count);
-            tvReportsCount = (TextView) itemView.findViewById(R.id.tv_reports_count);
-        }
-    }
-
-    public static class WithRetweetHolder extends RecyclerView.ViewHolder{
-
-        public CircleImageView cvUserIcon;
-        public TextView tvUserName;
-        public TextView tvCreatedTime;
-        public TextView tvSource;
-        public TextView tvText;
-        public TextView tvAttitudesCount;
-        public TextView tvCommentsCount;
-        public TextView tvReportsCount;
-        public TextView tvRetweet;
-
-        public WithRetweetHolder(View itemView) {
-            super(itemView);
-            cvUserIcon = (CircleImageView) itemView.findViewById(R.id.cv_home_user_icon);
-            tvText = (TextView) itemView.findViewById(R.id.tv_home_text);
-            tvCreatedTime = (TextView) itemView.findViewById(R.id.tv_home_created_time);
-            tvSource = (TextView) itemView.findViewById(R.id.tv_home_source);
-            tvUserName = (TextView) itemView.findViewById(R.id.tv_home_user_name);
-            tvAttitudesCount = (TextView) itemView.findViewById(R.id.tv_attitudes_count);
-            tvCommentsCount= (TextView) itemView.findViewById(R.id.tv_comments_count);
-            tvReportsCount = (TextView) itemView.findViewById(R.id.tv_reports_count);
-            tvRetweet = (TextView) itemView.findViewById(R.id.tv_home_reweet);
+    @Override
+    public void onClick(View v) {
+        if(mListener != null){
+            mListener.onItemClick(v,UserEntry.getUsertId(getCursor()));
         }
     }
 }

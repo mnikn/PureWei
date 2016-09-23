@@ -37,6 +37,14 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + WeiboEntry.COLUMN_USER_ID + ") REFERENCES " +
                 UserEntry.TABLE_NAME + " (" + UserEntry.COLUMN_USER_ID + "))";
 
+        final String SQL_CREATE_TABLE_WEIBO_DETAIL = "CREATE TABLE " +
+                WeiboDetailEntry.TABLE_NAME + " (" +
+                WeiboDetailEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                WeiboDetailEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
+                WeiboDetailEntry.COLUMN_PICS_URL + " TEXT, " +
+                "FOREIGN KEY (" + WeiboDetailEntry.COLUMN_WEIBO_ID + ") REFERENCES " +
+                WeiboEntry.TABLE_NAME + " (" + WeiboEntry.COLUMN_USER_ID + "))";
+
         final String SQL_CREATE_TABLE_USER = "CREATE TABLE " +
                 UserEntry.TABLE_NAME + " (" +
                 UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
@@ -53,6 +61,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 AccountEntry.COLUMN_UID + " INTEGER NOT NULL" + ")";
 
         db.execSQL(SQL_CREATE_TABLE_WEIBO);
+        db.execSQL(SQL_CREATE_TABLE_WEIBO_DETAIL);
         db.execSQL(SQL_CREATE_TABLE_USER);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
     }
@@ -60,6 +69,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WeiboEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + WeiboDetailEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME);
     }

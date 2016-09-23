@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.entity;
+package com.mnikn.purewei.data.entity;
 
 import android.content.ContentValues;
 
@@ -30,21 +30,5 @@ public class AccountEntity {
         values.put(WeiboContract.AccountEntry.COLUMN_TOKEN,token);
 
         return values;
-    }
-
-    public long getUid() {
-        return uid;
-    }
-
-    public void setUid(long uid) {
-        this.uid = uid;
-    }
-
-    public String getToken() {
-        return token;
-    }
-
-    public void setToken(String token) {
-        this.token = token;
     }
 }

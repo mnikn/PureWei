@@ -37,6 +37,32 @@ public abstract class BaseApi {
         mAccessToken = accessToken;
     }
 
+
+
+    public abstract void requestAsync(String httpMethod, RequestListener listener);
+
+    public abstract String requestSync(String httpMethod);
+
+    /**
+     * HTTP 同步请求。
+     *
+     * @param url        请求的地址
+     * @param httpMethod 请求方法
+     *
+     * @return 同步请求后，服务器返回的字符串。
+     */
+    protected String requestSyncHelper(String url,String httpMethod) {
+        WeiboParameters params = getWeiboParameters();
+        if (mAccessToken == null
+                || TextUtils.isEmpty(url)
+                || params == null
+                || TextUtils.isEmpty(httpMethod)) {
+            LogUtil.e(LOG_TAG, "Argument error!");
+            return "";
+        }
+        return new AsyncWeiboRunner(mContext).request(url, params, httpMethod);
+    }
+
     /**
      * HTTP 异步请求。
      *
@@ -44,7 +70,7 @@ public abstract class BaseApi {
      * @param httpMethod 请求方法
      * @param listener   请求后的回调接口
      */
-    protected void requestAsync(String url,String httpMethod,RequestListener listener) {
+    protected void requestAsyncHelper(String url,String httpMethod,RequestListener listener) {
         WeiboParameters params = getWeiboParameters();
         if (mAccessToken == null
                 || TextUtils.isEmpty(url)
@@ -55,26 +81,6 @@ public abstract class BaseApi {
             return;
         }
         new AsyncWeiboRunner(mContext).requestAsync(url, params, httpMethod, listener);
-    }
-
-    /**
-     * HTTP 同步请求。
-     *
-     * @param url        请求的地址
-     * @param httpMethod 请求方法
-     *
-     * @return 同步请求后，服务器返回的字符串。
-     */
-    protected String requestSync(String url,String httpMethod) {
-        WeiboParameters params = getWeiboParameters();
-        if (mAccessToken == null
-                || TextUtils.isEmpty(url)
-                || params == null
-                || TextUtils.isEmpty(httpMethod)) {
-            LogUtil.e(LOG_TAG, "Argument error!");
-            return "";
-        }
-        return new AsyncWeiboRunner(mContext).request(url, params, httpMethod);
     }
 
     protected abstract WeiboParameters getWeiboParameters();

@@ -1,9 +1,6 @@
 package com.mnikn.purewei.ui.activity;
 
-import android.app.LoaderManager;
-import android.content.CursorLoader;
 import android.content.Intent;
-import android.database.Cursor;
 import android.os.Bundle;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.NavigationView;
@@ -22,21 +19,23 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.customview.RecyclerViewDivider;
+import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.mvp.IHomeView;
 import com.mnikn.purewei.mvp.presenter.HomePresenter;
 import com.mnikn.purewei.mvp.presenter.IHomePresenter;
 import com.mnikn.purewei.support.adapter.HomeAdapter;
+import com.mnikn.purewei.support.callback.CursorLoaderCallback;
 
 import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
-        IHomeView,
-        LoaderManager.LoaderCallbacks<Cursor>{
+        IHomeView{
+
+    public static final String EXTRA_UID = "extra_uid";
 
     private static final int LOADER_WEIBO = 1;
 
@@ -120,8 +119,18 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initVariables(){
-        mAdapter = new HomeAdapter(this);
-        getLoaderManager().initLoader(LOADER_WEIBO, null, this);
+        mAdapter = new HomeAdapter(this, new OnRecyclerItemClickListener() {
+            @Override
+            public void onItemClick(View view, Object data) {
+                Intent intent = new Intent(HomeActivity.this,UserActivity.class);
+                intent.putExtra(EXTRA_UID,(Long) data);
+                startActivity(intent);
+            }
+        });
+        getSupportLoaderManager().initLoader(
+                LOADER_WEIBO,
+                null,
+                new CursorLoaderCallback(this,mAdapter));
     }
 
 
@@ -173,28 +182,6 @@ public class HomeActivity extends AppCompatActivity
 
         drawer.closeDrawer(GravityCompat.START);
         return true;
-    }
-
-
-    @Override
-    public android.content.Loader<Cursor> onCreateLoader(int id, Bundle args) {
-        return new CursorLoader(
-                this,
-                WeiboContract.WeiboEntry.buildWeiboUriWithUser("user"),
-                null,
-                null,
-                null,
-                WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
-    }
-
-    @Override
-    public void onLoadFinished(android.content.Loader<Cursor> loader, Cursor data) {
-        mAdapter.swapCursor(data);
-    }
-
-    @Override
-    public void onLoaderReset(android.content.Loader<Cursor> loader) {
-        mAdapter.swapCursor(null);
     }
 
     @Override

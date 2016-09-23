@@ -23,23 +23,24 @@ public class DateUtil {
         int recordMonth = record.get(Calendar.MONTH);
         int recordDay = record.get(Calendar.DAY_OF_MONTH);
 
-        String showStr=null;
-
+        String showStr;
+        int hour = record.get(Calendar.HOUR_OF_DAY),minute = record.get(Calendar.MINUTE);
         if(currentYear == recordYear && currentMonth == recordMonth ){
+
             if(currentDay == recordDay){
-                showStr = "今天" + record.get(Calendar.HOUR_OF_DAY) + ":" + record.get(Calendar.MINUTE);
+                showStr = "今天" + String.format("%02d",hour) + ":" + String.format("%02d",minute);
             }
             else if(currentDay - 1 == recordDay){
-                showStr = "昨天" + record.get(Calendar.HOUR_OF_DAY) + ":" + record.get(Calendar.MINUTE);
+                showStr = "昨天" + String.format("%02d", hour) + ":" + String.format("%02d", minute);
             }
             else{
                 showStr = recordMonth + "月" +  recordDay + "日" +
-                        record.get(Calendar.HOUR_OF_DAY) + ":" + record.get(Calendar.MINUTE);
+                        String.format("%02d", hour) + ":" + String.format("%02d", minute);
             }
         }
         else{
             showStr = recordMonth + "月" +  recordDay + "日" +
-                    record.get(Calendar.HOUR_OF_DAY) + ":" + record.get(Calendar.MINUTE);
+                    String.format("%02d", hour) + ":" + String.format("%02d", minute);
         }
         return showStr;
     }

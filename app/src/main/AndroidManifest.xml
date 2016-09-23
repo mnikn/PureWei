@@ -28,6 +28,9 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".ui.activity.UserActivity"
+            android:parentActivityName=".ui.activity.HomeActivity" />
         <activity android:name="com.mnikn.purewei.ui.activity.SettingActivity" />
         <activity android:name="com.mnikn.purewei.ui.activity.SearchActivity" />
 

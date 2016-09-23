@@ -1,34 +1,35 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_item"
     android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginTop="@dimen/item_vertical_margin"
-    android:layout_marginBottom="@dimen/item_vertical_margin"
-    android:paddingLeft="@dimen/item_horizontal_margin"
-    android:paddingRight="@dimen/item_horizontal_margin">
+    android:layout_marginTop="@dimen/app_margin_14dp"
+    android:layout_marginBottom="@dimen/app_margin_14dp"
+    android:paddingLeft="@dimen/app_margin_14dp"
+    android:paddingRight="@dimen/app_margin_14dp">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/item_vertical_margin">
+        android:layout_marginTop="@dimen/app_margin_14dp">
         
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/cv_home_user_icon"
-            android:layout_width="36dp"
-            android:layout_height="36dp" />
+            android:id="@+id/circle_img_user_icon"
+            android:layout_width="@dimen/icon_small_width"
+            android:layout_height="@dimen/icon_small_height" />
 
         <LinearLayout
             android:orientation="vertical"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginLeft="@dimen/item_horizontal_margin"
+            android:layout_marginLeft="@dimen/app_margin_14dp"
             android:gravity="center_vertical">
 
             <TextView
-                android:id="@+id/tv_home_user_name"
+                android:id="@+id/txt_user_name"
                 style="@style/emphasizeText"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
@@ -38,20 +39,17 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical">
-
                 <TextView
-                    android:id="@+id/tv_home_created_time"
-                    style="@style/additionalText"
+                    android:id="@+id/txt_created_time"
+                    style="@style/additionalSmallText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
-
                 <TextView
-                    android:id="@+id/tv_home_source"
+                    android:id="@+id/txt_source"
                     style="@style/additionalText"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="@dimen/item_horizontal_margin"/>
-
+                    android:layout_marginLeft="@dimen/app_margin"/>
             </LinearLayout>
 
         </LinearLayout>
@@ -68,49 +66,31 @@
     </LinearLayout>
 
     <TextView
-        android:id="@+id/tv_home_text"
+        android:id="@+id/txt_text"
         style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/item_vertical_margin"/>
+        android:layout_marginTop="@dimen/app_margin_14dp"
+        android:lineSpacingExtra="@dimen/app_margin_2dp"/>
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_gravity="center_vertical"
-        android:layout_marginTop="@dimen/item_vertical_margin">
-
+        android:layout_marginTop="@dimen/app_margin_14dp"
+        xmlns:android="http://schemas.android.com/apk/res/android">
         <TextView
-            android:id="@+id/tv_attitudes_count"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:drawableLeft="@drawable/heart_not_clicked"
-            android:gravity="center"/>
-
-        <View
-            android:layout_width="0dp"
-            android:layout_height="0dp"
-            android:layout_weight="3"/>
-
+            android:id="@+id/txt_attitudes_count"
+            style="@style/actionTxt"
+            android:drawableLeft="@drawable/heart_hollow"/>
         <TextView
-            android:id="@+id/tv_comments_count"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/comments"
-            android:gravity="center"/>
-
+            android:id="@+id/txt_comments_count"
+            style="@style/actionTxt"
+            android:drawableLeft="@drawable/comments"/>
         <TextView
-            android:id="@+id/tv_reports_count"
-            android:layout_gravity="end"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_weight="1"
-            android:drawableLeft="@drawable/share"
-            android:gravity="center"/>
-
+            android:id="@+id/txt_reports_count"
+            style="@style/actionTxt"
+            android:drawableLeft="@drawable/share"/>
     </LinearLayout>
 
 </LinearLayout>

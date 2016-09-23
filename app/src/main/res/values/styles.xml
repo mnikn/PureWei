@@ -20,17 +20,43 @@
 
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
+    
+    <!-- home view holder -->
+    <style name="actionTxt">
+        <item name="android:layout_width">wrap_content</item>
+        <item name="android:layout_height">wrap_content</item>
+        <item name="android:layout_weight">1</item>
+        <item name="android:drawablePadding">@dimen/text_drawable_padding</item>
+        <item name="android:gravity">center</item>
+    </style>
+
+    <!-- TextView style -->
     <style name="emphasizeText">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
-    
-    <style name="additionalText">
+    <style name="emphasizeSmallText" parent="emphasizeText">
+        <item name="android:textSize">15sp</item>
+    </style>
+    <style name="emphasizeNormalText" parent="emphasizeText">
+        <item name="android:textSize">20sp</item>
+    </style>
+
+
+    <style name="additionalText" />
+    <style name="additionalSmallText" parent="additionalText">
         <item name="android:textSize">13sp</item>
     </style>
+    <style name="additionalNormalText" parent="additionalText">
+        <item name="android:textSize">15sp</item>
+    </style>
+
 
     <style name="normalText">
         <item name="android:textColor">@android:color/black</item>
+    </style>
+    <style name="normalSmallText" parent="normalSmallText">
+        <item name="android:textSize">15sp</item>
     </style>
 
 </resources>
