@@ -10,10 +10,7 @@ import android.net.Uri;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 
-import com.mnikn.purewei.data.WeiboContract.AccountEntry;
-import com.mnikn.purewei.data.WeiboContract.UserEntry;
-import com.mnikn.purewei.data.WeiboContract.WeiboDetailEntry;
-import com.mnikn.purewei.data.WeiboContract.WeiboEntry;
+import com.mnikn.purewei.data.WeiboContract.*;;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -21,10 +18,12 @@ import com.mnikn.purewei.data.WeiboContract.WeiboEntry;
 public class WeiboProvider extends ContentProvider {
 
     private static final int WEIBO = 100;
-    private static final int WEIBO_DETAIL = 101;
-    private static final int USER = 102;
-    private static final int ACCOUNT = 103;
-    private static final int WEIBO_WITH_USER = 104;
+    private static final int WEIBO_PICS = 101;
+    private static final int WEIBO_COMMENT = 102;
+    private static final int USER = 103;
+    private static final int ACCOUNT = 104;
+    private static final int WEIBO_WITH_USER = 105;
+    private static final int WEIBO_WITH_COMMENT = 106;
     private static UriMatcher sUriMatcher;
 
     private WeiboDbHelper mDbHelper;
@@ -33,7 +32,8 @@ public class WeiboProvider extends ContentProvider {
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO,WEIBO);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_DETAIL,WEIBO_DETAIL);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_PICS,WEIBO_PICS);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT,WEIBO_COMMENT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_USER,USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_ACCOUNT,ACCOUNT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/user",WEIBO_WITH_USER);
@@ -66,9 +66,19 @@ public class WeiboProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
-            case WEIBO_DETAIL:
+            case WEIBO_PICS:
                 cursor = db.query(
-                        WeiboDetailEntry.TABLE_NAME,
+                        WeiboPicsEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
+            case WEIBO_COMMENT:
+                cursor = db.query(
+                        WeiboCommentEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -128,8 +138,11 @@ public class WeiboProvider extends ContentProvider {
             case WEIBO:
                 type = WeiboEntry.CONTENT_TYPE;
                 break;
-            case WEIBO_DETAIL:
-                type = WeiboDetailEntry.CONTENT_TYPE;
+            case WEIBO_PICS:
+                type = WeiboPicsEntry.CONTENT_TYPE;
+                break;
+            case WEIBO_COMMENT:
+                type = WeiboCommentEntry.CONTENT_TYPE;
                 break;
             case USER:
                 type = UserEntry.CONTENT_TYPE;
@@ -152,19 +165,23 @@ public class WeiboProvider extends ContentProvider {
         long rowId;
         switch (code){
             case WEIBO:
-                rowId = db.insert(WeiboEntry.TABLE_NAME,null,values);
+                rowId = db.replace(WeiboEntry.TABLE_NAME, null, values);
                 retUri = insertSuccessfulOrThrow(rowId,uri, WeiboEntry.buildWeiboUri(rowId));
                 break;
-            case WEIBO_DETAIL:
-                rowId = db.insert(WeiboDetailEntry.TABLE_NAME,null,values);
-                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboEntry.buildWeiboUri(rowId));
+            case WEIBO_PICS:
+                rowId = db.replace(WeiboPicsEntry.TABLE_NAME, null, values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, WeiboPicsEntry.buildWeiboPicsUri(rowId));
+                break;
+            case WEIBO_COMMENT:
+                rowId = db.replace(WeiboCommentEntry.TABLE_NAME, null, values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, WeiboCommentEntry.buildWeiboCommentUri(rowId));
                 break;
             case USER:
-                rowId = db.insert(UserEntry.TABLE_NAME,null,values);
+                rowId = db.replace(UserEntry.TABLE_NAME, null, values);
                 retUri = insertSuccessfulOrThrow(rowId,uri, UserEntry.buildUserUri(rowId));
                 break;
             case ACCOUNT:
-                rowId = db.insert(AccountEntry.TABLE_NAME,null,values);
+                rowId = db.replace(AccountEntry.TABLE_NAME,null,values);
                 retUri = insertSuccessfulOrThrow(rowId, uri, AccountEntry.buildAccountUri(rowId));
                 break;
             default:
@@ -185,17 +202,27 @@ public class WeiboProvider extends ContentProvider {
             case WEIBO:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.insert(WeiboEntry.TABLE_NAME,null,contentValues);
+                    rowId = db.replace(WeiboEntry.TABLE_NAME, null, contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
                 db.setTransactionSuccessful();
                 db.endTransaction();
                 break;
-            case WEIBO_DETAIL:
+            case WEIBO_PICS:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.insert(WeiboDetailEntry.TABLE_NAME,null,contentValues);
+                    rowId = db.insert(WeiboPicsEntry.TABLE_NAME,null,contentValues);
+                    insertSuccessfulOrThrow(rowId,uri,null);
+                    ++count;
+                }
+                db.setTransactionSuccessful();
+                db.endTransaction();
+                break;
+            case WEIBO_COMMENT:
+                db.beginTransaction();
+                for(ContentValues contentValues : values){
+                    rowId = db.insert(WeiboCommentEntry.TABLE_NAME,null,contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
@@ -218,8 +245,11 @@ public class WeiboProvider extends ContentProvider {
             case WEIBO:
                 rowId = db.delete(WeiboEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case WEIBO_DETAIL:
-                rowId = db.delete(WeiboDetailEntry.TABLE_NAME, selection, selectionArgs);
+            case WEIBO_PICS:
+                rowId = db.delete(WeiboPicsEntry.TABLE_NAME, selection, selectionArgs);
+                break;
+            case WEIBO_COMMENT:
+                rowId = db.delete(WeiboCommentEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case USER:
                 rowId = db.delete(UserEntry.TABLE_NAME, selection, selectionArgs);
@@ -246,8 +276,12 @@ public class WeiboProvider extends ContentProvider {
                 rowId = db.update(WeiboEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId, uri,null);
                 break;
-            case WEIBO_DETAIL:
-                rowId = db.update(WeiboDetailEntry.TABLE_NAME, values, selection, selectionArgs);
+            case WEIBO_PICS:
+                rowId = db.update(WeiboPicsEntry.TABLE_NAME, values, selection, selectionArgs);
+                insertSuccessfulOrThrow(rowId, uri,null);
+                break;
+            case WEIBO_COMMENT:
+                rowId = db.update(WeiboCommentEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId,uri,null);
                 break;
             case USER:

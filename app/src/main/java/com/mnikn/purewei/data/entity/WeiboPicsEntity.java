@@ -11,12 +11,12 @@ import java.util.List;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class WeiboDetailEntity {
+public class WeiboPicsEntity {
     public long weiboId;
     public List<String> picsUrl = new ArrayList<>();
 
-    public WeiboDetailEntity() {}
-    public WeiboDetailEntity(TimelineBean bean,int position){
+    public WeiboPicsEntity() {}
+    public WeiboPicsEntity(TimelineBean bean, int position){
         fromBean(bean, position);
     }
 
@@ -34,8 +34,8 @@ public class WeiboDetailEntity {
 
         for(int i = 0;i < picsUrl.size();++i) {
             ContentValues values = new ContentValues();
-            values.put(WeiboContract.WeiboDetailEntry.COLUMN_WEIBO_ID, weiboId);
-            values.put(WeiboContract.WeiboDetailEntry.COLUMN_PICS_URL, picsUrl.get(i));
+            values.put(WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID, weiboId);
+            values.put(WeiboContract.WeiboPicsEntry.COLUMN_PICS_URL, picsUrl.get(i));
             valuesArray[i] = values;
         }
         return valuesArray;

@@ -8,7 +8,7 @@ import android.util.Log;
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
-import com.mnikn.purewei.data.entity.WeiboDetailEntity;
+import com.mnikn.purewei.data.entity.WeiboPicsEntity;
 import com.mnikn.purewei.data.entity.WeiboEntity;
 import com.mnikn.purewei.mvp.IHomeView;
 import com.mnikn.purewei.support.Constant;
@@ -42,7 +42,8 @@ public class WeiboRequestListener implements RequestListener {
         //刷新时先删除数据
         if(mType == Constant.REFRESH){
             mResolver.delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
-            mResolver.delete(WeiboContract.WeiboDetailEntry.CONTENT_URI,null,null);
+            mResolver.delete(WeiboContract.WeiboPicsEntry.CONTENT_URI,null,null);
+            mResolver.delete(WeiboContract.WeiboCommentEntry.CONTENT_URI,null,null);
             mResolver.delete(WeiboContract.UserEntry.CONTENT_URI,null,null);
         }
 
@@ -54,8 +55,8 @@ public class WeiboRequestListener implements RequestListener {
         for(int i = 0;i < size; ++i){
             weiboValues[i] = new WeiboEntity(timelineBean,i).toContentValues();
 
-            ContentValues[] weiboDetailValues = new WeiboDetailEntity(timelineBean,i).toContentValuesArray();
-            mResolver.bulkInsert(WeiboContract.WeiboDetailEntry.CONTENT_URI,weiboDetailValues);
+            ContentValues[] weiboDetailValues = new WeiboPicsEntity(timelineBean,i).toContentValuesArray();
+            mResolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
 
             //先查询是否有这位用户信息,没有就插入数据
             long userId = timelineBean.statuses.get(i).user.id;

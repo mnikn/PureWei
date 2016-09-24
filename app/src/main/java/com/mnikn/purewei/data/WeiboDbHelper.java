@@ -37,13 +37,26 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 "FOREIGN KEY (" + WeiboEntry.COLUMN_USER_ID + ") REFERENCES " +
                 UserEntry.TABLE_NAME + " (" + UserEntry.COLUMN_USER_ID + "))";
 
-        final String SQL_CREATE_TABLE_WEIBO_DETAIL = "CREATE TABLE " +
-                WeiboDetailEntry.TABLE_NAME + " (" +
-                WeiboDetailEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WeiboDetailEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
-                WeiboDetailEntry.COLUMN_PICS_URL + " TEXT, " +
-                "FOREIGN KEY (" + WeiboDetailEntry.COLUMN_WEIBO_ID + ") REFERENCES " +
-                WeiboEntry.TABLE_NAME + " (" + WeiboEntry.COLUMN_USER_ID + "))";
+        final String SQL_CREATE_TABLE_WEIBO_PICS = "CREATE TABLE " +
+                WeiboPicsEntry.TABLE_NAME + " (" +
+                WeiboPicsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                WeiboPicsEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
+                WeiboPicsEntry.COLUMN_PICS_URL + " TEXT NOT NULL, " +
+                "FOREIGN KEY (" + WeiboPicsEntry.COLUMN_WEIBO_ID + ") REFERENCES " +
+                WeiboEntry.TABLE_NAME + " (" + WeiboEntry.COLUMN_WEIBO_ID + "))";
+
+        final String SQL_CREATE_TABLE_WEIBO_COMMENT = "CREATE TABLE " +
+                WeiboCommentEntry.TABLE_NAME + " (" +
+                WeiboCommentEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                WeiboCommentEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_ID + " INTEGER NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_USER_ID + " INTEGER NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_TIME + " INTEGER NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_USER_NAME + " TEXT NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_TEXT + " TEXT NOT NULL, " +
+                WeiboCommentEntry.COLUMN_COMMENT_SOURCE + " TEXT NOT NULL, " +
+                "FOREIGN KEY (" + WeiboCommentEntry.COLUMN_WEIBO_ID + ") REFERENCES " +
+                WeiboEntry.TABLE_NAME + " (" + WeiboEntry.COLUMN_WEIBO_ID + "))";
 
         final String SQL_CREATE_TABLE_USER = "CREATE TABLE " +
                 UserEntry.TABLE_NAME + " (" +
@@ -63,7 +76,8 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 AccountEntry.COLUMN_UID + " INTEGER NOT NULL" + ")";
 
         db.execSQL(SQL_CREATE_TABLE_WEIBO);
-        db.execSQL(SQL_CREATE_TABLE_WEIBO_DETAIL);
+        db.execSQL(SQL_CREATE_TABLE_WEIBO_PICS);
+        db.execSQL(SQL_CREATE_TABLE_WEIBO_COMMENT);
         db.execSQL(SQL_CREATE_TABLE_USER);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
     }
@@ -71,7 +85,8 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
     @Override
     public void onUpgrade(SQLiteDatabase db, int oldVersion, int newVersion) {
         db.execSQL("DROP TABLE IF EXISTS " + WeiboEntry.TABLE_NAME);
-        db.execSQL("DROP TABLE IF EXISTS " + WeiboDetailEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + WeiboPicsEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + WeiboCommentEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME);
     }
