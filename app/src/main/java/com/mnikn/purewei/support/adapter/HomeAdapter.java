@@ -7,7 +7,6 @@ import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
-import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
 import com.mnikn.purewei.R;
 
 /**
@@ -17,16 +16,10 @@ public class HomeAdapter extends RecyclerCursorAdapter<EasyViewHolder>{
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
-    private OnRecyclerItemClickListener mListener;
 
     public HomeAdapter(Context context) {
-        this(context,null);
-    }
-
-    public HomeAdapter(Context context,OnRecyclerItemClickListener listener) {
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        mListener = listener;
     }
 
     @Override

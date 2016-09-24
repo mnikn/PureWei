@@ -2,7 +2,7 @@ package com.mnikn.purewei.mvp.presenter;
 
 import android.content.Intent;
 
-import com.mnikn.mylibrary.interfaces.IPresenter;
+import com.mnikn.mylibrary.mvp.IPresenter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

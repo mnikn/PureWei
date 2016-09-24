@@ -1,4 +1,4 @@
-package com.mnikn.mylibrary.interfaces;
+package com.mnikn.mylibrary.mvp;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

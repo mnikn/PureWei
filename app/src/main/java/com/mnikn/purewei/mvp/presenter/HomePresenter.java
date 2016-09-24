@@ -5,7 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 
 import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.purewei.mvp.IHomeView;
+import com.mnikn.purewei.mvp.view.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.api.BaseApi;
@@ -52,7 +52,6 @@ public class HomePresenter implements IHomePresenter {
     @Override
     public void authorize() {
 
-
         //从SharePreference中读取token,若失败就请求授权
         mToken = AccessTokenKeeper.readAccessToken(mContext);
         if (!mToken.isSessionValid()) {
@@ -61,8 +60,6 @@ public class HomePresenter implements IHomePresenter {
             mSsoHandler.authorize(new AuthListener(mContext));
             mToken = AccessTokenKeeper.readAccessToken(mContext);
         }
-
-
     }
 
     @Override

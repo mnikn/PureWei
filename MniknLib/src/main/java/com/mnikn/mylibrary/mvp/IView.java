@@ -1,4 +1,4 @@
-package com.mnikn.mylibrary.interfaces;
+package com.mnikn.mylibrary.mvp;
 
 import android.view.View;
 

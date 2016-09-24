@@ -14,7 +14,8 @@ import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.mvp.model.WeiboModel;
-import com.mnikn.purewei.ui.activity.UserActivity;
+import com.mnikn.purewei.mvp.view.activity.DetailActivity;
+import com.mnikn.purewei.mvp.view.activity.UserActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -28,6 +29,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     public static final String EXTRA_UID = "extra_uid";
+    public static final String EXTRA_WEIBO_ID = "extra_weibo_id";
 
     @BindView(R.id.container_item) LinearLayout layout;
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
@@ -104,6 +106,15 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         long uid = model.userId;
         Intent intent = new Intent(mContext, UserActivity.class);
         intent.putExtra(EXTRA_UID,uid);
+        mContext.startActivity(intent);
+    }
+
+    @Optional
+    @OnClick({R.id.txt_text,R.id.txt_comments_count})
+    public void navToDetailActivity(){
+        long weiboId = model.weiboId;
+        Intent intent = new Intent(mContext,DetailActivity.class);
+        intent.putExtra(EXTRA_WEIBO_ID,weiboId);
         mContext.startActivity(intent);
     }
 }

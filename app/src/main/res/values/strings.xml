@@ -1,5 +1,7 @@
 <resources>
     <string name="app_name">PureWei</string>
+    <string name="lable_detail">Detail</string>
+    <string name="label_user">User</string>
 
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
@@ -25,7 +27,5 @@
     <string name="title_friends">关注</string>
     <string name="title_weibo">微博</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 </resources>

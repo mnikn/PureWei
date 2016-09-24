@@ -1,4 +1,4 @@
-package com.mnikn.purewei.ui.activity;
+package com.mnikn.purewei.mvp.view.activity;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,7 +22,7 @@ import com.mnikn.mylibrary.customview.RecyclerViewDivider;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.mvp.IHomeView;
+import com.mnikn.purewei.mvp.view.IHomeView;
 import com.mnikn.purewei.mvp.presenter.HomePresenter;
 import com.mnikn.purewei.mvp.presenter.IHomePresenter;
 import com.mnikn.purewei.support.adapter.HomeAdapter;
@@ -34,8 +34,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener,
-        IHomeView{
+        implements NavigationView.OnNavigationItemSelectedListener, IHomeView{
 
     private static final int LOADER_WEIBO = 1;
 
@@ -183,12 +182,19 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
+        ToastUtil.makeToastShort(this, "正在刷新");
     }
 
     @Override
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
         ToastUtil.makeToastShort(this, "刷新完成");
+    }
+
+    @Override
+    public void onLoadMore() {
+        refreshLayout.setRefreshing(true);
+        ToastUtil.makeToastShort(this, "正在加载");
     }
 
     @Override

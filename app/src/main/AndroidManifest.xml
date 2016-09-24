@@ -19,18 +19,22 @@
             android:name=".data.WeiboProvider" />
 
         <activity
-            android:name="com.mnikn.purewei.ui.activity.HomeActivity"
+            android:name=".mvp.view.activity.HomeActivity"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
-
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.activity.UserActivity"
-            android:parentActivityName=".ui.activity.HomeActivity" />
+            android:name=".mvp.view.activity.UserActivity"
+            android:label="@string/label_user"
+            android:parentActivityName=".mvp.view.activity.HomeActivity" />
+        <activity
+            android:name=".mvp.view.activity.DetailActivity"
+            android:label="@string/lable_detail"
+            android:parentActivityName=".mvp.view.activity.HomeActivity" />
 
         <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"

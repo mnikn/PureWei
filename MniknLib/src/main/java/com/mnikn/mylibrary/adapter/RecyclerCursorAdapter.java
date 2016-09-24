@@ -3,19 +3,12 @@ package com.mnikn.mylibrary.adapter;
 import android.database.Cursor;
 import android.support.v7.widget.RecyclerView;
 
-import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
-
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public abstract class RecyclerCursorAdapter<VH extends EasyViewHolder> extends RecyclerView.Adapter<VH> {
 
     private Cursor mCursor;
-    private OnRecyclerItemClickListener mListener;
-
-    public void setOnItemClickLisenter(OnRecyclerItemClickListener lisenter){
-        mListener = lisenter;
-    }
 
     public Cursor getCursor(){
         return mCursor;
