@@ -1,7 +1,7 @@
 package com.mnikn.mylibrary.interfaces;
 
 /**
- * Presenter的基类
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public interface IPresenter {
 }

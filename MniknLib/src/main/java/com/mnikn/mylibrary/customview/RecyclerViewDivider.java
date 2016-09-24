@@ -10,7 +10,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 /**
- * RecyclerView的分割线
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class RecyclerViewDivider extends RecyclerView.ItemDecoration {
 

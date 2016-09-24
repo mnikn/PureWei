@@ -13,7 +13,7 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.exception.WeiboException;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class AuthListener implements WeiboAuthListener {
 

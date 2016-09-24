@@ -10,7 +10,7 @@ import com.sina.weibo.sdk.net.WeiboParameters;
 import com.sina.weibo.sdk.utils.LogUtil;
 
 /**
- * Created by Administrator on 2016/9/9 0009.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public abstract class BaseApi {
 

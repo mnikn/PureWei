@@ -1,7 +1,7 @@
 package com.mnikn.purewei.support;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public final class Constant {
     public static final String APP_KEY = "3150221291";

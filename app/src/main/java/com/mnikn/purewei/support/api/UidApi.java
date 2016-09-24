@@ -8,7 +8,7 @@ import com.sina.weibo.sdk.net.RequestListener;
 import com.sina.weibo.sdk.net.WeiboParameters;
 
 /**
- * Created by Administrator on 2016/9/13 0013.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UidApi extends BaseApi{
     public static final String BASE_URL = "https://api.weibo.com/2/account/get_uid.json";

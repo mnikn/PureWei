@@ -6,9 +6,9 @@ import android.support.v7.widget.RecyclerView;
 import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
 
 /**
- * Created by Administrator on 2016/9/12 0012.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class RecyclerCursorAdapter<VH extends RecyclerView.ViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class RecyclerCursorAdapter<VH extends EasyViewHolder> extends RecyclerView.Adapter<VH> {
 
     private Cursor mCursor;
     private OnRecyclerItemClickListener mListener;
@@ -32,10 +32,9 @@ public abstract class RecyclerCursorAdapter<VH extends RecyclerView.ViewHolder> 
     }
 
     @Override
+    @SuppressWarnings("Unchecked")
     public void onBindViewHolder(VH holder, int position) {
         mCursor.moveToPosition(position);
-        bindView(holder);
+        holder.bindView(mCursor);
     }
-
-    public abstract void bindView(VH holder);
 }

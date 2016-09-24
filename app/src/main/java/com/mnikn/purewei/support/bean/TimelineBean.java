@@ -5,7 +5,7 @@ import com.google.gson.annotations.SerializedName;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class TimelineBean {
     @SerializedName("total_number")

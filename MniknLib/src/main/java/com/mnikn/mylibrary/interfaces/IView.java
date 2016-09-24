@@ -3,7 +3,7 @@ package com.mnikn.mylibrary.interfaces;
 import android.view.View;
 
 /**
- * View的基类
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public interface IView {
     void setupViews(View parent);

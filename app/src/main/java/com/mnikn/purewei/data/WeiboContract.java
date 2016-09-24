@@ -7,7 +7,7 @@ import android.net.Uri;
 import android.provider.BaseColumns;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboContract {
 
@@ -118,6 +118,8 @@ public class WeiboContract {
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_FOLLOWERS_COUNT = "followers_count";
+        public static final String COLUMN_WEIBO_COUNT = "weibo_count";
+        public static final String COLUMN_FRIENDS_COUNT = "friends_count";
         public static final String COLUMN_PROFILE_IMAGE_URL = "profile_image_url";
 
         public static Uri buildUserUri(long id){
@@ -139,6 +141,12 @@ public class WeiboContract {
         }
         public static long getFollowerCount(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_FOLLOWERS_COUNT));
+        }
+        public static long getWeiboCount(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_COUNT));
+        }
+        public static long getFriendsCount(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_FRIENDS_COUNT));
         }
     }
 

@@ -4,7 +4,7 @@ import android.content.Context;
 import android.widget.Toast;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class ToastUtil {
 

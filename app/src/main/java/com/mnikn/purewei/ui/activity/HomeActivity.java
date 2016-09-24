@@ -29,7 +29,10 @@ import com.mnikn.purewei.mvp.presenter.IHomePresenter;
 import com.mnikn.purewei.support.adapter.HomeAdapter;
 import com.mnikn.purewei.support.callback.CursorLoaderCallback;
 
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import de.hdodenhof.circleimageview.CircleImageView;
+
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
@@ -39,12 +42,12 @@ public class HomeActivity extends AppCompatActivity
 
     private static final int LOADER_WEIBO = 1;
 
-    private Toolbar toolbar;
-    private DrawerLayout drawer;
-    private SwipeRefreshLayout refreshLayout;
-    private NavigationView navigationView;
-    private FloatingActionButton fab;
-    private RecyclerView rvHome;
+    @BindView(R.id.toolbar) Toolbar toolbar;
+    @BindView(R.id.drawer_layout) DrawerLayout drawer;
+    @BindView(R.id.nav_view) NavigationView navigationView;
+    @BindView(R.id.rv_home) RecyclerView rvHome;
+    @BindView(R.id.fab) FloatingActionButton fab;
+    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
 
     private HomeAdapter mAdapter;
     private IHomePresenter mPresenter;
@@ -58,11 +61,10 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void setupViews(View parent) {
         setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
-        toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
 
-        fab = (FloatingActionButton) findViewById(R.id.fab);
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
@@ -71,17 +73,14 @@ public class HomeActivity extends AppCompatActivity
             }
         });
 
-        drawer = (DrawerLayout) findViewById(R.id.drawer_layout);
         ActionBarDrawerToggle toggle = new ActionBarDrawerToggle(
                 this, drawer, toolbar, R.string.navigation_drawer_open, R.string.navigation_drawer_close);
         drawer.setDrawerListener(toggle);
         toggle.syncState();
 
-        navigationView = (NavigationView) findViewById(R.id.nav_view);
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
 
-        refreshLayout = (SwipeRefreshLayout) findViewById(R.id.sl_home);
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
@@ -90,8 +89,6 @@ public class HomeActivity extends AppCompatActivity
         });
 
         final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-
-        rvHome = (RecyclerView) findViewById(R.id.rv_home);
         rvHome.setLayoutManager(layoutManager);
         rvHome.addItemDecoration(
                 new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));

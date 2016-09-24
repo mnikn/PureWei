@@ -13,7 +13,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.adapter.HomeAdapter;
 
 /**
- * Created by Administrator on 2016/9/17 0017.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class CursorLoaderCallback implements LoaderManager.LoaderCallbacks<Cursor> {
 

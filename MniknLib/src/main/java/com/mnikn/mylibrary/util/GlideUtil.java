@@ -12,13 +12,16 @@ import com.bumptech.glide.request.target.BitmapImageViewTarget;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
- * Created by Administrator on 2016/9/14 0014.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class GlideUtil {
 
     public static void setImage(final Context context,String url, final ImageView imageView){
         Glide.with(context)
                 .load(url)
+                .asBitmap()
+                .fitCenter()
+                .approximate()
                 .into(imageView);
     }
 

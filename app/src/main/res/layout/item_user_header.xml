@@ -21,14 +21,12 @@
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circle_img_user_icon"
-            android:src="@drawable/sans"
             android:layout_width="@dimen/icon_medium_width"
             android:layout_height="@dimen/icon_medium_height" />
 
         <TextView
             android:id="@+id/txt_user_name"
             style="@style/emphasizeNormalText"
-            android:text="mnikn"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_margin_14dp"/>
@@ -36,7 +34,6 @@
         <TextView
             android:id="@+id/txt_user_description"
             style="@style/normalText"
-            android:text="DADSASDASDASD"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -68,7 +65,6 @@
                 <TextView
                     android:id="@+id/txt_followers_count"
                     style="@style/emphasizeSmallText"
-                    android:text="432"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -87,7 +83,6 @@
                 <TextView
                     android:id="@+id/txt_friends_count"
                     style="@style/emphasizeSmallText"
-                    android:text="432"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

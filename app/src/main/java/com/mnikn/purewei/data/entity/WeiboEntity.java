@@ -7,7 +7,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
 /**
- * Created by Administrator on 2016/9/16 0016.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboEntity {
     public long weiboId;

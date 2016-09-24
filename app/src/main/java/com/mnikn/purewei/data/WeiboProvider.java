@@ -16,7 +16,7 @@ import com.mnikn.purewei.data.WeiboContract.WeiboDetailEntry;
 import com.mnikn.purewei.data.WeiboContract.WeiboEntry;
 
 /**
- * Created by Administrator on 2016/9/12 0012.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboProvider extends ContentProvider {
 

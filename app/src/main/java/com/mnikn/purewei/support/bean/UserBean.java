@@ -3,7 +3,7 @@ package com.mnikn.purewei.support.bean;
 import com.google.gson.annotations.SerializedName;
 
 /**
- * Created by Administrator on 2016/9/12 0012.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserBean {
     @SerializedName(value = "id",alternate = "uid")

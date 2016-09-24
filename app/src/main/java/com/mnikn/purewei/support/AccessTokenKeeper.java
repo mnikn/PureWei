@@ -1,8 +1,5 @@
 package com.mnikn.purewei.support;
 
-/**
- * Created by Administrator on 2016/9/11 0011.
- */
 
 import android.content.Context;
 import android.content.SharedPreferences;

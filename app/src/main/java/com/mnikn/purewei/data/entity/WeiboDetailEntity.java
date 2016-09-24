@@ -9,7 +9,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Administrator on 2016/9/23 0023.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboDetailEntity {
     public long weiboId;

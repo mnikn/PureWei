@@ -18,7 +18,7 @@ import com.mnikn.purewei.support.callback.CursorLoaderCallback;
 import com.mnikn.purewei.ui.activity.HomeActivity;
 
 /**
- * Created by Administrator on 2016/9/16 0016.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserFragment extends BaseFragment implements IUserView {
 

@@ -4,7 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by Administrator on 2016/9/13 0013.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class DateUtil {
 

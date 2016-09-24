@@ -7,7 +7,7 @@ import android.database.sqlite.SQLiteOpenHelper;
 import com.mnikn.purewei.data.WeiboContract.*;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboDbHelper extends SQLiteOpenHelper {
 
@@ -52,6 +52,8 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 UserEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_PROFILE_IMAGE_URL + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
+                UserEntry.COLUMN_WEIBO_COUNT + " TEXT NOT NULL, " +
+                UserEntry.COLUMN_FRIENDS_COUNT + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_FOLLOWERS_COUNT + " INTEGER NOT NULL " + ")";
 
         final String SQL_CREATE_TABLE_ACCOUNT = "CREATE TABLE " +

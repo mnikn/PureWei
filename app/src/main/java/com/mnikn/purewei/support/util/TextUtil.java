@@ -1,7 +1,7 @@
 package com.mnikn.purewei.support.util;
 
 /**
- * Created by Administrator on 2016/9/13 0013.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class TextUtil {
     public static String cutHerfInfo(String source){

@@ -11,7 +11,7 @@ import com.sina.weibo.sdk.exception.WeiboException;
 import com.sina.weibo.sdk.net.RequestListener;
 
 /**
- * Created by Administrator on 2016/9/13 0013.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class AccountInfoRequestListener implements RequestListener {
 

@@ -6,7 +6,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.TimelineBean;
 import com.mnikn.purewei.support.bean.UserBean;
 /**
- * Created by Administrator on 2016/9/16 0016.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserEntity {
     public long userId;
@@ -14,6 +14,8 @@ public class UserEntity {
     public String profileImageUrl;
     public String description;
     public long followersCount;
+    public long friendsCount;
+    public long weiboCount;
 
 
     public UserEntity() {}
@@ -31,6 +33,8 @@ public class UserEntity {
         profileImageUrl = statusesBean.user.profileImageUrl;
         description = statusesBean.user.description;
         followersCount = statusesBean.user.followersCount;
+        friendsCount = statusesBean.user.friendsCount;
+        weiboCount = statusesBean.user.statusesCount;
     }
 
     private void fromUserBean(UserBean bean){
@@ -39,6 +43,8 @@ public class UserEntity {
         profileImageUrl = bean.profileImageUrl;
         description = bean.description;
         followersCount = bean.followersCount;
+        friendsCount = bean.friendsCount;
+        weiboCount = bean.statusesCount;
     }
 
     public ContentValues toContentValues(){
@@ -48,6 +54,8 @@ public class UserEntity {
         values.put(WeiboContract.UserEntry.COLUMN_PROFILE_IMAGE_URL,profileImageUrl);
         values.put(WeiboContract.UserEntry.COLUMN_DESCRIPTION,description);
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOWERS_COUNT,followersCount);
+        values.put(WeiboContract.UserEntry.COLUMN_FRIENDS_COUNT,friendsCount);
+        values.put(WeiboContract.UserEntry.COLUMN_WEIBO_COUNT,weiboCount);
 
         return values;
     }

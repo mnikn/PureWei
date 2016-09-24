@@ -32,7 +32,6 @@
             android:name=".ui.activity.UserActivity"
             android:parentActivityName=".ui.activity.HomeActivity" />
         <activity android:name="com.mnikn.purewei.ui.activity.SettingActivity" />
-        <activity android:name="com.mnikn.purewei.ui.activity.SearchActivity" />
 
         <activity android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"

@@ -7,7 +7,7 @@ import android.view.KeyEvent;
 import com.mnikn.mylibrary.fragment.BaseFragment;
 
 /**
- * Activity基类
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public abstract class BaseActivity extends AppCompatActivity {
 

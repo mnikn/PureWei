@@ -3,7 +3,7 @@ package com.mnikn.purewei.mvp;
 import com.mnikn.mylibrary.interfaces.IView;
 
 /**
- * Created by Administrator on 2016/9/9 0009.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public interface IHomeView extends IView {
     void setUserView(String url,String name);

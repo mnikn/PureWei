@@ -3,7 +3,7 @@ package com.mnikn.purewei.mvp.presenter;
 import com.mnikn.purewei.mvp.IUserView;
 
 /**
- * Created by Administrator on 2016/9/17 0017.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserPresenter implements IUserPresenter {
 

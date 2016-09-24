@@ -5,7 +5,7 @@ import android.database.Cursor;
 import com.google.gson.Gson;
 
 /**
- * Created by Administrator on 2016/9/12 0012.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class DataUtil {
     public static boolean isEmpty(Cursor cursor){

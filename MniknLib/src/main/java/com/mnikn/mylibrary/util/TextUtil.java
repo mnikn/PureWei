@@ -1,7 +1,7 @@
 package com.mnikn.mylibrary.util;
 
 /**
- * Created by Administrator on 2016/9/11 0011.
+ * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class TextUtil {
     public static boolean isEmpty(String str){
