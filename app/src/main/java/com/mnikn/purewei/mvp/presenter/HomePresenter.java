@@ -34,8 +34,6 @@ public class HomePresenter implements IHomePresenter {
 
     private int mPage;
 
-
-
     public HomePresenter(IHomeView view){
 
         initVariables(view);

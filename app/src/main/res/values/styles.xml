@@ -36,19 +36,19 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="emphasizeSmallText" parent="emphasizeText">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
     <style name="emphasizeNormalText" parent="emphasizeText">
-        <item name="android:textSize">20sp</item>
+        <item name="android:textSize">@dimen/text_size_20sp</item>
     </style>
 
 
     <style name="additionalText" />
     <style name="additionalSmallText" parent="additionalText">
-        <item name="android:textSize">13sp</item>
+        <item name="android:textSize">@dimen/text_size_14sp</item>
     </style>
     <style name="additionalNormalText" parent="additionalText">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
 
 
@@ -56,7 +56,7 @@
         <item name="android:textColor">@android:color/black</item>
     </style>
     <style name="normalSmallText" parent="normalSmallText">
-        <item name="android:textSize">15sp</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
 
 </resources>

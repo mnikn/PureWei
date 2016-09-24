@@ -12,6 +12,7 @@ import com.mnikn.purewei.support.util.TextUtil;
  */
 public class WeiboModel {
     public long weiboId;
+    public long userId;
     public long retweedId;
     public String reportsCount;
     public String commentsCount;
@@ -37,6 +38,7 @@ public class WeiboModel {
         }
 
         weiboId = WeiboContract.WeiboEntry.getWeiboId(cursor);
+        userId = WeiboContract.WeiboEntry.getUserId(cursor);
         reportsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor));
         commentsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor));
         attitudesCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getAttitudesCount(cursor));

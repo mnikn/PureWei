@@ -19,7 +19,6 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.customview.RecyclerViewDivider;
-import com.mnikn.mylibrary.interfaces.OnRecyclerItemClickListener;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
@@ -37,8 +36,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener,
         IHomeView{
-
-    public static final String EXTRA_UID = "extra_uid";
 
     private static final int LOADER_WEIBO = 1;
 
@@ -116,14 +113,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     private void initVariables(){
-        mAdapter = new HomeAdapter(this, new OnRecyclerItemClickListener() {
-            @Override
-            public void onItemClick(View view, Object data) {
-                Intent intent = new Intent(HomeActivity.this,UserActivity.class);
-                intent.putExtra(EXTRA_UID,(Long) data);
-                startActivity(intent);
-            }
-        });
+        mAdapter = new HomeAdapter(this);
         getSupportLoaderManager().initLoader(
                 LOADER_WEIBO,
                 null,

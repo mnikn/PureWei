@@ -14,8 +14,11 @@ import com.mnikn.purewei.mvp.IUserView;
 import com.mnikn.purewei.mvp.presenter.IUserPresenter;
 import com.mnikn.purewei.mvp.presenter.UserPresenter;
 import com.mnikn.purewei.support.adapter.UserAdapter;
+import com.mnikn.purewei.support.adapter.WeiboViewHolder;
 import com.mnikn.purewei.support.callback.CursorLoaderCallback;
-import com.mnikn.purewei.ui.activity.HomeActivity;
+
+import butterknife.BindView;
+import butterknife.ButterKnife;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -24,7 +27,7 @@ public class UserFragment extends BaseFragment implements IUserView {
 
     private static final int LOADER_USRE = 2;
 
-    private RecyclerView rvUser;
+    @BindView(R.id.recycler) RecyclerView recyclerView;
 
 
     private long mUid;
@@ -43,7 +46,7 @@ public class UserFragment extends BaseFragment implements IUserView {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = inflater.inflate(R.layout.fragment_user,container,false);
+        View view = inflater.inflate(R.layout.fragment_list,container,false);
 
         initVariables();
         setupViews(view);
@@ -53,7 +56,7 @@ public class UserFragment extends BaseFragment implements IUserView {
     }
 
     private void initVariables(){
-        mUid = getActivity().getIntent().getLongExtra(HomeActivity.EXTRA_UID,0);
+        mUid = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_UID,0);
         mAdapter = new UserAdapter(getContext());
         getActivity().getSupportLoaderManager().initLoader(
                 LOADER_USRE,
@@ -63,10 +66,12 @@ public class UserFragment extends BaseFragment implements IUserView {
 
     @Override
     public void setupViews(View parent) {
-        rvUser = (RecyclerView) parent.findViewById(R.id.rv_user);
-        rvUser.setLayoutManager(new LinearLayoutManager(getContext()));
-        rvUser.addItemDecoration(new RecyclerViewDivider(getContext(), LinearLayoutManager.VERTICAL,R.drawable.item_divider));
-        rvUser.setAdapter(mAdapter);
+
+        ButterKnife.bind(this,parent);
+
+        recyclerView.setLayoutManager(new LinearLayoutManager(getContext()));
+        recyclerView.addItemDecoration(new RecyclerViewDivider(getContext(), LinearLayoutManager.VERTICAL, R.drawable.item_divider));
+        recyclerView.setAdapter(mAdapter);
     }
 
     @Override

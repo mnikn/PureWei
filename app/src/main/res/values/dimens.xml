@@ -57,6 +57,8 @@
     <dimen name="text_size_32sp">32sp</dimen>
 
     <!-- user icon -->
+    <dimen name="icon_tiny_width">24dp</dimen>
+    <dimen name="icon_tiny_height">24dp</dimen>
     <dimen name="icon_small_width">36dp</dimen>
     <dimen name="icon_small_height">36dp</dimen>
     <dimen name="icon_medium_width">64dp</dimen>

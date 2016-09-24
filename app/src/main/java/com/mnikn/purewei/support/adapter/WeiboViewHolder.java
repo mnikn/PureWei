@@ -1,6 +1,7 @@
 package com.mnikn.purewei.support.adapter;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -13,18 +14,22 @@ import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.mvp.model.WeiboModel;
+import com.mnikn.purewei.ui.activity.UserActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class WeiboViewHolder extends EasyViewHolder<Cursor> {
+public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
-    @BindView(R.id.container_item)public LinearLayout layout;
+    public static final String EXTRA_UID = "extra_uid";
 
+    @BindView(R.id.container_item) LinearLayout layout;
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
     @BindView(R.id.txt_user_name) TextView txtUserName;
     @BindView(R.id.txt_created_time) TextView txtCreatedTime;
@@ -38,17 +43,18 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor> {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
+    private WeiboModel model;
 
     public WeiboViewHolder(Context context,View itemView) {
         super(itemView);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     @Override
     public void bindView(Cursor data) {
-        WeiboModel model = new WeiboModel(data);
+        model = new WeiboModel(data);
 
         if(txtRetweet == null && !NumberUtil.isZero(WeiboContract.WeiboEntry.getRetweetId(data))){
             View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet, null);
@@ -90,5 +96,14 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor> {
 //            layout.addView(imageView);
 //        } while (picsCursor.moveToNext());
 //        picsCursor.close();
+    }
+
+    @Optional
+    @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
+    public void navToUserActivity(){
+        long uid = model.userId;
+        Intent intent = new Intent(mContext, UserActivity.class);
+        intent.putExtra(EXTRA_UID,uid);
+        mContext.startActivity(intent);
     }
 }
