@@ -9,4 +9,8 @@ public final class Constant {
 
     public static final int REFRESH = 1;
     public static final int LOAD_MORE = 2;
+
+    public static final int LOADER_HOME = 101;
+    public static final int LOADER_USER = 102;
+    public static final int LOADER_DETAIL = 103;
 }

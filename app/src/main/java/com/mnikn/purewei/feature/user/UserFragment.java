@@ -12,15 +12,14 @@ import com.mnikn.mylibrary.customview.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.support.callback.CursorLoaderCallback;
+import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.support.callback.UserLoaderCallback;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserFragment extends BaseRecyclerFragment implements IUserView {
-
-    private static final int LOADER_USRE = 2;
 
     private long mUid;
 
@@ -42,9 +41,9 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
     public void initVariables() {
         mUid = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_UID,0);
         getActivity().getSupportLoaderManager().initLoader(
-                LOADER_USRE,
+                Constant.LOADER_USER,
                 null,
-                new CursorLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
+                new UserLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
     }
 
     @Override

@@ -26,7 +26,7 @@ public class HomeAdapter extends RecyclerCursorAdapter<EasyViewHolder>{
     @Override
     public EasyViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         EasyViewHolder holder;
-        View view = mLayoutInflater.inflate(R.layout.item_home,parent,false);
+        View view = mLayoutInflater.inflate(R.layout.item_weibo,parent,false);
         holder = new WeiboViewHolder(mContext,view);
         return holder;
     }

@@ -30,7 +30,7 @@ public class DetailAdapter extends RecyclerCursorAdapter {
         switch (viewType){
             case CONTENT:
                 holder = new WeiboViewHolder(mContext,
-                        LayoutInflater.from(mContext).inflate(R.layout.item_home,parent));
+                        LayoutInflater.from(mContext).inflate(R.layout.item_weibo,parent,false));
                 break;
             case COMMENT:
                 holder = new CommentViewHolder(mContext,
@@ -44,11 +44,12 @@ public class DetailAdapter extends RecyclerCursorAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        if(position == 0){
-            return CONTENT;
-        }
-        else{
-            return COMMENT;
-        }
+        return CONTENT;
+//        if(position == 0){
+//            return CONTENT;
+//        }
+//        else{
+//            return COMMENT;
+//        }
     }
 }

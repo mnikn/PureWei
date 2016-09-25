@@ -24,7 +24,8 @@ import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.support.callback.CursorLoaderCallback;
+import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.support.callback.HomeLoaderCallback;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -33,8 +34,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 public class HomeActivity extends AppCompatActivity
         implements NavigationView.OnNavigationItemSelectedListener, IHomeView{
-
-    private static final int LOADER_WEIBO = 1;
 
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
@@ -99,9 +98,9 @@ public class HomeActivity extends AppCompatActivity
     private void initVariables(){
         mAdapter = (HomeAdapter) getAdapter();
         getSupportLoaderManager().initLoader(
-                LOADER_WEIBO,
+                Constant.LOADER_HOME,
                 null,
-                new CursorLoaderCallback(this, mAdapter));
+                new HomeLoaderCallback(this, mAdapter));
     }
 
     @Override

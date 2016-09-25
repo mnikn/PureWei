@@ -43,7 +43,7 @@ public class UserAdapter extends RecyclerCursorAdapter<EasyViewHolder> {
                 holder = new HeaderHolder(mContext,inflater.inflate(R.layout.item_user_header,parent,false));
                 break;
             case WEIBO:
-                holder = new WeiboViewHolder(mContext,inflater.inflate(R.layout.item_home,parent,false));
+                holder = new WeiboViewHolder(mContext,inflater.inflate(R.layout.item_weibo,parent,false));
                 break;
             default:
                 throw new IllegalArgumentException("No such a view type:" + viewType);
