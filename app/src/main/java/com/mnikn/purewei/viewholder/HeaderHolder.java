@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.adapter;
+package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
 import android.database.Cursor;
@@ -9,7 +9,7 @@ import android.widget.TextView;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.mvp.model.UserModel;
+import com.mnikn.purewei.model.UserModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

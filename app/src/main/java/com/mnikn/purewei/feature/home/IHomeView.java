@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.view;
+package com.mnikn.purewei.feature.home;
 
 import com.mnikn.mylibrary.mvp.IListView;
 

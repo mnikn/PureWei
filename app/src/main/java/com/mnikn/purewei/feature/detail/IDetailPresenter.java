@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.presenter;
+package com.mnikn.purewei.feature.detail;
 
 import com.mnikn.mylibrary.mvp.IPresenter;
 

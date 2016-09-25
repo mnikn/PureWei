@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.view.fragment;
+package com.mnikn.purewei.feature.detail;
 
 
 import android.os.Bundle;
@@ -7,9 +7,6 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
-import com.mnikn.purewei.mvp.presenter.DetailPresenter;
-import com.mnikn.purewei.mvp.presenter.IDetailPresenter;
-import com.mnikn.purewei.mvp.view.IDetail;
 
 /**
  * A simple {@link Fragment} subclass.

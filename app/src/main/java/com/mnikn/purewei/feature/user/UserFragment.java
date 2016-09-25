@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.view.fragment;
+package com.mnikn.purewei.feature.user;
 
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -10,11 +10,7 @@ import android.view.ViewGroup;
 import com.mnikn.mylibrary.customview.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.mvp.presenter.IUserPresenter;
-import com.mnikn.purewei.mvp.presenter.UserPresenter;
-import com.mnikn.purewei.mvp.view.IUserView;
-import com.mnikn.purewei.support.adapter.UserAdapter;
-import com.mnikn.purewei.support.adapter.WeiboViewHolder;
+import com.mnikn.purewei.viewholder.WeiboViewHolder;
 import com.mnikn.purewei.support.callback.CursorLoaderCallback;
 
 /**

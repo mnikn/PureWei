@@ -1,6 +1,4 @@
-package com.mnikn.purewei.mvp.presenter;
-
-import com.mnikn.purewei.mvp.view.IUserView;
+package com.mnikn.purewei.feature.user;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

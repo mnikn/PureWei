@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.view.activity;
+package com.mnikn.purewei.feature.home;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -22,10 +22,6 @@ import com.mnikn.mylibrary.customview.RecyclerViewDivider;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.mvp.view.IHomeView;
-import com.mnikn.purewei.mvp.presenter.HomePresenter;
-import com.mnikn.purewei.mvp.presenter.IHomePresenter;
-import com.mnikn.purewei.support.adapter.HomeAdapter;
 import com.mnikn.purewei.support.callback.CursorLoaderCallback;
 
 import butterknife.BindView;

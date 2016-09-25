@@ -1,4 +1,4 @@
-package com.mnikn.purewei.mvp.model;
+package com.mnikn.purewei.model;
 
 import android.database.Cursor;
 

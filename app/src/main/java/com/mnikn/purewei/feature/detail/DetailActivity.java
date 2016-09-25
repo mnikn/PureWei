@@ -1,8 +1,7 @@
-package com.mnikn.purewei.mvp.view.activity;
+package com.mnikn.purewei.feature.detail;
 
 import com.mnikn.mylibrary.activity.SingleFragmentActivity;
 import com.mnikn.mylibrary.fragment.BaseFragment;
-import com.mnikn.purewei.mvp.view.fragment.DetailFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

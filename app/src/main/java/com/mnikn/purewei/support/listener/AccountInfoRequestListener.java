@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.mvp.view.IHomeView;
+import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.bean.UserBean;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.sina.weibo.sdk.exception.WeiboException;

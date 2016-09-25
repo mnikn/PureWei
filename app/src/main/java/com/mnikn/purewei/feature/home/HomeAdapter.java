@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.adapter;
+package com.mnikn.purewei.feature.home;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -8,6 +8,7 @@ import android.view.ViewGroup;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

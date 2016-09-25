@@ -10,7 +10,7 @@ import android.support.v4.content.Loader;
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.support.adapter.HomeAdapter;
+import com.mnikn.purewei.feature.home.HomeAdapter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

@@ -1,9 +1,9 @@
-package com.mnikn.purewei.mvp.view;
+package com.mnikn.purewei.feature.detail;
 
 import com.mnikn.mylibrary.mvp.IListView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public interface IUserView extends IListView {
+public interface IDetail extends IListView {
 }

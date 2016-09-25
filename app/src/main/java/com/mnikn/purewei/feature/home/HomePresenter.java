@@ -1,11 +1,10 @@
-package com.mnikn.purewei.mvp.presenter;
+package com.mnikn.purewei.feature.home;
 
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
 import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.purewei.mvp.view.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.api.BaseApi;

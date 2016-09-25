@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.adapter;
+package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
 import android.content.Intent;
@@ -13,9 +13,9 @@ import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.mvp.model.WeiboModel;
-import com.mnikn.purewei.mvp.view.activity.DetailActivity;
-import com.mnikn.purewei.mvp.view.activity.UserActivity;
+import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.feature.detail.DetailActivity;
+import com.mnikn.purewei.feature.user.UserActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;

@@ -10,7 +10,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.data.entity.WeiboPicsEntity;
 import com.mnikn.purewei.data.entity.WeiboEntity;
-import com.mnikn.purewei.mvp.view.IHomeView;
+import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.bean.TimelineBean;
 import com.sina.weibo.sdk.exception.WeiboException;
