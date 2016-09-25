@@ -19,6 +19,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.customview.RecyclerViewDivider;
+import com.mnikn.mylibrary.listener.RecyclerScrollListener;
+import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
@@ -55,13 +57,15 @@ public class HomeActivity extends AppCompatActivity
         setContentView(R.layout.activity_home);
         ButterKnife.bind(this);
 
+        mPresenter = (IHomePresenter) getPresenter();
+
         setSupportActionBar(toolbar);
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                        .setAction("Action", null).show();
+                    .setAction("Action", null).show();
             }
         });
 
@@ -79,42 +83,26 @@ public class HomeActivity extends AppCompatActivity
                 mPresenter.refresh();
             }
         });
+        refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
+            android.R.color.holo_green_dark,
+            android.R.color.holo_blue_dark);
 
-        final LinearLayoutManager layoutManager = new LinearLayoutManager(this);
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         rvHome.setLayoutManager(layoutManager);
         rvHome.addItemDecoration(
                 new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
-        rvHome.addOnScrollListener(new RecyclerView.OnScrollListener() {
-            int lastVisibleItem;
-            @Override
-            public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
-                if (newState == RecyclerView.SCROLL_STATE_IDLE && lastVisibleItem + 1 == mAdapter.getItemCount()) {
-                    mPresenter.loadMore();
-                }
-            }
-
-            @Override
-            public void onScrolled(RecyclerView recyclerView, int dx, int dy) {
-                lastVisibleItem = layoutManager.findLastVisibleItemPosition();
-            }
-        });
+        rvHome.addOnScrollListener(new RecyclerScrollListener(mAdapter,mPresenter,layoutManager));
 
         rvHome.setAdapter(mAdapter);
     }
 
-    @Override
-    public void setupPresenter() {
-        mPresenter = new HomePresenter(this);
-    }
-
     private void initVariables(){
-        mAdapter = new HomeAdapter(this);
+        mAdapter = (HomeAdapter) getAdapter();
         getSupportLoaderManager().initLoader(
                 LOADER_WEIBO,
                 null,
-                new CursorLoaderCallback(this,mAdapter));
+                new CursorLoaderCallback(this, mAdapter));
     }
-
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -122,7 +110,7 @@ public class HomeActivity extends AppCompatActivity
 
         initVariables();
         setupViews(null);
-        setupPresenter();
+        mPresenter.refresh();
     }
 
     @Override
@@ -178,7 +166,6 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
-        ToastUtil.makeToastShort(this, "正在刷新");
     }
 
     @Override
@@ -190,12 +177,21 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onLoadMore() {
         refreshLayout.setRefreshing(true);
-        ToastUtil.makeToastShort(this, "正在加载");
     }
 
     @Override
     public void onLoadMoreFinish() {
         refreshLayout.setRefreshing(false);
         ToastUtil.makeToastShort(this, "加载完成");
+    }
+
+    @Override
+    public IListPresenter getPresenter() {
+        return new HomePresenter(this);
+    }
+
+    @Override
+    public RecyclerView.Adapter getAdapter() {
+        return new HomeAdapter(this);
     }
 }

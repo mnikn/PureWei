@@ -7,13 +7,12 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
+import com.mnikn.mylibrary.mvp.IListPresenter;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class DetailFragment extends BaseRecyclerFragment implements IDetail {
-
-    private IDetailPresenter mPresenter;
 
     public static DetailFragment newInstance() {
 
@@ -25,12 +24,21 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetail {
     }
 
     @Override
-    public void setupViews(View parent) {
-        RecyclerView recyclerView = getRecyclerView();
+    public IListPresenter getPresenter() {
+        return new DetailPresenter();
     }
 
     @Override
-    public void setupPresenter() {
-        mPresenter = new DetailPresenter();
+    public RecyclerView.Adapter getAdapter() {
+        return new DetailAdapter(getContext());
+    }
+
+    @Override
+    public void setupViews(View parent) {
+    }
+
+    @Override
+    public void initVariables() {
+
     }
 }

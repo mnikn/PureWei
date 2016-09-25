@@ -5,12 +5,15 @@ import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.listener.RecyclerScrollListener;
+import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.mvp.IListView;
 import com.mnikn.mylibrary.util.ToastUtil;
 
@@ -22,16 +25,30 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     public SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
+    protected RecyclerView.Adapter mAdapter;
+    protected IListPresenter mPresenter;
+
+    @Override
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        mAdapter = getAdapter();
+        initVariables();
+    }
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = getFragmentView(inflater,container,savedInstanceState);
-        recyclerView = (RecyclerView) view.findViewById(R.id.recycler);
-        refreshLayout = (SwipeRefreshLayout) view.findViewById(R.id.refresh_layout);
+        return getFragmentView(inflater,container,savedInstanceState);
+    }
 
+    @Override
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+
+        mPresenter = getPresenter();
+
+        initViews(view);
         setupViews(view);
-        setupPresenter();
-        return view;
     }
 
     @Override
@@ -43,7 +60,6 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onRefresh() {
         refreshLayout.setRefreshing(true);
-        ToastUtil.makeToastShort(getContext(), "正在刷新");
     }
 
     @Override
@@ -55,7 +71,6 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onLoadMore() {
         refreshLayout.setRefreshing(true);
-        ToastUtil.makeToastShort(getContext(), "正在加载");
     }
 
     @Override
@@ -71,4 +86,30 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     public SwipeRefreshLayout getRefreshLayout(){
         return refreshLayout;
     }
+
+    private void initViews(View parent){
+
+        recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.addOnScrollListener(new RecyclerScrollListener(
+                mAdapter,
+                mPresenter,
+                manager));
+        recyclerView.setAdapter(mAdapter);
+
+
+        refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
+        refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_blue_dark);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                mPresenter.refresh();
+            }
+        });
+    }
+
+    public abstract void initVariables();
 }

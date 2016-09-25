@@ -5,12 +5,12 @@ import android.content.ContentValues;
 import android.content.Context;
 import android.util.Log;
 
+import com.mnikn.mylibrary.mvp.IListView;
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
-import com.mnikn.purewei.data.entity.WeiboPicsEntity;
 import com.mnikn.purewei.data.entity.WeiboEntity;
-import com.mnikn.purewei.feature.home.IHomeView;
+import com.mnikn.purewei.data.entity.WeiboPicsEntity;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.bean.TimelineBean;
 import com.sina.weibo.sdk.exception.WeiboException;
@@ -25,10 +25,10 @@ public class WeiboRequestListener implements RequestListener {
 
     private Context mContext;
     private ContentResolver mResolver;
-    private IHomeView mView;
+    private IListView mView;
     private int mType;
 
-    public WeiboRequestListener(Context context, IHomeView view,int requestType){
+    public WeiboRequestListener(Context context, IListView view,int requestType){
         mContext = context;
         mView = view;
         mType = requestType;

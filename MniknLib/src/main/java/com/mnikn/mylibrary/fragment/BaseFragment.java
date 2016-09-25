@@ -15,12 +15,12 @@ import com.mnikn.mylibrary.mvp.IView;
  */
 public abstract class BaseFragment extends Fragment implements IView{
 
+
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         View view = getFragmentView(inflater, container, savedInstanceState);
         setupViews(view);
-        setupPresenter();
         return view;
     }
 

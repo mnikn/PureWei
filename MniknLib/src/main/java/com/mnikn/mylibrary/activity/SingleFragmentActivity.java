@@ -5,7 +5,6 @@ import android.os.Bundle;
 import com.mnikn.mylibrary.R;
 import com.mnikn.mylibrary.fragment.BaseFragment;
 
-import butterknife.ButterKnife;
 
 public abstract class SingleFragmentActivity extends BaseActivity {
 
@@ -14,8 +13,6 @@ public abstract class SingleFragmentActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         setContentView(R.layout.activity_fragment);
-
-        ButterKnife.bind(this);
 
         addFragment(getFragment());
     }
