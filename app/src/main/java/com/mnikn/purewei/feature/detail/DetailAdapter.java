@@ -8,7 +8,7 @@ import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.viewholder.CommentViewHolder;
-import com.mnikn.purewei.viewholder.WeiboViewHolder;
+import com.mnikn.purewei.viewholder.ContentViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -19,9 +19,11 @@ public class DetailAdapter extends RecyclerCursorAdapter {
     private static final int COMMENT = 2;
 
     private Context mContext;
+    private long mWeiboId;
 
-    public DetailAdapter(Context context){
+    public DetailAdapter(Context context,long weiboId){
         mContext = context;
+        mWeiboId = weiboId;
     }
 
     @Override
@@ -29,12 +31,13 @@ public class DetailAdapter extends RecyclerCursorAdapter {
         EasyViewHolder holder;
         switch (viewType){
             case CONTENT:
-                holder = new WeiboViewHolder(mContext,
-                        LayoutInflater.from(mContext).inflate(R.layout.item_weibo,parent,false));
+                holder = new ContentViewHolder(mContext,
+                        LayoutInflater.from(mContext).inflate(R.layout.item_weibo,parent,false),
+                        mWeiboId);
                 break;
             case COMMENT:
                 holder = new CommentViewHolder(mContext,
-                        LayoutInflater.from(mContext).inflate(R.layout.item_comment,parent));
+                        LayoutInflater.from(mContext).inflate(R.layout.item_comment,parent,false));
                 break;
             default:
                 throw new IllegalArgumentException("No such a view type:" + viewType);
@@ -44,12 +47,11 @@ public class DetailAdapter extends RecyclerCursorAdapter {
 
     @Override
     public int getItemViewType(int position) {
-        return CONTENT;
-//        if(position == 0){
-//            return CONTENT;
-//        }
-//        else{
-//            return COMMENT;
-//        }
+        if(position == 0){
+            return CONTENT;
+        }
+        else{
+            return COMMENT;
+        }
     }
 }

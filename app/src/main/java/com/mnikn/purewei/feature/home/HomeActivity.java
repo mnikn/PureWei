@@ -79,7 +79,9 @@ public class HomeActivity extends AppCompatActivity
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.refresh();
+                if(!mPresenter.isLoading()){
+                    mPresenter.refresh();
+                }
             }
         });
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
@@ -170,6 +172,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
+        mPresenter.setIsLoading(false);
         ToastUtil.makeToastShort(this, "刷新完成");
     }
 
@@ -181,6 +184,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onLoadMoreFinish() {
         refreshLayout.setRefreshing(false);
+        mPresenter.setIsLoading(false);
         ToastUtil.makeToastShort(this, "加载完成");
     }
 

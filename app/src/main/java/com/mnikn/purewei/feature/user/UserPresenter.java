@@ -14,6 +14,8 @@ public class UserPresenter implements IUserPresenter {
     private IUserView mView;
     private Context mContext;
 
+    private boolean mIsLoading;
+
     public UserPresenter(Context context,IUserView view) {
         mContext = context;
         mView = view;
@@ -21,7 +23,9 @@ public class UserPresenter implements IUserPresenter {
 
     @Override
     public void refresh() {
-        mPage = 0;
+        mPage = 1;
+        mView.onRefresh();
+        mIsLoading = true;
         RequestManager.getHomeWeibo(
                 mContext,
                 mView,
@@ -33,6 +37,8 @@ public class UserPresenter implements IUserPresenter {
 
     @Override
     public void loadMore() {
+        mView.onLoadMore();
+        mIsLoading = true;
         RequestManager.getHomeWeibo(
                 mContext,
                 mView,
@@ -40,5 +46,15 @@ public class UserPresenter implements IUserPresenter {
                 mPage
         );
         ++mPage;
+    }
+
+    @Override
+    public boolean isLoading() {
+        return mIsLoading;
+    }
+
+    @Override
+    public void setIsLoading(boolean isLoading) {
+        mIsLoading = isLoading;
     }
 }

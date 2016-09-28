@@ -32,6 +32,7 @@ public class HomePresenter implements IHomePresenter {
 
     private int mPage;
     private long mUid;
+    private boolean mIsLoading;
 
     public HomePresenter(IHomeView view){
 
@@ -45,6 +46,7 @@ public class HomePresenter implements IHomePresenter {
         mContext = (Context) view;
         mView = view;
         mPage = 1;
+        mIsLoading = false;
     }
 
     @Override
@@ -83,6 +85,7 @@ public class HomePresenter implements IHomePresenter {
     public void refresh() {
         mPage = 1;
         mView.onRefresh();
+        mIsLoading = true;
         RequestManager.getHomeWeibo(
                 mContext,
                 mView,
@@ -94,12 +97,23 @@ public class HomePresenter implements IHomePresenter {
     @Override
     public void loadMore() {
         mView.onLoadMore();
+        mIsLoading = true;
         RequestManager.getHomeWeibo(
                 mContext,
                 mView,
                 Constant.LOAD_MORE,
                 mPage);
         ++mPage;
+    }
+
+    @Override
+    public boolean isLoading() {
+        return mIsLoading;
+    }
+
+    @Override
+    public void setIsLoading(boolean isLoading) {
+        mIsLoading = isLoading;
     }
 
     @Override

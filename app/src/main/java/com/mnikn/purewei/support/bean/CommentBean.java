@@ -19,13 +19,13 @@ public class CommentBean {
         @SerializedName("rootid")
         public long rootid;
         @SerializedName("floor_number")
-        public int floorNumber;
+        public long floorNumber;
         @SerializedName("text")
         public String text;
         @SerializedName("source_allowclick")
-        public int sourceAllowclick;
+        public long sourceAllowclick;
         @SerializedName("source_type")
-        public int sourceType;
+        public long sourceType;
         @SerializedName("source")
         public String source;
         @SerializedName("user")
@@ -49,11 +49,11 @@ public class CommentBean {
             @SerializedName("text")
             public String text;
             @SerializedName("textLength")
-            public int textLength;
+            public long textLength;
             @SerializedName("source_allowclick")
-            public int sourceAllowclick;
+            public long sourceAllowclick;
             @SerializedName("source_type")
-            public int sourceType;
+            public long sourceType;
             @SerializedName("source")
             public String source;
             @SerializedName("favorited")
@@ -79,31 +79,31 @@ public class CommentBean {
             @SerializedName("pic_video")
             public String picVideo;
             @SerializedName("reposts_count")
-            public int repostsCount;
+            public long repostsCount;
             @SerializedName("comments_count")
-            public int commentsCount;
+            public long commentsCount;
             @SerializedName("attitudes_count")
-            public int attitudesCount;
+            public long attitudesCount;
             @SerializedName("isLongText")
             public boolean isLongText;
             @SerializedName("mlevel")
-            public int mlevel;
+            public long mlevel;
             @SerializedName("visible")
             public VisibleBean visible;
             @SerializedName("biz_feature")
             public long bizFeature;
             @SerializedName("hasActionTypeCard")
-            public int hasActionTypeCard;
+            public long hasActionTypeCard;
             @SerializedName("userType")
-            public int userType;
+            public long userType;
             @SerializedName("cardid")
             public String cardid;
             @SerializedName("positive_recom_flag")
-            public int positiveRecomFlag;
+            public long positiveRecomFlag;
             @SerializedName("gif_ids")
             public String gifIds;
             @SerializedName("is_show_bulletin")
-            public int isShowBulletin;
+            public long isShowBulletin;
             @SerializedName("pic_urls")
             public List<PicUrlsBean> picUrls;
             @SerializedName("annotations")
@@ -117,11 +117,11 @@ public class CommentBean {
 
             public static class UserBean {
                 @SerializedName("id")
-                public int id;
+                public long id;
                 @SerializedName("idstr")
                 public String idstr;
                 @SerializedName("class")
-                public int classX;
+                public long classX;
                 @SerializedName("screen_name")
                 public String screenName;
                 @SerializedName("name")
@@ -149,15 +149,15 @@ public class CommentBean {
                 @SerializedName("gender")
                 public String gender;
                 @SerializedName("followers_count")
-                public int followersCount;
+                public long followersCount;
                 @SerializedName("friends_count")
-                public int friendsCount;
+                public long friendsCount;
                 @SerializedName("pagefriends_count")
-                public int pagefriendsCount;
+                public long pagefriendsCount;
                 @SerializedName("statuses_count")
-                public int statusesCount;
+                public long statusesCount;
                 @SerializedName("favourites_count")
-                public int favouritesCount;
+                public long favouritesCount;
                 @SerializedName("created_at")
                 public String createdAt;
                 @SerializedName("following")
@@ -169,11 +169,11 @@ public class CommentBean {
                 @SerializedName("verified")
                 public boolean verified;
                 @SerializedName("verified_type")
-                public int verifiedType;
+                public long verifiedType;
                 @SerializedName("remark")
                 public String remark;
                 @SerializedName("ptype")
-                public int ptype;
+                public long ptype;
                 @SerializedName("allow_all_comment")
                 public boolean allowAllComment;
                 @SerializedName("avatar_large")
@@ -191,11 +191,11 @@ public class CommentBean {
                 @SerializedName("verified_source_url")
                 public String verifiedSourceUrl;
                 @SerializedName("verified_state")
-                public int verifiedState;
+                public long verifiedState;
                 @SerializedName("verified_level")
-                public int verifiedLevel;
+                public long verifiedLevel;
                 @SerializedName("verified_type_ext")
-                public int verifiedTypeExt;
+                public long verifiedTypeExt;
                 @SerializedName("verified_reason_modified")
                 public String verifiedReasonModified;
                 @SerializedName("verified_contact_name")
@@ -207,36 +207,36 @@ public class CommentBean {
                 @SerializedName("follow_me")
                 public boolean followMe;
                 @SerializedName("online_status")
-                public int onlineStatus;
+                public long onlineStatus;
                 @SerializedName("bi_followers_count")
-                public int biFollowersCount;
+                public long biFollowersCount;
                 @SerializedName("lang")
                 public String lang;
                 @SerializedName("star")
-                public int star;
+                public long star;
                 @SerializedName("mbtype")
-                public int mbtype;
+                public long mbtype;
                 @SerializedName("mbrank")
-                public int mbrank;
+                public long mbrank;
                 @SerializedName("block_word")
-                public int blockWord;
+                public long blockWord;
                 @SerializedName("block_app")
-                public int blockApp;
+                public long blockApp;
                 @SerializedName("credit_score")
-                public int creditScore;
+                public long creditScore;
                 @SerializedName("user_ability")
-                public int userAbility;
+                public long userAbility;
                 @SerializedName("cardid")
                 public String cardid;
                 @SerializedName("urank")
-                public int urank;
+                public long urank;
             }
 
             public static class VisibleBean {
                 @SerializedName("type")
-                public int type;
+                public long type;
                 @SerializedName("list_id")
-                public int listId;
+                public long listId;
             }
 
             public static class PicUrlsBean {

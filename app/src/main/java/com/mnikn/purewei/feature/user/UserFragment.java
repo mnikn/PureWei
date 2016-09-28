@@ -40,10 +40,6 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
     @Override
     public void initVariables() {
         mUid = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_UID,0);
-        getActivity().getSupportLoaderManager().initLoader(
-                Constant.LOADER_USER,
-                null,
-                new UserLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
     }
 
     @Override
@@ -62,5 +58,10 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
                 getContext(),
                 LinearLayout.VERTICAL,
                 R.drawable.item_divider));
+
+        getActivity().getSupportLoaderManager().initLoader(
+                Constant.LOADER_USER,
+                null,
+                new UserLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
     }
 }

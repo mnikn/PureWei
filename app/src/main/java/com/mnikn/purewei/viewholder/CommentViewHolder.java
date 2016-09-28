@@ -8,7 +8,7 @@ import android.widget.TextView;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.model.CommentModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -26,7 +26,7 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_text) TextView txtText;
 
     private Context mContext;
-    private WeiboModel model;
+    private CommentModel model;
 
     public CommentViewHolder(Context context,View itemView) {
         super(itemView);
@@ -36,7 +36,7 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView(Cursor data) {
-        model = new WeiboModel(data);
+        model = new CommentModel(data);
 
         GlideUtil.setCircleImage(
                 mContext,

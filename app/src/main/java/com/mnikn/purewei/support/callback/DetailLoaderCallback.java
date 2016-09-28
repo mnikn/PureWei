@@ -23,10 +23,10 @@ public class DetailLoaderCallback extends BaseCursorLoaderCallback {
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 getContext(),
-                WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
+                WeiboContract.WeiboCommentEntry.buildWeiboCommentWithUserUri(),
                 null,
                 null,
                 null,
-                WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
+                WeiboContract.WeiboCommentEntry.COLUMN_COMMENT_TIME + " DESC");
     }
 }

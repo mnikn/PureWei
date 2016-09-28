@@ -13,8 +13,10 @@ public class CommentApi extends BaseApi {
 
     private static final String BASE_URL = "https://api.weibo.com/2/comments/show.json";
 
-    private static final String KEY_WEIBO_ID = "weibo_id";
+    private static final String KEY_WEIBO_ID = "id";
+    private static final String KEY_PAGE = "page";
 
+    private int mPage;
     private long mWeiboId;
 
     /**
@@ -24,8 +26,9 @@ public class CommentApi extends BaseApi {
      * @param appKey
      * @param accessToken 访问令牌
      */
-    public CommentApi(Context context, String appKey, Oauth2AccessToken accessToken,long weiboId) {
+    public CommentApi(Context context, String appKey, Oauth2AccessToken accessToken,int page,long weiboId) {
         super(context, appKey, accessToken);
+        mPage = page;
         mWeiboId = weiboId;
     }
 
@@ -43,7 +46,8 @@ public class CommentApi extends BaseApi {
     protected WeiboParameters getWeiboParameters() {
         WeiboParameters params = new WeiboParameters(mAppKey);
         params.put(KEY_ACCESS_TOKEN, mAccessToken.getToken());
+        params.put(KEY_PAGE,mPage);
         params.put(KEY_WEIBO_ID,mWeiboId);
-        return null;
+        return params;
     }
 }

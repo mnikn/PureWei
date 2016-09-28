@@ -26,7 +26,9 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
     public void onScrollStateChanged(RecyclerView recyclerView, int newState) {
         if (newState == RecyclerView.SCROLL_STATE_IDLE &&
                 mLastVisibleItem + 1 == mAdapter.getItemCount()) {
-            mPresenter.loadMore();
+            if(!mPresenter.isLoading()){
+                mPresenter.loadMore();
+            }
         }
     }
     @Override

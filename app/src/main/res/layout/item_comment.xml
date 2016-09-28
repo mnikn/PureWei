@@ -2,14 +2,17 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="wrap_content"
+    android:paddingLeft="@dimen/app_margin_14dp"
+    android:paddingRight="@dimen/app_margin_14dp"
+    android:layout_marginTop="@dimen/app_margin_8dp"
+    android:layout_marginBottom="@dimen/app_margin_8dp">
 
     <LinearLayout
         android:orientation="horizontal"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:gravity="center_vertical"
-        android:layout_marginTop="@dimen/app_margin_14dp">
+        android:gravity="center_vertical">
 
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circle_img_user_icon"
@@ -55,7 +58,7 @@
         style="@style/normalText"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginTop="@dimen/app_margin_14dp"
+        android:layout_marginTop="@dimen/app_margin_8dp"
         android:lineSpacingExtra="@dimen/app_margin_2dp"/>
 
 

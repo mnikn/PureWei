@@ -32,6 +32,8 @@ public class WeiboModel implements IModel{
     }
 
     public void fromCursor(Cursor cursor){
+        if(cursor == null) return;
+
         if(!NumberUtil.isZero(WeiboContract.WeiboEntry.getRetweetId(cursor))){
             retweedId = WeiboContract.WeiboEntry.getRetweetId(cursor);
             retweetText = WeiboContract.WeiboEntry.getRetweetUserName(cursor) + ":" +

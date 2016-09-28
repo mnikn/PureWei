@@ -6,4 +6,6 @@ package com.mnikn.mylibrary.mvp;
 public interface IListPresenter extends IPresenter{
     void refresh();
     void loadMore();
+    boolean isLoading();
+    void setIsLoading(boolean isLoading);
 }

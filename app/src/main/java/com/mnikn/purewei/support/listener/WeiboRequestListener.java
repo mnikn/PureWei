@@ -62,7 +62,7 @@ public class WeiboRequestListener implements RequestListener {
             long userId = timelineBean.statuses.get(i).user.id;
             if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
                 mResolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserEntity(timelineBean,i).toContentValues());
+                        new UserEntity(timelineBean.statuses.get(i)).toContentValues());
             }
         }
         mResolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI, weiboValues);

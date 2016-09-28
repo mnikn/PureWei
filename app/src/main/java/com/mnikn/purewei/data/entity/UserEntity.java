@@ -19,22 +19,21 @@ public class UserEntity {
 
 
     public UserEntity() {}
-    public UserEntity(TimelineBean bean,int position){
-        fromTimelineBean(bean, position);
+    public UserEntity(TimelineBean.StatusesBean bean){
+        fromTimelineBean(bean);
     }
     public UserEntity(UserBean userBean){
         fromUserBean(userBean);
     }
 
-    private void fromTimelineBean(TimelineBean bean,int position){
-        TimelineBean.StatusesBean statusesBean = bean.statuses.get(position);
-        userId = statusesBean.user.id;
-        userName = statusesBean.user.screenName;
-        profileImageUrl = statusesBean.user.profileImageUrl;
-        description = statusesBean.user.description;
-        followersCount = statusesBean.user.followersCount;
-        friendsCount = statusesBean.user.friendsCount;
-        weiboCount = statusesBean.user.statusesCount;
+    private void fromTimelineBean(TimelineBean.StatusesBean bean){
+        userId = bean.user.id;
+        userName = bean.user.screenName;
+        profileImageUrl = bean.user.profileImageUrl;
+        description = bean.user.description;
+        followersCount = bean.user.followersCount;
+        friendsCount = bean.user.friendsCount;
+        weiboCount = bean.user.statusesCount;
     }
 
     private void fromUserBean(UserBean bean){

@@ -23,7 +23,7 @@ public class WeiboProvider extends ContentProvider {
     private static final int USER = 103;
     private static final int ACCOUNT = 104;
     private static final int WEIBO_WITH_USER = 105;
-    private static final int WEIBO_WITH_COMMENT = 106;
+    private static final int COMMENT_WITH_USER = 106;
     private static UriMatcher sUriMatcher;
 
     private WeiboDbHelper mDbHelper;
@@ -37,6 +37,7 @@ public class WeiboProvider extends ContentProvider {
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_USER,USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_ACCOUNT,ACCOUNT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/user",WEIBO_WITH_USER);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT + "/user",COMMENT_WITH_USER);
     }
 
     @Override
@@ -119,6 +120,20 @@ public class WeiboProvider extends ContentProvider {
                             null,
                             null,
                             sortOrder);
+                break;
+            case COMMENT_WITH_USER:
+                tableName = WeiboCommentEntry.TABLE_NAME + " INNER JOIN " +
+                        UserEntry.TABLE_NAME +" ON " + WeiboCommentEntry.TABLE_NAME +
+                        "." + WeiboCommentEntry.COLUMN_COMMENT_USER_ID + " = " + UserEntry.TABLE_NAME +
+                        "." + UserEntry.COLUMN_USER_ID;
+                cursor = db.query(
+                        tableName,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
                 break;
             default:
                 throw new IllegalArgumentException("No such a uri: " + uri.toString());

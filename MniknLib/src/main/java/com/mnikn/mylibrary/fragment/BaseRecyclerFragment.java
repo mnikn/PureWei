@@ -31,8 +31,10 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        mAdapter = getAdapter();
+
         initVariables();
+
+        mAdapter = getAdapter();
     }
 
     @Nullable
@@ -65,6 +67,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
+        mPresenter.setIsLoading(false);
         if(getContext() != null){
             ToastUtil.makeToastShort(getContext(), "刷新完成");
         }
@@ -78,6 +81,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onLoadMoreFinish() {
         refreshLayout.setRefreshing(false);
+        mPresenter.setIsLoading(false);
         if(getContext() != null){
             ToastUtil.makeToastShort(getContext(), "加载完成");
         }
@@ -110,7 +114,9 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                mPresenter.refresh();
+                if(!mPresenter.isLoading()){
+                    mPresenter.refresh();
+                }
             }
         });
     }

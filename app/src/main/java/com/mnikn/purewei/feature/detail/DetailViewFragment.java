@@ -5,48 +5,56 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.customview.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.DetailLoaderCallback;
+import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends BaseRecyclerFragment implements IDetail {
+public class DetailViewFragment extends BaseRecyclerFragment implements IDetailView {
 
-    public static final int LOADER_DETAIL = 3;
+    private long mWeiboId;
 
-    public static DetailFragment newInstance() {
+    public static DetailViewFragment newInstance() {
 
         Bundle args = new Bundle();
 
-        DetailFragment fragment = new DetailFragment();
+        DetailViewFragment fragment = new DetailViewFragment();
         fragment.setArguments(args);
         return fragment;
     }
 
     @Override
     public IListPresenter getPresenter() {
-        return new DetailPresenter();
+        return new DetailPresenter(getContext(),this,mWeiboId);
     }
 
     @Override
     public RecyclerView.Adapter getAdapter() {
-        return new DetailAdapter(getContext());
+        return new DetailAdapter(getContext(),mWeiboId);
     }
 
     @Override
     public void setupViews(View parent) {
+        getRecyclerView().addItemDecoration(new RecyclerViewDivider(
+                getContext(),
+                LinearLayout.VERTICAL));
+
+        getActivity().getSupportLoaderManager().initLoader(
+                Constant.LOADER_DETAIL,
+                null,
+                new DetailLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter));
     }
 
     @Override
     public void initVariables() {
-        getActivity().getSupportLoaderManager().initLoader(
-                Constant.LOADER_DETAIL,
-                null,
-                new DetailLoaderCallback(getContext(),(RecyclerCursorAdapter) mAdapter));
+        mWeiboId = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_WEIBO_ID,0);
     }
 }

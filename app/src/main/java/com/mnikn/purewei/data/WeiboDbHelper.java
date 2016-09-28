@@ -52,7 +52,6 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 WeiboCommentEntry.COLUMN_COMMENT_ID + " INTEGER NOT NULL, " +
                 WeiboCommentEntry.COLUMN_COMMENT_USER_ID + " INTEGER NOT NULL, " +
                 WeiboCommentEntry.COLUMN_COMMENT_TIME + " INTEGER NOT NULL, " +
-                WeiboCommentEntry.COLUMN_COMMENT_USER_NAME + " TEXT NOT NULL, " +
                 WeiboCommentEntry.COLUMN_COMMENT_TEXT + " TEXT NOT NULL, " +
                 WeiboCommentEntry.COLUMN_COMMENT_SOURCE + " TEXT NOT NULL, " +
                 "FOREIGN KEY (" + WeiboCommentEntry.COLUMN_WEIBO_ID + ") REFERENCES " +

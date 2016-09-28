@@ -6,18 +6,19 @@ import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.CommentBean;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class WeiboCommentEntity {
-    public List<Long> weiboId;
-    public List<Long> commentId;
-    public List<Long> commentUserId;
-    public List<Long> commentTime;
-    public List<String> commentText;
-    public List<String> commentSource;
+    public List<Long> weiboId = new ArrayList<>();
+    public List<Long> commentId = new ArrayList<>();
+    public List<Long> commentUserId = new ArrayList<>();
+    public List<Long> commentTime = new ArrayList<>();
+    public List<String> commentText = new ArrayList<>();
+    public List<String> commentSource = new ArrayList<>();
 
     public WeiboCommentEntity() {}
     public WeiboCommentEntity(CommentBean bean){

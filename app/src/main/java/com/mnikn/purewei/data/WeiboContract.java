@@ -119,16 +119,21 @@ public class WeiboContract {
         public static final String COLUMN_COMMENT_ID = "comment_id";
         public static final String COLUMN_COMMENT_USER_ID = "comment_user_id";
         public static final String COLUMN_COMMENT_TEXT = "comment_text";
-        public static final String COLUMN_COMMENT_USER_NAME = "comment_user_name";
         public static final String COLUMN_COMMENT_SOURCE = "comment_source";
         public static final String COLUMN_COMMENT_TIME = "comment_time";
 
         public static Uri buildWeiboCommentUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
+        public static Uri buildWeiboCommentWithUserUri(){
+            return CONTENT_URI.buildUpon().appendPath("user").build();
+        }
 
         public static long getWeiboId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        }
+        public static long getUserId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_COMMENT_USER_ID));
         }
         public static long getCommentId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_COMMENT_ID));
@@ -141,9 +146,6 @@ public class WeiboContract {
         }
         public static String getCommentText(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT_TEXT));
-        }
-        public static String getCommentUserName(Cursor cursor){
-            return cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT_USER_NAME));
         }
         public static String getCommentSource(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_COMMENT_SOURCE));

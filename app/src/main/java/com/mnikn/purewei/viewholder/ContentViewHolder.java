@@ -1,7 +1,6 @@
 package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
-import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -12,24 +11,17 @@ import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.feature.detail.DetailActivity;
-import com.mnikn.purewei.feature.user.UserActivity;
+import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.model.WeiboModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
-import butterknife.OnClick;
-import butterknife.Optional;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class WeiboViewHolder extends EasyViewHolder<Cursor>{
-
-    public static final String EXTRA_UID = "extra_uid";
-    public static final String EXTRA_WEIBO_ID = "extra_weibo_id";
-
+public class ContentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.container_item) LinearLayout layout;
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
     @BindView(R.id.txt_user_name) TextView txtUserName;
@@ -46,16 +38,31 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     private LayoutInflater mLayoutInflater;
     private WeiboModel model;
 
-    public WeiboViewHolder(Context context,View itemView) {
+    private long mWeiboId;
+
+    public ContentViewHolder(Context context,View itemView,long weiboId) {
         super(itemView);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        mWeiboId = weiboId;
         ButterKnife.bind(this, itemView);
     }
 
     @Override
     public void bindView(Cursor data) {
-        model = new WeiboModel(data);
+
+        Cursor weiboCursor = mContext.getContentResolver().query(
+                WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
+                null,
+                WeiboContract.WeiboEntry.COLUMN_WEIBO_ID + " = ?",
+                new String[]{NumberUtil.longToString(mWeiboId)},
+                null);
+
+        if(weiboCursor == null) return;
+
+        weiboCursor.moveToFirst();
+        model = new WeiboModel(weiboCursor);
+        weiboCursor.close();
 
         if(txtRetweet == null && !NumberUtil.isZero(model.retweedId)){
             View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet, null);
@@ -78,42 +85,5 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         if(txtRetweet != null){
             txtRetweet.setText(model.retweetText);
         }
-//        Cursor picsCursor = mContext.getContentResolver().query(
-//                WeiboDetailEntry.CONTENT_URI,
-//                null,
-//                WeiboDetailEntry.COLUMN_WEIBO_ID + " = ?",
-//                new String[]{model.weiboId},
-//                null);
-//        if(DataUtil.isEmpty(picsCursor)) return;
-//        picsCursor.moveToFirst();
-//        do {
-//            String url = WeiboDetailEntry.getPicsUrl(picsCursor);
-//            if(url == null) return;
-//            ImageView imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new LinearLayout.LayoutParams(
-//                    200,
-//                    200));
-//            GlideUtil.setImage(mContext,url,imageView);
-//            layout.addView(imageView);
-//        } while (picsCursor.moveToNext());
-//        picsCursor.close();
-    }
-
-    @Optional
-    @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
-    public void navToUserActivity(){
-        long uid = model.userId;
-        Intent intent = new Intent(mContext, UserActivity.class);
-        intent.putExtra(EXTRA_UID,uid);
-        mContext.startActivity(intent);
-    }
-
-    @Optional
-    @OnClick({R.id.txt_text,R.id.txt_comments_count})
-    public void navToDetailActivity(){
-        long weiboId = model.weiboId;
-        Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO_ID,weiboId);
-        mContext.startActivity(intent);
     }
 }
