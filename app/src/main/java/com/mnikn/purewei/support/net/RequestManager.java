@@ -19,6 +19,7 @@ import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 public class RequestManager {
 
     public static void getHomeWeibo(Context context,IListView view,int requestType,int page){
+        Log.e("s","requestType: " + requestType + " page: " + page);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         new HomeTimelineApi(context, Constant.APP_KEY,token,page)
                 .requestAsync(
@@ -27,7 +28,6 @@ public class RequestManager {
     }
 
     public static void getComment(Context context,IListView view,int requestType,int page,long weiboId){
-        Log.e("DAS","requestType: " + requestType + " page: " + page);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         new CommentApi(context, Constant.APP_KEY,token,page,weiboId)
                 .requestAsync(

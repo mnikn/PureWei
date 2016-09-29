@@ -37,6 +37,9 @@ public class UserPresenter implements IUserPresenter {
 
     @Override
     public void loadMore() {
+        if(mPage < 2){
+            mPage = 2;
+        }
         mView.onLoadMore();
         mIsLoading = true;
         RequestManager.getHomeWeibo(

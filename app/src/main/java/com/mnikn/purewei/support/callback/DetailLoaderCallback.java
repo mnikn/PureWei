@@ -8,6 +8,7 @@ import android.support.v4.content.Loader;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
 import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
@@ -15,8 +16,11 @@ import com.mnikn.purewei.data.WeiboContract;
  */
 public class DetailLoaderCallback extends BaseCursorLoaderCallback {
 
-    public DetailLoaderCallback(Context context, RecyclerCursorAdapter adapter) {
+    private long mWeiboId;
+
+    public DetailLoaderCallback(Context context, RecyclerCursorAdapter adapter,long weiboId) {
         super(context, adapter);
+        mWeiboId = weiboId;
     }
 
     @Override
@@ -25,8 +29,8 @@ public class DetailLoaderCallback extends BaseCursorLoaderCallback {
                 getContext(),
                 WeiboContract.WeiboCommentEntry.buildWeiboCommentWithUserUri(),
                 null,
-                null,
-                null,
+                WeiboContract.WeiboCommentEntry.COLUMN_WEIBO_ID + " = ?",
+                new String[]{NumberUtil.longToString(mWeiboId)},
                 WeiboContract.WeiboCommentEntry.COLUMN_COMMENT_TIME + " DESC");
     }
 }

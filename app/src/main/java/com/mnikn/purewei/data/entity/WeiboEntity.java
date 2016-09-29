@@ -31,7 +31,7 @@ public class WeiboEntity {
         TimelineBean.StatusesBean statusesBean = bean.statuses.get(position);
         weiboId = statusesBean.id;
         userId = statusesBean.user.id;
-        if(statusesBean.retweetedStatus != null){
+        if(statusesBean.retweetedStatus != null && statusesBean.retweetedStatus.user != null){
             retweetId = statusesBean.retweetedStatus.id;
             retweetText = statusesBean.retweetedStatus.text;
             retweetUserName = statusesBean.retweetedStatus.user.screenName;

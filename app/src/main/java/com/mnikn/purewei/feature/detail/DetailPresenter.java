@@ -19,11 +19,7 @@ public class DetailPresenter implements IDetailPresenter{
     private IDetailView mView;
 
     public DetailPresenter(Context context,IDetailView view,long weiboId) {
-        mContext = context;
-        mView = view;
-        mWeiboId = weiboId;
-        mIsLoading = false;
-        mPage = 1;
+        initVariables(context, view, weiboId);
     }
 
     @Override
@@ -37,11 +33,11 @@ public class DetailPresenter implements IDetailPresenter{
                 Constant.REFRESH,
                 mPage,
                 mWeiboId);
+        ++mPage;
     }
 
     @Override
     public void loadMore() {
-        ++mPage;
         mView.onLoadMore();
         RequestManager.getComment(
                 mContext,
@@ -60,5 +56,13 @@ public class DetailPresenter implements IDetailPresenter{
     @Override
     public void setIsLoading(boolean isLoading) {
         mIsLoading = isLoading;
+    }
+
+    private void initVariables(Context context,IDetailView view,long weiboId){
+        mContext = context;
+        mView = view;
+        mWeiboId = weiboId;
+        mIsLoading = false;
+        mPage = 1;
     }
 }

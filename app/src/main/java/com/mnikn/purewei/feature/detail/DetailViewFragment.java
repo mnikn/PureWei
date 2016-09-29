@@ -50,7 +50,9 @@ public class DetailViewFragment extends BaseRecyclerFragment implements IDetailV
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter));
+                new DetailLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter,mWeiboId));
+
+        mPresenter.refresh();
     }
 
     @Override
