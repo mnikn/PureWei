@@ -10,6 +10,7 @@ import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.api.UidApi;
 import com.mnikn.purewei.support.api.UserInfoApi;
+import com.mnikn.purewei.support.base.WeiboPresenter;
 import com.mnikn.purewei.support.bean.UserBean;
 import com.mnikn.purewei.support.listener.AccountInfoRequestListener;
 import com.mnikn.purewei.support.listener.AuthListener;
@@ -23,55 +24,45 @@ import com.sina.weibo.sdk.net.RequestListener;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomePresenter implements IHomePresenter {
+public class HomePresenter extends WeiboPresenter implements IHomePresenter {
 
-    private IHomeView mView;
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
-    private Context mContext;
 
-    private int mPage;
     private long mUid;
-    private boolean mIsLoading;
 
     public HomePresenter(IHomeView view){
-
-        initVariables(view);
-
+        super((Context) view, view);
+        
         authorize();
         getAccountInfo();
-    }
-
-    private void initVariables(IHomeView view){
-        mContext = (Context) view;
-        mView = view;
-        mPage = 1;
-        mIsLoading = false;
     }
 
     @Override
     public void authorize() {
 
+        Context context = getContext();
         //从SharePreference中读取token,若失败就请求授权
-        mToken = AccessTokenKeeper.readAccessToken(mContext);
+        mToken = AccessTokenKeeper.readAccessToken(context);
         if (!mToken.isSessionValid()) {
-            AuthInfo authInfo = new AuthInfo(mContext, Constant.APP_KEY, Constant.REDIRECT_URL, null);
-            mSsoHandler = new SsoHandler((Activity) mContext, authInfo);
-            mSsoHandler.authorize(new AuthListener(mContext));
-            mToken = AccessTokenKeeper.readAccessToken(mContext);
+            AuthInfo authInfo = new AuthInfo(context, Constant.APP_KEY, Constant.REDIRECT_URL, null);
+            mSsoHandler = new SsoHandler((Activity) context, authInfo);
+            mSsoHandler.authorize(new AuthListener(context));
+            mToken = AccessTokenKeeper.readAccessToken(context);
         }
     }
 
     @Override
     public void getAccountInfo(){
+        final Context context = getContext();
         //先得到授权用户Id,再根据Id得到用户信息
-        new UidApi(mContext,Constant.APP_KEY,mToken)
+        new UidApi(context,Constant.APP_KEY,mToken)
                 .requestAsync(BaseApi.HTTP_METHOD_GET, new RequestListener() {
                     @Override
                     public void onComplete(String s) {
                         mUid = DataUtil.jsonToBean(s, UserBean.class).id;
-                        new UserInfoApi(mContext,Constant.APP_KEY,mToken,mUid)
-                                .requestAsync(BaseApi.HTTP_METHOD_GET, new AccountInfoRequestListener(mContext,mView));
+                        new UserInfoApi(context,Constant.APP_KEY,mToken,mUid)
+                                .requestAsync(BaseApi.HTTP_METHOD_GET, new AccountInfoRequestListener(context,(IHomeView) getView()));
                     }
 
                     @Override
@@ -82,38 +73,21 @@ public class HomePresenter implements IHomePresenter {
     }
 
     @Override
-    public void refresh() {
-        mPage = 1;
-        mView.onRefresh();
-        mIsLoading = true;
+    public void doRefresh(int page) {
         RequestManager.getHomeWeibo(
-                mContext,
-                mView,
+                getContext(),
+                getView(),
                 Constant.REFRESH,
-                mPage);
-        ++mPage;
+                page);
     }
 
     @Override
-    public void loadMore() {
-        mView.onLoadMore();
-        mIsLoading = true;
+    public void doLoadMore(int page) {
         RequestManager.getHomeWeibo(
-                mContext,
-                mView,
+                getContext(),
+                getView(),
                 Constant.LOAD_MORE,
-                mPage);
-        ++mPage;
-    }
-
-    @Override
-    public boolean isLoading() {
-        return mIsLoading;
-    }
-
-    @Override
-    public void setIsLoading(boolean isLoading) {
-        mIsLoading = isLoading;
+                page);
     }
 
     @Override
@@ -122,4 +96,6 @@ public class HomePresenter implements IHomePresenter {
             mSsoHandler.authorizeCallBack(requestCode,resultCode,data);
         }
     }
+
+
 }
