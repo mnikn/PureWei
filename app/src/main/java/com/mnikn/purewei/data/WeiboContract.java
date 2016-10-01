@@ -167,6 +167,8 @@ public class WeiboContract {
         public static final String COLUMN_WEIBO_COUNT = "weibo_count";
         public static final String COLUMN_FRIENDS_COUNT = "friends_count";
         public static final String COLUMN_PROFILE_IMAGE_URL = "profile_image_url";
+        public static final String COLUMN_AVATAR_LARGE_URL = "avatar_large_url";
+        public static final String COLUMN_AVATAR_HD_URL = "avatar_hd_url";
 
         public static Uri buildUserUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
@@ -181,6 +183,12 @@ public class WeiboContract {
         }
         public static String getProfileImageUrl(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_PROFILE_IMAGE_URL));
+        }
+        public static String getAvatarLargeUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_AVATAR_LARGE_URL));
+        }
+        public static String getAvatarHdUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_AVATAR_HD_URL));
         }
         public static long getUsertId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));

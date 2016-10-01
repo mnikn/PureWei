@@ -13,6 +13,8 @@ public class UserModel implements IModel {
     public String userName;
     public String description;
     public String profileImageUrl;
+    public String avatarLargeUrl;
+    public String avatarHdUrl;
     public String followersCount;
     public String friendsCount;
     public String weiboCount;
@@ -27,6 +29,8 @@ public class UserModel implements IModel {
         userName = WeiboContract.UserEntry.getName(cursor);
         description = WeiboContract.UserEntry.getDescription(cursor);
         profileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(cursor);
+        avatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(cursor);
+        avatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(cursor);
         followersCount = NumberUtil.longToString(WeiboContract.UserEntry.getFollowerCount(cursor));
         friendsCount = NumberUtil.longToString(WeiboContract.UserEntry.getFriendsCount(cursor));
         weiboCount = NumberUtil.longToString(WeiboContract.UserEntry.getWeiboCount(cursor));

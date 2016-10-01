@@ -28,7 +28,7 @@
 
             <TextView
                 android:id="@+id/txt_user_name"
-                style="@style/emphasizeText"
+                style="@style/baseTextView.emphasizeText.small"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -39,12 +39,12 @@
                 android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/txt_created_time"
-                    style="@style/additionalSmallText"
+                    style="@style/baseTextView.additional.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/txt_source"
-                    style="@style/additionalText"
+                    style="@style/baseTextView.additional.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/app_margin"/>
@@ -55,7 +55,7 @@
 
     <TextView
         android:id="@+id/txt_text"
-        style="@style/normalText"
+        style="@style/baseTextView.normal.small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_margin_8dp"

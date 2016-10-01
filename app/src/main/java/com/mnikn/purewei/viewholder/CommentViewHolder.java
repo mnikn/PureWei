@@ -40,7 +40,7 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
 
         GlideUtil.setCircleImage(
                 mContext,
-                model.profileImageUrl,
+                model.avatarLargeUrl,
                 circleImgUserIcon);
         txtText.setText(model.text);
         txtCreatedTime.setText(model.createdTime);

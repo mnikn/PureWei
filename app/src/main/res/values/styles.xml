@@ -21,42 +21,60 @@
     <style name="AppTheme.PopupOverlay" parent="ThemeOverlay.AppCompat.Light" />
 
     
-    <!-- home view holder -->
-    <style name="actionTxt">
+    <!-- Button holder -->
+    <style name="buttonWeibo" parent="android:Widget.Holo.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
         <item name="android:layout_weight">1</item>
         <item name="android:drawablePadding">@dimen/text_drawable_padding</item>
         <item name="android:gravity">center</item>
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+        <item name="android:textColor">@android:color/black</item>
     </style>
 
     <!-- TextView style -->
-    <style name="emphasizeText">
+    <style name="baseTextView">
+        <item name="android:lineSpacingExtra">2dp</item>
+    </style>
+
+    <style name="baseTextView.emphasizeText">
         <item name="android:textStyle">bold</item>
         <item name="android:textColor">@android:color/black</item>
     </style>
-    <style name="emphasizeSmallText" parent="emphasizeText">
-        <item name="android:textSize">@dimen/text_size_16sp</item>
-    </style>
-    <style name="emphasizeNormalText" parent="emphasizeText">
-        <item name="android:textSize">@dimen/text_size_20sp</item>
-    </style>
-
-
-    <style name="additionalText" />
-    <style name="additionalSmallText" parent="additionalText">
+    <style name="baseTextView.emphasizeText.small">
         <item name="android:textSize">@dimen/text_size_14sp</item>
     </style>
-    <style name="additionalNormalText" parent="additionalText">
+    <style name="baseTextView.emphasizeText.medium">
         <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+    <style name="baseTextView.emphasizeText.large">
+        <item name="android:textSize">@dimen/text_size_18sp</item>
     </style>
 
 
-    <style name="normalText">
+    <style name="baseTextView.additional" />
+    <style name="baseTextView.additional.small">
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+    </style>
+    <style name="baseTextView.additional.medium">
+        <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+    <style name="baseTextView.additional.large">
+        <item name="android:textSize">@dimen/text_size_18sp</item>
+    </style>
+
+
+    <style name="baseTextView.normal">
         <item name="android:textColor">@android:color/black</item>
     </style>
-    <style name="normalSmallText" parent="normalSmallText">
+    <style name="baseTextView.normal.small">
+        <item name="android:textSize">@dimen/text_size_14sp</item>
+    </style>
+    <style name="baseTextView.normal.medium">
         <item name="android:textSize">@dimen/text_size_16sp</item>
+    </style>
+    <style name="baseTextView.normal.large">
+        <item name="android:textSize">@dimen/text_size_18sp</item>
     </style>
 
 </resources>

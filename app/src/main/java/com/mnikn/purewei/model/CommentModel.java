@@ -17,6 +17,8 @@ public class CommentModel {
     public String source;
     public String userName;
     public String profileImageUrl;
+    public String avatarLargeUrl;
+    public String avatarHdUrl;
 
     public CommentModel(){}
 
@@ -33,5 +35,7 @@ public class CommentModel {
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboCommentEntry.getCommentSource(cursor));
         userName = WeiboContract.UserEntry.getName(cursor);
         profileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(cursor);
+        avatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(cursor);
+        avatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(cursor);
     }
 }

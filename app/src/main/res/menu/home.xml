@@ -4,12 +4,12 @@
     <item
         android:id="@+id/action_search"
         android:title="@string/action_search"
-        android:icon="@drawable/search"
+        android:icon="@drawable/ic_search_24dp"
         app:showAsAction="ifRoom" />
 
     <item
         android:id="@+id/action_notification"
         android:title="@string/action_notification"
-        android:icon="@drawable/remind"
+        android:icon="@drawable/ic_remind_24dp"
         app:showAsAction="ifRoom" />
 </menu>

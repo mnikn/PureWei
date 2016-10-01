@@ -1,20 +1,25 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout
-    android:orientation="horizontal"
+    android:orientation="vertical"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:background="@color/lightGray"
-    android:layout_marginTop="@dimen/app_margin_14dp"
+    android:background="@drawable/retweet_bg"
+    android:paddingTop="@dimen/app_margin_14dp"
+    android:paddingBottom="@dimen/app_margin_14dp"
+    android:paddingLeft="@dimen/app_margin_8dp"
+    android:paddingRight="@dimen/app_margin_8dp"
     xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <ImageView
-        android:src="@drawable/retweet"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content" />
     <TextView
-        android:id="@+id/txt_retweet"
-        style="@style/normalText"
+        android:id="@+id/txt_retweet_user_name"
+        style="@style/baseTextView.emphasizeText.small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content" />
+
+    <TextView
+        android:id="@+id/txt_retweet_text"
+        style="@style/baseTextView.normal.small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"/>
 
 </LinearLayout>

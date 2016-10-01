@@ -5,6 +5,8 @@ import android.content.Intent;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
@@ -36,11 +38,12 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_created_time) TextView txtCreatedTime;
     @BindView(R.id.txt_source) TextView txtSource;
     @BindView(R.id.txt_text) TextView txtText;
-    @BindView(R.id.txt_attitudes_count) TextView txtAttitudesCount;
-    @BindView(R.id.txt_comments_count) TextView txtCommentsCount;
-    @BindView(R.id.txt_reports_count) TextView txtReportsCount;
+    @BindView(R.id.btn_attitudes) Button btnAttitudes;
+    @BindView(R.id.btn_comments) Button btnComments;
+    @BindView(R.id.btn_reports) Button btnReports;
 
-    TextView txtRetweet;
+    TextView txtRetweetText;
+    TextView txtRetweetUserName;
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
@@ -57,26 +60,32 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     public void bindView(Cursor data) {
         model = new WeiboModel(data);
 
-        if(txtRetweet == null && !NumberUtil.isZero(model.retweedId)){
-            View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet, null);
+        if(txtRetweetText == null && !NumberUtil.isZero(model.retweedId)){
+            View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet,null);
+            LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
+                    ViewGroup.LayoutParams.WRAP_CONTENT);
+            params.setMargins(6,14,6,0);
+            retweet.setLayoutParams(params);
             layout.addView(retweet,2);
-            txtRetweet = ButterKnife.findById(itemView,R.id.txt_retweet);
+            txtRetweetText = ButterKnife.findById(itemView,R.id.txt_retweet_text);
+            txtRetweetUserName = ButterKnife.findById(itemView,R.id.txt_retweet_user_name);
         }
 
 
         GlideUtil.setCircleImage(
                 mContext,
-                model.profileImageUrl,
+                model.avatarLargeUrl,
                 circleImgUserIcon);
         txtText.setText(model.text);
         txtCreatedTime.setText(model.createdTime);
         txtSource.setText(model.source);
         txtUserName.setText(model.userName);
-        txtAttitudesCount.setText(model.attitudesCount);
-        txtCommentsCount.setText(model.commentsCount);
-        txtReportsCount.setText(model.reportsCount);
-        if(txtRetweet != null){
-            txtRetweet.setText(model.retweetText);
+        btnAttitudes.setText(model.attitudesCount);
+        btnComments.setText(model.commentsCount);
+        btnReports.setText(model.reportsCount);
+        if(txtRetweetText != null){
+            txtRetweetText.setText(model.retweetText);
+            txtRetweetUserName.setText(model.retweetUserName);
         }
 //        Cursor picsCursor = mContext.getContentResolver().query(
 //                WeiboDetailEntry.CONTENT_URI,
@@ -109,7 +118,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Optional
-    @OnClick({R.id.txt_text,R.id.txt_comments_count})
+    @OnClick({R.id.txt_text,R.id.btn_comments})
     public void navToDetailActivity(){
         long weiboId = model.weiboId;
         Intent intent = new Intent(mContext,DetailActivity.class);

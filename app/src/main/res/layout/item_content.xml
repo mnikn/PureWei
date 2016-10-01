@@ -1,0 +1,76 @@
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_item"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginTop="@dimen/app_margin_14dp"
+    android:layout_marginBottom="@dimen/app_margin_14dp"
+    android:paddingLeft="@dimen/app_margin_14dp"
+    android:paddingRight="@dimen/app_margin_14dp">
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center_vertical"
+        android:layout_marginTop="@dimen/app_margin_14dp">
+
+        <de.hdodenhof.circleimageview.CircleImageView
+            android:id="@+id/circle_img_user_icon"
+            android:layout_width="@dimen/icon_small_width"
+            android:layout_height="@dimen/icon_small_height" />
+
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="@dimen/app_margin_14dp"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/txt_user_name"
+                style="@style/baseTextView.emphasizeText.medium"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content" />
+
+            <LinearLayout
+                android:orientation="horizontal"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:gravity="center_vertical">
+                <TextView
+                    android:id="@+id/txt_created_time"
+                    style="@style/baseTextView.additional.small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content" />
+                <TextView
+                    android:id="@+id/txt_source"
+                    style="@style/baseTextView.additional.small"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="@dimen/app_margin"/>
+            </LinearLayout>
+
+        </LinearLayout>
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2"/>
+
+        <ImageButton
+            android:id="@+id/btn_more"
+            style="@android:style/Widget.Holo.Button.Borderless"
+            android:src="@drawable/ic_more_24dp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <TextView
+        android:id="@+id/txt_text"
+        style="@style/baseTextView.normal.small"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="@dimen/app_margin_14dp"
+        android:lineSpacingExtra="@dimen/app_margin_2dp"/>
+</LinearLayout>

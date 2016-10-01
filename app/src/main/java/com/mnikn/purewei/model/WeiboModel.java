@@ -23,6 +23,9 @@ public class WeiboModel implements IModel{
     public String source;
     public String userName;
     public String profileImageUrl;
+    public String avatarLargeUrl;
+    public String avatarHdUrl;
+    public String retweetUserName;
     public String retweetText;
 
     public WeiboModel(){}
@@ -36,8 +39,8 @@ public class WeiboModel implements IModel{
 
         if(!NumberUtil.isZero(WeiboContract.WeiboEntry.getRetweetId(cursor))){
             retweedId = WeiboContract.WeiboEntry.getRetweetId(cursor);
-            retweetText = WeiboContract.WeiboEntry.getRetweetUserName(cursor) + ":" +
-                    WeiboContract.WeiboEntry.getRetweetText(cursor);
+            retweetUserName = WeiboContract.WeiboEntry.getRetweetUserName(cursor) + " :";
+            retweetText = WeiboContract.WeiboEntry.getRetweetText(cursor);
         }
 
         weiboId = WeiboContract.WeiboEntry.getWeiboId(cursor);
@@ -50,6 +53,8 @@ public class WeiboModel implements IModel{
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboEntry.getSource(cursor));
         userName = WeiboContract.UserEntry.getName(cursor);
         profileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(cursor);
+        avatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(cursor);
+        avatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(cursor);
     }
 
 }

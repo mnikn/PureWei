@@ -32,7 +32,7 @@ public class DetailAdapter extends RecyclerCursorAdapter {
         switch (viewType){
             case CONTENT:
                 holder = new ContentViewHolder(mContext,
-                        LayoutInflater.from(mContext).inflate(R.layout.item_weibo,parent,false),
+                        LayoutInflater.from(mContext).inflate(R.layout.item_content,parent,false),
                         mWeiboId);
                 break;
             case COMMENT:

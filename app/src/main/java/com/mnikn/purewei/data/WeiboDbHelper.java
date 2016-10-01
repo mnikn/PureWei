@@ -63,6 +63,8 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 UserEntry.COLUMN_USER_ID + " INTEGER NOT NULL, " +
                 UserEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_PROFILE_IMAGE_URL + " TEXT NOT NULL, " +
+                UserEntry.COLUMN_AVATAR_LARGE_URL + " TEXT NOT NULL, " +
+                UserEntry.COLUMN_AVATAR_HD_URL + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_WEIBO_COUNT + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_FRIENDS_COUNT + " TEXT NOT NULL, " +

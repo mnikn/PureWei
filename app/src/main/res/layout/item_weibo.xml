@@ -30,7 +30,7 @@
 
             <TextView
                 android:id="@+id/txt_user_name"
-                style="@style/emphasizeText"
+                style="@style/baseTextView.emphasizeText.medium"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content" />
 
@@ -41,12 +41,12 @@
                 android:gravity="center_vertical">
                 <TextView
                     android:id="@+id/txt_created_time"
-                    style="@style/additionalSmallText"
+                    style="@style/baseTextView.additional.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/txt_source"
-                    style="@style/additionalText"
+                    style="@style/baseTextView.additional.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/app_margin"/>
@@ -59,15 +59,17 @@
             android:layout_height="0dp"
             android:layout_weight="2"/>
 
-        <ImageView
-            android:src="@drawable/more"
+        <ImageButton
+            android:id="@+id/btn_more"
+            style="@android:style/Widget.Holo.Button.Borderless"
+            android:src="@drawable/ic_more_24dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
     <TextView
         android:id="@+id/txt_text"
-        style="@style/normalText"
+        style="@style/baseTextView.normal.small"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_margin_14dp"
@@ -79,18 +81,18 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_margin_14dp"
         xmlns:android="http://schemas.android.com/apk/res/android">
-        <TextView
-            android:id="@+id/txt_attitudes_count"
-            style="@style/actionTxt"
-            android:drawableLeft="@drawable/heart_hollow"/>
-        <TextView
-            android:id="@+id/txt_comments_count"
-            style="@style/actionTxt"
-            android:drawableLeft="@drawable/comments"/>
-        <TextView
-            android:id="@+id/txt_reports_count"
-            style="@style/actionTxt"
-            android:drawableLeft="@drawable/share"/>
+        <Button
+            android:id="@+id/btn_attitudes"
+            style="@style/buttonWeibo"
+            android:drawableLeft="@drawable/ic_thumb_up_black_24dp"/>
+        <Button
+            android:id="@+id/btn_comments"
+            style="@style/buttonWeibo"
+            android:drawableLeft="@drawable/ic_comment_24dp"/>
+        <Button
+            android:id="@+id/btn_reports"
+            style="@style/buttonWeibo"
+            android:drawableLeft="@drawable/ic_share_24dp"/>
     </LinearLayout>
 
 </LinearLayout>

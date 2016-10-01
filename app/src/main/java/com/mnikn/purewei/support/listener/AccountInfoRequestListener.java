@@ -27,7 +27,7 @@ public class AccountInfoRequestListener implements RequestListener {
     public void onComplete(String s) {
         UserEntity entity = new UserEntity(DataUtil.jsonToBean(s,UserBean.class));
         mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI, entity.toContentValues());
-        mView.setUserView(entity.profileImageUrl, entity.userName);
+        mView.setUserView(entity.avatarLargeUrl, entity.userName);
     }
 
     @Override

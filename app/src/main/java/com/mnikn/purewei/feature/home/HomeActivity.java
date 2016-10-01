@@ -24,6 +24,7 @@ import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.setting.SettingsActivity;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.HomeLoaderCallback;
 
@@ -132,9 +133,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        // Handle action bar item clicks here. The action bar will
-        // automatically handle clicks on the Home/Up button, so long
-        // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
 
         //noinspection SimplifiableIfStatement
@@ -150,6 +148,12 @@ public class HomeActivity extends AppCompatActivity
     public boolean onNavigationItemSelected(MenuItem item) {
         // Handle navigation view item clicks here.
         int id = item.getItemId();
+
+        switch (id){
+            case R.id.nav_settings:
+                startActivity(new Intent(this, SettingsActivity.class));
+                break;
+        }
 
         drawer.closeDrawer(GravityCompat.START);
         return true;

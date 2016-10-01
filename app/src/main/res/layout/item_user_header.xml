@@ -26,14 +26,14 @@
 
         <TextView
             android:id="@+id/txt_user_name"
-            style="@style/emphasizeNormalText"
+            style="@style/baseTextView.emphasizeText.medium"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="@dimen/app_margin_14dp"/>
 
         <TextView
             android:id="@+id/txt_user_description"
-            style="@style/normalText"
+            style="@style/baseTextView.normal.small"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
@@ -59,12 +59,12 @@
                 android:layout_weight="1">
                 <TextView
                     android:text="@string/title_followers"
-                    style="@style/additionalText"
+                    style="@style/baseTextView.additional.medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/txt_followers_count"
-                    style="@style/emphasizeSmallText"
+                    style="@style/baseTextView.emphasizeText.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -77,12 +77,12 @@
                 android:layout_weight="1">
                 <TextView
                     android:text="@string/title_friends"
-                    style="@style/additionalText"
+                    style="@style/baseTextView.additional.medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/txt_friends_count"
-                    style="@style/emphasizeSmallText"
+                    style="@style/baseTextView.emphasizeText.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>
@@ -95,12 +95,12 @@
                 android:layout_weight="1">
                 <TextView
                     android:text="@string/title_weibo"
-                    style="@style/additionalText"
+                    style="@style/baseTextView.additional.medium"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
                 <TextView
                     android:id="@+id/txt_weibo_count"
-                    style="@style/emphasizeSmallText"
+                    style="@style/baseTextView.emphasizeText.small"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content" />
             </LinearLayout>

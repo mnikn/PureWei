@@ -42,7 +42,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
 
         GlideUtil.setCircleImage(
                 mContext,
-                model.profileImageUrl,
+                model.avatarHdUrl,
                 circleImgUserIcon);
         txtFollowersCount.setText(model.followersCount);
         txtFriendsCount.setText(model.friendsCount);
