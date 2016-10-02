@@ -27,15 +27,12 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
 
-    private long mUid;
+    private int mType = Constant.HOME;
 
     public HomePresenter(IHomeView view){
         super((Context) view, view);
         
         authorize();
-
-        //RequestManager.getAccountInfo(getContext(),((IHomeView) getView()));
-        //getAccountInfo();
     }
 
     @Override
@@ -86,21 +83,48 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
     }
 
     @Override
+    public void setWeiboType(int type) {
+        mType = type;
+    }
+
+    @Override
     public void doRefresh(int page) {
-        RequestManager.getHomeWeibo(
-                getContext(),
-                getView(),
-                Constant.REFRESH,
-                page);
+        switch (mType){
+            case Constant.HOME:
+                RequestManager.getHomeWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.REFRESH,
+                        page);
+                break;
+            case Constant.HOT:
+                RequestManager.getHotWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.REFRESH,
+                        page);
+                break;
+        }
     }
 
     @Override
     public void doLoadMore(int page) {
-        RequestManager.getHomeWeibo(
-                getContext(),
-                getView(),
-                Constant.LOAD_MORE,
-                page);
+        switch (mType){
+            case Constant.HOME:
+                RequestManager.getHomeWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.LOAD_MORE,
+                        page);
+                break;
+            case Constant.HOT:
+                RequestManager.getHotWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.LOAD_MORE,
+                        page);
+                break;
+        }
     }
 
     @Override

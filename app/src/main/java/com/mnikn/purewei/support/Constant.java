@@ -13,4 +13,9 @@ public final class Constant {
     public static final int LOADER_HOME = 101;
     public static final int LOADER_USER = 102;
     public static final int LOADER_DETAIL = 103;
+
+
+    public static final int HOME = 1;
+    public static final int AROUND = 2;
+    public static final int HOT = 3;
 }

@@ -34,9 +34,11 @@
             android:name=".feature.detail.DetailActivity"
             android:label="@string/lable_detail" />
         <activity
+            android:name=".feature.photo.PhotoActivity"
+            android:theme="@style/AppTheme.NoActionBar"/>
+        <activity
             android:name=".feature.setting.SettingsActivity"
-            android:label="@string/title_activity_settings"/>
-
+            android:label="@string/title_activity_settings" />
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"

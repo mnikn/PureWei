@@ -15,7 +15,9 @@ import java.util.List;
  */
 public class WeiboPicsEntity {
     public long weiboId;
-    public List<String> picsUrl = new ArrayList<>();
+    public List<String> thumbnailUrl = new ArrayList<>();
+    public List<String> middleUrl = new ArrayList<>();
+    public List<String> largeUrl = new ArrayList<>();
 
     public WeiboPicsEntity() {}
     public WeiboPicsEntity(TimelineBean bean, int position){
@@ -27,17 +29,19 @@ public class WeiboPicsEntity {
         weiboId = statusesBean.id;
 
         for(PicUrlsBean urlsBean : statusesBean.picUrls){
-            picsUrl.add(urlsBean.thumbnailPic);
+            thumbnailUrl.add(urlsBean.thumbnailPic);
         }
     }
 
     public ContentValues[] toContentValuesArray(){
-        ContentValues[] valuesArray = new ContentValues[picsUrl.size()];
+        ContentValues[] valuesArray = new ContentValues[thumbnailUrl.size()];
 
-        for(int i = 0;i < picsUrl.size();++i) {
+        for(int i = 0;i < thumbnailUrl.size();++i) {
             ContentValues values = new ContentValues();
             values.put(WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID, weiboId);
-            values.put(WeiboContract.WeiboPicsEntry.COLUMN_PICS_URL, picsUrl.get(i));
+            values.put(WeiboContract.WeiboPicsEntry.COLUMN_THUMBNAIL_URL,thumbnailUrl.get(i));
+            values.put(WeiboContract.WeiboPicsEntry.COLUMN_MIDDLE_URL,thumbnailUrl.get(i).replace("thumbnail","bmiddle"));
+            values.put(WeiboContract.WeiboPicsEntry.COLUMN_LARGE_URL,thumbnailUrl.get(i).replace("thumbnail","large"));
             valuesArray[i] = values;
         }
         return valuesArray;

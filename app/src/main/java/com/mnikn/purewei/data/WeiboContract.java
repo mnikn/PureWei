@@ -94,7 +94,9 @@ public class WeiboContract {
                 + "/" + CONTENT_AUTHORITY + "/" + PATH_WEIBO_COMMENT;
 
         public static final String COLUMN_WEIBO_ID = "weibo_id";
-        public static final String COLUMN_PICS_URL = "pics_url";
+        public static final String COLUMN_THUMBNAIL_URL = "thumbnail_url";
+        public static final String COLUMN_MIDDLE_URL = "middle_url";
+        public static final String COLUMN_LARGE_URL = "large_url";
 
         public static Uri buildWeiboPicsUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);
@@ -103,8 +105,14 @@ public class WeiboContract {
         public static long getWeiboId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
         }
-        public static String getPicsUrl(Cursor cursor){
-            return cursor.getString(cursor.getColumnIndex(COLUMN_PICS_URL));
+        public static String getThumnbnailUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_THUMBNAIL_URL));
+        }
+        public static String getMiddleUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_MIDDLE_URL));
+        }
+        public static String getLargeUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_LARGE_URL));
         }
     }
 

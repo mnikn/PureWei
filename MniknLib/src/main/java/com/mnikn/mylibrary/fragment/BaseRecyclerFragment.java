@@ -68,6 +68,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
         mPresenter.setIsLoading(false);
+        recyclerView.scrollToPosition(0);
         if(getContext() != null){
             ToastUtil.makeToastShort(getContext(), "刷新完成");
         }

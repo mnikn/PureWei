@@ -3,18 +3,24 @@ package com.mnikn.purewei.viewholder;
 import android.content.Context;
 import android.content.Intent;
 import android.database.Cursor;
+import android.view.Gravity;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.GridLayout;
+import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.feature.detail.DetailActivity;
+import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.model.WeiboModel;
 
@@ -31,6 +37,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     public static final String EXTRA_UID = "extra_uid";
     public static final String EXTRA_WEIBO_ID = "extra_weibo_id";
+    public static final String EXTRA_PHOTO_URL = "extra_photo_url";
 
     @BindView(R.id.container_item) LinearLayout layout;
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
@@ -42,6 +49,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.btn_comments) Button btnComments;
     @BindView(R.id.btn_reports) Button btnReports;
 
+    View viewRetweet;
     TextView txtRetweetText;
     TextView txtRetweetUserName;
 
@@ -53,6 +61,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         super(itemView);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
+        setIsRecyclable(false);
         ButterKnife.bind(this, itemView);
     }
 
@@ -60,13 +69,13 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     public void bindView(Cursor data) {
         model = new WeiboModel(data);
 
-        if(txtRetweetText == null && !NumberUtil.isZero(model.retweedId)){
-            View retweet = mLayoutInflater.inflate(R.layout.include_item_retweet,null);
+        if(viewRetweet == null && !NumberUtil.isZero(model.retweedId)){
+            viewRetweet = mLayoutInflater.inflate(R.layout.include_item_retweet,null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
-            params.setMargins(6,14,6,0);
-            retweet.setLayoutParams(params);
-            layout.addView(retweet,2);
+            params.setMargins(6, 14, 6, 0);
+            viewRetweet.setLayoutParams(params);
+            layout.addView(viewRetweet,2);
             txtRetweetText = ButterKnife.findById(itemView,R.id.txt_retweet_text);
             txtRetweetUserName = ButterKnife.findById(itemView,R.id.txt_retweet_user_name);
         }
@@ -87,25 +96,49 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText.setText(model.retweetText);
             txtRetweetUserName.setText(model.retweetUserName);
         }
-//        Cursor picsCursor = mContext.getContentResolver().query(
-//                WeiboDetailEntry.CONTENT_URI,
-//                null,
-//                WeiboDetailEntry.COLUMN_WEIBO_ID + " = ?",
-//                new String[]{model.weiboId},
-//                null);
-//        if(DataUtil.isEmpty(picsCursor)) return;
-//        picsCursor.moveToFirst();
-//        do {
-//            String url = WeiboDetailEntry.getPicsUrl(picsCursor);
-//            if(url == null) return;
-//            ImageView imageView = new ImageView(mContext);
-//            imageView.setLayoutParams(new LinearLayout.LayoutParams(
-//                    200,
-//                    200));
-//            GlideUtil.setImage(mContext,url,imageView);
-//            layout.addView(imageView);
-//        } while (picsCursor.moveToNext());
-//        picsCursor.close();
+
+        //加载图片
+        final Cursor picsCursor = mContext.getContentResolver().query(
+                WeiboContract.WeiboPicsEntry.CONTENT_URI,
+                null,
+                WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
+                new String[]{NumberUtil.longToString(model.weiboId)},
+                null);
+        if(DataUtil.isEmpty(picsCursor)) return;
+        picsCursor.moveToFirst();
+        GridLayout picsLayout = new GridLayout(mContext);
+        int rowCount = picsCursor.getCount() / 3;
+        if(rowCount >= 0 && picsCursor.getCount() % 3 != 0){
+            ++rowCount;
+        }
+        picsLayout.setRowCount(rowCount);
+        picsLayout.setColumnCount(3);
+        do {
+            String middleUrl = WeiboContract.WeiboPicsEntry.getMiddleUrl(picsCursor);
+            final String largeUrl = WeiboContract.WeiboPicsEntry.getLargeUrl(picsCursor);
+            ImageView imageView = new ImageView(mContext);
+            GridLayout.LayoutParams param = new GridLayout.LayoutParams();
+            param.height = 160;
+            param.width = 160;
+            param.rightMargin = 5;
+            param.topMargin = 5;
+            param.setGravity(Gravity.CENTER);
+            imageView.setLayoutParams(param);
+
+            imageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(mContext,PhotoActivity.class);
+                    intent.putExtra(EXTRA_PHOTO_URL,largeUrl);
+                    mContext.startActivity(intent);
+                }
+            });
+
+            GlideUtil.setImage(mContext,middleUrl,imageView);
+            picsLayout.addView(imageView);
+        } while (picsCursor.moveToNext());
+        layout.addView(picsLayout,2);
+        picsCursor.close();
     }
 
     @Optional

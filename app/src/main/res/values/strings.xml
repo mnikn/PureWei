@@ -6,7 +6,7 @@
     <string name="navigation_drawer_open">Open navigation drawer</string>
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
-
+    <!-- home -->
     <string name="action_search">搜索</string>
     <string name="action_notification">通知</string>
     <string name="action_around">周边</string>
@@ -23,9 +23,16 @@
     <string name="action_cancel_follow">取消关注</string>
 
 
+    <!-- user -->
     <string name="title_followers">粉丝</string>
     <string name="title_friends">关注</string>
     <string name="title_weibo">微博</string>
+
+    <!-- detail -->
+    <string name="title_comment">评论</string>
+    <string name="title_retweet">转发</string>
+
+
     <string name="title_activity_settings">Settings</string>
 
     <!-- Strings related to Settings -->
@@ -85,6 +92,9 @@
     <string name="pref_ringtone_silent">Silent</string>
 
     <string name="pref_title_vibrate">Vibrate</string>
+
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
 
 
 </resources>

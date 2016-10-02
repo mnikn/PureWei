@@ -26,7 +26,15 @@ public class RequestManager {
 
     public static void getHomeWeibo(Context context,IListView view,int requestType,int page){
         WeiboObserver weiboObserver = new WeiboObserver(context,view,requestType,page);
-        weiboObserver.getObservable()
+        weiboObserver.getHomeObservable()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weiboObserver.getObserver());
+    }
+
+    public static void getHotWeibo(Context context,IListView view,int requestType,int page){
+        WeiboObserver weiboObserver = new WeiboObserver(context,view,requestType,page);
+        weiboObserver.getHotObservable()
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(weiboObserver.getObserver());

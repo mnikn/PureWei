@@ -41,7 +41,9 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 WeiboPicsEntry.TABLE_NAME + " (" +
                 WeiboPicsEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 WeiboPicsEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
-                WeiboPicsEntry.COLUMN_PICS_URL + " TEXT NOT NULL, " +
+                WeiboPicsEntry.COLUMN_THUMBNAIL_URL + " TEXT NOT NULL, " +
+                WeiboPicsEntry.COLUMN_MIDDLE_URL + " TEXT NOT NULL, " +
+                WeiboPicsEntry.COLUMN_LARGE_URL + " TEXT NOT NULL, " +
                 "FOREIGN KEY (" + WeiboPicsEntry.COLUMN_WEIBO_ID + ") REFERENCES " +
                 WeiboEntry.TABLE_NAME + " (" + WeiboEntry.COLUMN_WEIBO_ID + "))";
 

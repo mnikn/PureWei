@@ -14,6 +14,7 @@ import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.api.HomeTimelineApi;
+import com.mnikn.purewei.support.api.PublicTimelineApi;
 import com.mnikn.purewei.support.bean.TimelineBean;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
@@ -40,12 +41,24 @@ public class WeiboObserver {
         mPage = page;
     }
 
-    private Observable<String> observable = Observable.create(new ObservableOnSubscribe<String>() {
+    private Observable<String> homeObservable = Observable.create(new ObservableOnSubscribe<String>() {
         @Override
         public void subscribe(ObservableEmitter<String> e) throws Exception {
             Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(mContext);
 
             String json = new HomeTimelineApi(mContext, Constant.APP_KEY,token,mPage)
+                    .requestSync(BaseApi.HTTP_METHOD_GET);
+
+            e.onNext(json);
+            e.onComplete();
+        }});
+
+    private Observable<String> hotObservable = Observable.create(new ObservableOnSubscribe<String>() {
+        @Override
+        public void subscribe(ObservableEmitter<String> e) throws Exception {
+            Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(mContext);
+
+            String json = new PublicTimelineApi(mContext, Constant.APP_KEY,token,mPage)
                     .requestSync(BaseApi.HTTP_METHOD_GET);
 
             e.onNext(json);
@@ -109,11 +122,15 @@ public class WeiboObserver {
         }
     };
 
-    public Observable<String> getObservable() {
-        return observable;
-    }
-
     public Observer<String> getObserver() {
         return observer;
+    }
+
+    public Observable<String> getHomeObservable() {
+        return homeObservable;
+    }
+
+    public Observable<String> getHotObservable() {
+        return hotObservable;
     }
 }

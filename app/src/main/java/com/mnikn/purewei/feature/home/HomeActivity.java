@@ -152,6 +152,18 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
+            case R.id.nav_home:
+                mPresenter.setWeiboType(Constant.HOME);
+                mPresenter.refresh();
+                break;
+            case R.id.nav_hot:
+                mPresenter.setWeiboType(Constant.HOT);
+                mPresenter.refresh();
+                break;
+            case R.id.nav_around:
+                mPresenter.setWeiboType(Constant.HOME);
+                mPresenter.refresh();
+                break;
         }
 
         drawer.closeDrawer(GravityCompat.START);
@@ -176,6 +188,7 @@ public class HomeActivity extends AppCompatActivity
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
         mPresenter.setIsLoading(false);
+        rvHome.scrollToPosition(0);
         ToastUtil.makeToastShort(this, "刷新完成");
     }
 
