@@ -9,6 +9,5 @@ import com.mnikn.mylibrary.mvp.IListPresenter;
  */
 public interface IHomePresenter extends IListPresenter {
     void authorize();
-    void getAccountInfo();
     void authorizeCallBack(int requestCode, int resultCode, Intent data);
 }

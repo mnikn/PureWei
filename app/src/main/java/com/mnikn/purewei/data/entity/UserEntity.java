@@ -3,7 +3,7 @@ package com.mnikn.purewei.data.entity;
 import android.content.ContentValues;
 
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.support.bean.TimelineBean;
+import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.UserBean;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -21,14 +21,14 @@ public class UserEntity {
 
 
     public UserEntity() {}
-    public UserEntity(TimelineBean.StatusesBean bean){
+    public UserEntity(StatusesBean bean){
         fromTimelineBean(bean);
     }
     public UserEntity(UserBean userBean){
         fromUserBean(userBean);
     }
 
-    private void fromTimelineBean(TimelineBean.StatusesBean bean){
+    private void fromTimelineBean(StatusesBean bean){
         userId = bean.user.id;
         userName = bean.user.screenName;
         profileImageUrl = bean.user.profileImageUrl;

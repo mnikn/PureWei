@@ -4,6 +4,7 @@ import android.content.ContentValues;
 
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
 /**
@@ -28,7 +29,7 @@ public class WeiboEntity {
     }
 
     private void fromBean(TimelineBean bean,int position){
-        TimelineBean.StatusesBean statusesBean = bean.statuses.get(position);
+        StatusesBean statusesBean = bean.statuses.get(position);
         weiboId = statusesBean.id;
         userId = statusesBean.user.id;
         if(statusesBean.retweetedStatus != null && statusesBean.retweetedStatus.user != null){

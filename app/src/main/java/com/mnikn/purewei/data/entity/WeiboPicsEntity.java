@@ -3,6 +3,8 @@ package com.mnikn.purewei.data.entity;
 import android.content.ContentValues;
 
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.support.bean.PicUrlsBean;
+import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
 import java.util.ArrayList;
@@ -21,10 +23,10 @@ public class WeiboPicsEntity {
     }
 
     private void fromBean(TimelineBean bean,int position){
-        TimelineBean.StatusesBean statusesBean = bean.statuses.get(position);
+        StatusesBean statusesBean = bean.statuses.get(position);
         weiboId = statusesBean.id;
 
-        for(TimelineBean.StatusesBean.PicUrlsBean urlsBean : statusesBean.picUrls){
+        for(PicUrlsBean urlsBean : statusesBean.picUrls){
             picsUrl.add(urlsBean.thumbnailPic);
         }
     }

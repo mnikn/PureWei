@@ -16,11 +16,11 @@ public class DateUtil {
 
 
         int currentYear = current.get(Calendar.YEAR);
-        int currentMonth = current.get(Calendar.MONTH);
+        int currentMonth = current.get(Calendar.MONTH) + 1;
         int currentDay = current.get(Calendar.DAY_OF_MONTH);
 
         int recordYear = record.get(Calendar.YEAR);
-        int recordMonth = record.get(Calendar.MONTH);
+        int recordMonth = record.get(Calendar.MONTH) + 1;
         int recordDay = record.get(Calendar.DAY_OF_MONTH);
 
         String showStr;

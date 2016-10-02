@@ -5,6 +5,7 @@ import android.content.ContentValues;
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.CommentBean;
+import com.mnikn.purewei.support.bean.CommentsBean;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -26,7 +27,7 @@ public class WeiboCommentEntity {
     }
 
     private void fromBean(CommentBean bean){
-        for(CommentBean.CommentsBean commentsBean : bean.comments){
+        for(CommentsBean commentsBean : bean.comments){
             weiboId.add(commentsBean.status.id);
             commentId.add(commentsBean.id);
             commentUserId.add(commentsBean.user.id);

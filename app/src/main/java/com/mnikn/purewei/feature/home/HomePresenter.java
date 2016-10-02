@@ -3,23 +3,21 @@ package com.mnikn.purewei.feature.home;
 import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
+import android.os.Bundle;
 
-import com.mnikn.mylibrary.util.DataUtil;
+import com.mnikn.mylibrary.util.TextUtil;
+import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.entity.AccountEntity;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.api.BaseApi;
-import com.mnikn.purewei.support.api.UidApi;
-import com.mnikn.purewei.support.api.UserInfoApi;
 import com.mnikn.purewei.support.base.WeiboPresenter;
-import com.mnikn.purewei.support.bean.UserBean;
-import com.mnikn.purewei.support.listener.AccountInfoRequestListener;
-import com.mnikn.purewei.support.listener.AuthListener;
 import com.mnikn.purewei.support.net.RequestManager;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
-import com.sina.weibo.sdk.net.RequestListener;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -35,7 +33,9 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
         super((Context) view, view);
         
         authorize();
-        getAccountInfo();
+
+        //RequestManager.getAccountInfo(getContext(),((IHomeView) getView()));
+        //getAccountInfo();
     }
 
     @Override
@@ -47,29 +47,42 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
         if (!mToken.isSessionValid()) {
             AuthInfo authInfo = new AuthInfo(context, Constant.APP_KEY, Constant.REDIRECT_URL, null);
             mSsoHandler = new SsoHandler((Activity) context, authInfo);
-            mSsoHandler.authorize(new AuthListener(context));
+            mSsoHandler.authorize(new WeiboAuthListener() {
+                @Override
+                public void onComplete(Bundle bundle) {
+                    Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
+                    if (token.isSessionValid()) {
+                        AccessTokenKeeper.writeAccessToken(getContext(), token);
+                        getContext().getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
+                                new AccountEntity(token).toContentValues());
+                        ToastUtil.makeToastShort(getContext(), "授权成功");
+                        RequestManager.getAccountInfo(getContext(),(IHomeView) getView());
+                    }
+                    else {
+                        String errorMessage = "授权失败";
+                        String code = bundle.getString("code");
+                        if(!TextUtil.isEmpty(code)){
+                            ToastUtil.makeToastLong(getContext(), errorMessage + String.format(",错误代码:%s",code));
+                        }
+                        else{
+                            ToastUtil.makeToastLong(getContext(),errorMessage);
+                        }
+                    }
+                }
+                @Override
+                public void onWeiboException(WeiboException e) {
+                    e.printStackTrace();
+                }
+                @Override
+                public void onCancel() {
+                    ToastUtil.makeToastShort(getContext(), "授权取消");
+                }
+            });
             mToken = AccessTokenKeeper.readAccessToken(context);
         }
-    }
-
-    @Override
-    public void getAccountInfo(){
-        final Context context = getContext();
-        //先得到授权用户Id,再根据Id得到用户信息
-        new UidApi(context,Constant.APP_KEY,mToken)
-                .requestAsync(BaseApi.HTTP_METHOD_GET, new RequestListener() {
-                    @Override
-                    public void onComplete(String s) {
-                        mUid = DataUtil.jsonToBean(s, UserBean.class).id;
-                        new UserInfoApi(context,Constant.APP_KEY,mToken,mUid)
-                                .requestAsync(BaseApi.HTTP_METHOD_GET, new AccountInfoRequestListener(context,(IHomeView) getView()));
-                    }
-
-                    @Override
-                    public void onWeiboException(WeiboException e) {
-                        e.printStackTrace();
-                    }
-                });
+        else{
+            RequestManager.getAccountInfo(context,((IHomeView) getView()));
+        }
     }
 
     @Override
@@ -96,6 +109,4 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
             mSsoHandler.authorizeCallBack(requestCode,resultCode,data);
         }
     }
-
-
 }

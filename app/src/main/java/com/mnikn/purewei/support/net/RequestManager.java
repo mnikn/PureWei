@@ -1,37 +1,42 @@
 package com.mnikn.purewei.support.net;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mnikn.mylibrary.mvp.IListView;
-import com.mnikn.purewei.support.AccessTokenKeeper;
-import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.api.BaseApi;
-import com.mnikn.purewei.support.api.CommentApi;
-import com.mnikn.purewei.support.api.HomeTimelineApi;
-import com.mnikn.purewei.support.listener.CommentRequestLisenter;
-import com.mnikn.purewei.support.listener.WeiboRequestListener;
-import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.mnikn.purewei.feature.home.IHomeView;
+import com.mnikn.purewei.support.observer.AccountObserver;
+import com.mnikn.purewei.support.observer.CommentObserver;
+import com.mnikn.purewei.support.observer.WeiboObserver;
+
+import io.reactivex.android.schedulers.AndroidSchedulers;
+import io.reactivex.schedulers.Schedulers;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class RequestManager {
 
+    public static void getAccountInfo(Context context,IHomeView view){
+        AccountObserver accountObserver = new AccountObserver(context,view);
+        accountObserver.getObservable()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(accountObserver.getObserver());
+    }
+
     public static void getHomeWeibo(Context context,IListView view,int requestType,int page){
-        Log.e("s","requestType: " + requestType + " page: " + page);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        new HomeTimelineApi(context, Constant.APP_KEY,token,page)
-                .requestAsync(
-                        BaseApi.HTTP_METHOD_GET,
-                        new WeiboRequestListener(context,view,requestType));
+        WeiboObserver weiboObserver = new WeiboObserver(context,view,requestType,page);
+        weiboObserver.getObservable()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(weiboObserver.getObserver());
     }
 
     public static void getComment(Context context,IListView view,int requestType,int page,long weiboId){
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        new CommentApi(context, Constant.APP_KEY,token,page,weiboId)
-                .requestAsync(
-                        BaseApi.HTTP_METHOD_GET,
-                        new CommentRequestLisenter(context,view,requestType,weiboId));
+        CommentObserver commentObserver = new CommentObserver(context,view,requestType,page,weiboId);
+        commentObserver.getObservable()
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(commentObserver.getObserver());
     }
 }
