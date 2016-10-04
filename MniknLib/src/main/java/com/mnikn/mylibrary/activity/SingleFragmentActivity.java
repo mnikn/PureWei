@@ -14,6 +14,11 @@ public abstract class SingleFragmentActivity extends BaseActivity {
 
         setContentView(R.layout.activity_fragment);
 
+        if(getSupportActionBar() != null){
+            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        }
+
+
         addFragment(getFragment());
     }
 

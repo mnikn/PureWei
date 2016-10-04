@@ -4,7 +4,6 @@
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:layout_marginTop="@dimen/app_margin_14dp"
-    android:layout_marginBottom="@dimen/app_margin_14dp"
     android:paddingLeft="@dimen/app_margin_14dp"
     android:paddingRight="@dimen/app_margin_14dp">
 
@@ -105,7 +104,7 @@
             android:layout_height="wrap_content"/>
         <GridLayout
             android:id="@+id/layout_retweet_pics"
-            android:layout_width="wrap_content"
+            android:layout_width="match_parent"
             android:layout_height="wrap_content" />
     </LinearLayout>
 
