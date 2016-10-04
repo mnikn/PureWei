@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.observer;
+package com.mnikn.purewei.support.net.observer;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;

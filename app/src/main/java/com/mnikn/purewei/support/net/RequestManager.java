@@ -12,10 +12,10 @@ import com.mnikn.purewei.support.net.service.HomeWeiboService;
 import com.mnikn.purewei.support.net.service.HotWeiboService;
 import com.mnikn.purewei.support.net.service.UidService;
 import com.mnikn.purewei.support.net.service.UserService;
-import com.mnikn.purewei.support.observer.AccountObserver;
-import com.mnikn.purewei.support.observer.AccountUidObserver;
-import com.mnikn.purewei.support.observer.CommentObserver;
-import com.mnikn.purewei.support.observer.WeiboObserver;
+import com.mnikn.purewei.support.net.observer.AccountObserver;
+import com.mnikn.purewei.support.net.observer.AccountUidObserver;
+import com.mnikn.purewei.support.net.observer.CommentObserver;
+import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Observable;
