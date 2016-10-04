@@ -2,7 +2,6 @@ package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
 import android.database.Cursor;
-import android.util.Log;
 import android.view.View;
 import android.widget.TextView;
 
@@ -37,7 +36,6 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
         itemView.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                Log.e("S","Dsa");
                 return false;
             }
         });

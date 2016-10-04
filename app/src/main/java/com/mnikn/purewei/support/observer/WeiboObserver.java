@@ -101,22 +101,16 @@ public class WeiboObserver {
                 resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
 
                 //先查询是否有这位用户信息,没有就插入数据
-                long userId = timelineBean.statuses.get(i).user.id;
-                if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
-                    resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                            new UserEntity(timelineBean.statuses.get(i)).toContentValues());
-                }
+                resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
+                        new UserEntity(timelineBean.statuses.get(i)).toContentValues());
 
                 //若该微博为转发,就把原微博插入数据库
                 if(NumberUtil.notZero(weiboEntity.retweetId)){
                     WeiboEntity retweetEntity = new WeiboEntity(timelineBean.statuses.get(i).retweetedStatus);
                     retweetValues.add(retweetEntity.toContentValues());
 
-                    long retweetuserId = timelineBean.statuses.get(i).retweetedStatus.user.id;
-                    if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext,retweetuserId)){
-                        resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                                new UserEntity(timelineBean.statuses.get(i).retweetedStatus.user).toContentValues());
-                    }
+                    resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
+                            new UserEntity(timelineBean.statuses.get(i).retweetedStatus.user).toContentValues());
 
                     ContentValues[] retweetDetailValues = new WeiboPicsEntity(timelineBean.statuses.get(i).retweetedStatus).toContentValuesArray();
                     resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI, retweetDetailValues);

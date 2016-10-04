@@ -29,6 +29,10 @@ public class WeiboModel implements IModel{
     public String avatarHdUrl;
     public String retweetUserName;
     public String retweetText;
+    public String retweetTime;
+    public String retweetProfileImageUrl;
+    public String retweetAvatarLargeUrl;
+    public String retweetAvatarHdUrl;
     public boolean liked;
 
     public WeiboModel(){}
@@ -40,20 +44,24 @@ public class WeiboModel implements IModel{
     public void fromCursor(Cursor cursor){
         if(cursor == null) return;
 
-        long retweetId = WeiboContract.WeiboEntry.getRetweetId(cursor);
+        retweetId = WeiboContract.WeiboEntry.getRetweetId(cursor);
         if(!NumberUtil.isZero(retweetId)){
             Context context = App.getAppContext();
             Cursor retweetCursor = context.getContentResolver().query(
                     WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
                     null,
-                    WeiboContract.WeiboEntry.COLUMN_RETWEET_ID + " = ?",
+                    "(" + WeiboContract.WeiboEntry.COLUMN_WEIBO_ID+ " = ?"
+                            + ") GROUP BY (" + WeiboContract.WeiboEntry.COLUMN_WEIBO_ID + ")",
                     new String[]{NumberUtil.longToString(retweetId)},
                     null);
             if(retweetCursor != null){
                 retweetCursor.moveToFirst();
-                this.retweetId = retweetId;
-                retweetUserName = WeiboContract.UserEntry.getName(retweetCursor) + " :";
+                retweetUserName = WeiboContract.UserEntry.getName(retweetCursor);
                 retweetText = WeiboContract.WeiboEntry.getText(retweetCursor);
+                retweetTime = DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(retweetCursor));
+                retweetProfileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(retweetCursor);
+                retweetAvatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(retweetCursor);
+                retweetAvatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(retweetCursor);
                 retweetCursor.close();
             }
 

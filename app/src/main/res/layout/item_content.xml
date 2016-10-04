@@ -61,6 +61,60 @@
         android:layout_marginTop="@dimen/app_margin_14dp"
         android:lineSpacingExtra="@dimen/app_margin_2dp"/>
 
+    <LinearLayout
+        android:id="@+id/layout_retweet"
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@drawable/retweet_bg"
+        android:paddingTop="@dimen/app_margin_14dp"
+        android:paddingBottom="@dimen/app_margin_14dp"
+        android:paddingLeft="@dimen/app_margin_8dp"
+        android:paddingRight="@dimen/app_margin_8dp"
+        android:layout_marginTop="@dimen/app_margin_14dp"
+        android:layout_marginLeft="@dimen/app_margin_6dp"
+        android:layout_marginRight="@dimen/app_margin_6dp"
+        android:visibility="gone">
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:gravity="center_vertical">
+            <de.hdodenhof.circleimageview.CircleImageView
+                android:id="@+id/circle_img_retweet"
+                android:layout_width="24dp"
+                android:layout_height="24dp" />
+            <TextView
+                android:id="@+id/txt_retweet_user_name"
+                style="@style/baseTextView.emphasizeText.small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/app_margin_6dp"/>
+            <TextView
+                android:id="@+id/txt_retweet_time"
+                style="@style/baseTextView.additional.small"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="@dimen/app_margin_14dp"/>
+        </LinearLayout>
+
+        <TextView
+            android:id="@+id/txt_retweet_text"
+            style="@style/baseTextView.normal.small"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+        <GridLayout
+            android:id="@+id/layout_retweet_pics"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+    </LinearLayout>
+
+    <GridLayout
+        android:id="@+id/layout_pics"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:visibility="gone" />
+
     <Button
         android:id="@+id/btn_attitudes"
         style="@style/buttonWeibo"

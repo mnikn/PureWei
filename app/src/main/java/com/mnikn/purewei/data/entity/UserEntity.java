@@ -19,6 +19,8 @@ public class UserEntity {
     public long followersCount;
     public long friendsCount;
     public long weiboCount;
+    public boolean fllowing;
+    public boolean fllowMe;
 
 
     public UserEntity() {}
@@ -44,6 +46,8 @@ public class UserEntity {
         followersCount = bean.followersCount;
         friendsCount = bean.friendsCount;
         weiboCount = bean.statusesCount;
+        fllowing = bean.following;
+        fllowMe = bean.followMe;
     }
 
     public ContentValues toContentValues(){
@@ -58,6 +62,8 @@ public class UserEntity {
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOWERS_COUNT,followersCount);
         values.put(WeiboContract.UserEntry.COLUMN_FRIENDS_COUNT,friendsCount);
         values.put(WeiboContract.UserEntry.COLUMN_WEIBO_COUNT,weiboCount);
+        values.put(WeiboContract.UserEntry.COLUMN_FLLOWING,fllowing);
+        values.put(WeiboContract.UserEntry.COLUMN_FLLOW_ME,fllowMe);
 
         return values;
     }

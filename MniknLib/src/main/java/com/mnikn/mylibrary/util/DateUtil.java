@@ -34,13 +34,11 @@ public class DateUtil {
                 showStr = "昨天" + String.format("%02d", hour) + ":" + String.format("%02d", minute);
             }
             else{
-                showStr = recordMonth + "月" +  recordDay + "日" +
-                        String.format("%02d", hour) + ":" + String.format("%02d", minute);
+                showStr = recordMonth + "月" +  recordDay + "日";
             }
         }
         else{
-            showStr = recordMonth + "月" +  recordDay + "日" +
-                    String.format("%02d", hour) + ":" + String.format("%02d", minute);
+            showStr = recordMonth + "月" +  recordDay + "日";
         }
         return showStr;
     }

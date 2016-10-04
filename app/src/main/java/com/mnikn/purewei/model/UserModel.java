@@ -19,6 +19,8 @@ public class UserModel implements IModel {
     public String followersCount;
     public String friendsCount;
     public String weiboCount;
+    public boolean fllowing;
+    public boolean fllowMe;
 
     public UserModel(){}
 
@@ -36,5 +38,7 @@ public class UserModel implements IModel {
         followersCount = NumberUtil.longToString(WeiboContract.UserEntry.getFollowerCount(cursor));
         friendsCount = NumberUtil.longToString(WeiboContract.UserEntry.getFriendsCount(cursor));
         weiboCount = NumberUtil.longToString(WeiboContract.UserEntry.getWeiboCount(cursor));
+        fllowing = WeiboContract.UserEntry.getFllowing(cursor);
+        fllowMe = WeiboContract.UserEntry.getFllowMe(cursor);
     }
 }
