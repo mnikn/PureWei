@@ -30,7 +30,6 @@
     <style name="buttonWeibo" parent="android:Widget.Holo.Button.Borderless">
         <item name="android:layout_width">wrap_content</item>
         <item name="android:layout_height">wrap_content</item>
-        <item name="android:layout_weight">1</item>
         <item name="android:drawablePadding">@dimen/text_drawable_padding</item>
         <item name="android:gravity">center</item>
         <item name="android:textSize">@dimen/text_size_14sp</item>
@@ -59,13 +58,13 @@
 
     <style name="baseTextView.additional" />
     <style name="baseTextView.additional.small">
-        <item name="android:textSize">@dimen/text_size_14sp</item>
+        <item name="android:textSize">@dimen/text_size_12sp</item>
     </style>
     <style name="baseTextView.additional.medium">
-        <item name="android:textSize">@dimen/text_size_16sp</item>
+        <item name="android:textSize">@dimen/text_size_14sp</item>
     </style>
     <style name="baseTextView.additional.large">
-        <item name="android:textSize">@dimen/text_size_18sp</item>
+        <item name="android:textSize">@dimen/text_size_16sp</item>
     </style>
 
 

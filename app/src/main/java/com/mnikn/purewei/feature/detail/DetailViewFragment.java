@@ -52,7 +52,7 @@ public class DetailViewFragment extends BaseRecyclerFragment implements IDetailV
                 null,
                 new DetailLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mWeiboId));
 
-        mPresenter.refresh();
+        getActivity().registerForContextMenu(getRecyclerView());
     }
 
     @Override

@@ -22,6 +22,7 @@ public class WeiboEntity {
     public long reportsCount;
     public long commentsCount;
     public long attitudesCount;
+    public boolean liked;
 
     public WeiboEntity() {}
     public WeiboEntity(TimelineBean bean,int position){
@@ -43,6 +44,7 @@ public class WeiboEntity {
         reportsCount = statusesBean.repostsCount;
         attitudesCount = statusesBean.attitudesCount;
         commentsCount = statusesBean.commentsCount;
+        liked = statusesBean.liked;
     }
 
     public ContentValues toContentValues(){
@@ -58,6 +60,7 @@ public class WeiboEntity {
         values.put(WeiboContract.WeiboEntry.COLUMN_REPORTS_COUNT,reportsCount);
         values.put(WeiboContract.WeiboEntry.COLUMN_ATTITUDES_COUNT,attitudesCount);
         values.put(WeiboContract.WeiboEntry.COLUMN_COMMENTS_COUNT,commentsCount);
+        values.put(WeiboContract.WeiboEntry.COLUMN_LIKED,liked);
 
         return values;
     }

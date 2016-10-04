@@ -4,10 +4,12 @@ import android.content.Context;
 import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.mylibrary.util.DrawableUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
@@ -28,6 +30,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_created_time) TextView txtCreatedTime;
     @BindView(R.id.txt_source) TextView txtSource;
     @BindView(R.id.txt_text) TextView txtText;
+    @BindView(R.id.btn_attitudes) Button btnAttitudes;
 
     TextView txtRetweet;
 
@@ -70,5 +73,13 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         txtCreatedTime.setText(model.createdTime);
         txtSource.setText(model.source);
         txtUserName.setText(model.userName);
+        btnAttitudes.setText(model.attitudesCount);
+        if(model.liked){
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
+                    DrawableUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red_24dp),
+                    null,
+                    null,
+                    null);
+        }
     }
 }

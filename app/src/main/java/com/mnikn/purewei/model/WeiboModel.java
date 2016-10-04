@@ -27,6 +27,7 @@ public class WeiboModel implements IModel{
     public String avatarHdUrl;
     public String retweetUserName;
     public String retweetText;
+    public boolean liked;
 
     public WeiboModel(){}
 
@@ -51,10 +52,13 @@ public class WeiboModel implements IModel{
         createdTime = DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor));
         text = WeiboContract.WeiboEntry.getText(cursor);
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboEntry.getSource(cursor));
+        liked = WeiboContract.WeiboEntry.getLiked(cursor);
+
         userName = WeiboContract.UserEntry.getName(cursor);
         profileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(cursor);
         avatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(cursor);
         avatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(cursor);
+
     }
 
 }

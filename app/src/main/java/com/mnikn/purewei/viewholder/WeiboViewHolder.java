@@ -15,6 +15,7 @@ import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.DataUtil;
+import com.mnikn.mylibrary.util.DrawableUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
@@ -92,6 +93,13 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         btnAttitudes.setText(model.attitudesCount);
         btnComments.setText(model.commentsCount);
         btnReports.setText(model.reportsCount);
+        if(model.liked){
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
+                    DrawableUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red_24dp),
+                    null,
+                    null,
+                    null);
+        }
         if(txtRetweetText != null){
             txtRetweetText.setText(model.retweetText);
             txtRetweetUserName.setText(model.retweetUserName);

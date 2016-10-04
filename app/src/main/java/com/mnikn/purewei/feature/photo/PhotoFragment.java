@@ -42,6 +42,8 @@ public class PhotoFragment extends BaseFragment {
         ButterKnife.bind(this,parent);
 
         String url = getActivity().getIntent().getStringExtra(WeiboViewHolder.EXTRA_PHOTO_URL);
-        GlideUtil.setImage(getContext(),url,photoView);
+        if(url != null){
+            GlideUtil.setImage(getContext(),url,photoView);
+        }
     }
 }

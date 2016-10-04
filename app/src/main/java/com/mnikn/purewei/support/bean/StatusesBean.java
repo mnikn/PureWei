@@ -30,6 +30,8 @@ public class StatusesBean {
   public long attitudesCount;
   @SerializedName("isLongText")
   public boolean isLongText;
+  @SerializedName("liked")
+  public boolean liked;
   @SerializedName("pic_urls")
   public List<PicUrlsBean> picUrls;
 }

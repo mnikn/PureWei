@@ -27,6 +27,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 WeiboEntry.COLUMN_USER_ID + " INTEGER NOT NULL, " +
                 WeiboEntry.COLUMN_TEXT + " TEXT NOT NULL, " +
                 WeiboEntry.COLUMN_SOURCE + " TEXT NOT NULL, " +
+                WeiboEntry.COLUMN_LIKED + " BOOLEAN, " +
                 WeiboEntry.COLUMN_RETWEET_ID + " INTEGER, " +
                 WeiboEntry.COLUMN_RETWEET_TEXT + " TEXT, " +
                 WeiboEntry.COLUMN_RETWEET_USER_NAME + " TEXT," +
@@ -67,6 +68,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 UserEntry.COLUMN_PROFILE_IMAGE_URL + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_AVATAR_LARGE_URL + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_AVATAR_HD_URL + " TEXT NOT NULL, " +
+                UserEntry.COLUMN_COVER_URL + " TEXT, " +
                 UserEntry.COLUMN_DESCRIPTION + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_WEIBO_COUNT + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_FRIENDS_COUNT + " TEXT NOT NULL, " +

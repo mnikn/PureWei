@@ -5,8 +5,8 @@
     android:layout_height="wrap_content">
 
     <ImageView
-        android:id="@+id/img_avatar"
-        android:src="@drawable/cover"
+        android:id="@+id/img_cover"
+        android:src="@drawable/background"
         android:layout_width="match_parent"
         android:layout_height="200dp"
         android:scaleType="centerCrop" />
@@ -22,18 +22,21 @@
         <de.hdodenhof.circleimageview.CircleImageView
             android:id="@+id/circle_img_user_icon"
             android:layout_width="@dimen/icon_medium_width"
-            android:layout_height="@dimen/icon_medium_height" />
+            android:layout_height="@dimen/icon_medium_height"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/txt_user_name"
-            style="@style/baseTextView.emphasizeText.medium"
+            style="@style/baseTextView.emphasizeText.large"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="@dimen/app_margin_14dp"/>
+            android:layout_marginTop="@dimen/app_margin_14dp"
+            android:layout_gravity="center_horizontal"/>
 
         <TextView
             android:id="@+id/txt_user_description"
             style="@style/baseTextView.normal.small"
+            android:layout_marginTop="@dimen/app_margin_14dp"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 

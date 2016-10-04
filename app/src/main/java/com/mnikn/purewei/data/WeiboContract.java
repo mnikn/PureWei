@@ -34,6 +34,7 @@ public class WeiboContract {
         public static final String COLUMN_RETWEET_ID = "retweet_id";
         public static final String COLUMN_TEXT = "text";
         public static final String COLUMN_SOURCE = "source";
+        public static final String COLUMN_LIKED = "liked";
         public static final String COLUMN_ATTITUDES_COUNT = "attitudes_count";
         public static final String COLUMN_REPORTS_COUNT = "reports_count";
         public static final String COLUMN_COMMENTS_COUNT = "comments_count";
@@ -68,6 +69,9 @@ public class WeiboContract {
         }
         public static String getSource(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_SOURCE));
+        }
+        public static boolean getLiked(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_LIKED)) > 0;
         }
         public static long getAttitudesCount(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_ATTITUDES_COUNT));
@@ -177,6 +181,7 @@ public class WeiboContract {
         public static final String COLUMN_PROFILE_IMAGE_URL = "profile_image_url";
         public static final String COLUMN_AVATAR_LARGE_URL = "avatar_large_url";
         public static final String COLUMN_AVATAR_HD_URL = "avatar_hd_url";
+        public static final String COLUMN_COVER_URL = "cover_url";
 
         public static Uri buildUserUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
@@ -198,6 +203,9 @@ public class WeiboContract {
         public static String getAvatarHdUrl(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_AVATAR_HD_URL));
         }
+        public static String getCoverUrl(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_COVER_URL));
+        }
         public static long getUsertId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
         }
@@ -210,6 +218,7 @@ public class WeiboContract {
         public static long getFriendsCount(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_FRIENDS_COUNT));
         }
+
     }
 
     public static class AccountEntry implements BaseColumns{

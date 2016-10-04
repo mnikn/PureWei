@@ -14,6 +14,7 @@ public class UserEntity {
     public String profileImageUrl;
     public String avatarLargeUrl;
     public String avatarHdUrl;
+    public String coverUrl;
     public String description;
     public long followersCount;
     public long friendsCount;
@@ -29,15 +30,7 @@ public class UserEntity {
     }
 
     private void fromTimelineBean(StatusesBean bean){
-        userId = bean.user.id;
-        userName = bean.user.screenName;
-        profileImageUrl = bean.user.profileImageUrl;
-        avatarLargeUrl = bean.user.avatarLarge;
-        avatarHdUrl = bean.user.avatarHd;
-        description = bean.user.description;
-        followersCount = bean.user.followersCount;
-        friendsCount = bean.user.friendsCount;
-        weiboCount = bean.user.statusesCount;
+        fromUserBean(bean.user);
     }
 
     private void fromUserBean(UserBean bean){
@@ -46,6 +39,7 @@ public class UserEntity {
         profileImageUrl = bean.profileImageUrl;
         avatarLargeUrl = bean.avatarLarge;
         avatarHdUrl = bean.avatarHd;
+        coverUrl = bean.coverImagePhone;
         description = bean.description;
         followersCount = bean.followersCount;
         friendsCount = bean.friendsCount;
@@ -59,6 +53,7 @@ public class UserEntity {
         values.put(WeiboContract.UserEntry.COLUMN_PROFILE_IMAGE_URL,profileImageUrl);
         values.put(WeiboContract.UserEntry.COLUMN_AVATAR_LARGE_URL,avatarLargeUrl);
         values.put(WeiboContract.UserEntry.COLUMN_AVATAR_HD_URL,avatarHdUrl);
+        values.put(WeiboContract.UserEntry.COLUMN_COVER_URL,coverUrl);
         values.put(WeiboContract.UserEntry.COLUMN_DESCRIPTION,description);
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOWERS_COUNT,followersCount);
         values.put(WeiboContract.UserEntry.COLUMN_FRIENDS_COUNT,friendsCount);

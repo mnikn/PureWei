@@ -4,13 +4,13 @@
 
     <item
         android:id="@+id/action_comment"
-        android:title="@string/title_comment"
+        android:title="@string/action_comment"
         android:icon="@drawable/ic_comment_white_24dp"
         app:showAsAction="ifRoom"/>
 
     <item
         android:id="@+id/action_retweet"
-        android:title="@string/title_retweet"
+        android:title="@string/action_retweet"
         android:icon="@drawable/ic_share_white_24dp"
         app:showAsAction="ifRoom"/>
 

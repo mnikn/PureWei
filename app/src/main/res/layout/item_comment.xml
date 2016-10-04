@@ -1,12 +1,13 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:orientation="vertical"
+    android:background="@drawable/selector_item_comment"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:paddingLeft="@dimen/app_margin_14dp"
     android:paddingRight="@dimen/app_margin_14dp"
-    android:layout_marginTop="@dimen/app_margin_8dp"
-    android:layout_marginBottom="@dimen/app_margin_8dp">
+    android:paddingTop="@dimen/app_margin_8dp"
+    android:paddingBottom="@dimen/app_margin_8dp">
 
     <LinearLayout
         android:orientation="horizontal"
@@ -49,7 +50,6 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="@dimen/app_margin"/>
             </LinearLayout>
-
         </LinearLayout>
     </LinearLayout>
 
@@ -60,6 +60,7 @@
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_margin_8dp"
         android:lineSpacingExtra="@dimen/app_margin_2dp"/>
+
 
 
 </LinearLayout>
