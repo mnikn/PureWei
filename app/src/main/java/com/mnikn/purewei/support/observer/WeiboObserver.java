@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.mnikn.mylibrary.mvp.IListView;
 import com.mnikn.mylibrary.util.DataUtil;
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.data.entity.WeiboEntity;
@@ -17,6 +18,9 @@ import com.mnikn.purewei.support.api.HomeTimelineApi;
 import com.mnikn.purewei.support.api.PublicTimelineApi;
 import com.mnikn.purewei.support.bean.TimelineBean;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+
+import java.util.ArrayList;
+import java.util.List;
 
 import io.reactivex.Observable;
 import io.reactivex.ObservableEmitter;
@@ -83,13 +87,15 @@ public class WeiboObserver {
                 resolver.delete(WeiboContract.UserEntry.CONTENT_URI,null,null);
             }
 
-            TimelineBean timelineBean = DataUtil.jsonToBean(value,TimelineBean.class);
+            TimelineBean timelineBean = DataUtil.jsonToBean(value, TimelineBean.class);
 
             //把bean转换成ContentValues,并插入到数据库中
             int size = timelineBean.statuses.size();
             ContentValues[] weiboValues = new ContentValues[size];
+            List<ContentValues> retweetValues = new ArrayList<>();
             for(int i = 0;i < size; ++i){
-                weiboValues[i] = new WeiboEntity(timelineBean,i).toContentValues();
+                WeiboEntity weiboEntity = new WeiboEntity(timelineBean,i);
+                weiboValues[i] = weiboEntity.toContentValues();
 
                 ContentValues[] weiboDetailValues = new WeiboPicsEntity(timelineBean,i).toContentValuesArray();
                 resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
@@ -100,8 +106,25 @@ public class WeiboObserver {
                     resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
                             new UserEntity(timelineBean.statuses.get(i)).toContentValues());
                 }
+
+                //若该微博为转发,就把原微博插入数据库
+                if(NumberUtil.notZero(weiboEntity.retweetId)){
+                    WeiboEntity retweetEntity = new WeiboEntity(timelineBean.statuses.get(i).retweetedStatus);
+                    retweetValues.add(retweetEntity.toContentValues());
+
+                    long retweetuserId = timelineBean.statuses.get(i).retweetedStatus.user.id;
+                    if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext,retweetuserId)){
+                        resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
+                                new UserEntity(timelineBean.statuses.get(i).retweetedStatus.user).toContentValues());
+                    }
+
+                    ContentValues[] retweetDetailValues = new WeiboPicsEntity(timelineBean.statuses.get(i).retweetedStatus).toContentValuesArray();
+                    resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI, retweetDetailValues);
+                }
             }
             resolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI, weiboValues);
+            resolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI,
+                    retweetValues.toArray(new ContentValues[retweetValues.size()]));
         }
         @Override
         public void onError(Throwable e) {

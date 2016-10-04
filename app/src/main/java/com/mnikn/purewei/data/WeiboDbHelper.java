@@ -23,14 +23,12 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_WEIBO = "CREATE TABLE " +
                 WeiboEntry.TABLE_NAME + " (" +
                 WeiboEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                WeiboEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL, " +
+                WeiboEntry.COLUMN_WEIBO_ID + " INTEGER NOT NULL UNIQUE, " +
                 WeiboEntry.COLUMN_USER_ID + " INTEGER NOT NULL, " +
                 WeiboEntry.COLUMN_TEXT + " TEXT NOT NULL, " +
                 WeiboEntry.COLUMN_SOURCE + " TEXT NOT NULL, " +
                 WeiboEntry.COLUMN_LIKED + " BOOLEAN, " +
                 WeiboEntry.COLUMN_RETWEET_ID + " INTEGER, " +
-                WeiboEntry.COLUMN_RETWEET_TEXT + " TEXT, " +
-                WeiboEntry.COLUMN_RETWEET_USER_NAME + " TEXT," +
                 WeiboEntry.COLUMN_ATTITUDES_COUNT + " INTEGER NOT NULL, " +
                 WeiboEntry.COLUMN_COMMENTS_COUNT + " INTEGER NOT NULL, " +
                 WeiboEntry.COLUMN_REPORTS_COUNT + " INTEGER NOT NULL, " +
@@ -63,7 +61,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
         final String SQL_CREATE_TABLE_USER = "CREATE TABLE " +
                 UserEntry.TABLE_NAME + " (" +
                 UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
-                UserEntry.COLUMN_USER_ID + " INTEGER NOT NULL, " +
+                UserEntry.COLUMN_USER_ID + " INTEGER NOT NULL UNIQUE, " +
                 UserEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_PROFILE_IMAGE_URL + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_AVATAR_LARGE_URL + " TEXT NOT NULL, " +

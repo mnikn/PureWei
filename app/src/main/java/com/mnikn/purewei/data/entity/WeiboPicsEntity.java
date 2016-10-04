@@ -23,12 +23,17 @@ public class WeiboPicsEntity {
     public WeiboPicsEntity(TimelineBean bean, int position){
         fromBean(bean, position);
     }
+    public WeiboPicsEntity(StatusesBean bean){
+        fromBean(bean);
+    }
 
     private void fromBean(TimelineBean bean,int position){
-        StatusesBean statusesBean = bean.statuses.get(position);
-        weiboId = statusesBean.id;
+        fromBean(bean.statuses.get(position));
+    }
 
-        for(PicUrlsBean urlsBean : statusesBean.picUrls){
+    private void fromBean(StatusesBean bean){
+        weiboId = bean.id;
+        for(PicUrlsBean urlsBean : bean.picUrls){
             thumbnailUrl.add(urlsBean.thumbnailPic);
         }
     }

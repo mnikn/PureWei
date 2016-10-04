@@ -17,8 +17,6 @@ public class WeiboEntity {
     public long createdTime;
     public String text;
     public String source;
-    public String retweetText;
-    public String retweetUserName;
     public long reportsCount;
     public long commentsCount;
     public long attitudesCount;
@@ -28,23 +26,27 @@ public class WeiboEntity {
     public WeiboEntity(TimelineBean bean,int position){
         fromBean(bean, position);
     }
+    public WeiboEntity(StatusesBean bean){
+        fromBean(bean);
+    }
 
     private void fromBean(TimelineBean bean,int position){
-        StatusesBean statusesBean = bean.statuses.get(position);
-        weiboId = statusesBean.id;
-        userId = statusesBean.user.id;
-        if(statusesBean.retweetedStatus != null && statusesBean.retweetedStatus.user != null){
-            retweetId = statusesBean.retweetedStatus.id;
-            retweetText = statusesBean.retweetedStatus.text;
-            retweetUserName = statusesBean.retweetedStatus.user.screenName;
+        fromBean(bean.statuses.get(position));
+    }
+
+    private void fromBean(StatusesBean bean){
+        weiboId = bean.id;
+        userId = bean.user.id;
+        if(bean.retweetedStatus != null && bean.retweetedStatus.user != null){
+            retweetId = bean.retweetedStatus.id;
         }
-        createdTime = DateUtil.dateToLong(statusesBean.createdAt);
-        text = statusesBean.text;
-        source = statusesBean.source;
-        reportsCount = statusesBean.repostsCount;
-        attitudesCount = statusesBean.attitudesCount;
-        commentsCount = statusesBean.commentsCount;
-        liked = statusesBean.liked;
+        createdTime = DateUtil.dateToLong(bean.createdAt);
+        text = bean.text;
+        source = bean.source;
+        reportsCount = bean.repostsCount;
+        attitudesCount = bean.attitudesCount;
+        commentsCount = bean.commentsCount;
+        liked = bean.liked;
     }
 
     public ContentValues toContentValues(){
@@ -52,8 +54,6 @@ public class WeiboEntity {
         values.put(WeiboContract.WeiboEntry.COLUMN_WEIBO_ID,weiboId);
         values.put(WeiboContract.WeiboEntry.COLUMN_USER_ID,userId);
         values.put(WeiboContract.WeiboEntry.COLUMN_RETWEET_ID,retweetId);
-        values.put(WeiboContract.WeiboEntry.COLUMN_RETWEET_TEXT,retweetText);
-        values.put(WeiboContract.WeiboEntry.COLUMN_RETWEET_USER_NAME,retweetUserName);
         values.put(WeiboContract.WeiboEntry.COLUMN_CREATED_TIME,createdTime);
         values.put(WeiboContract.WeiboEntry.COLUMN_TEXT,text);
         values.put(WeiboContract.WeiboEntry.COLUMN_SOURCE,source);

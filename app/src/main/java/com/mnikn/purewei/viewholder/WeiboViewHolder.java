@@ -70,7 +70,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     public void bindView(Cursor data) {
         model = new WeiboModel(data);
 
-        if(viewRetweet == null && !NumberUtil.isZero(model.retweedId)){
+        if(viewRetweet == null && !NumberUtil.isZero(model.retweetId)){
             viewRetweet = mLayoutInflater.inflate(R.layout.include_item_retweet,null);
             LinearLayout.LayoutParams params = new LinearLayout.LayoutParams(ViewGroup.LayoutParams.WRAP_CONTENT,
                     ViewGroup.LayoutParams.WRAP_CONTENT);
@@ -80,7 +80,6 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText = ButterKnife.findById(itemView,R.id.txt_retweet_text);
             txtRetweetUserName = ButterKnife.findById(itemView,R.id.txt_retweet_user_name);
         }
-
 
         GlideUtil.setCircleImage(
                 mContext,

@@ -1,10 +1,12 @@
 package com.mnikn.purewei.model;
 
+import android.content.Context;
 import android.database.Cursor;
 
 import com.mnikn.mylibrary.mvp.IModel;
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.util.TextUtil;
 
@@ -14,7 +16,7 @@ import com.mnikn.purewei.support.util.TextUtil;
 public class WeiboModel implements IModel{
     public long weiboId;
     public long userId;
-    public long retweedId;
+    public long retweetId;
     public String reportsCount;
     public String commentsCount;
     public String attitudesCount;
@@ -38,10 +40,23 @@ public class WeiboModel implements IModel{
     public void fromCursor(Cursor cursor){
         if(cursor == null) return;
 
-        if(!NumberUtil.isZero(WeiboContract.WeiboEntry.getRetweetId(cursor))){
-            retweedId = WeiboContract.WeiboEntry.getRetweetId(cursor);
-            retweetUserName = WeiboContract.WeiboEntry.getRetweetUserName(cursor) + " :";
-            retweetText = WeiboContract.WeiboEntry.getRetweetText(cursor);
+        long retweetId = WeiboContract.WeiboEntry.getRetweetId(cursor);
+        if(!NumberUtil.isZero(retweetId)){
+            Context context = App.getAppContext();
+            Cursor retweetCursor = context.getContentResolver().query(
+                    WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
+                    null,
+                    WeiboContract.WeiboEntry.COLUMN_RETWEET_ID + " = ?",
+                    new String[]{NumberUtil.longToString(retweetId)},
+                    null);
+            if(retweetCursor != null){
+                retweetCursor.moveToFirst();
+                this.retweetId = retweetId;
+                retweetUserName = WeiboContract.UserEntry.getName(retweetCursor) + " :";
+                retweetText = WeiboContract.WeiboEntry.getText(retweetCursor);
+                retweetCursor.close();
+            }
+
         }
 
         weiboId = WeiboContract.WeiboEntry.getWeiboId(cursor);

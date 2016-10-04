@@ -39,8 +39,6 @@ public class WeiboContract {
         public static final String COLUMN_REPORTS_COUNT = "reports_count";
         public static final String COLUMN_COMMENTS_COUNT = "comments_count";
         public static final String COLUMN_CREATED_TIME = "created_time";
-        public static final String COLUMN_RETWEET_TEXT = "retweet_text";
-        public static final String COLUMN_RETWEET_USER_NAME = "retweet_user_name";
 
         public static Uri buildWeiboUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
@@ -81,12 +79,6 @@ public class WeiboContract {
         }
         public static long getCommentsCount(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_COMMENTS_COUNT));
-        }
-        public static String getRetweetText(Cursor cursor){
-            return cursor.getString(cursor.getColumnIndex(COLUMN_RETWEET_TEXT));
-        }
-        public static String getRetweetUserName(Cursor cursor){
-            return cursor.getString(cursor.getColumnIndex(COLUMN_RETWEET_USER_NAME));
         }
     }
 
