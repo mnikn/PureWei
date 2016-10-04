@@ -8,4 +8,5 @@ public interface IListPresenter extends IPresenter{
     void loadMore();
     boolean isLoading();
     void setIsLoading(boolean isLoading);
+    void cancelLoading();
 }

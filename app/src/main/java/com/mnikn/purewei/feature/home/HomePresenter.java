@@ -19,6 +19,8 @@ import com.sina.weibo.sdk.auth.WeiboAuthListener;
 import com.sina.weibo.sdk.auth.sso.SsoHandler;
 import com.sina.weibo.sdk.exception.WeiboException;
 
+import io.reactivex.Observable;
+
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
@@ -26,6 +28,9 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
 
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
+
+    private Observable homeWeiboObservable;
+    private Observable hotWeiboObservable;
 
     private int mType = Constant.HOME;
 
@@ -53,7 +58,9 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
                         getContext().getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
                                 new AccountEntity(token).toContentValues());
                         ToastUtil.makeToastShort(getContext(), "授权成功");
-                        RequestManager.getAccountInfo(getContext(),(IHomeView) getView());
+                        RequestManager.getAccountUid(
+                                getContext(),
+                                (IHomeView) getView());
                     }
                     else {
                         String errorMessage = "授权失败";
@@ -78,7 +85,9 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
             mToken = AccessTokenKeeper.readAccessToken(context);
         }
         else{
-            RequestManager.getAccountInfo(context,((IHomeView) getView()));
+            RequestManager.getAccountUid(
+                    getContext(),
+                    (IHomeView) getView());
         }
     }
 
@@ -91,14 +100,14 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
     public void doRefresh(int page) {
         switch (mType){
             case Constant.HOME:
-                RequestManager.getHomeWeibo(
+                homeWeiboObservable = RequestManager.getHomeWeibo(
                         getContext(),
                         getView(),
                         Constant.REFRESH,
                         page);
                 break;
             case Constant.HOT:
-                RequestManager.getHotWeibo(
+                hotWeiboObservable = RequestManager.getHotWeibo(
                         getContext(),
                         getView(),
                         Constant.REFRESH,
@@ -111,14 +120,14 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
     public void doLoadMore(int page) {
         switch (mType){
             case Constant.HOME:
-                RequestManager.getHomeWeibo(
+                homeWeiboObservable = RequestManager.getHomeWeibo(
                         getContext(),
                         getView(),
                         Constant.LOAD_MORE,
                         page);
                 break;
             case Constant.HOT:
-                RequestManager.getHotWeibo(
+                hotWeiboObservable = RequestManager.getHotWeibo(
                         getContext(),
                         getView(),
                         Constant.LOAD_MORE,
@@ -132,5 +141,12 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
         if(mSsoHandler != null){
             mSsoHandler.authorizeCallBack(requestCode,resultCode,data);
         }
+    }
+
+    @Override
+    public void cancelLoading() {
+        setIsLoading(false);
+        RequestManager.cancelRequest(homeWeiboObservable);
+        RequestManager.cancelRequest(hotWeiboObservable);
     }
 }

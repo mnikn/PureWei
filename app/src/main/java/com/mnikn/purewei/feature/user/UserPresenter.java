@@ -6,10 +6,14 @@ import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.base.WeiboPresenter;
 import com.mnikn.purewei.support.net.RequestManager;
 
+import io.reactivex.Observable;
+
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserPresenter extends WeiboPresenter implements IUserPresenter {
+
+    private Observable homeWeiboObservale;
 
     public UserPresenter(Context context,IUserView view) {
         super(context,view);
@@ -17,7 +21,7 @@ public class UserPresenter extends WeiboPresenter implements IUserPresenter {
 
     @Override
     public void doRefresh(int page) {
-        RequestManager.getHomeWeibo(
+        homeWeiboObservale = RequestManager.getHomeWeibo(
                 getContext(),
                 getView(),
                 Constant.REFRESH,
@@ -26,10 +30,15 @@ public class UserPresenter extends WeiboPresenter implements IUserPresenter {
 
     @Override
     public void doLoadMore(int page) {
-        RequestManager.getHomeWeibo(
+        homeWeiboObservale = RequestManager.getHomeWeibo(
                 getContext(),
                 getView(),
                 Constant.LOAD_MORE,
                 page);
+    }
+
+    @Override
+    public void cancelLoading() {
+        RequestManager.cancelRequest(homeWeiboObservale);
     }
 }

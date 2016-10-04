@@ -61,6 +61,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);
         mWeiboId = weiboId;
+        setIsRecyclable(false);
         ButterKnife.bind(this, itemView);
     }
 

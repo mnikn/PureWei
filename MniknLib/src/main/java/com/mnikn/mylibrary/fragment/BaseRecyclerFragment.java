@@ -54,6 +54,12 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     }
 
     @Override
+    public void onStop() {
+        super.onStop();
+        mPresenter.cancelLoading();
+    }
+
+    @Override
     protected View getFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         return inflater.inflate(R.layout.fragment_list, container, false);
