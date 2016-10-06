@@ -8,7 +8,7 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
-import com.mnikn.mylibrary.customview.RecyclerViewDivider;
+import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.purewei.support.Constant;

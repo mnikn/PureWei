@@ -18,13 +18,13 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.customview.RecyclerViewDivider;
+import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.feature.setting.SettingsActivity;
+import com.mnikn.purewei.feature.settings.SettingsActivity;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.HomeLoaderCallback;
 
@@ -117,6 +117,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onStop() {
         super.onStop();
+        refreshLayout.setRefreshing(false);
         mPresenter.cancelLoading();
     }
 
@@ -124,7 +125,11 @@ public class HomeActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        } else {
+        }
+        else if(((LinearLayoutManager) rvHome.getLayoutManager()).findLastVisibleItemPosition() != 1){
+            rvHome.smoothScrollToPosition(0);
+        }
+        else {
             super.onBackPressed();
         }
     }

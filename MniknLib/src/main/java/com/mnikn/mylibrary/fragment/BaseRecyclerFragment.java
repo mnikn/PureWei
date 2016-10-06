@@ -56,6 +56,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Override
     public void onStop() {
         super.onStop();
+        refreshLayout.setRefreshing(false);
         mPresenter.cancelLoading();
     }
 

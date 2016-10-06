@@ -1,0 +1,22 @@
+<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto">
+
+    <com.mnikn.mylibrary.widget.NumberListPreference
+        android:title="@string/title_load_weibo_count"
+        app:minValue="20"
+        app:maxValue="100" />
+    <!-- -->
+    <!--<ListPreference-->
+        <!--android:key="key_load_count"-->
+        <!--android:title="@string/title_load_weibo_count"-->
+        <!--android:defaultValue="20"-->
+        <!--android:entries="@array/value_load_weibo_count"-->
+        <!--android:entryValues="@array/value_load_weibo_count"/>-->
+
+    <ListPreference
+        android:key="key_photo_qualify"
+        android:title="@string/title_photo_qualify"
+        android:entries="@array/entry_photo_qualify"/>
+
+</PreferenceScreen>
+

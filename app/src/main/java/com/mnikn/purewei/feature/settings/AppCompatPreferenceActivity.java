@@ -1,4 +1,4 @@
-package com.mnikn.purewei.feature.setting;
+package com.mnikn.purewei.feature.settings;
 
 import android.content.res.Configuration;
 import android.os.Bundle;

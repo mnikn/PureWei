@@ -1,35 +1,20 @@
-<PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
+<preference-headers xmlns:android="http://schemas.android.com/apk/res/android">
 
-    <PreferenceCategory android:title="@string/title_account">
-        <PreferenceScreen
-            android:title="@string/action_account_manager"
-            android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$GeneralPreferenceFragment" />
-    </PreferenceCategory>
+    <header
+        android:id="@+id/header_account_manage"
+        android:title="@string/action_account_manager"
+        android:fragment="com.mnikn.purewei.feature.settings.AccountManageFragment"
+        android:breadCrumbShortTitle="@string/title_account"/>
 
-    <PreferenceCategory android:title="@string/title_system">
-        <PreferenceScreen
-            android:title="@string/action_read_settings"
-            android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$NotificationPreferenceFragment" />
-    </PreferenceCategory>
+    <header
+        android:id="@+id/header_reading_settings"
+        android:title="@string/action_read_settings"
+        android:fragment="com.mnikn.purewei.feature.settings.ReadSettingsFragment" />
 
-    <PreferenceCategory android:title="@string/title_others">
-        <PreferenceScreen
-            android:title="@string/action_about"
-            android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$DataSyncPreferenceFragment" />
-    </PreferenceCategory>
+    <header
+        android:id="@+id/header_about"
+        android:title="@string/action_about"
+        android:fragment="com.mnikn.purewei.feature.settings.AboutFragment" />
 
-    <!-- These settings headers are only used on tablets. -->
-    <!--<header-->
-        <!--android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$GeneralPreferenceFragment"-->
-        <!--android:title="@string/title_account"/>-->
-
-    <!--<header-->
-        <!--android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$NotificationPreferenceFragment"-->
-        <!--android:title="@string/title_system" />-->
-
-    <!--<header-->
-        <!--android:fragment="com.mnikn.purewei.feature.setting.SettingsActivity$DataSyncPreferenceFragment"-->
-        <!--android:title="@string/title_others" />-->
-
-</PreferenceScreen>
+</preference-headers>
 
