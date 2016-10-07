@@ -19,13 +19,12 @@ public abstract class BaseFragment extends Fragment implements IView{
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        View view = getFragmentView(inflater, container, savedInstanceState);
+        View view = inflater.inflate(getLayoutId(),container,false);
         setupViews(view);
         return view;
     }
 
-    protected abstract View getFragmentView(LayoutInflater inflater,ViewGroup container,
-                                           Bundle savedInstanceState);
+    protected abstract int getLayoutId();
 
 
 }

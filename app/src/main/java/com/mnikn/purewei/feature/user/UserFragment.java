@@ -2,15 +2,13 @@ package com.mnikn.purewei.feature.user;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.UserLoaderCallback;
@@ -30,11 +28,6 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
         UserFragment fragment = new UserFragment();
         fragment.setArguments(args);
         return fragment;
-    }
-
-    @Override
-    protected View getFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_list,container,false);
     }
 
     @Override

@@ -2,7 +2,7 @@
 
     <header
         android:id="@+id/header_account_manage"
-        android:title="@string/action_account_manager"
+        android:title="@string/action_account_manage"
         android:fragment="com.mnikn.purewei.feature.settings.AccountManageFragment"
         android:breadCrumbShortTitle="@string/title_account"/>
 

@@ -1,12 +1,16 @@
 package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.database.Cursor;
+import android.support.v7.app.AlertDialog;
+import android.support.v7.app.AppCompatActivity;
 import android.view.Gravity;
 import android.view.View;
 import android.widget.Button;
 import android.widget.GridLayout;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
@@ -16,6 +20,7 @@ import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.mylibrary.util.DrawableUtil;
 import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.feature.detail.DetailActivity;
@@ -47,6 +52,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.btn_attitudes) Button btnAttitudes;
     @BindView(R.id.btn_comments) Button btnComments;
     @BindView(R.id.btn_reports) Button btnReports;
+    @BindView(R.id.btn_more) ImageButton btnMore;
     @BindView(R.id.layout_retweet) LinearLayout linearRetweet;
     @BindView(R.id.layout_pics) GridLayout gridPics;
     @BindView(R.id.layout_retweet_pics) GridLayout retweetGridPics;
@@ -82,6 +88,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
                     null);
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
+
+        ((AppCompatActivity) mContext).registerForContextMenu(btnMore);
 
         GlideUtil.setCircleImage(
                 mContext,
@@ -140,11 +148,24 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         mContext.startActivity(intent);
     }
 
+    @Optional
+    @OnClick(R.id.btn_more)
+    void showDialog(){
+        AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
+        builder.setItems(ResourcesUtil.getStringArray(mContext, R.array.entry_btn_more), new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+
+            }
+        });
+        builder.show();
+    }
+
     @OnClick(R.id.txt_retweet_text)
     public void navRetweetDetail(){
         long retweetId = model.retweetId;
         Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO_ID,retweetId);
+        intent.putExtra(EXTRA_WEIBO_ID, retweetId);
         mContext.startActivity(intent);
     }
 

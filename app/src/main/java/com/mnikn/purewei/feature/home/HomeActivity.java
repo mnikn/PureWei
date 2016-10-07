@@ -18,15 +18,19 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.util.GlideUtil;
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.settings.SettingsActivity;
+import com.mnikn.purewei.feature.user.UserActivity;
+import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.HomeLoaderCallback;
+import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -54,8 +58,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void setupViews(View parent) {
-        setContentView(R.layout.activity_home);
-        ButterKnife.bind(this);
 
         mPresenter = (IHomePresenter) getPresenter();
 
@@ -65,7 +67,7 @@ public class HomeActivity extends AppCompatActivity
             @Override
             public void onClick(View view) {
                 Snackbar.make(view, "Replace with your own action", Snackbar.LENGTH_LONG)
-                    .setAction("Action", null).show();
+                        .setAction("Action", null).show();
             }
         });
 
@@ -80,7 +82,7 @@ public class HomeActivity extends AppCompatActivity
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
             public void onRefresh() {
-                if(!mPresenter.isLoading()){
+                if (!mPresenter.isLoading()) {
                     mPresenter.refresh();
                 }
             }
@@ -109,6 +111,9 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+
+        setContentView(R.layout.activity_home);
+        ButterKnife.bind(this);
 
         initVariables();
         setupViews(null);
@@ -183,11 +188,20 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void setUserView(String url,String name) {
-        CircleImageView cvUserIcon = (CircleImageView) navigationView.findViewById(R.id.cv_nav_user_icon);
-        GlideUtil.setCircleImage(this,url,cvUserIcon);
+        CircleImageView circleImageView = ButterKnife.findById(navigationView, R.id.circle_img_account);
+        circleImageView.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent intent = new Intent(HomeActivity.this, UserActivity.class);
+                long uid = NumberUtil.stringToLong(AccessTokenKeeper.readAccessToken(HomeActivity.this).getUid());
+                intent.putExtra(WeiboViewHolder.EXTRA_UID, uid);
+                startActivity(intent);
+            }
+        });
+        GlideUtil.setCircleImage(this,url,circleImageView);
 
-        TextView tvAccountName = (TextView) navigationView.findViewById(R.id.tv_nav_user_name);
-        tvAccountName.setText(name);
+        TextView txtAccount = ButterKnife.findById(navigationView,R.id.txt_account);
+        txtAccount.setText(name);
     }
 
     @Override

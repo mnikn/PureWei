@@ -8,9 +8,9 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.DetailLoaderCallback;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -43,6 +43,7 @@ public class DetailViewFragment extends BaseRecyclerFragment implements IDetailV
 
     @Override
     public void setupViews(View parent) {
+        
         getRecyclerView().addItemDecoration(new RecyclerViewDivider(
                 getContext(),
                 LinearLayout.VERTICAL));

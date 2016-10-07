@@ -7,15 +7,13 @@ import com.mnikn.mylibrary.mvp.IListView;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
+import com.mnikn.purewei.support.net.observer.AccountObserver;
+import com.mnikn.purewei.support.net.observer.CommentObserver;
+import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
 import com.mnikn.purewei.support.net.service.HomeWeiboService;
 import com.mnikn.purewei.support.net.service.HotWeiboService;
-import com.mnikn.purewei.support.net.service.UidService;
 import com.mnikn.purewei.support.net.service.UserService;
-import com.mnikn.purewei.support.net.observer.AccountObserver;
-import com.mnikn.purewei.support.net.observer.AccountUidObserver;
-import com.mnikn.purewei.support.net.observer.CommentObserver;
-import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Observable;
@@ -64,17 +62,6 @@ public class RequestManager {
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommentObserver(context,view,page,requestType,weiboId));
-        return observable;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable getAccountUid(Context context,IHomeView view){
-        UidService service = sRetrofit.create(UidService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable =service.request(token.getToken());
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new AccountUidObserver(context,view));
         return observable;
     }
 

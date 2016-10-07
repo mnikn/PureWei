@@ -40,7 +40,12 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return getFragmentView(inflater,container,savedInstanceState);
+        return inflater.inflate(getLayoutId(),container,false);
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_list;
     }
 
     @Override
@@ -58,12 +63,6 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
         super.onStop();
         refreshLayout.setRefreshing(false);
         mPresenter.cancelLoading();
-    }
-
-    @Override
-    protected View getFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-
-        return inflater.inflate(R.layout.fragment_list, container, false);
     }
 
     @Override

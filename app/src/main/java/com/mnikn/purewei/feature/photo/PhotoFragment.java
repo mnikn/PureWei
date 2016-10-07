@@ -3,9 +3,7 @@ package com.mnikn.purewei.feature.photo;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.view.LayoutInflater;
 import android.view.View;
-import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.fragment.BaseFragment;
 import com.mnikn.mylibrary.util.GlideUtil;
@@ -33,11 +31,6 @@ public class PhotoFragment extends BaseFragment {
     }
 
     @Override
-    protected View getFragmentView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(R.layout.fragment_photo,container,false);
-    }
-
-    @Override
     public void setupViews(View parent) {
         ButterKnife.bind(this,parent);
 
@@ -45,5 +38,10 @@ public class PhotoFragment extends BaseFragment {
         if(url != null){
             GlideUtil.setImage(getContext(),url,photoView);
         }
+    }
+
+    @Override
+    protected int getLayoutId() {
+        return R.layout.fragment_photo;
     }
 }

@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -58,9 +59,10 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
                         getContext().getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
                                 new AccountEntity(token).toContentValues());
                         ToastUtil.makeToastShort(getContext(), "授权成功");
-                        RequestManager.getAccountUid(
+                        RequestManager.getAccountInfo(
                                 getContext(),
-                                (IHomeView) getView());
+                                (IHomeView) getView(),
+                                NumberUtil.stringToLong(token.getUid()));
                     }
                     else {
                         String errorMessage = "授权失败";
@@ -85,9 +87,10 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
             mToken = AccessTokenKeeper.readAccessToken(context);
         }
         else{
-            RequestManager.getAccountUid(
+            RequestManager.getAccountInfo(
                     getContext(),
-                    (IHomeView) getView());
+                    (IHomeView) getView(),
+                    NumberUtil.stringToLong(mToken.getUid()));
         }
     }
 
