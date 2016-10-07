@@ -57,7 +57,22 @@ public class DetailViewFragment extends BaseRecyclerFragment implements IDetailV
     }
 
     @Override
-    public void initVariables() {
+    protected int getRecyclerViewId() {
+        return 0;
+    }
+    @Override
+    protected int getRefreshLayoutId() {
+        return 0;
+    }
+    @Override
+    protected int getLayoutId() {
+        return 0;
+    }
+
+    @Override
+    protected void initVariables() {
         mWeiboId = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_WEIBO_ID,0);
     }
+
+
 }

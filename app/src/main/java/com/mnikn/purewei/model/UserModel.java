@@ -2,14 +2,13 @@ package com.mnikn.purewei.model;
 
 import android.database.Cursor;
 
-import com.mnikn.mylibrary.mvp.IModel;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserModel implements IModel {
+public class UserModel{
     public String userName;
     public String description;
     public String profileImageUrl;

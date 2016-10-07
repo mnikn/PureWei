@@ -15,6 +15,7 @@ import com.mnikn.mylibrary.R;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 
 /**
@@ -28,6 +29,8 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     protected RecyclerView.Adapter mAdapter;
     protected IListPresenter mPresenter;
 
+    private boolean mIsDefaultLayout;
+
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -40,12 +43,17 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     @Nullable
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        return inflater.inflate(getLayoutId(),container,false);
-    }
-
-    @Override
-    protected int getLayoutId() {
-        return R.layout.fragment_list;
+        int layoutId = getLayoutId();
+        View view;
+        if(NumberUtil.isZero(layoutId)){
+            view = inflater.inflate(R.layout.fragment_list,container,false);
+            mIsDefaultLayout = true;
+        }
+        else{
+            view = inflater.inflate(layoutId,container,false);
+            mIsDefaultLayout = false;
+        }
+        return view;
     }
 
     @Override
@@ -56,6 +64,37 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
 
         initViews(view);
         setupViews(view);
+    }
+
+    private void initViews(View parent){
+        if(mIsDefaultLayout){
+            recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
+            refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
+        }
+        else{
+            recyclerView = (RecyclerView) parent.findViewById(getRecyclerViewId());
+            refreshLayout = (SwipeRefreshLayout) parent.findViewById(getRefreshLayoutId());
+        }
+
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        recyclerView.setLayoutManager(manager);
+        recyclerView.addOnScrollListener(new RecyclerScrollListener(
+                mAdapter,
+                mPresenter,
+                manager));
+        recyclerView.setAdapter(mAdapter);
+
+        refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_blue_dark);
+        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                if (!mPresenter.isLoading()) {
+                    mPresenter.refresh();
+                }
+            }
+        });
     }
 
     @Override
@@ -97,36 +136,16 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
     public RecyclerView getRecyclerView(){
         return recyclerView;
     }
-
     public SwipeRefreshLayout getRefreshLayout(){
         return refreshLayout;
     }
 
-    private void initViews(View parent){
+    protected abstract void initVariables();
 
-        recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.addOnScrollListener(new RecyclerScrollListener(
-                mAdapter,
-                mPresenter,
-                manager));
-        recyclerView.setAdapter(mAdapter);
+    //If get id is zero will use default layout
+    protected abstract int getRecyclerViewId();
+    protected abstract int getRefreshLayoutId();
 
 
-        refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
-        refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
-                android.R.color.holo_green_dark,
-                android.R.color.holo_blue_dark);
-        refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
-            @Override
-            public void onRefresh() {
-                if(!mPresenter.isLoading()){
-                    mPresenter.refresh();
-                }
-            }
-        });
-    }
 
-    public abstract void initVariables();
 }

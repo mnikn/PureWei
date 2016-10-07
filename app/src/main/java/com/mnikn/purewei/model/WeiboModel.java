@@ -3,7 +3,6 @@ package com.mnikn.purewei.model;
 import android.content.Context;
 import android.database.Cursor;
 
-import com.mnikn.mylibrary.mvp.IModel;
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.App;
@@ -13,7 +12,7 @@ import com.mnikn.purewei.support.util.TextUtil;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class WeiboModel implements IModel{
+public class WeiboModel{
     public long weiboId;
     public long userId;
     public long retweetId;

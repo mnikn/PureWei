@@ -31,7 +31,7 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
     }
 
     @Override
-    public void initVariables() {
+    protected void initVariables() {
         mUid = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_UID,0);
     }
 
@@ -56,5 +56,18 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
                 Constant.LOADER_USER,
                 null,
                 new UserLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
+    }
+
+    @Override
+    protected int getRecyclerViewId() {
+        return 0;
+    }
+    @Override
+    protected int getRefreshLayoutId() {
+        return 0;
+    }
+    @Override
+    protected int getLayoutId() {
+        return 0;
     }
 }

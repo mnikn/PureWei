@@ -51,7 +51,7 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
 
     @Override
     @SuppressWarnings("unchecked")
-    public void onBindViewHolder(EasyViewHolder holder, int position, List<Object> payloads) {
+    public void onBindViewHolder(EasyViewHolder holder, int position) {
         holder.bindView(mDataList.get(position));
     }
 
