@@ -25,7 +25,7 @@ public abstract class RecyclerCursorAdapter<VH extends EasyViewHolder> extends R
     }
 
     @Override
-    @SuppressWarnings("Unchecked")
+    @SuppressWarnings("unchecked")
     public void onBindViewHolder(VH holder, int position) {
         mCursor.moveToPosition(position);
         holder.bindView(mCursor);

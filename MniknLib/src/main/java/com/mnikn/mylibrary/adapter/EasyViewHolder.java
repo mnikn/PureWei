@@ -6,10 +6,10 @@ import android.view.View;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class EasyViewHolder<T> extends RecyclerView.ViewHolder {
+public abstract class EasyViewHolder<Model> extends RecyclerView.ViewHolder {
     public EasyViewHolder(View itemView) {
         super(itemView);
     }
 
-    public abstract void bindView(T data);
+    public abstract void bindView(Model data);
 }
