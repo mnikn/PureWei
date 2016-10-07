@@ -17,8 +17,6 @@ import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.mylibrary.util.DrawableUtil;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.R;
@@ -27,6 +25,7 @@ import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -79,7 +78,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText.setText(model.retweetText);
             txtRetweetUserName.setText(model.retweetUserName);
             txtRetweetTime.setText(model.retweetTime);
-            GlideUtil.setCircleImage(mContext,model.retweetAvatarLargeUrl,circleImgRetweet);
+            ImageDisplayUtil.displayFromNet(mContext, model.retweetAvatarLargeUrl, circleImgRetweet);
             Cursor retweetPicsCursor = mContext.getContentResolver().query(
                     WeiboContract.WeiboPicsEntry.CONTENT_URI,
                     null,
@@ -91,10 +90,12 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
         ((AppCompatActivity) mContext).registerForContextMenu(btnMore);
 
-        GlideUtil.setCircleImage(
+        ImageDisplayUtil.displayFromNet(
                 mContext,
                 model.avatarLargeUrl,
-                circleImgUserIcon);
+                circleImgUserIcon
+        );
+
         txtText.setText(model.text);
         txtCreatedTime.setText(model.createdTime);
         txtSource.setText(model.source);
@@ -104,7 +105,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         btnReports.setText(model.reportsCount);
         if(model.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-                    DrawableUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red_24dp),
+                    ResourcesUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red_24dp),
                     null,
                     null,
                     null);
@@ -193,13 +194,13 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             imageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {
-                    Intent intent = new Intent(mContext,PhotoActivity.class);
-                    intent.putExtra(EXTRA_PHOTO_URL,largeUrl);
+                    Intent intent = new Intent(mContext, PhotoActivity.class);
+                    intent.putExtra(EXTRA_PHOTO_URL, largeUrl);
                     mContext.startActivity(intent);
                 }
             });
 
-            GlideUtil.setImage(mContext,middleUrl,imageView);
+            ImageDisplayUtil.displayFromNet(mContext,middleUrl,imageView);
             gridLayout.addView(imageView);
         } while (cursor.moveToNext());
         cursor.close();

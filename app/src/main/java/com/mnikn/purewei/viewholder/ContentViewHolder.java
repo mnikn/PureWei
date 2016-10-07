@@ -14,13 +14,13 @@ import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.mylibrary.util.DrawableUtil;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -87,7 +87,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText.setText(model.retweetText);
             txtRetweetUserName.setText(model.retweetUserName);
             txtRetweetTime.setText(model.retweetTime);
-            GlideUtil.setCircleImage(mContext,model.retweetAvatarLargeUrl,circleImgRetweet);
+            ImageDisplayUtil.displayFromNet(mContext, model.retweetAvatarLargeUrl, circleImgRetweet);
             Cursor retweetPicsCursor = mContext.getContentResolver().query(
                     WeiboContract.WeiboPicsEntry.CONTENT_URI,
                     null,
@@ -97,10 +97,11 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
 
-        GlideUtil.setCircleImage(
+        ImageDisplayUtil.displayFromNet(
                 mContext,
                 model.avatarLargeUrl,
-                circleImgUserIcon);
+                circleImgUserIcon
+        );
         txtText.setText(model.text);
         txtCreatedTime.setText(model.createdTime);
         txtSource.setText(model.source);
@@ -108,7 +109,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         btnAttitudes.setText(model.attitudesCount);
         if(model.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-                    DrawableUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red_24dp),
+                    ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red_24dp),
                     null,
                     null,
                     null);
@@ -155,7 +156,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
                 }
             });
 
-            GlideUtil.setImage(mContext,middleUrl,imageView);
+            ImageDisplayUtil.displayFromNet(mContext, middleUrl, imageView);
             gridLayout.addView(imageView);
         } while (cursor.moveToNext());
         cursor.close();

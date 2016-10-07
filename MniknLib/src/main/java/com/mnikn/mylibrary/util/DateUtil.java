@@ -47,7 +47,6 @@ public class DateUtil {
         return new Date(date).getTime();
     }
     public static String longToDate(long time){
-
         return new Date(time).toString();
     }
 }

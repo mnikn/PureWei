@@ -6,8 +6,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.mnikn.mylibrary.fragment.BaseFragment;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 import butterknife.BindView;
@@ -36,7 +36,7 @@ public class PhotoFragment extends BaseFragment {
 
         String url = getActivity().getIntent().getStringExtra(WeiboViewHolder.EXTRA_PHOTO_URL);
         if(url != null){
-            GlideUtil.setImage(getContext(),url,photoView);
+            ImageDisplayUtil.displayFromNet(getContext(), url, photoView);
         }
     }
 

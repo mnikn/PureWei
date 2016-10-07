@@ -20,7 +20,6 @@ import android.widget.TextView;
 
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.IListPresenter;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -30,6 +29,7 @@ import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.HomeLoaderCallback;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 import butterknife.BindView;
@@ -198,7 +198,7 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
-        GlideUtil.setCircleImage(this,url,circleImageView);
+        ImageDisplayUtil.displayFromNet(this, url, circleImageView);
 
         TextView txtAccount = ButterKnife.findById(navigationView,R.id.txt_account);
         txtAccount.setText(name);

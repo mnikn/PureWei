@@ -6,9 +6,9 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.CommentModel;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -45,10 +45,11 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     public void bindView(Cursor data) {
         model = new CommentModel(data);
 
-        GlideUtil.setCircleImage(
+        ImageDisplayUtil.displayFromNet(
                 mContext,
                 model.avatarLargeUrl,
-                circleImgUserIcon);
+                circleImgUserIcon
+        );
         txtText.setText(model.text);
         txtCreatedTime.setText(model.createdTime);
         txtSource.setText(model.source);

@@ -8,10 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.util.GlideUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -47,10 +47,12 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
 
         mModel = new UserModel(data);
 
-        GlideUtil.setCircleImage(
+        ImageDisplayUtil.displayFromNet(
                 mContext,
                 mModel.avatarHdUrl,
-                circleImgUserIcon);
+                circleImgUserIcon
+        );
+
         txtFollowersCount.setText(mModel.followersCount);
         txtFriendsCount.setText(mModel.friendsCount);
         txtWeiboCount.setText(mModel.weiboCount);
@@ -58,7 +60,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
         txtDescription.setText(mModel.description);
 
         if(mModel.coverUrl != null){
-            GlideUtil.setImage(mContext,mModel.coverUrl,imgCover,mContext.getResources().getDrawable(R.drawable.background));
+            ImageDisplayUtil.displayFromNet(mContext, mModel.coverUrl, imgCover);
         }
     }
 
