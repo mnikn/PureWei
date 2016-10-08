@@ -11,9 +11,8 @@ import com.mnikn.purewei.support.net.observer.AccountObserver;
 import com.mnikn.purewei.support.net.observer.CommentObserver;
 import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
-import com.mnikn.purewei.support.net.service.HomeWeiboService;
-import com.mnikn.purewei.support.net.service.HotWeiboService;
 import com.mnikn.purewei.support.net.service.UserService;
+import com.mnikn.purewei.support.net.service.WeiboService;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Observable;
@@ -35,9 +34,9 @@ public class RequestManager {
 
     @SuppressWarnings("unchecked")
     public static Observable getHomeWeibo(Context context,IListView view,int requestType,int page){
-        HomeWeiboService service = sRetrofit.create(HomeWeiboService.class);
+        WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.request(page, token.getToken());
+        Observable observable = service.getHomeWeibo(page, token.getToken());
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new WeiboObserver(context,view,requestType));
@@ -46,9 +45,9 @@ public class RequestManager {
 
     @SuppressWarnings("unchecked")
     public static Observable getHotWeibo(Context context,IListView view,int requestType,int page){
-        HotWeiboService service = sRetrofit.create(HotWeiboService.class);
+        WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.request(page, token.getToken());
+        Observable observable = service.getHotWeibo(page, token.getToken());
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new WeiboObserver(context,view,requestType));
