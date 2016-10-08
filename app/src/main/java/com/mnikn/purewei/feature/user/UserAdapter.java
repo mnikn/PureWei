@@ -13,7 +13,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserAdapter extends RecyclerCursorAdapter<EasyViewHolder> {
+public class UserAdapter extends RecyclerCursorAdapter {
 
     private static final int HEADER = 1;
     private static final int WEIBO = 2;

@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class RecyclerCursorAdapter<VH extends EasyViewHolder> extends RecyclerView.Adapter<VH> {
+public abstract class RecyclerCursorAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private Cursor mCursor;
 
@@ -26,7 +26,7 @@ public abstract class RecyclerCursorAdapter<VH extends EasyViewHolder> extends R
 
     @Override
     @SuppressWarnings("unchecked")
-    public void onBindViewHolder(VH holder, int position) {
+    public void onBindViewHolder(EasyViewHolder holder, int position) {
         mCursor.moveToPosition(position);
         holder.bindView(mCursor);
     }

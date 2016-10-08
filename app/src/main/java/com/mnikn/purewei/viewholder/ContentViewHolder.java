@@ -18,6 +18,7 @@ import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.WeiboDataHelper;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
@@ -68,12 +69,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     @Override
     public void bindView(Cursor data) {
 
-        Cursor weiboCursor = mContext.getContentResolver().query(
-                WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
-                null,
-                WeiboContract.WeiboEntry.COLUMN_WEIBO_ID + " = ?",
-                new String[]{NumberUtil.longToString(mWeiboId)},
-                null);
+        Cursor weiboCursor = WeiboDataHelper.getInstance().getWeiboWithUserByWeiboId(mWeiboId);
 
         if(weiboCursor == null) return;
 
