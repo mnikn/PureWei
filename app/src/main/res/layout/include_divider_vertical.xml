@@ -6,6 +6,6 @@
     <View
         android:layout_width="1dp"
         android:layout_height="42dp"
-        android:background="@color/lightGray" />
+        android:background="@color/colorLightGrey" />
 
 </FrameLayout>

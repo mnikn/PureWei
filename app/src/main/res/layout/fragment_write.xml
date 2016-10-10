@@ -15,11 +15,41 @@
         android:textSize="@dimen/text_size_18sp"
         android:hint="@string/edit_weibo_hint" />
 
-    <android.support.v7.widget.Toolbar
-        android:id="@+id/toolbar"
+    <android.support.v7.widget.ButtonBarLayout
         android:layout_width="match_parent"
-        android:layout_height="?attr/actionBarSize"
+        android:layout_height="wrap_content"
         android:background="?attr/colorPrimary"
-        android:layout_alignParentBottom="true"/>
+        android:layout_alignParentBottom="true">
+
+        <ImageButton
+            android:id="@+id/imgBtn_photo"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_photo_24dp"
+            android:background="@drawable/selector_write_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <ImageButton
+            android:id="@+id/imgBtn_at"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_at_24dp"
+            android:background="@drawable/selector_write_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_weight="2" />
+
+        <ImageButton
+            android:id="@+id/imgBtn_send"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_send_24dp"
+            android:background="@drawable/selector_write_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"/>
+
+    </android.support.v7.widget.ButtonBarLayout>
 
 </RelativeLayout>

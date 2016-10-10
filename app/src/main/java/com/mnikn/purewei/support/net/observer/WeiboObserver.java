@@ -48,7 +48,6 @@ public class WeiboObserver implements Observer<TimelineBean> {
         if(mRequestType == Constant.REFRESH){
             resolver.delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
             resolver.delete(WeiboContract.WeiboPicsEntry.CONTENT_URI,null,null);
-            resolver.delete(WeiboContract.WeiboCommentEntry.CONTENT_URI,null,null);
             resolver.delete(WeiboContract.UserEntry.CONTENT_URI,null,null);
         }
 
