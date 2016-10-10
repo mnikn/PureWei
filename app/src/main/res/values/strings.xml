@@ -1,10 +1,5 @@
 <resources>
     <string name="app_name">PureWei</string>
-    <string name="lable_detail">Detail</string>
-    <string name="label_user">User</string>
-
-    <string name="navigation_drawer_open">Open navigation drawer</string>
-    <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- home -->
     <string name="action_search">搜索</string>
@@ -21,20 +16,29 @@
     <string name="action_settings">设置</string>
     <string name="action_follow">关注</string>
     <string name="action_cancel_follow">取消关注</string>
+    <string name="navigation_drawer_open">Open navigation drawer</string>
+    <string name="navigation_drawer_close">Close navigation drawer</string>
 
+    <!-- write -->
+    <string name="label_write">发微博</string>
+    <string name="action_long_weibo">长微博</string>
+    <string name="edit_weibo_hint">请输入微博内容</string>
 
     <!-- user -->
+    <string name="label_user">用户详情</string>
     <string name="title_followers">粉丝</string>
     <string name="title_friends">关注</string>
     <string name="title_weibo">微博</string>
 
     <!-- detail -->
+    <string name="lable_detail">微博详情</string>
     <string name="action_comment">评论</string>
     <string name="action_retweet">转发</string>
     <string name="action_copy">复制</string>
     <string name="action_share">分享</string>
 
     <!-- settings -->
+    <string name="lable_settings">设置</string>
     <string name="title_account">帐号</string>
     <string name="title_settings">系统</string>
     <string name="title_others">其他</string>
@@ -53,8 +57,6 @@
 
     <string name="action_clear_cache">清除缓存</string>
     <string name="action_about">关于</string>
-
-    <string name="title_activity_settings">Settings</string>
 
 
 </resources>
