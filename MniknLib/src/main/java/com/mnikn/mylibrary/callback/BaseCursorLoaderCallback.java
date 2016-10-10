@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.support.v4.app.LoaderManager;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -13,9 +13,9 @@ import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
 public abstract class BaseCursorLoaderCallback implements LoaderManager.LoaderCallbacks<Cursor> {
 
     private Context mContext;
-    private RecyclerCursorAdapter mAdapter;
+    private EasyRecyclerCursorAdapter mAdapter;
 
-    public BaseCursorLoaderCallback(Context context,RecyclerCursorAdapter adapter) {
+    public BaseCursorLoaderCallback(Context context,EasyRecyclerCursorAdapter adapter) {
         mContext = context;
         mAdapter = adapter;
     }
@@ -30,7 +30,7 @@ public abstract class BaseCursorLoaderCallback implements LoaderManager.LoaderCa
         mAdapter.swapCursor(null);
     }
 
-    public RecyclerCursorAdapter getAdapter(){
+    public EasyRecyclerCursorAdapter getAdapter(){
         return mAdapter;
     }
     public Context getContext(){

@@ -2,8 +2,8 @@ package com.mnikn.purewei.support.net;
 
 import android.content.Context;
 
-import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
@@ -19,18 +19,13 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class RequestManager {
 
-    private static Retrofit sRetrofit = new Retrofit.Builder()
-            .baseUrl(BaseApi.BASE_URL)
-            .addConverterFactory(GsonConverterFactory.create())
-            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
-            .build();
+    private static Retrofit sRetrofit = RetrofitBuilder.getInstance().retrofit(BaseApi.BASE_URL);
 
     @SuppressWarnings("unchecked")
     public static Observable getHomeWeibo(Context context,IListView view,int requestType,int page){

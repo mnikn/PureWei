@@ -5,7 +5,7 @@ import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.viewholder.HeaderHolder;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -13,7 +13,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserAdapter extends RecyclerCursorAdapter {
+public class UserAdapter extends EasyRecyclerCursorAdapter {
 
     private static final int HEADER = 1;
     private static final int WEIBO = 2;

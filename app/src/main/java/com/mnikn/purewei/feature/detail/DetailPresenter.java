@@ -1,7 +1,6 @@
 package com.mnikn.purewei.feature.detail;
 
 import android.content.Context;
-import android.util.Log;
 
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.base.WeiboPresenter;
@@ -24,7 +23,6 @@ public class DetailPresenter extends WeiboPresenter implements IDetailPresenter{
 
     @Override
     public void doRefresh(int page) {
-        Log.e("RE","" + page);
         commentObservable = RequestManager.getComment(
                 getContext(),
                 getView(),

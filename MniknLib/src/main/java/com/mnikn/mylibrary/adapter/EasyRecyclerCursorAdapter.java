@@ -6,7 +6,7 @@ import android.support.v7.widget.RecyclerView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class RecyclerCursorAdapter extends RecyclerView.Adapter<EasyViewHolder> {
+public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private Cursor mCursor;
 

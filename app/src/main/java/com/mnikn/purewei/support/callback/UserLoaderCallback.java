@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -18,7 +18,7 @@ public class UserLoaderCallback extends BaseCursorLoaderCallback {
 
     private long mUid;
 
-    public UserLoaderCallback(Context context, RecyclerCursorAdapter adapter,long uid) {
+    public UserLoaderCallback(Context context, EasyRecyclerCursorAdapter adapter,long uid) {
         super(context, adapter);
         mUid = uid;
     }

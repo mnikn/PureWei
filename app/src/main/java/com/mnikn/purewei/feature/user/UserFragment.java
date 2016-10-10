@@ -5,7 +5,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -55,7 +55,7 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_USER,
                 null,
-                new UserLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter, mUid));
+                new UserLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter, mUid));
     }
 
     @Override

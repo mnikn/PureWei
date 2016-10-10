@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
 import com.mnikn.purewei.data.WeiboContract;
 
@@ -15,7 +15,7 @@ import com.mnikn.purewei.data.WeiboContract;
  */
 public class HomeLoaderCallback extends BaseCursorLoaderCallback {
 
-    public HomeLoaderCallback(Context context, RecyclerCursorAdapter adapter) {
+    public HomeLoaderCallback(Context context, EasyRecyclerCursorAdapter adapter) {
         super(context, adapter);
     }
 

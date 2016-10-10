@@ -6,14 +6,14 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomeAdapter extends RecyclerCursorAdapter{
+public class HomeAdapter extends EasyRecyclerCursorAdapter {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;

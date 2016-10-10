@@ -7,7 +7,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.RecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -59,7 +59,7 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetailView 
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(), (RecyclerCursorAdapter) mAdapter,model.weiboId));
+                new DetailLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter,model.weiboId));
 
         getActivity().registerForContextMenu(getRecyclerView());
     }
