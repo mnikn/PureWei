@@ -143,9 +143,11 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @Optional
     @OnClick({R.id.txt_text,R.id.btn_comments})
     public void navDetail(){
-        long weiboId = model.weiboId;
+//        long weiboId = model.weiboId;
+//        Intent intent = new Intent(mContext,DetailActivity.class);
+//        intent.putExtra(EXTRA_WEIBO_ID,weiboId);
         Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO_ID,weiboId);
+        intent.putExtra(EXTRA_WEIBO_ID,model);
         mContext.startActivity(intent);
     }
 

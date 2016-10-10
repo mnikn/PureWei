@@ -15,7 +15,7 @@ public class DetailActivity extends SingleFragmentActivity {
 
     @Override
     public BaseFragment getFragment() {
-        return DetailViewFragment.newInstance();
+        return DetailFragment.newInstance();
     }
 
     @Override

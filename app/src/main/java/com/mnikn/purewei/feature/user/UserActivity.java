@@ -1,7 +1,6 @@
 package com.mnikn.purewei.feature.user;
 
 import android.view.Menu;
-import android.view.MenuItem;
 
 import com.mnikn.mylibrary.activity.SingleFragmentActivity;
 import com.mnikn.mylibrary.fragment.BaseFragment;
@@ -21,11 +20,6 @@ public class UserActivity extends SingleFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.user, menu);
         return true;
-    }
-
-    @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
-        return super.onOptionsItemSelected(item);
     }
 
 
