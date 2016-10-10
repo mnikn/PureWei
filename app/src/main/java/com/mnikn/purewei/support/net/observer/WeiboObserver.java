@@ -86,6 +86,7 @@ public class WeiboObserver implements Observer<TimelineBean> {
     @Override
     public void onError(Throwable e) {
         ToastUtil.makeToastShort(mContext,e.getMessage());
+        mView.onLoadMoreFinish();
     }
 
     @Override

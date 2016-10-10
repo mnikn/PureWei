@@ -6,6 +6,7 @@ import android.content.Context;
 
 import com.mnikn.mylibrary.mvp.IListView;
 import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.data.entity.WeiboCommentEntity;
@@ -69,7 +70,8 @@ public class CommentObserver implements Observer<CommentBean>{
 
     @Override
     public void onError(Throwable e) {
-
+        ToastUtil.makeToastShort(mContext, e.getMessage());
+        mView.onLoadMoreFinish();
     }
 
     @Override
