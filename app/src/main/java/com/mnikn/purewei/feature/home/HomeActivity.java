@@ -116,6 +116,8 @@ public class HomeActivity extends AppCompatActivity
 
         initVariables();
         setupViews(null);
+
+        mPresenter.refresh();
     }
 
     @Override
@@ -205,7 +207,12 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void onRefresh() {
-        refreshLayout.setRefreshing(true);
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     @Override

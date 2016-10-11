@@ -33,6 +33,12 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetailView 
     }
 
     @Override
+    public void onResume() {
+        super.onResume();
+        mPresenter.refresh();
+    }
+
+    @Override
     protected void initVariables() {
         model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO_ID);
     }

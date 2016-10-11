@@ -95,6 +95,8 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
                 }
             }
         });
+
+
     }
 
     @Override
@@ -106,7 +108,12 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
 
     @Override
     public void onRefresh() {
-        refreshLayout.setRefreshing(true);
+        refreshLayout.post(new Runnable() {
+            @Override
+            public void run() {
+                refreshLayout.setRefreshing(true);
+            }
+        });
     }
 
     @Override
