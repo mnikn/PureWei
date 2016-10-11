@@ -6,6 +6,7 @@ import android.database.Cursor;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.model.CommentModel;
+import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.model.WeiboModel;
 
 /**
@@ -46,6 +47,20 @@ public class WeiboDataHelper {
     }
     public WeiboModel getWeiboModel(){
         return new WeiboModel(getWeiboWithUser());
+    }
+
+    public Cursor getUser(long uid){
+        return mResolver.query(
+                WeiboContract.UserEntry.CONTENT_URI,
+                null,
+                WeiboContract.UserEntry.COLUMN_USER_ID + " = ?",
+                new String[]{NumberUtil.longToString(uid)},
+                null);
+    }
+    public UserModel getUserModel(long uid){
+        Cursor cursor = getUser(uid);
+        cursor.moveToFirst();
+        return new UserModel(cursor);
     }
 
     public Cursor getCommentWithUser(long uid){

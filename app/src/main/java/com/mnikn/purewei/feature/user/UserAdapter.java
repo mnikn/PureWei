@@ -7,6 +7,7 @@ import android.view.ViewGroup;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.viewholder.HeaderHolder;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
@@ -19,9 +20,11 @@ public class UserAdapter extends EasyRecyclerCursorAdapter {
     private static final int WEIBO = 2;
 
     private Context mContext;
+    private UserModel mUserModel;
 
-    public UserAdapter(Context context){
+    public UserAdapter(Context context,UserModel model){
         mContext = context;
+        mUserModel = model;
     }
 
     @Override
@@ -40,7 +43,10 @@ public class UserAdapter extends EasyRecyclerCursorAdapter {
         EasyViewHolder holder;
         switch (viewType){
             case HEADER:
-                holder = new HeaderHolder(mContext,inflater.inflate(R.layout.item_user_header,parent,false));
+                holder = new HeaderHolder(
+                        mContext,
+                        inflater.inflate(R.layout.item_user_header,parent,false),
+                        mUserModel);
                 break;
             case WEIBO:
                 holder = new WeiboViewHolder(mContext,inflater.inflate(R.layout.item_weibo,parent,false));

@@ -62,8 +62,8 @@ public class UserEntity {
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOWERS_COUNT,followersCount);
         values.put(WeiboContract.UserEntry.COLUMN_FRIENDS_COUNT,friendsCount);
         values.put(WeiboContract.UserEntry.COLUMN_WEIBO_COUNT,weiboCount);
-        values.put(WeiboContract.UserEntry.COLUMN_FLLOWING,fllowing);
-        values.put(WeiboContract.UserEntry.COLUMN_FLLOW_ME,fllowMe);
+        values.put(WeiboContract.UserEntry.COLUMN_FOLLOWING,fllowing);
+        values.put(WeiboContract.UserEntry.COLUMN_FOLLOW_ME,fllowMe);
 
         return values;
     }

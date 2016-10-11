@@ -39,9 +39,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
-    public static final String EXTRA_UID = "extra_uid";
-    public static final String EXTRA_WEIBO = "extra_weibo";
     public static final String EXTRA_USER = "extra_user";
+    public static final String EXTRA_WEIBO = "extra_weibo";
     public static final String EXTRA_PHOTO_URL = "extra_photo_url";
 
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
@@ -129,9 +128,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @Optional
     @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
     public void navUser(){
-        long uid = mWeiboModel.userId;
         Intent intent = new Intent(mContext, UserActivity.class);
-        intent.putExtra(EXTRA_UID,uid);
+        intent.putExtra(EXTRA_USER,mUserModel);
         mContext.startActivity(intent);
     }
 

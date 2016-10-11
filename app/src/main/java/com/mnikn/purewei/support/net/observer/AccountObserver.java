@@ -3,6 +3,7 @@ package com.mnikn.purewei.support.net.observer;
 import android.content.Context;
 
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.WeiboDataHelper;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.bean.UserBean;
@@ -33,7 +34,7 @@ public class AccountObserver implements Observer<UserBean>{
         UserEntity entity = new UserEntity(value);
         mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,
                 entity.toContentValues());
-        mView.setUserView(entity.avatarLargeUrl,entity.userName);
+        mView.setUserView(WeiboDataHelper.getInstance().getUserModel(value.id));
     }
 
     @Override

@@ -36,16 +36,15 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     private Context mContext;
     private UserModel mModel;
 
-    public HeaderHolder(Context context,View itemView) {
+    public HeaderHolder(Context context,View itemView,UserModel model) {
         super(itemView);
         mContext = context;
+        mModel = model;
         ButterKnife.bind(this,itemView);
     }
 
     @Override
     public void bindView(Cursor data) {
-
-        mModel = new UserModel(data);
 
         ImageDisplayUtil.displayFromNet(
                 mContext,

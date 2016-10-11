@@ -166,8 +166,8 @@ public class WeiboContract {
 
         public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_NAME = "name";
-        public static final String COLUMN_FLLOWING = "fllowing";
-        public static final String COLUMN_FLLOW_ME = "fllow_me";
+        public static final String COLUMN_FOLLOWING = "following";
+        public static final String COLUMN_FOLLOW_ME = "follow_me";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_FOLLOWERS_COUNT = "followers_count";
         public static final String COLUMN_WEIBO_COUNT = "weibo_count";
@@ -185,11 +185,11 @@ public class WeiboContract {
         public static String getName(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
         }
-        public static boolean getFllowing(Cursor cursor){
-            return cursor.getInt(cursor.getColumnIndex(COLUMN_FLLOWING)) > 0;
+        public static boolean getFollowing(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOWING)) > 0;
         }
-        public static boolean getFllowMe(Cursor cursor){
-            return cursor.getInt(cursor.getColumnIndex(COLUMN_FLLOW_ME)) > 0;
+        public static boolean getFollowMe(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_FOLLOW_ME)) > 0;
         }
         public static String getDescription(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_DESCRIPTION));
@@ -206,7 +206,7 @@ public class WeiboContract {
         public static String getCoverUrl(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_COVER_URL));
         }
-        public static long getUsertId(Cursor cursor){
+        public static long getUserId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
         }
         public static long getFollowerCount(Cursor cursor){

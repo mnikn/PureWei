@@ -10,6 +10,7 @@ import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
 import com.mnikn.mylibrary.mvp.IListPresenter;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.UserLoaderCallback;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -19,7 +20,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
  */
 public class UserFragment extends BaseRecyclerFragment implements IUserView {
 
-    private long mUid;
+    private UserModel mUserModel;
 
     public static UserFragment newInstance() {
 
@@ -32,7 +33,7 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
 
     @Override
     protected void initVariables() {
-        mUid = getActivity().getIntent().getLongExtra(WeiboViewHolder.EXTRA_UID,0);
+        mUserModel = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_USER);
     }
 
     @Override
@@ -42,7 +43,9 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
 
     @Override
     public RecyclerView.Adapter getAdapter() {
-        return new UserAdapter(getContext());
+        UserAdapter adapter = new UserAdapter(getContext(),mUserModel);
+        adapter.setHasHeader(true);
+        return adapter;
     }
 
     @Override
@@ -55,7 +58,7 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_USER,
                 null,
-                new UserLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter, mUid));
+                new UserLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter,mUserModel.uid));
     }
 
     @Override

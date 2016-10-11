@@ -11,6 +11,9 @@ import com.mnikn.purewei.data.WeiboContract;
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserModel extends BaseModel{
+    public long uid;
+    public boolean following;
+    public boolean followMe;
     public String userName;
     public String description;
     public String profileImageUrl;
@@ -20,8 +23,7 @@ public class UserModel extends BaseModel{
     public String followersCount;
     public String friendsCount;
     public String weiboCount;
-    public boolean fllowing;
-    public boolean fllowMe;
+
 
     public UserModel(){}
 
@@ -30,6 +32,7 @@ public class UserModel extends BaseModel{
     }
 
     public void fromCursor(Cursor cursor){
+        uid = WeiboContract.UserEntry.getUserId(cursor);
         userName = WeiboContract.UserEntry.getName(cursor);
         description = WeiboContract.UserEntry.getDescription(cursor);
         profileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(cursor);
@@ -39,8 +42,8 @@ public class UserModel extends BaseModel{
         followersCount = NumberUtil.longToString(WeiboContract.UserEntry.getFollowerCount(cursor));
         friendsCount = NumberUtil.longToString(WeiboContract.UserEntry.getFriendsCount(cursor));
         weiboCount = NumberUtil.longToString(WeiboContract.UserEntry.getWeiboCount(cursor));
-        fllowing = WeiboContract.UserEntry.getFllowing(cursor);
-        fllowMe = WeiboContract.UserEntry.getFllowMe(cursor);
+        following = WeiboContract.UserEntry.getFollowing(cursor);
+        followMe = WeiboContract.UserEntry.getFollowMe(cursor);
     }
 
     public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
