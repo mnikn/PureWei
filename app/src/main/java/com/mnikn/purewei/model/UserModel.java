@@ -1,14 +1,16 @@
 package com.mnikn.purewei.model;
 
 import android.database.Cursor;
+import android.os.Parcel;
 
+import com.mnikn.mylibrary.mvp.BaseModel;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserModel{
+public class UserModel extends BaseModel{
     public String userName;
     public String description;
     public String profileImageUrl;
@@ -40,4 +42,17 @@ public class UserModel{
         fllowing = WeiboContract.UserEntry.getFllowing(cursor);
         fllowMe = WeiboContract.UserEntry.getFllowMe(cursor);
     }
+
+    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
+        @Override
+        public UserModel createFromParcel(Parcel source) {
+            UserModel model = new UserModel();
+            return BaseModel.quickCreateFromParcel(model,source);
+        }
+
+        @Override
+        public UserModel[] newArray(int size) {
+            return new UserModel[size];
+        }
+    };
 }
