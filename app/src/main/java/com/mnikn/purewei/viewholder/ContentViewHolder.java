@@ -28,7 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class ContentViewHolder extends EasyViewHolder<WeiboModel>{
+public class ContentViewHolder extends EasyViewHolder<Cursor>{
 
     public static final String EXTRA_PHOTO_URL = WeiboViewHolder.EXTRA_PHOTO_URL;
 
@@ -50,99 +50,19 @@ public class ContentViewHolder extends EasyViewHolder<WeiboModel>{
     TextView txtRetweet;
 
     private Context mContext;
+    private WeiboModel model;
 
-    public ContentViewHolder(Context context,View itemView) {
+    public ContentViewHolder(Context context,View itemView,WeiboModel model) {
         super(itemView);
         mContext = context;
+        this.model = model;
         setIsRecyclable(false);
         ButterKnife.bind(this, itemView);
     }
 
-//    @Override
-//    public void bindView(Cursor data) {
-//
-//        if(!NumberUtil.isZero(model.retweetId)){
-//            linearRetweet.setVisibility(View.VISIBLE);
-//            txtRetweetText.setText(model.retweetText);
-//            txtRetweetUserName.setText(model.retweetUserName);
-//            txtRetweetTime.setText(model.retweetTime);
-//            ImageDisplayUtil.displayFromNet(mContext, model.retweetAvatarLargeUrl, circleImgRetweet);
-//            Cursor retweetPicsCursor = mContext.getContentResolver().query(
-//                    WeiboContract.WeiboPicsEntry.CONTENT_URI,
-//                    null,
-//                    WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-//                    new String[]{NumberUtil.longToString(model.retweetId)},
-//                    null);
-//            setWeiboPics(retweetGridPics,retweetPicsCursor);
-//        }
-//
-//        ImageDisplayUtil.displayFromNet(
-//                mContext,
-//                model.avatarLargeUrl,
-//                circleImgUserIcon
-//        );
-//        txtText.setText(model.text);
-//        txtCreatedTime.setText(model.createdTime);
-//        txtSource.setText(model.source);
-//        txtUserName.setText(model.userName);
-//        btnAttitudes.setText(model.attitudesCount);
-//        if(model.liked){
-//            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-//                    ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red_24dp),
-//                    null,
-//                    null,
-//                    null);
-//        }
-//
-//        //加载图片
-//        Cursor picsCursor = mContext.getContentResolver().query(
-//                WeiboContract.WeiboPicsEntry.CONTENT_URI,
-//                null,
-//                WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-//                new String[]{NumberUtil.longToString(model.weiboId)},
-//                null);
-//        gridPics.setVisibility(View.VISIBLE);
-//        setWeiboPics(gridPics, picsCursor);
-//    }
-//
-//    private void setWeiboPics(GridLayout gridLayout,Cursor cursor){
-//        if(DataUtil.isEmpty(cursor)) return;
-//        cursor.moveToFirst();
-//        int rowCount = cursor.getCount() / 3;
-//        if(rowCount >= 0 && cursor.getCount() % 3 != 0){
-//            ++rowCount;
-//        }
-//        gridLayout.setRowCount(rowCount);
-//        gridLayout.setColumnCount(3);
-//        do {
-//            String middleUrl = WeiboContract.WeiboPicsEntry.getMiddleUrl(cursor);
-//            final String largeUrl = WeiboContract.WeiboPicsEntry.getLargeUrl(cursor);
-//            ImageView imageView = new ImageView(mContext);
-//            GridLayout.LayoutParams param = new GridLayout.LayoutParams();
-//            param.height = 160;
-//            param.width = 160;
-//            param.rightMargin = 5;
-//            param.topMargin = 5;
-//            param.setGravity(Gravity.CENTER);
-//            imageView.setLayoutParams(param);
-//
-//            imageView.setOnClickListener(new View.OnClickListener() {
-//                @Override
-//                public void onClick(View v) {
-//                    Intent intent = new Intent(mContext,PhotoActivity.class);
-//                    intent.putExtra(EXTRA_PHOTO_URL,largeUrl);
-//                    mContext.startActivity(intent);
-//                }
-//            });
-//
-//            ImageDisplayUtil.displayFromNet(mContext, middleUrl, imageView);
-//            gridLayout.addView(imageView);
-//        } while (cursor.moveToNext());
-//        cursor.close();
-//    }
-
     @Override
-    public void bindView(WeiboModel model) {
+    public void bindView(Cursor cursor) {
+
         if(!NumberUtil.isZero(model.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(model.retweetText);

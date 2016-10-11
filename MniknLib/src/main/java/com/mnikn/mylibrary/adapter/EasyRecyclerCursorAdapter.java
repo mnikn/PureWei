@@ -9,6 +9,8 @@ import android.support.v7.widget.RecyclerView;
 public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<EasyViewHolder> {
 
     private Cursor mCursor;
+    private boolean mHasHeader;
+    private boolean mHasFooter;
 
     public Cursor getCursor(){
         return mCursor;
@@ -19,15 +21,62 @@ public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<Eas
         notifyDataSetChanged();
     }
 
-    @Override
-    public int getItemCount() {
-        return mCursor != null ? mCursor.getCount() : 0;
+    public void setHasHeader(boolean hasHeader){
+        mHasHeader = hasHeader;
+    }
+    public void setHasFooter(boolean hasFooter){
+        mHasFooter = hasFooter;
     }
 
     @Override
     @SuppressWarnings("unchecked")
     public void onBindViewHolder(EasyViewHolder holder, int position) {
-        mCursor.moveToPosition(position);
-        holder.bindView(mCursor);
+        if(mHasHeader && !mHasFooter){
+            if(position == 0){
+                holder.bindView(null);
+            }
+            else{
+                mCursor.moveToPosition(position - 1);
+                holder.bindView(mCursor);
+            }
+        }
+        else if(mHasFooter && !mHasHeader){
+            if(position == mCursor.getCount()){
+                holder.bindView(null);
+            }
+            else{
+                mCursor.moveToPosition(position);
+                holder.bindView(mCursor);
+            }
+        }
+        else if(mHasHeader && mHasFooter){
+            if(position == 0 || position == mCursor.getCount() + 1){
+                holder.bindView(null);
+            }
+            else{
+                mCursor.moveToPosition(position - 1);
+                holder.bindView(mCursor);
+            }
+        }
+        else{
+            mCursor.moveToPosition(position);
+            holder.bindView(mCursor);
+        }
+    }
+
+    @Override
+    public int getItemCount() {
+        int size;
+        int cursorSize = ( mCursor == null ? 0 : mCursor.getCount());
+        if(mHasHeader && mHasFooter){
+            size = cursorSize + 2;
+        }
+        else if(mHasHeader || mHasFooter){
+            size = cursorSize + 1;
+        }
+        else{
+            size = cursorSize;
+        }
+        return size;
     }
 }

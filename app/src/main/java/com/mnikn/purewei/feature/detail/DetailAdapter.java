@@ -1,12 +1,11 @@
 package com.mnikn.purewei.feature.detail;
 
 import android.content.Context;
-import android.database.Cursor;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.viewholder.CommentViewHolder;
@@ -33,8 +32,10 @@ public class DetailAdapter extends EasyRecyclerCursorAdapter {
         EasyViewHolder holder;
         switch (viewType){
             case CONTENT:
-                holder = new ContentViewHolder(mContext,
-                        LayoutInflater.from(mContext).inflate(R.layout.item_content,parent,false));
+                holder = new ContentViewHolder(
+                        mContext,
+                        LayoutInflater.from(mContext).inflate(R.layout.item_content,parent,false),
+                        mWeiboModel);
                 break;
             case COMMENT:
                 holder = new CommentViewHolder(mContext,
@@ -47,18 +48,6 @@ public class DetailAdapter extends EasyRecyclerCursorAdapter {
     }
 
     @Override
-    public void onBindViewHolder(EasyViewHolder holder, int position) {
-        if(holder instanceof ContentViewHolder){
-            ((ContentViewHolder) holder).bindView(mWeiboModel);
-        }
-        else{
-            Cursor cursor = getCursor();
-            cursor.moveToPosition(position - 1);
-            holder.bindView(cursor);
-        }
-    }
-
-    @Override
     public int getItemViewType(int position) {
         if(position == 0){
             return CONTENT;
@@ -66,11 +55,5 @@ public class DetailAdapter extends EasyRecyclerCursorAdapter {
         else{
             return COMMENT;
         }
-    }
-
-    @Override
-    public int getItemCount() {
-        //if(getCursor() == null || getCursor().getCount() == 0) return 1;
-        return super.getItemCount();
     }
 }

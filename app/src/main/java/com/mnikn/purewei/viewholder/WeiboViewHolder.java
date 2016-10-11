@@ -24,6 +24,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
+import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
@@ -39,7 +40,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     public static final String EXTRA_UID = "extra_uid";
-    public static final String EXTRA_WEIBO_ID = "extra_weibo_id";
+    public static final String EXTRA_WEIBO = "extra_weibo";
+    public static final String EXTRA_USER = "extra_user";
     public static final String EXTRA_PHOTO_URL = "extra_photo_url";
 
     @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
@@ -60,7 +62,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_retweet_time) TextView txtRetweetTime;
 
     private Context mContext;
-    private WeiboModel model;
+    private WeiboModel mWeiboModel;
+    private UserModel mUserModel;
 
     public WeiboViewHolder(Context context,View itemView) {
         super(itemView);
@@ -71,19 +74,20 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView(Cursor data) {
-        model = new WeiboModel(data);
+        mWeiboModel = new WeiboModel(data);
+        mUserModel = new UserModel(data);
 
-        if(!NumberUtil.isZero(model.retweetId)){
+        if(!NumberUtil.isZero(mWeiboModel.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
-            txtRetweetText.setText(model.retweetText);
-            txtRetweetUserName.setText(model.retweetUserName);
-            txtRetweetTime.setText(model.retweetTime);
-            ImageDisplayUtil.displayFromNet(mContext, model.retweetAvatarLargeUrl, circleImgRetweet);
+            txtRetweetText.setText(mWeiboModel.retweetText);
+            txtRetweetUserName.setText(mWeiboModel.retweetUserName);
+            txtRetweetTime.setText(mWeiboModel.retweetTime);
+            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.retweetAvatarLargeUrl, circleImgRetweet);
             Cursor retweetPicsCursor = mContext.getContentResolver().query(
                     WeiboContract.WeiboPicsEntry.CONTENT_URI,
                     null,
                     WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-                    new String[]{NumberUtil.longToString(model.retweetId)},
+                    new String[]{NumberUtil.longToString(mWeiboModel.retweetId)},
                     null);
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
@@ -92,18 +96,18 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                model.avatarLargeUrl,
+                mWeiboModel.avatarLargeUrl,
                 circleImgUserIcon
         );
 
-        txtText.setText(model.text);
-        txtCreatedTime.setText(model.createdTime);
-        txtSource.setText(model.source);
-        txtUserName.setText(model.userName);
-        btnAttitudes.setText(model.attitudesCount);
-        btnComments.setText(model.commentsCount);
-        btnReports.setText(model.reportsCount);
-        if(model.liked){
+        txtText.setText(mWeiboModel.text);
+        txtCreatedTime.setText(mWeiboModel.createdTime);
+        txtSource.setText(mWeiboModel.source);
+        txtUserName.setText(mWeiboModel.userName);
+        btnAttitudes.setText(mWeiboModel.attitudesCount);
+        btnComments.setText(mWeiboModel.commentsCount);
+        btnReports.setText(mWeiboModel.reportsCount);
+        if(mWeiboModel.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
                     ResourcesUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red_24dp),
                     null,
@@ -116,7 +120,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
                 WeiboContract.WeiboPicsEntry.CONTENT_URI,
                 null,
                 WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-                new String[]{NumberUtil.longToString(model.weiboId)},
+                new String[]{NumberUtil.longToString(mWeiboModel.weiboId)},
                 null);
         gridPics.setVisibility(View.VISIBLE);
         setWeiboPics(gridPics, picsCursor);
@@ -125,29 +129,17 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @Optional
     @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
     public void navUser(){
-        long uid = model.userId;
+        long uid = mWeiboModel.userId;
         Intent intent = new Intent(mContext, UserActivity.class);
         intent.putExtra(EXTRA_UID,uid);
         mContext.startActivity(intent);
     }
 
-//    @Optional
-//    @OnClick({R.id.circle_img_retweet,R.id.txt_retweet_user_name})
-//    public void navRetweetUser(){
-//        long uid = model.userId;
-//        Intent intent = new Intent(mContext, UserActivity.class);
-//        intent.putExtra(EXTRA_UID,uid);
-//        mContext.startActivity(intent);
-//    }
-
     @Optional
     @OnClick({R.id.txt_text,R.id.btn_comments})
     public void navDetail(){
-//        long weiboId = model.weiboId;
-//        Intent intent = new Intent(mContext,DetailActivity.class);
-//        intent.putExtra(EXTRA_WEIBO_ID,weiboId);
         Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO_ID,model);
+        intent.putExtra(EXTRA_WEIBO, mWeiboModel);
         mContext.startActivity(intent);
     }
 
@@ -166,9 +158,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     @OnClick(R.id.txt_retweet_text)
     public void navRetweetDetail(){
-        long retweetId = model.retweetId;
         Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO_ID, retweetId);
+        intent.putExtra(EXTRA_WEIBO, mWeiboModel);
         mContext.startActivity(intent);
     }
 

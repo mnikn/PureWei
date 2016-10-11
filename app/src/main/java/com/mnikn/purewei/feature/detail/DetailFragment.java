@@ -40,7 +40,7 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetailView 
 
     @Override
     protected void initVariables() {
-        model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO_ID);
+        model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO);
     }
 
     @Override
@@ -50,10 +50,10 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetailView 
 
     @Override
     public RecyclerView.Adapter getAdapter() {
-        return new DetailAdapter(getContext(),model);
+        DetailAdapter adapter = new DetailAdapter(getContext(),model);
+        adapter.setHasHeader(true);
+        return adapter;
     }
-
-
 
     @Override
     public void setupViews(View parent) {
