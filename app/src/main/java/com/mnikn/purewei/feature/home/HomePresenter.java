@@ -39,6 +39,7 @@ public class HomePresenter extends WeiboPresenter implements IHomePresenter {
         super((Context) view, view);
         
         authorize();
+        refresh();
     }
 
     @Override

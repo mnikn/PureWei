@@ -115,8 +115,6 @@ public class HomeActivity extends AppCompatActivity
 
         initVariables();
         setupViews(null);
-
-        mPresenter.refresh();
     }
 
     @Override
