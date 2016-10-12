@@ -44,8 +44,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     }
 
     @Override
-    public void bindView(Cursor data) {
-
+    public void bindView() {
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 mModel.avatarHdUrl,

@@ -61,8 +61,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Override
-    public void bindView(Cursor cursor) {
-
+    public void bindView() {
         if(!NumberUtil.isZero(model.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(model.retweetText);

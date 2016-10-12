@@ -33,7 +33,7 @@ public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<Eas
     public void onBindViewHolder(EasyViewHolder holder, int position) {
         if(mHasHeader && !mHasFooter){
             if(position == 0){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 mCursor.moveToPosition(position - 1);
@@ -42,7 +42,7 @@ public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<Eas
         }
         else if(mHasFooter && !mHasHeader){
             if(position == mCursor.getCount()){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 mCursor.moveToPosition(position);
@@ -51,7 +51,7 @@ public abstract class EasyRecyclerCursorAdapter extends RecyclerView.Adapter<Eas
         }
         else if(mHasHeader && mHasFooter){
             if(position == 0 || position == mCursor.getCount() + 1){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 mCursor.moveToPosition(position - 1);

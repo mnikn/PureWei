@@ -64,7 +64,7 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
     public void onBindViewHolder(EasyViewHolder holder, int position) {
         if(mHasHeader && !mHasFooter){
             if(position == 0){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 holder.bindView(mDataList.get(position - 1));
@@ -72,7 +72,7 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
         }
         else if(mHasFooter && !mHasHeader){
             if(position == mDataList.size()){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 holder.bindView(mDataList.get(position));
@@ -80,7 +80,7 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
         }
         else if(mHasHeader && mHasFooter){
             if(position == 0 || position == mDataList.size() + 1){
-                holder.bindView(null);
+                holder.bindView();
             }
             else{
                 holder.bindView(mDataList.get(position - 1));
