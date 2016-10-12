@@ -2,13 +2,13 @@ package com.mnikn.purewei.support.base;
 
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.presenter.BaseListPresenter;
+import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
 import com.mnikn.mylibrary.mvp.view.INetListView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class WeiboPresenter extends BaseListPresenter {
+public abstract class WeiboPresenter extends NetListPresenter {
 
     private int mPage;
 

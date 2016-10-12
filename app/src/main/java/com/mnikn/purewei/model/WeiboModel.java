@@ -29,13 +29,8 @@ public class WeiboModel extends BaseModel{
     public String profileImageUrl;
     public String avatarLargeUrl;
     public String avatarHdUrl;
-    public String retweetUserName;
-    public String retweetText;
-    public String retweetTime;
-    public String retweetProfileImageUrl;
-    public String retweetAvatarLargeUrl;
-    public String retweetAvatarHdUrl;
     public boolean liked;
+    public WeiboModel retweetModel;
 
     public WeiboModel(){}
 
@@ -58,12 +53,7 @@ public class WeiboModel extends BaseModel{
                     null);
             if(retweetCursor != null){
                 retweetCursor.moveToFirst();
-                retweetUserName = WeiboContract.UserEntry.getName(retweetCursor);
-                retweetText = WeiboContract.WeiboEntry.getText(retweetCursor);
-                retweetTime = DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(retweetCursor));
-                retweetProfileImageUrl = WeiboContract.UserEntry.getProfileImageUrl(retweetCursor);
-                retweetAvatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(retweetCursor);
-                retweetAvatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(retweetCursor);
+                retweetModel = new WeiboModel(retweetCursor);
                 retweetCursor.close();
             }
 

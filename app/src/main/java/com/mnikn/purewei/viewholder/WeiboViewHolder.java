@@ -63,7 +63,6 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     private Context mContext;
     private WeiboModel mWeiboModel;
     private UserModel mUserModel;
-    private UserModel mRetweetUserModel;
 
     public WeiboViewHolder(Context context,View itemView) {
         super(itemView);
@@ -79,10 +78,10 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
         if(!NumberUtil.isZero(mWeiboModel.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
-            txtRetweetText.setText(mWeiboModel.retweetText);
-            txtRetweetUserName.setText(mWeiboModel.retweetUserName);
-            txtRetweetTime.setText(mWeiboModel.retweetTime);
-            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.retweetAvatarLargeUrl, circleImgRetweet);
+            txtRetweetText.setText(mWeiboModel.retweetModel.text);
+            txtRetweetUserName.setText(mWeiboModel.retweetModel.userName);
+            txtRetweetTime.setText(mWeiboModel.retweetModel.createdTime);
+            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.avatarLargeUrl, circleImgRetweet);
             Cursor retweetPicsCursor = mContext.getContentResolver().query(
                     WeiboContract.WeiboPicsEntry.CONTENT_URI,
                     null,
@@ -139,6 +138,14 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     public void navDetail(){
         Intent intent = new Intent(mContext,DetailActivity.class);
         intent.putExtra(EXTRA_WEIBO, mWeiboModel);
+        mContext.startActivity(intent);
+    }
+
+    @Optional
+    @OnClick({R.id.circle_img_retweet,R.id.txt_retweet_text})
+    public void navRetweetDetail(){
+        Intent intent = new Intent(mContext,DetailActivity.class);
+        intent.putExtra(EXTRA_WEIBO,mWeiboModel.retweetModel);
         mContext.startActivity(intent);
     }
 

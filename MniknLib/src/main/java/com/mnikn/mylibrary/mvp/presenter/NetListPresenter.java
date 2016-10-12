@@ -7,11 +7,11 @@ import com.mnikn.mylibrary.mvp.view.INetListView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class BaseListPresenter extends BasePresenter implements INetListPresenter {
+public abstract class NetListPresenter extends BasePresenter implements INetListPresenter {
 
     private boolean mIsLoading = false;
 
-    public BaseListPresenter(Context context,INetListView view) {
+    public NetListPresenter(Context context, INetListView view) {
         super(context,view);
     }
 

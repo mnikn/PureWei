@@ -64,10 +64,10 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     public void bindView() {
         if(!NumberUtil.isZero(model.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
-            txtRetweetText.setText(model.retweetText);
-            txtRetweetUserName.setText(model.retweetUserName);
-            txtRetweetTime.setText(model.retweetTime);
-            ImageDisplayUtil.displayFromNet(mContext, model.retweetAvatarLargeUrl, circleImgRetweet);
+            txtRetweetText.setText(model.retweetModel.text);
+            txtRetweetUserName.setText(model.retweetModel.userName);
+            txtRetweetTime.setText(model.retweetModel.createdTime);
+            ImageDisplayUtil.displayFromNet(mContext, model.retweetModel.avatarLargeUrl, circleImgRetweet);
             Cursor retweetPicsCursor = mContext.getContentResolver().query(
                     WeiboContract.WeiboPicsEntry.CONTENT_URI,
                     null,

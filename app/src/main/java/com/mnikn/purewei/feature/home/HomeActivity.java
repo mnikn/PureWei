@@ -17,8 +17,8 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.TextView;
 
+import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
-import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
@@ -235,12 +235,14 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public INetListPresenter getPresenter() {
+    @SuppressWarnings("unchecked")
+    public IHomePresenter getPresenter() {
         return new HomePresenter(this);
     }
 
     @Override
-    public RecyclerView.Adapter getAdapter() {
+    @SuppressWarnings("unchecked")
+    public EasyRecyclerCursorAdapter getAdapter() {
         return new HomeAdapter(this);
     }
 }
