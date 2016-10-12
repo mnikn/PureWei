@@ -63,6 +63,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     private Context mContext;
     private WeiboModel mWeiboModel;
     private UserModel mUserModel;
+    private UserModel mRetweetUserModel;
 
     public WeiboViewHolder(Context context,View itemView) {
         super(itemView);
@@ -154,16 +155,11 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         builder.show();
     }
 
-    @OnClick(R.id.txt_retweet_text)
-    public void navRetweetDetail(){
-        Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO, mWeiboModel);
-        mContext.startActivity(intent);
-    }
 
     private void setWeiboPics(GridLayout gridLayout,Cursor cursor){
         if(DataUtil.isEmpty(cursor)) return;
         cursor.moveToFirst();
+
         int rowCount = cursor.getCount() / 3;
         if(rowCount >= 0 && cursor.getCount() % 3 != 0){
             ++rowCount;

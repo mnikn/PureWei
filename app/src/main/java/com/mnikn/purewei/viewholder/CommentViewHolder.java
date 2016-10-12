@@ -1,17 +1,22 @@
 package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.model.CommentModel;
+import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
+import butterknife.Optional;
 import de.hdodenhof.circleimageview.CircleImageView;
 
 /**
@@ -26,7 +31,8 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_text) TextView txtText;
 
     private Context mContext;
-    private CommentModel model;
+    private CommentModel mCommentModel;
+    private UserModel mUserModel;
 
     public CommentViewHolder(Context context,View itemView) {
         super(itemView);
@@ -43,16 +49,25 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView(Cursor data) {
-        model = new CommentModel(data);
+        mCommentModel = new CommentModel(data);
+        mUserModel = new UserModel(data);
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                model.avatarLargeUrl,
+                mCommentModel.avatarLargeUrl,
                 circleImgUserIcon
         );
-        txtText.setText(model.text);
-        txtCreatedTime.setText(model.createdTime);
-        txtSource.setText(model.source);
-        txtUserName.setText(model.userName);
+        txtText.setText(mCommentModel.text);
+        txtCreatedTime.setText(mCommentModel.createdTime);
+        txtSource.setText(mCommentModel.source);
+        txtUserName.setText(mCommentModel.userName);
+    }
+
+    @Optional
+    @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
+    public void navUser(){
+        Intent intent = new Intent(mContext, UserActivity.class);
+        intent.putExtra(WeiboViewHolder.EXTRA_USER,mUserModel);
+        mContext.startActivity(intent);
     }
 }
