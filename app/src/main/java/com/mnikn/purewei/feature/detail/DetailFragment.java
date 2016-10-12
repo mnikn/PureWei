@@ -8,8 +8,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
-import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
-import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.fragment.NetRecyclerFragment;
+import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
@@ -19,7 +19,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends BaseRecyclerFragment implements IDetailView {
+public class DetailFragment extends NetRecyclerFragment implements IDetailView {
 
     private WeiboModel model;
 
@@ -44,7 +44,7 @@ public class DetailFragment extends BaseRecyclerFragment implements IDetailView 
     }
 
     @Override
-    public IListPresenter getPresenter() {
+    public INetListPresenter getPresenter() {
         return new DetailPresenter(getContext(),this,model.weiboId);
     }
 

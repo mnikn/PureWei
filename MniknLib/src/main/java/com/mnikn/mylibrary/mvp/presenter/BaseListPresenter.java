@@ -1,21 +1,23 @@
-package com.mnikn.mylibrary.mvp;
+package com.mnikn.mylibrary.mvp.presenter;
 
 import android.content.Context;
+
+import com.mnikn.mylibrary.mvp.view.INetListView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class BaseListPresenter extends BasePresenter implements IListPresenter {
+public abstract class BaseListPresenter extends BasePresenter implements INetListPresenter {
 
     private boolean mIsLoading = false;
 
-    public BaseListPresenter(Context context,IListView view) {
+    public BaseListPresenter(Context context,INetListView view) {
         super(context,view);
     }
 
     @Override
-    public IListView getView() {
-        return (IListView) super.getView();
+    public INetListView getView() {
+        return (INetListView) super.getView();
     }
 
     @Override

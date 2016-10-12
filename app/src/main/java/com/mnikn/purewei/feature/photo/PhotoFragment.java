@@ -5,7 +5,8 @@ import android.os.Bundle;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.presenter.IPresenter;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -38,6 +39,11 @@ public class PhotoFragment extends BaseFragment {
         if(url != null){
             ImageDisplayUtil.displayFromNet(getContext(), url, photoView);
         }
+    }
+
+    @Override
+    public <P extends IPresenter> P getPresenter() {
+        return null;
     }
 
     @Override

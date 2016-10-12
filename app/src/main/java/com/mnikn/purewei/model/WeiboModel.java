@@ -5,7 +5,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mnikn.mylibrary.mvp.BaseModel;
+import com.mnikn.mylibrary.mvp.model.BaseModel;
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.App;

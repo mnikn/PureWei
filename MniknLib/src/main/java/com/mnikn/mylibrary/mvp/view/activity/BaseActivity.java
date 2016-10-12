@@ -1,10 +1,10 @@
-package com.mnikn.mylibrary.activity;
+package com.mnikn.mylibrary.mvp.view.activity;
 
 import android.support.v4.app.FragmentManager;
 import android.support.v7.app.AppCompatActivity;
 import android.view.KeyEvent;
 
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

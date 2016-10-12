@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -22,12 +22,12 @@ import io.reactivex.disposables.Disposable;
 public class CommentObserver implements Observer<CommentBean>{
 
     private Context mContext;
-    private IListView mView;
+    private INetListView mView;
     private int mType;
     private int mPage;
     private long mWeiboId;
 
-    public CommentObserver(Context context,IListView view,int requestType,int page,long weiboId){
+    public CommentObserver(Context context,INetListView view,int requestType,int page,long weiboId){
         mContext = context;
         mView = view;
         mType = requestType;

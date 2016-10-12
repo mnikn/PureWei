@@ -3,7 +3,7 @@ package com.mnikn.mylibrary.listener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -12,10 +12,10 @@ public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
 
     private int mLastVisibleItem;
     private RecyclerView.Adapter mAdapter;
-    private IListPresenter mPresenter;
+    private INetListPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
 
-    public RecyclerScrollListener(RecyclerView.Adapter adapter, IListPresenter presenter,
+    public RecyclerScrollListener(RecyclerView.Adapter adapter, INetListPresenter presenter,
                                   LinearLayoutManager layoutManager) {
         mAdapter = adapter;
         mPresenter = presenter;

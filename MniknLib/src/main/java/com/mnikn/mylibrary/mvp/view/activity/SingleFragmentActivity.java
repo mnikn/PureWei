@@ -1,10 +1,10 @@
-package com.mnikn.mylibrary.activity;
+package com.mnikn.mylibrary.mvp.view.activity;
 
 import android.os.Bundle;
 import android.view.MenuItem;
 
 import com.mnikn.mylibrary.R;
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 
 
 public abstract class SingleFragmentActivity extends BaseActivity {

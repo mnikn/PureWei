@@ -4,8 +4,8 @@ import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.View;
 
-import com.mnikn.mylibrary.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
 
 /**

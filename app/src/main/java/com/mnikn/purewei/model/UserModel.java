@@ -3,7 +3,7 @@ package com.mnikn.purewei.model;
 import android.database.Cursor;
 import android.os.Parcel;
 
-import com.mnikn.mylibrary.mvp.BaseModel;
+import com.mnikn.mylibrary.mvp.model.BaseModel;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 

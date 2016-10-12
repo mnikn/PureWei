@@ -2,7 +2,7 @@ package com.mnikn.purewei.support.net;
 
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
@@ -28,7 +28,7 @@ public class RequestManager {
     private static Retrofit sRetrofit = RetrofitBuilder.getInstance().retrofit(BaseApi.BASE_URL);
 
     @SuppressWarnings("unchecked")
-    public static Observable getHomeWeibo(Context context,IListView view,int requestType,int page){
+    public static Observable getHomeWeibo(Context context,INetListView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         Observable observable = service.getHomeWeibo(page, token.getToken());
@@ -39,7 +39,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getHotWeibo(Context context,IListView view,int requestType,int page){
+    public static Observable getHotWeibo(Context context,INetListView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         Observable observable = service.getHotWeibo(page, token.getToken());
@@ -49,7 +49,7 @@ public class RequestManager {
         return observable;
     }
     @SuppressWarnings("unchecked")
-    public static Observable getComment(Context context,IListView view,int requestType,int page,long weiboId){
+    public static Observable getComment(Context context,INetListView view,int requestType,int page,long weiboId){
         CommentService service = sRetrofit.create(CommentService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         Observable observable = service.request(page, token.getToken(), weiboId);

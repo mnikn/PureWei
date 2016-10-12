@@ -18,7 +18,7 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
-import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
@@ -235,7 +235,7 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public IListPresenter getPresenter() {
+    public INetListPresenter getPresenter() {
         return new HomePresenter(this);
     }
 

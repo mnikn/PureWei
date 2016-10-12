@@ -6,7 +6,8 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.presenter.IPresenter;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
 
 import butterknife.BindView;
@@ -29,12 +30,17 @@ public class WriteFragment extends BaseFragment {
     }
 
     @Override
+    public void setupViews(View parent) {
+        ButterKnife.bind(this,parent);
+    }
+
+    @Override
     protected int getLayoutId() {
         return R.layout.fragment_write;
     }
 
     @Override
-    public void setupViews(View parent) {
-        ButterKnife.bind(this, parent);
+    public <P extends IPresenter> P getPresenter() {
+        return null;
     }
 }

@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
-import com.mnikn.mylibrary.fragment.BaseRecyclerFragment;
-import com.mnikn.mylibrary.mvp.IListPresenter;
+import com.mnikn.mylibrary.fragment.NetRecyclerFragment;
+import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.UserModel;
@@ -18,7 +18,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserFragment extends BaseRecyclerFragment implements IUserView {
+public class UserFragment extends NetRecyclerFragment implements IUserView {
 
     private UserModel mUserModel;
 
@@ -37,7 +37,7 @@ public class UserFragment extends BaseRecyclerFragment implements IUserView {
     }
 
     @Override
-    public IListPresenter getPresenter() {
+    public INetListPresenter getPresenter() {
         return new UserPresenter(getContext(),this);
     }
 

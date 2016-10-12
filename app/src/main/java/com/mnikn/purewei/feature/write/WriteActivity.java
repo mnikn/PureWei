@@ -2,8 +2,8 @@ package com.mnikn.purewei.feature.write;
 
 import android.view.Menu;
 
-import com.mnikn.mylibrary.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.fragment.BaseFragment;
+import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
 
 public class WriteActivity extends SingleFragmentActivity {

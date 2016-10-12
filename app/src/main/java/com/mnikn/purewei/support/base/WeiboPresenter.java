@@ -2,8 +2,8 @@ package com.mnikn.purewei.support.base;
 
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.BaseListPresenter;
-import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.mvp.presenter.BaseListPresenter;
+import com.mnikn.mylibrary.mvp.view.INetListView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -12,7 +12,7 @@ public abstract class WeiboPresenter extends BaseListPresenter {
 
     private int mPage;
 
-    public WeiboPresenter(Context context, IListView view) {
+    public WeiboPresenter(Context context, INetListView view) {
         super(context, view);
     }
 

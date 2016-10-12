@@ -13,21 +13,22 @@ import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
-import com.mnikn.mylibrary.mvp.IListPresenter;
-import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
+import com.mnikn.mylibrary.mvp.view.INetListView;
+import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 
 /**
  * A simple {@link Fragment} subclass.
  */
-public abstract class BaseRecyclerFragment extends BaseFragment implements IListView {
+public abstract class NetRecyclerFragment extends BaseFragment implements INetListView {
 
     public SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
     protected RecyclerView.Adapter mAdapter;
-    protected IListPresenter mPresenter;
+    protected INetListPresenter mPresenter;
 
     private boolean mIsDefaultLayout;
 
@@ -46,7 +47,7 @@ public abstract class BaseRecyclerFragment extends BaseFragment implements IList
         int layoutId = getLayoutId();
         View view;
         if(NumberUtil.isZero(layoutId)){
-            view = inflater.inflate(R.layout.fragment_list,container,false);
+            view = inflater.inflate(R.layout.fragment_recycler_net,container,false);
             mIsDefaultLayout = true;
         }
         else{

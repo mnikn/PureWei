@@ -45,7 +45,7 @@
             android:label="@string/lable_settings" />
         <activity
             android:name=".feature.write.WriteActivity"
-            android:label="@string/label_write"/>
+            android:label="@string/label_write" />
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
@@ -55,8 +55,6 @@
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" />
-
-
     </application>
 
 </manifest>

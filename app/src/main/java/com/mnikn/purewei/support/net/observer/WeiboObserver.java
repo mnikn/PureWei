@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.IListView;
+import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -26,10 +26,10 @@ import io.reactivex.disposables.Disposable;
 public class WeiboObserver implements Observer<TimelineBean> {
 
     private Context mContext;
-    private IListView mView;
+    private INetListView mView;
     private int mRequestType;
 
-    public WeiboObserver(Context context,IListView view,int requestType){
+    public WeiboObserver(Context context,INetListView view,int requestType){
         mContext = context;
         mView = view;
         mRequestType = requestType;
