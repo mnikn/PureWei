@@ -1,7 +1,5 @@
 package com.mnikn.mylibrary.mvp.presenter;
 
-import com.mnikn.mylibrary.mvp.presenter.IPresenter;
-
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */

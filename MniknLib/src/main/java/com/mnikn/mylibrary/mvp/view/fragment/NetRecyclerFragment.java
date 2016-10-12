@@ -1,4 +1,4 @@
-package com.mnikn.mylibrary.fragment;
+package com.mnikn.mylibrary.mvp.view.fragment;
 
 
 import android.os.Bundle;
@@ -15,8 +15,6 @@ import com.mnikn.mylibrary.R;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.mvp.view.INetListView;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
-import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 
 /**
@@ -30,31 +28,15 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
     protected RecyclerView.Adapter mAdapter;
     protected INetListPresenter mPresenter;
 
-    private boolean mIsDefaultLayout;
-
     @Override
-    public void onCreate(@Nullable Bundle savedInstanceState) {
-        super.onCreate(savedInstanceState);
-
-        initVariables();
-
-        mAdapter = getAdapter();
+    protected int getLayoutId() {
+        return R.layout.fragment_recycler_net;
     }
 
     @Nullable
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        int layoutId = getLayoutId();
-        View view;
-        if(NumberUtil.isZero(layoutId)){
-            view = inflater.inflate(R.layout.fragment_recycler_net,container,false);
-            mIsDefaultLayout = true;
-        }
-        else{
-            view = inflater.inflate(layoutId,container,false);
-            mIsDefaultLayout = false;
-        }
-        return view;
+    public View onCreateView(LayoutInflater inflater, @Nullable ViewGroup container, @Nullable Bundle savedInstanceState) {
+        return inflater.inflate(getLayoutId(),container,false);
     }
 
     @Override
@@ -64,18 +46,16 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
         mPresenter = getPresenter();
 
         initViews(view);
+
         setupViews(view);
     }
 
     private void initViews(View parent){
-        if(mIsDefaultLayout){
-            recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
-            refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
-        }
-        else{
-            recyclerView = (RecyclerView) parent.findViewById(getRecyclerViewId());
-            refreshLayout = (SwipeRefreshLayout) parent.findViewById(getRefreshLayoutId());
-        }
+
+        mAdapter = getAdapter();
+
+        recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
+        refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         recyclerView.setLayoutManager(manager);
@@ -147,13 +127,5 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
     public SwipeRefreshLayout getRefreshLayout(){
         return refreshLayout;
     }
-
-    protected abstract void initVariables();
-
-    //If get id is zero will use default layout
-    protected abstract int getRecyclerViewId();
-    protected abstract int getRefreshLayoutId();
-
-
 
 }

@@ -2,14 +2,15 @@ package com.mnikn.purewei.feature.detail;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
-import com.mnikn.mylibrary.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
+import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
@@ -33,14 +34,15 @@ public class DetailFragment extends NetRecyclerFragment implements IDetailView {
     }
 
     @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.refresh();
+    public void onCreate(@Nullable Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO);
     }
 
     @Override
-    protected void initVariables() {
-        model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO);
+    public void onResume() {
+        super.onResume();
+        mPresenter.refresh();
     }
 
     @Override
@@ -69,19 +71,5 @@ public class DetailFragment extends NetRecyclerFragment implements IDetailView {
 
         getActivity().registerForContextMenu(getRecyclerView());
     }
-
-    @Override
-    protected int getRecyclerViewId() {
-        return 0;
-    }
-    @Override
-    protected int getRefreshLayoutId() {
-        return 0;
-    }
-    @Override
-    protected int getLayoutId() {
-        return 0;
-    }
-
 
 }

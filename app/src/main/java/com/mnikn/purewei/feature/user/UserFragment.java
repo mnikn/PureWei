@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
-import com.mnikn.mylibrary.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
+import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.UserModel;
@@ -32,7 +32,8 @@ public class UserFragment extends NetRecyclerFragment implements IUserView {
     }
 
     @Override
-    protected void initVariables() {
+    public void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
         mUserModel = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_USER);
     }
 
@@ -59,18 +60,5 @@ public class UserFragment extends NetRecyclerFragment implements IUserView {
                 Constant.LOADER_USER,
                 null,
                 new UserLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter,mUserModel.uid));
-    }
-
-    @Override
-    protected int getRecyclerViewId() {
-        return 0;
-    }
-    @Override
-    protected int getRefreshLayoutId() {
-        return 0;
-    }
-    @Override
-    protected int getLayoutId() {
-        return 0;
     }
 }
