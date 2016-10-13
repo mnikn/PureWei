@@ -5,7 +5,6 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mnikn.mylibrary.mvp.model.BaseModel;
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.App;
@@ -15,7 +14,7 @@ import com.mnikn.purewei.support.util.TextUtil;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class WeiboModel extends BaseModel{
+public class WeiboModel implements Parcelable {
     public long weiboId;
     public long userId;
     public long retweetId;
@@ -76,12 +75,52 @@ public class WeiboModel extends BaseModel{
 
     }
 
+    @Override
+    public int describeContents() {
+        return 0;
+    }
 
-    public static final Parcelable.Creator<WeiboModel> CREATOR = new Creator<WeiboModel>() {
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.weiboId);
+        dest.writeLong(this.userId);
+        dest.writeLong(this.retweetId);
+        dest.writeString(this.reportsCount);
+        dest.writeString(this.commentsCount);
+        dest.writeString(this.attitudesCount);
+        dest.writeString(this.createdTime);
+        dest.writeString(this.text);
+        dest.writeString(this.source);
+        dest.writeString(this.userName);
+        dest.writeString(this.profileImageUrl);
+        dest.writeString(this.avatarLargeUrl);
+        dest.writeString(this.avatarHdUrl);
+        dest.writeByte(this.liked ? (byte) 1 : (byte) 0);
+        dest.writeParcelable(this.retweetModel, flags);
+    }
+
+    protected WeiboModel(Parcel in) {
+        this.weiboId = in.readLong();
+        this.userId = in.readLong();
+        this.retweetId = in.readLong();
+        this.reportsCount = in.readString();
+        this.commentsCount = in.readString();
+        this.attitudesCount = in.readString();
+        this.createdTime = in.readString();
+        this.text = in.readString();
+        this.source = in.readString();
+        this.userName = in.readString();
+        this.profileImageUrl = in.readString();
+        this.avatarLargeUrl = in.readString();
+        this.avatarHdUrl = in.readString();
+        this.liked = in.readByte() != 0;
+        this.retweetModel = in.readParcelable(WeiboModel.class.getClassLoader());
+    }
+
+    public static final Parcelable.Creator<WeiboModel> CREATOR = new Parcelable.Creator<WeiboModel>() {
         @Override
         public WeiboModel createFromParcel(Parcel source) {
-            WeiboModel model = new WeiboModel();
-            return BaseModel.quickCreateFromParcel(model,source);
+            return new WeiboModel(source);
         }
 
         @Override

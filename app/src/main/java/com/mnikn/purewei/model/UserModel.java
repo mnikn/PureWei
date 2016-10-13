@@ -2,15 +2,15 @@ package com.mnikn.purewei.model;
 
 import android.database.Cursor;
 import android.os.Parcel;
+import android.os.Parcelable;
 
-import com.mnikn.mylibrary.mvp.model.BaseModel;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserModel extends BaseModel{
+public class UserModel implements Parcelable {
     public long uid;
     public boolean following;
     public boolean followMe;
@@ -46,11 +46,46 @@ public class UserModel extends BaseModel{
         followMe = WeiboContract.UserEntry.getFollowMe(cursor);
     }
 
-    public static final Creator<UserModel> CREATOR = new Creator<UserModel>() {
+    @Override
+    public int describeContents() {
+        return 0;
+    }
+
+    @Override
+    public void writeToParcel(Parcel dest, int flags) {
+        dest.writeLong(this.uid);
+        dest.writeByte(this.following ? (byte) 1 : (byte) 0);
+        dest.writeByte(this.followMe ? (byte) 1 : (byte) 0);
+        dest.writeString(this.userName);
+        dest.writeString(this.description);
+        dest.writeString(this.profileImageUrl);
+        dest.writeString(this.avatarLargeUrl);
+        dest.writeString(this.avatarHdUrl);
+        dest.writeString(this.coverUrl);
+        dest.writeString(this.followersCount);
+        dest.writeString(this.friendsCount);
+        dest.writeString(this.weiboCount);
+    }
+
+    protected UserModel(Parcel in) {
+        this.uid = in.readLong();
+        this.following = in.readByte() != 0;
+        this.followMe = in.readByte() != 0;
+        this.userName = in.readString();
+        this.description = in.readString();
+        this.profileImageUrl = in.readString();
+        this.avatarLargeUrl = in.readString();
+        this.avatarHdUrl = in.readString();
+        this.coverUrl = in.readString();
+        this.followersCount = in.readString();
+        this.friendsCount = in.readString();
+        this.weiboCount = in.readString();
+    }
+
+    public static final Parcelable.Creator<UserModel> CREATOR = new Parcelable.Creator<UserModel>() {
         @Override
         public UserModel createFromParcel(Parcel source) {
-            UserModel model = new UserModel();
-            return BaseModel.quickCreateFromParcel(model,source);
+            return new UserModel(source);
         }
 
         @Override
