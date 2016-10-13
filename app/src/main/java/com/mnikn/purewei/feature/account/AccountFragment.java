@@ -6,7 +6,6 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
-import com.mnikn.mylibrary.mvp.presenter.IPresenter;
 import com.mnikn.mylibrary.mvp.view.fragment.RecyclerFragment;
 
 /**
@@ -25,12 +24,11 @@ public class AccountFragment extends RecyclerFragment {
 
     @Override
     public void setupViews(View parent) {
-
     }
 
     @Override
-    public <P extends IPresenter> P getPresenter() {
-        return null;
+    public AccountPresenter getPresenter() {
+        return new AccountPresenter(getContext(),this);
     }
 
     @Override

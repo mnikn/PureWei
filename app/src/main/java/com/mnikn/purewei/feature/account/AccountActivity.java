@@ -7,6 +7,6 @@ public class AccountActivity extends SingleFragmentActivity {
 
     @Override
     public BaseFragment getFragment() {
-        return null;
+        return AccountFragment.newInstance();
     }
 }

@@ -58,7 +58,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void setupViews(View parent) {
 
-        mPresenter = (IHomePresenter) getPresenter();
+        mPresenter = getPresenter();
 
         setSupportActionBar(toolbar);
 
