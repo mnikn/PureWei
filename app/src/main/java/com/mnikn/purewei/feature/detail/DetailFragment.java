@@ -20,7 +20,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends NetRecyclerFragment implements IDetailView {
+public class DetailFragment extends NetRecyclerFragment {
 
     private WeiboModel model;
 

@@ -18,7 +18,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserFragment extends NetRecyclerFragment implements IUserView {
+public class UserFragment extends NetRecyclerFragment {
 
     private UserModel mUserModel;
 
