@@ -15,6 +15,7 @@ import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
@@ -22,6 +23,7 @@ import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.account.AccountActivity;
 import com.mnikn.purewei.feature.settings.SettingsActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.feature.write.WriteActivity;
@@ -57,8 +59,6 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     public void setupViews(View parent) {
-
-        mPresenter = getPresenter();
 
         setSupportActionBar(toolbar);
 
@@ -115,6 +115,7 @@ public class HomeActivity extends AppCompatActivity
 
         initVariables();
         setupViews(null);
+        mPresenter = getPresenter();
     }
 
     @Override
@@ -198,9 +199,17 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(intent);
             }
         });
+        Button btnSwitchAccount = ButterKnife.findById(navigationView,R.id.btn_switch_account);
+        btnSwitchAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+            }
+        });
+
         ImageDisplayUtil.displayFromNet(this,account.avatarLargeUrl, circleImageView);
 
-        TextView txtAccount = ButterKnife.findById(navigationView,R.id.txt_account);
+        TextView txtAccount = ButterKnife.findById(navigationView, R.id.txt_account);
         txtAccount.setText(account.userName);
     }
 

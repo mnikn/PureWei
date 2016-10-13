@@ -37,9 +37,10 @@
             android:layout_weight="2" />
 
         <Button
+            android:id="@+id/btn_switch_account"
             style="@style/buttonWeibo"
             android:drawableLeft="@drawable/ic_switch_24dp"
-            android:text="切换帐号"
+            android:text="@string/action_switch_account"
             android:textColor="@android:color/white"/>
 
     </LinearLayout>
