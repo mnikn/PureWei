@@ -4,8 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.viewholder.CommentViewHolder;
@@ -14,7 +15,7 @@ import com.mnikn.purewei.viewholder.ContentViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class DetailAdapter extends EasyRecyclerCursorAdapter {
+public class DetailAdapter extends EasyRecyclerAdapter<CursorDataProvider,Object> {
 
     private static final int CONTENT = 1;
     private static final int COMMENT = 2;
@@ -22,7 +23,8 @@ public class DetailAdapter extends EasyRecyclerCursorAdapter {
     private Context mContext;
     private WeiboModel mWeiboModel;
 
-    public DetailAdapter(Context context, WeiboModel model){
+    public DetailAdapter(CursorDataProvider dataProvider,Context context, WeiboModel model) {
+        super(dataProvider);
         mContext = context;
         mWeiboModel = model;
     }

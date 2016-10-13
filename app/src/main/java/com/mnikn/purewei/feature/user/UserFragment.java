@@ -1,11 +1,11 @@
 package com.mnikn.purewei.feature.user;
 
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
+import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -43,8 +43,8 @@ public class UserFragment extends NetRecyclerFragment {
     }
 
     @Override
-    public RecyclerView.Adapter getAdapter() {
-        UserAdapter adapter = new UserAdapter(getContext(),mUserModel);
+    public EasyRecyclerAdapter getAdapter() {
+        UserAdapter adapter = new UserAdapter(new CursorDataProvider(),getContext(),mUserModel);
         adapter.setHasHeader(true);
         return adapter;
     }
@@ -59,6 +59,6 @@ public class UserFragment extends NetRecyclerFragment {
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_USER,
                 null,
-                new UserLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter,mUserModel.uid));
+                new UserLoaderCallback(getContext(),(EasyRecyclerAdapter) mAdapter,mUserModel.uid));
     }
 }

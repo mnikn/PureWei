@@ -7,6 +7,6 @@ public interface DataProvider<T,D> {
     T get(int position);
     D getDataContainer();
     boolean isEmpty();
-    void swap(D dataContainer);
+    void swap(D container);
     int size();
 }

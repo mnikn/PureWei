@@ -6,7 +6,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class ListDataProvider<T> implements WriteDataProvider<T, List<T>> {
+public class ListDataProvider<T> implements WriteDataProvider<T,List<T>> {
 
     private List<T> mDataList = new ArrayList<>();
 

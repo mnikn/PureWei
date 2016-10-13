@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.RecyclerViewBuilder;
 import com.mnikn.mylibrary.mvp.presenter.IListPresenter;
 import com.mnikn.mylibrary.mvp.view.IListView;
@@ -21,7 +22,7 @@ public abstract class RecyclerFragment <P extends IListPresenter> extends BaseFr
 
     public RecyclerView recyclerView;
 
-    protected RecyclerView.Adapter mAdapter;
+    protected EasyRecyclerAdapter mAdapter;
     protected P mPresenter;
 
     @Override

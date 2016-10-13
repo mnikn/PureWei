@@ -12,6 +12,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.RecyclerViewBuilder;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
@@ -25,7 +26,7 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
     public SwipeRefreshLayout refreshLayout;
     public RecyclerView recyclerView;
 
-    protected RecyclerView.Adapter mAdapter;
+    protected EasyRecyclerAdapter mAdapter;
     protected INetListPresenter mPresenter;
 
     @Override

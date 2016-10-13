@@ -6,7 +6,7 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -18,7 +18,7 @@ public class DetailLoaderCallback extends BaseCursorLoaderCallback {
 
     private long mWeiboId;
 
-    public DetailLoaderCallback(Context context, EasyRecyclerCursorAdapter adapter,long weiboId) {
+    public DetailLoaderCallback(Context context, EasyRecyclerAdapter adapter,long weiboId) {
         super(context, adapter);
         mWeiboId = weiboId;
     }

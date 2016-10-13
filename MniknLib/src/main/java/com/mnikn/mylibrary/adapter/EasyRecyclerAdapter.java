@@ -8,11 +8,19 @@ import com.mnikn.mylibrary.adapter.data.WriteDataProvider;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class EasyRecyclerAdapter<T,D extends DataProvider> extends RecyclerView.Adapter<EasyViewHolder>{
+public abstract class EasyRecyclerAdapter<D extends DataProvider,T> extends RecyclerView.Adapter<EasyViewHolder>{
 
     private D mDataProvider;
     private boolean mHasHeader;
     private boolean mHasFooter;
+
+    public EasyRecyclerAdapter(D dataProvider){
+        mDataProvider = dataProvider;
+    }
+
+    public Object getDataContainer(){
+        return mDataProvider.getDataContainer();
+    }
 
     public void add(T data){
         if(mDataProvider instanceof WriteDataProvider){
@@ -26,6 +34,12 @@ public abstract class EasyRecyclerAdapter<T,D extends DataProvider> extends Recy
             ((WriteDataProvider) mDataProvider).add(data, position);
             notifyItemInserted(position);
         }
+    }
+
+    public <C> void swap(C dataContainer){
+        //Log.e("S","" + ((Cursor) dataContainer).getCount());
+        mDataProvider.swap(dataContainer);
+        notifyDataSetChanged();
     }
 
     public void update(T data,int position){
@@ -102,17 +116,17 @@ public abstract class EasyRecyclerAdapter<T,D extends DataProvider> extends Recy
     @Override
     public int getItemCount() {
         int size;
+        int containerSize = ( getDataContainer() == null ? 0 : mDataProvider.size());
         if(mHasHeader && mHasFooter){
-            size = mDataProvider.size() + 2;
+            size = containerSize + 2;
         }
         else if(mHasHeader || mHasFooter){
-            size = mDataProvider.size() + 1;
+            size = containerSize + 1;
         }
         else{
-            size = mDataProvider.size();
+            size = containerSize;
         }
         return size;
     }
-
 
 }

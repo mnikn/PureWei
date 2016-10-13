@@ -3,11 +3,11 @@ package com.mnikn.purewei.feature.account;
 
 import android.os.Bundle;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
+import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.mvp.view.fragment.RecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
@@ -45,7 +45,7 @@ public class AccountFragment extends RecyclerFragment {
         getLoaderManager().initLoader(
                 ACCOUNT_LOADER,
                 null,
-                new AccountLoaderCallback(getContext(),(EasyRecyclerCursorAdapter) mAdapter));
+                new AccountLoaderCallback(getContext(),mAdapter));
     }
 
     @Override
@@ -54,7 +54,7 @@ public class AccountFragment extends RecyclerFragment {
     }
 
     @Override
-    public RecyclerView.Adapter getAdapter() {
-        return new AccountAdapter(getContext());
+    public EasyRecyclerAdapter getAdapter() {
+        return new AccountAdapter(new CursorDataProvider(),getContext());
     }
 }

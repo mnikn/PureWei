@@ -18,7 +18,8 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
+import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -114,8 +115,9 @@ public class HomeActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initVariables();
-        setupViews(null);
         mPresenter = getPresenter();
+        setupViews(null);
+
     }
 
     @Override
@@ -253,7 +255,7 @@ public class HomeActivity extends AppCompatActivity
 
     @Override
     @SuppressWarnings("unchecked")
-    public EasyRecyclerCursorAdapter getAdapter() {
-        return new HomeAdapter(this);
+    public EasyRecyclerAdapter getAdapter() {
+        return new HomeAdapter(new CursorDataProvider(),this);
     }
 }

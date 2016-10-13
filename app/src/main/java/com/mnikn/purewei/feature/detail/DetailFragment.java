@@ -4,11 +4,11 @@ package com.mnikn.purewei.feature.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerCursorAdapter;
+import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
+import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
@@ -51,8 +51,8 @@ public class DetailFragment extends NetRecyclerFragment {
     }
 
     @Override
-    public RecyclerView.Adapter getAdapter() {
-        DetailAdapter adapter = new DetailAdapter(getContext(),model);
+    public EasyRecyclerAdapter getAdapter() {
+        DetailAdapter adapter = new DetailAdapter(new CursorDataProvider(),getContext(),model);
         adapter.setHasHeader(true);
         return adapter;
     }
@@ -67,7 +67,7 @@ public class DetailFragment extends NetRecyclerFragment {
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(), (EasyRecyclerCursorAdapter) mAdapter,model.weiboId));
+                new DetailLoaderCallback(getContext(),mAdapter,model.weiboId));
 
         getActivity().registerForContextMenu(getRecyclerView());
     }
