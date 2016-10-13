@@ -2,54 +2,62 @@ package com.mnikn.mylibrary.adapter;
 
 import android.support.v7.widget.RecyclerView;
 
-import com.mnikn.mylibrary.util.DataUtil;
-
-import java.util.ArrayList;
-import java.util.List;
+import com.mnikn.mylibrary.adapter.data.DataProvider;
+import com.mnikn.mylibrary.adapter.data.WriteDataProvider;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyViewHolder>{
+public abstract class EasyRecyclerAdapter<T,D extends DataProvider> extends RecyclerView.Adapter<EasyViewHolder>{
 
-    private List<T> mDataList;
+    private D mDataProvider;
     private boolean mHasHeader;
     private boolean mHasFooter;
 
-    public EasyRecyclerAdapter() {
-        mDataList = new ArrayList<>();
-    }
-
     public void add(T data){
-        mDataList.add(data);
-        notifyItemInserted(DataUtil.getLastIndex(mDataList));
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).add(data);
+            notifyItemInserted(mDataProvider.size() - 1);
+        }
+
     }
     public void add(T data,int position){
-        mDataList.add(position, data);
-        notifyItemInserted(position);
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).add(data, position);
+            notifyItemInserted(position);
+        }
     }
-    public void addAll(List<T> dataList){
-        mDataList.addAll(dataList);
-        notifyDataSetChanged();
-    }
+
     public void update(T data,int position){
-        mDataList.set(position, data);
-        notifyItemChanged(position);
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).update(data,position);
+            notifyItemInserted(position);
+        }
     }
+
     public void remove(T data){
-        mDataList.remove(data);
-        notifyItemRemoved(DataUtil.getLastIndex(mDataList));
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).remove(data);
+            notifyItemInserted(mDataProvider.size() - 1);
+        }
     }
+
     public void remove(int position){
-        mDataList.remove(position);
-        notifyItemRemoved(position);
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).remove(position);
+            notifyItemInserted(position);
+        }
     }
+
     public void clear(){
-        mDataList.clear();
-        notifyDataSetChanged();
+        if(mDataProvider instanceof WriteDataProvider){
+            ((WriteDataProvider) mDataProvider).clear();
+            notifyDataSetChanged();
+        }
     }
+
     public boolean isEmpty(){
-        return mDataList.isEmpty();
+        return mDataProvider.isEmpty();
     }
 
     public void setHasHeader(boolean hasHeader){
@@ -67,27 +75,27 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
                 holder.bindView();
             }
             else{
-                holder.bindView(mDataList.get(position - 1));
+                holder.bindView(mDataProvider.get(position - 1));
             }
         }
         else if(mHasFooter && !mHasHeader){
-            if(position == mDataList.size()){
+            if(position == mDataProvider.size()){
                 holder.bindView();
             }
             else{
-                holder.bindView(mDataList.get(position));
+                holder.bindView(mDataProvider.get(position));
             }
         }
         else if(mHasHeader && mHasFooter){
-            if(position == 0 || position == mDataList.size() + 1){
+            if(position == 0 || position == mDataProvider.size() + 1){
                 holder.bindView();
             }
             else{
-                holder.bindView(mDataList.get(position - 1));
+                holder.bindView(mDataProvider.get(position - 1));
             }
         }
         else{
-            holder.bindView(mDataList.get(position));
+            holder.bindView(mDataProvider.get(position));
         }
     }
 
@@ -95,13 +103,13 @@ public abstract class EasyRecyclerAdapter<T> extends RecyclerView.Adapter<EasyVi
     public int getItemCount() {
         int size;
         if(mHasHeader && mHasFooter){
-            size = mDataList.size() + 2;
+            size = mDataProvider.size() + 2;
         }
         else if(mHasHeader || mHasFooter){
-            size = mDataList.size() + 1;
+            size = mDataProvider.size() + 1;
         }
         else{
-            size = mDataList.size();
+            size = mDataProvider.size();
         }
         return size;
     }

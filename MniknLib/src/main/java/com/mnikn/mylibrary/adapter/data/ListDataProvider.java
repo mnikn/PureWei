@@ -21,11 +21,6 @@ public class ListDataProvider<T> implements WriteDataProvider<T, List<T>> {
     }
 
     @Override
-    public void addAll(List<T> dataList) {
-        mDataList.addAll(dataList);
-    }
-
-    @Override
     public void update(T data, int position) {
         mDataList.set(position, data);
     }
@@ -46,7 +41,7 @@ public class ListDataProvider<T> implements WriteDataProvider<T, List<T>> {
     }
 
     @Override
-    public T getData(int position) {
+    public T get(int position) {
         return mDataList.get(position);
     }
 
@@ -58,6 +53,11 @@ public class ListDataProvider<T> implements WriteDataProvider<T, List<T>> {
     @Override
     public void swap(List<T> dataContainer) {
         mDataList = dataContainer;
+    }
+
+    @Override
+    public int size() {
+        return mDataList.size();
     }
 
     @Override

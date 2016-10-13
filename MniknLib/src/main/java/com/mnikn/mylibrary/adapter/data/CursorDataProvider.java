@@ -10,7 +10,7 @@ public class CursorDataProvider implements DataProvider<Cursor,Cursor> {
     private Cursor mCursor;
 
     @Override
-    public Cursor getData(int position) {
+    public Cursor get(int position) {
         mCursor.moveToPosition(position);
         return mCursor;
     }
@@ -28,5 +28,10 @@ public class CursorDataProvider implements DataProvider<Cursor,Cursor> {
     @Override
     public void swap(Cursor dataContainer) {
         mCursor = dataContainer;
+    }
+
+    @Override
+    public int size() {
+        return mCursor.getCount();
     }
 }
