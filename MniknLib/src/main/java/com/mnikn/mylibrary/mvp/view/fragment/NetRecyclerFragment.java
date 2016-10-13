@@ -12,10 +12,10 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.adapter.RecyclerViewBuilder;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
 import com.mnikn.mylibrary.mvp.view.INetListView;
-import com.mnikn.mylibrary.util.ToastUtil;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -53,17 +53,16 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
     private void initViews(View parent){
 
         mAdapter = getAdapter();
-
         recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
         refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.addOnScrollListener(new RecyclerScrollListener(
-                mAdapter,
-                mPresenter,
-                manager));
-        recyclerView.setAdapter(mAdapter);
+        RecyclerViewBuilder.getInstance().bind(recyclerView,mAdapter)
+                .layoutManager(manager)
+                .OnScroll(new RecyclerScrollListener(
+                        mAdapter,
+                        mPresenter,
+                        manager));
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
                 android.R.color.holo_green_dark,
@@ -102,9 +101,6 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
         refreshLayout.setRefreshing(false);
         mPresenter.setIsLoading(false);
         recyclerView.scrollToPosition(0);
-        if(getContext() != null){
-            ToastUtil.makeToastShort(getContext(), "刷新完成");
-        }
     }
 
     @Override
@@ -116,9 +112,6 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
     public void onLoadMoreFinish() {
         refreshLayout.setRefreshing(false);
         mPresenter.setIsLoading(false);
-        if(getContext() != null){
-            ToastUtil.makeToastShort(getContext(), "加载完成");
-        }
     }
 
     public RecyclerView getRecyclerView(){

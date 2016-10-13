@@ -9,6 +9,7 @@ import android.view.View;
 import android.view.ViewGroup;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.adapter.RecyclerViewBuilder;
 import com.mnikn.mylibrary.mvp.presenter.IListPresenter;
 import com.mnikn.mylibrary.mvp.view.IListView;
 
@@ -50,10 +51,9 @@ public abstract class RecyclerFragment <P extends IListPresenter> extends BaseFr
         mAdapter = getAdapter();
 
         recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
-
-        LinearLayoutManager manager = new LinearLayoutManager(getContext());
-        recyclerView.setLayoutManager(manager);
-        recyclerView.setAdapter(mAdapter);
+        RecyclerViewBuilder.getInstance()
+                .bind(recyclerView,mAdapter)
+                .layoutManager(new LinearLayoutManager(getContext()));
 
     }
 
