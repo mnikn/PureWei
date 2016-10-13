@@ -25,7 +25,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomePresenter extends WeiboPresenter implements IHomePresenter {
+public class HomePresenter extends WeiboPresenter<IHomeView> implements IHomePresenter {
 
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;

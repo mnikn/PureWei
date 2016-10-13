@@ -8,11 +8,11 @@ import com.mnikn.mylibrary.mvp.view.INetListView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class WeiboPresenter extends NetListPresenter {
+public abstract class WeiboPresenter<V extends INetListView> extends NetListPresenter<V> {
 
     private int mPage;
 
-    public WeiboPresenter(Context context, INetListView view) {
+    public WeiboPresenter(Context context,V view) {
         super(context, view);
     }
 

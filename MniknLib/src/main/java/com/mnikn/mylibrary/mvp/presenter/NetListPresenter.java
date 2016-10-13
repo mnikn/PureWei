@@ -7,17 +7,12 @@ import com.mnikn.mylibrary.mvp.view.INetListView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetListPresenter extends BasePresenter implements INetListPresenter {
+public abstract class NetListPresenter<V extends INetListView> extends BasePresenter<V> implements INetListPresenter {
 
     private boolean mIsLoading = false;
 
-    public NetListPresenter(Context context, INetListView view) {
+    public NetListPresenter(Context context,V view) {
         super(context,view);
-    }
-
-    @Override
-    public INetListView getView() {
-        return (INetListView) super.getView();
     }
 
     @Override

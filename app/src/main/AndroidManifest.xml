@@ -55,6 +55,8 @@
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" />
+
+        <activity android:name=".feature.account.AccountActivity"></activity>
     </application>
 
 </manifest>

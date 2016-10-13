@@ -5,6 +5,6 @@ import com.mnikn.mylibrary.mvp.view.IView;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public interface IPresenter<V extends IView> {
-    V getView();
+public interface IPresenter {
+    <V extends IView> V getView();
 }

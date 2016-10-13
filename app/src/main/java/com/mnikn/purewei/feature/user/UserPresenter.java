@@ -11,7 +11,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserPresenter extends WeiboPresenter implements IUserPresenter {
+public class UserPresenter extends WeiboPresenter<IUserView> implements IUserPresenter {
 
     private Observable homeWeiboObservale;
 

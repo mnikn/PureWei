@@ -1,11 +1,12 @@
 package com.mnikn.mylibrary.mvp.view.fragment;
 
 import com.mnikn.mylibrary.R;
+import com.mnikn.mylibrary.mvp.view.IListView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class RecyclerFragment extends BaseFragment{
+public abstract class RecyclerFragment extends BaseFragment implements IListView{
 
     @Override
     protected int getLayoutId() {
