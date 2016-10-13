@@ -3,9 +3,9 @@ package com.mnikn.purewei.feature.detail;
 import android.content.Context;
 
 import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
+import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
 import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.base.WeiboPresenter;
 import com.mnikn.purewei.support.net.RequestManager;
 
 import io.reactivex.Observable;
@@ -13,7 +13,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class DetailPresenter extends WeiboPresenter<INetListView> implements INetListPresenter {
+public class DetailPresenter extends NetListPresenter<INetListView> implements INetListPresenter {
 
     private long mWeiboId;
     private Observable commentObservable;
@@ -24,7 +24,7 @@ public class DetailPresenter extends WeiboPresenter<INetListView> implements INe
     }
 
     @Override
-    public void doRefresh(int page) {
+    public void refreshRequest(int page) {
         commentObservable = RequestManager.getComment(
                 getContext(),
                 getView(),
@@ -34,7 +34,7 @@ public class DetailPresenter extends WeiboPresenter<INetListView> implements INe
     }
 
     @Override
-    public void doLoadMore(int page) {
+    public void loadMoreRequest(int page) {
         commentObservable = RequestManager.getComment(
                 getContext(),
                 getView(),
@@ -48,5 +48,6 @@ public class DetailPresenter extends WeiboPresenter<INetListView> implements INe
         setIsLoading(false);
         RequestManager.cancelRequest(commentObservable);
     }
+
 
 }

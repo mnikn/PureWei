@@ -5,6 +5,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
@@ -12,7 +13,6 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.AccountEntity;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.base.WeiboPresenter;
 import com.mnikn.purewei.support.net.RequestManager;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -25,7 +25,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomePresenter extends WeiboPresenter<IHomeView> implements IHomePresenter {
+public class HomePresenter extends NetListPresenter<IHomeView> implements IHomePresenter {
 
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
@@ -101,46 +101,6 @@ public class HomePresenter extends WeiboPresenter<IHomeView> implements IHomePre
     }
 
     @Override
-    public void doRefresh(int page) {
-        switch (mType){
-            case Constant.HOME:
-                homeWeiboObservable = RequestManager.getHomeWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.REFRESH,
-                        page);
-                break;
-            case Constant.HOT:
-                hotWeiboObservable = RequestManager.getHotWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.REFRESH,
-                        page);
-                break;
-        }
-    }
-
-    @Override
-    public void doLoadMore(int page) {
-        switch (mType){
-            case Constant.HOME:
-                homeWeiboObservable = RequestManager.getHomeWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.LOAD_MORE,
-                        page);
-                break;
-            case Constant.HOT:
-                hotWeiboObservable = RequestManager.getHotWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.LOAD_MORE,
-                        page);
-                break;
-        }
-    }
-
-    @Override
     public void authorizeCallBack(int requestCode, int resultCode, Intent data) {
         if(mSsoHandler != null){
             mSsoHandler.authorizeCallBack(requestCode,resultCode,data);
@@ -152,5 +112,45 @@ public class HomePresenter extends WeiboPresenter<IHomeView> implements IHomePre
         setIsLoading(false);
         RequestManager.cancelRequest(homeWeiboObservable);
         RequestManager.cancelRequest(hotWeiboObservable);
+    }
+
+    @Override
+    public void refreshRequest(int page) {
+        switch (mType){
+            case Constant.HOME:
+                homeWeiboObservable = RequestManager.getHomeWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.REFRESH,
+                        page);
+                break;
+            case Constant.HOT:
+                hotWeiboObservable = RequestManager.getHotWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.REFRESH,
+                        page);
+                break;
+        }
+    }
+
+    @Override
+    public void loadMoreRequest(int page) {
+        switch (mType){
+            case Constant.HOME:
+                homeWeiboObservable = RequestManager.getHomeWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.LOAD_MORE,
+                        page);
+                break;
+            case Constant.HOT:
+                hotWeiboObservable = RequestManager.getHotWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.LOAD_MORE,
+                        page);
+                break;
+        }
     }
 }

@@ -2,9 +2,9 @@ package com.mnikn.purewei.feature.user;
 
 import android.content.Context;
 
+import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
 import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.base.WeiboPresenter;
 import com.mnikn.purewei.support.net.RequestManager;
 
 import io.reactivex.Observable;
@@ -12,7 +12,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserPresenter extends WeiboPresenter<INetListView> {
+public class UserPresenter extends NetListPresenter<INetListView> {
 
     private Observable homeWeiboObservale;
 
@@ -21,7 +21,7 @@ public class UserPresenter extends WeiboPresenter<INetListView> {
     }
 
     @Override
-    public void doRefresh(int page) {
+    public void refreshRequest(int page) {
         homeWeiboObservale = RequestManager.getHomeWeibo(
                 getContext(),
                 getView(),
@@ -30,7 +30,7 @@ public class UserPresenter extends WeiboPresenter<INetListView> {
     }
 
     @Override
-    public void doLoadMore(int page) {
+    public void loadMoreRequest(int page) {
         homeWeiboObservale = RequestManager.getHomeWeibo(
                 getContext(),
                 getView(),

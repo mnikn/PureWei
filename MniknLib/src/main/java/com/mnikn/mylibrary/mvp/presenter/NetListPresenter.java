@@ -10,6 +10,7 @@ import com.mnikn.mylibrary.mvp.view.INetListView;
 public abstract class NetListPresenter<V extends INetListView> extends BasePresenter<V> implements INetListPresenter {
 
     private boolean mIsLoading = false;
+    private int mPage;
 
     public NetListPresenter(Context context,V view) {
         super(context,view);
@@ -17,16 +18,23 @@ public abstract class NetListPresenter<V extends INetListView> extends BasePrese
 
     @Override
     public void refresh() {
+
         getView().onRefresh();
         mIsLoading = true;
-        refreshRequest();
+        mPage = 1;
+        refreshRequest(mPage);
+        ++mPage;
     }
 
     @Override
     public void loadMore() {
         getView().onLoadMore();
         mIsLoading = true;
-        loadMoreRequest();
+        if(mPage < 2){
+            mPage = 2;
+        }
+        loadMoreRequest(mPage);
+        ++mPage;
     }
 
     @Override
@@ -39,6 +47,6 @@ public abstract class NetListPresenter<V extends INetListView> extends BasePrese
         mIsLoading = isLoading;
     }
 
-    public abstract void refreshRequest();
-    public abstract void loadMoreRequest();
+    public abstract void refreshRequest(int page);
+    public abstract void loadMoreRequest(int page);
 }
