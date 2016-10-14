@@ -62,7 +62,7 @@ public class WeiboObserver implements Observer<TimelineBean> {
             resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
 
             resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                    new UserEntity(value.statuses.get(i)).toContentValues());
+                    new UserEntity(value.statuses.get(i)).toContentValues(Constant.USER_NORAML));
 
             //若该微博为转发,就把原微博插入数据库
             if(NumberUtil.notZero(weiboEntity.retweetId)){
@@ -70,7 +70,7 @@ public class WeiboObserver implements Observer<TimelineBean> {
                 retweetValues.add(retweetEntity.toContentValues());
 
                 resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserEntity(value.statuses.get(i).retweetedStatus.user).toContentValues());
+                        new UserEntity(value.statuses.get(i).retweetedStatus.user).toContentValues(Constant.USER_NORAML));
 
                 ContentValues[] retweetDetailValues = new WeiboPicsEntity(value.statuses.get(i).retweetedStatus).toContentValuesArray();
                 resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI, retweetDetailValues);

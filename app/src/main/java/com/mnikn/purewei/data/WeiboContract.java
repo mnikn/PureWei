@@ -164,6 +164,11 @@ public class WeiboContract {
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
                 + "/" + CONTENT_AUTHORITY + "/" + PATH_USER;
 
+        /**
+         * 0:normal user 1:account
+         */
+        public static final String COLUMN_USER_TYPE = "user_type";
+
         public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_NAME = "name";
         public static final String COLUMN_FOLLOWING = "following";
@@ -180,8 +185,9 @@ public class WeiboContract {
         public static Uri buildUserUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
-
-
+        public static int getUserType(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_USER_TYPE));
+        }
         public static String getName(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_NAME));
         }

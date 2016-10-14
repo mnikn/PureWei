@@ -50,7 +50,7 @@ public class UserEntity {
         fllowMe = bean.followMe;
     }
 
-    public ContentValues toContentValues(){
+    public ContentValues toContentValues(int type){
         ContentValues values = new ContentValues();
         values.put(WeiboContract.UserEntry.COLUMN_USER_ID,userId);
         values.put(WeiboContract.UserEntry.COLUMN_NAME,userName);
@@ -64,6 +64,7 @@ public class UserEntity {
         values.put(WeiboContract.UserEntry.COLUMN_WEIBO_COUNT,weiboCount);
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOWING,fllowing);
         values.put(WeiboContract.UserEntry.COLUMN_FOLLOW_ME,fllowMe);
+        values.put(WeiboContract.UserEntry.COLUMN_USER_TYPE,type);
 
         return values;
     }

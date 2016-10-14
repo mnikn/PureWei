@@ -62,6 +62,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 UserEntry.TABLE_NAME + " (" +
                 UserEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
                 UserEntry.COLUMN_USER_ID + " INTEGER NOT NULL UNIQUE, " +
+                UserEntry.COLUMN_USER_TYPE + " INTEGER NOT NULL, " +
                 UserEntry.COLUMN_NAME + " TEXT NOT NULL, " +
                 UserEntry.COLUMN_FOLLOWING + " BOOLEAN NOT NULL, " +
                 UserEntry.COLUMN_FOLLOW_ME + " BOOLEAN NOT NULL, " +

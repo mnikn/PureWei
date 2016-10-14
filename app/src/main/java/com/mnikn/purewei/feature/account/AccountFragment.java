@@ -10,14 +10,13 @@ import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.mvp.view.fragment.RecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
+import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.AccountLoaderCallback;
 
 /**
  * A simple {@link Fragment} subclass.
  */
 public class AccountFragment extends RecyclerFragment {
-
-    private static int ACCOUNT_LOADER = 104;
 
     public static AccountFragment newInstance() {
 
@@ -42,7 +41,7 @@ public class AccountFragment extends RecyclerFragment {
                 LinearLayout.VERTICAL));
 
         getLoaderManager().initLoader(
-                ACCOUNT_LOADER,
+                Constant.LOADER_ACCOUNT,
                 null,
                 new AccountLoaderCallback(getContext(),mAdapter));
     }

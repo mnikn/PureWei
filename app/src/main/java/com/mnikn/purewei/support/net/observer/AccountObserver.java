@@ -6,6 +6,7 @@ import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.WeiboDataHelper;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.feature.home.IHomeView;
+import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.bean.UserBean;
 
 import io.reactivex.Observer;
@@ -33,7 +34,7 @@ public class AccountObserver implements Observer<UserBean>{
     public void onNext(UserBean value) {
         UserEntity entity = new UserEntity(value);
         mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,
-                entity.toContentValues());
+                entity.toContentValues(Constant.USER_ACCOUNT));
         mView.setUserView(WeiboDataHelper.getInstance().getUserModel(value.id));
     }
 

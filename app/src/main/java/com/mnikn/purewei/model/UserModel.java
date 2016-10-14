@@ -11,6 +11,7 @@ import com.mnikn.purewei.data.WeiboContract;
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class UserModel implements Parcelable {
+    public int userType;
     public long uid;
     public boolean following;
     public boolean followMe;
@@ -32,6 +33,7 @@ public class UserModel implements Parcelable {
     }
 
     public void fromCursor(Cursor cursor){
+        userType = WeiboContract.UserEntry.getUserType(cursor);
         uid = WeiboContract.UserEntry.getUserId(cursor);
         userName = WeiboContract.UserEntry.getName(cursor);
         description = WeiboContract.UserEntry.getDescription(cursor);

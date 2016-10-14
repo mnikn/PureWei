@@ -60,7 +60,7 @@ public class CommentObserver implements Observer<CommentBean>{
             long userId = value.comments.get(i).user.id;
             if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
                 resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserEntity(value.comments.get(i).user).toContentValues());
+                        new UserEntity(value.comments.get(i).user).toContentValues(Constant.USER_NORAML));
             }
         }
         resolver.bulkInsert(WeiboContract.WeiboCommentEntry.CONTENT_URI,commentValuesArray);
