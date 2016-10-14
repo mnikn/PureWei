@@ -39,11 +39,6 @@ public class DetailFragment extends NetRecyclerFragment {
         model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO);
     }
 
-    @Override
-    public void onResume() {
-        super.onResume();
-        mPresenter.refresh();
-    }
 
     @Override
     public INetListPresenter getPresenter() {
@@ -70,6 +65,8 @@ public class DetailFragment extends NetRecyclerFragment {
                 new DetailLoaderCallback(getContext(),mAdapter,model.weiboId));
 
         getActivity().registerForContextMenu(getRecyclerView());
+
+        mPresenter.refresh();
     }
 
 }
