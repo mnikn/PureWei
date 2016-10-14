@@ -45,9 +45,9 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.toolbar) Toolbar toolbar;
     @BindView(R.id.drawer_layout) DrawerLayout drawer;
     @BindView(R.id.nav_view) NavigationView navigationView;
-    @BindView(R.id.rv_home) RecyclerView rvHome;
+    @BindView(R.id.recycler) RecyclerView recyclerView;
     @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.refresh_layout) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.layout_refresh) SwipeRefreshLayout refreshLayout;
 
     private HomeAdapter mAdapter;
     private IHomePresenter mPresenter;
@@ -91,12 +91,12 @@ public class HomeActivity extends AppCompatActivity
             android.R.color.holo_blue_dark);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
-        rvHome.setLayoutManager(layoutManager);
-        rvHome.addItemDecoration(
+        recyclerView.setLayoutManager(layoutManager);
+        recyclerView.addItemDecoration(
                 new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
-        rvHome.addOnScrollListener(new RecyclerScrollListener(mAdapter,mPresenter,layoutManager));
+        recyclerView.addOnScrollListener(new RecyclerScrollListener(mAdapter, mPresenter, layoutManager));
 
-        rvHome.setAdapter(mAdapter);
+        recyclerView.setAdapter(mAdapter);
     }
 
     private void initVariables(){
@@ -135,8 +135,8 @@ public class HomeActivity extends AppCompatActivity
         else if(mPresenter.isLoading()){
             mPresenter.cancelLoading();
         }
-        else if(((LinearLayoutManager) rvHome.getLayoutManager()).findLastVisibleItemPosition() != 1){
-            rvHome.smoothScrollToPosition(0);
+        else if(((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() != 1){
+            recyclerView.smoothScrollToPosition(0);
         }
         else {
             super.onBackPressed();
@@ -211,7 +211,7 @@ public class HomeActivity extends AppCompatActivity
 
         ImageDisplayUtil.displayFromNet(this,account.avatarLargeUrl, circleImageView);
 
-        TextView txtAccount = ButterKnife.findById(navigationView, R.id.txt_account);
+        TextView txtAccount = ButterKnife.findById(navigationView, R.id.txt_account_name);
         txtAccount.setText(account.userName);
     }
 
@@ -231,7 +231,7 @@ public class HomeActivity extends AppCompatActivity
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
         mPresenter.setIsLoading(false);
-        rvHome.scrollToPosition(0);
+        recyclerView.scrollToPosition(0);
         ToastUtil.makeToastShort(this, "刷新完成");
     }
 

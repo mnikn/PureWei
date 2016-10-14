@@ -55,7 +55,7 @@ public abstract class NetRecyclerFragment extends BaseFragment implements INetLi
 
         mAdapter = getAdapter();
         recyclerView = (RecyclerView) parent.findViewById(R.id.recycler);
-        refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.refresh_layout);
+        refreshLayout = (SwipeRefreshLayout) parent.findViewById(R.id.layout_refresh);
 
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         RecyclerViewBuilder.getInstance().bind(recyclerView,mAdapter)

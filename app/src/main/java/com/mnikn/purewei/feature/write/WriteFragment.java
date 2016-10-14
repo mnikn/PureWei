@@ -15,7 +15,7 @@ import butterknife.ButterKnife;
 
 public class WriteFragment extends BaseFragment {
 
-    @BindView(R.id.edit) EditText mEditText;
+    @BindView(R.id.edit_weibo) EditText mEditText;
     @BindView(R.id.imgBtn_at) ImageButton mButtonAt;
     @BindView(R.id.imgBtn_photo) ImageButton mButtonPhoto;
     @BindView(R.id.imgBtn_send) ImageButton mButtonSend;

@@ -21,6 +21,7 @@ import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.WeiboDataHelper;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
@@ -43,8 +44,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     public static final String EXTRA_WEIBO = "extra_weibo";
     public static final String EXTRA_PHOTO_URL = "extra_photo_url";
 
-    @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
-    @BindView(R.id.circle_img_retweet) CircleImageView circleImgRetweet;
+    @BindView(R.id.circleImg_avatars) CircleImageView circleImgUserAvatars;
+    @BindView(R.id.circleImg_retweet_avatars) CircleImageView circleImgRetweetAvatars;
     @BindView(R.id.txt_user_name) TextView txtUserName;
     @BindView(R.id.txt_created_time) TextView txtCreatedTime;
     @BindView(R.id.txt_source) TextView txtSource;
@@ -81,13 +82,8 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText.setText(mWeiboModel.retweetModel.text);
             txtRetweetUserName.setText(mWeiboModel.retweetModel.userName);
             txtRetweetTime.setText(mWeiboModel.retweetModel.createdTime);
-            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.avatarLargeUrl, circleImgRetweet);
-            Cursor retweetPicsCursor = mContext.getContentResolver().query(
-                    WeiboContract.WeiboPicsEntry.CONTENT_URI,
-                    null,
-                    WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-                    new String[]{NumberUtil.longToString(mWeiboModel.retweetId)},
-                    null);
+            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.avatarLargeUrl, circleImgRetweetAvatars);
+            Cursor retweetPicsCursor = WeiboDataHelper.getInstance().getWeiboPics(mWeiboModel.retweetId);
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
 
@@ -96,7 +92,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 mWeiboModel.avatarLargeUrl,
-                circleImgUserIcon
+                circleImgUserAvatars
         );
 
         txtText.setText(mWeiboModel.text);
@@ -115,18 +111,13 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         }
 
         //加载图片
-        Cursor picsCursor = mContext.getContentResolver().query(
-                WeiboContract.WeiboPicsEntry.CONTENT_URI,
-                null,
-                WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-                new String[]{NumberUtil.longToString(mWeiboModel.weiboId)},
-                null);
+        Cursor picsCursor = WeiboDataHelper.getInstance().getWeiboPics(mWeiboModel.weiboId);
         gridPics.setVisibility(View.VISIBLE);
         setWeiboPics(gridPics, picsCursor);
     }
 
     @Optional
-    @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
+    @OnClick({R.id.circleImg_avatars,R.id.txt_user_name})
     public void navUser(){
         Intent intent = new Intent(mContext, UserActivity.class);
         intent.putExtra(EXTRA_USER,mUserModel);
@@ -142,7 +133,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Optional
-    @OnClick({R.id.circle_img_retweet,R.id.txt_retweet_text})
+    @OnClick({R.id.circleImg_retweet_avatars,R.id.txt_retweet_text})
     public void navRetweetDetail(){
         Intent intent = new Intent(mContext,DetailActivity.class);
         intent.putExtra(EXTRA_WEIBO,mWeiboModel.retweetModel);

@@ -24,7 +24,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class CommentViewHolder extends EasyViewHolder<Cursor>{
 
-    @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
+    @BindView(R.id.circleImg_avatars) CircleImageView circleImgUserAvatars;
     @BindView(R.id.txt_user_name) TextView txtUserName;
     @BindView(R.id.txt_created_time) TextView txtCreatedTime;
     @BindView(R.id.txt_source) TextView txtSource;
@@ -55,7 +55,7 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 mCommentModel.avatarLargeUrl,
-                circleImgUserIcon
+                circleImgUserAvatars
         );
         txtText.setText(mCommentModel.text);
         txtCreatedTime.setText(mCommentModel.createdTime);
@@ -64,7 +64,7 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Optional
-    @OnClick({R.id.circle_img_user_icon,R.id.txt_user_name})
+    @OnClick({R.id.circleImg_avatars,R.id.txt_user_name})
     public void navUser(){
         Intent intent = new Intent(mContext, UserActivity.class);
         intent.putExtra(WeiboViewHolder.EXTRA_USER,mUserModel);

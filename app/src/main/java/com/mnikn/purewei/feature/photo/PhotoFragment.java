@@ -20,7 +20,7 @@ import uk.co.senab.photoview.PhotoView;
  */
 public class PhotoFragment extends BaseFragment {
 
-    @BindView(R.id.photo_view) PhotoView photoView;
+    @BindView(R.id.photo) PhotoView photoView;
 
     public static PhotoFragment newInstance() {
 

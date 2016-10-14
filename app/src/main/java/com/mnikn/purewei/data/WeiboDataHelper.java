@@ -50,6 +50,15 @@ public class WeiboDataHelper {
         return new WeiboModel(getWeiboWithUser());
     }
 
+    public Cursor getWeiboPics(long weiboId){
+        return mResolver.query(
+                WeiboContract.WeiboPicsEntry.CONTENT_URI,
+                null,
+                WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
+                new String[]{NumberUtil.longToString(weiboId)},
+                null);
+    }
+
     public Cursor getUser(long uid){
         return mResolver.query(
                 WeiboContract.UserEntry.CONTENT_URI,

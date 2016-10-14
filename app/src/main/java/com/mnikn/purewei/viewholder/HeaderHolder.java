@@ -30,7 +30,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     @BindView(R.id.txt_weibo_count) TextView txtWeiboCount;
     @BindView(R.id.txt_user_name) TextView txtUserName;
     @BindView(R.id.txt_user_description) TextView txtDescription;
-    @BindView(R.id.circle_img_user_icon) CircleImageView circleImgUserIcon;
+    @BindView(R.id.circleImg_avatars) CircleImageView circleImgUserAvatars;
     @BindView(R.id.img_cover) ImageView imgCover;
 
     private Context mContext;
@@ -48,7 +48,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 mModel.avatarHdUrl,
-                circleImgUserIcon
+                circleImgUserAvatars
         );
 
         txtFollowersCount.setText(mModel.followersCount);
@@ -62,7 +62,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
         }
     }
 
-    @OnClick(R.id.circle_img_user_icon)
+    @OnClick(R.id.circleImg_avatars)
     void navUserIcon(){
         Intent intent = new Intent(mContext,PhotoActivity.class);
         intent.putExtra(EXTRA_PHOTO_URL, mModel.avatarHdUrl);

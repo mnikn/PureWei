@@ -21,8 +21,8 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class AccountViewHolder extends EasyViewHolder<Cursor> {
 
-    @BindView(R.id.circleImg_icon) CircleImageView mCircleImgIcon;
-    @BindView(R.id.txt_user_name) TextView mTxtUserName;
+    @BindView(R.id.circleImg_avatars) CircleImageView circleImgAvatars;
+    @BindView(R.id.txt_user_name) TextView txtUserName;
 
     private Context mContext;
 
@@ -40,8 +40,8 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 model.avatarLargeUrl,
-                mCircleImgIcon);
-        mTxtUserName.setText(model.userName);
+                circleImgAvatars);
+        txtUserName.setText(model.userName);
 
     }
 }

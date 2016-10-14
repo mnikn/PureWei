@@ -15,7 +15,7 @@
         android:layout_marginTop="@dimen/app_margin_14dp">
 
         <de.hdodenhof.circleimageview.CircleImageView
-            android:id="@+id/circle_img_user_icon"
+            android:id="@+id/circleImg_avatars"
             android:layout_width="@dimen/icon_small_width"
             android:layout_height="@dimen/icon_small_height" />
 
@@ -80,7 +80,7 @@
             android:layout_height="wrap_content"
             android:gravity="center_vertical">
             <de.hdodenhof.circleimageview.CircleImageView
-                android:id="@+id/circle_img_retweet"
+                android:id="@+id/circleImg_retweet_avatars"
                 android:layout_width="24dp"
                 android:layout_height="24dp" />
             <TextView
