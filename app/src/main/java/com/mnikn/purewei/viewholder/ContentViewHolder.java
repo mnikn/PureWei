@@ -83,7 +83,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         btnAttitudes.setText(model.attitudesCount);
         if(model.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-                    ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red_24dp),
+                    ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red),
                     null,
                     null,
                     null);

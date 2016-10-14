@@ -39,7 +39,7 @@
         <Button
             android:id="@+id/btn_switch_account"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_switch_24dp"
+            android:drawableLeft="@drawable/ic_switch"
             android:text="@string/action_switch_account"
             android:textColor="@android:color/white"/>
 

@@ -62,7 +62,7 @@
         <ImageButton
             android:id="@+id/btn_more"
             style="@android:style/Widget.Holo.Button.Borderless"
-            android:src="@drawable/ic_more_24dp"
+            android:src="@drawable/ic_more"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -138,17 +138,17 @@
         <Button
             android:id="@+id/btn_attitudes"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_thumb_up_black_24dp"
+            android:drawableLeft="@drawable/ic_thumb_up_black"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_comments"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_comment_24dp"
+            android:drawableLeft="@drawable/ic_comment"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_reports"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_share_24dp"
+            android:drawableLeft="@drawable/ic_share"
             android:layout_weight="1"/>
     </LinearLayout>
 

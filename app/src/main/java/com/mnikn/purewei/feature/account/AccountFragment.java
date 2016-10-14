@@ -10,7 +10,6 @@ import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.mvp.view.fragment.RecyclerFragment;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
-import com.mnikn.purewei.R;
 import com.mnikn.purewei.support.callback.AccountLoaderCallback;
 
 /**
@@ -39,8 +38,7 @@ public class AccountFragment extends RecyclerFragment {
 
         getRecyclerView().addItemDecoration(new RecyclerViewDivider(
                 getContext(),
-                LinearLayout.VERTICAL,
-                R.drawable.item_divider));
+                LinearLayout.VERTICAL));
 
         getLoaderManager().initLoader(
                 ACCOUNT_LOADER,
