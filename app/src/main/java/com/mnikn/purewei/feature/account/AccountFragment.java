@@ -36,6 +36,7 @@ public class AccountFragment extends RecyclerFragment {
     @Override
     public void setupViews(View parent) {
 
+        mAdapter.setHasFooter(true);
         getRecyclerView().addItemDecoration(new RecyclerViewDivider(
                 getContext(),
                 LinearLayout.VERTICAL));

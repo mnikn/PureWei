@@ -1,9 +1,15 @@
 package com.mnikn.purewei.support.net;
 
 import android.content.Context;
+import android.os.Bundle;
 
 import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
+import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.mylibrary.util.TextUtil;
+import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.entity.AccountEntity;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
@@ -13,7 +19,11 @@ import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
 import com.mnikn.purewei.support.net.service.UserService;
 import com.mnikn.purewei.support.net.service.WeiboService;
+import com.mnikn.purewei.support.util.DataUtil;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
+import com.sina.weibo.sdk.auth.WeiboAuthListener;
+import com.sina.weibo.sdk.auth.sso.SsoHandler;
+import com.sina.weibo.sdk.exception.WeiboException;
 
 import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
@@ -26,6 +36,45 @@ import retrofit2.Retrofit;
 public class RequestManager {
 
     private static Retrofit sRetrofit = RetrofitBuilder.getInstance().retrofit(BaseApi.BASE_URL);
+
+    public static void authorize(SsoHandler ssoHandler, final Context context){
+        ssoHandler.authorize(new WeiboAuthListener() {
+            @Override
+            public void onComplete(Bundle bundle) {
+                Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
+                if (token.isSessionValid()) {
+                    AccessTokenKeeper.writeAccessToken(context, token);
+                    if(!DataUtil.hasUserId(context,NumberUtil.stringToLong(token.getUid()))){
+                        context.getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
+                                new AccountEntity(token).toContentValues());
+                    }
+                    ToastUtil.makeToastShort(context, "授权成功");
+                    RequestManager.getAccountInfo(
+                            context,
+                            (IHomeView) context,
+                            NumberUtil.stringToLong(token.getUid()));
+                }
+                else {
+                    String errorMessage = "授权失败";
+                    String code = bundle.getString("code");
+                    if(!TextUtil.isEmpty(code)){
+                        ToastUtil.makeToastLong(context, errorMessage + String.format(",错误代码:%s",code));
+                    }
+                    else{
+                        ToastUtil.makeToastLong(context,errorMessage);
+                    }
+                }
+            }
+            @Override
+            public void onWeiboException(WeiboException e) {
+                e.printStackTrace();
+            }
+            @Override
+            public void onCancel() {
+                ToastUtil.makeToastShort(context, "授权取消");
+            }
+        });
+    }
 
     @SuppressWarnings("unchecked")
     public static Observable getHomeWeibo(Context context,INetListView view,int requestType,int page){

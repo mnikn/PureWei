@@ -94,6 +94,8 @@ public class WeiboDataHelper {
                 null);
     }
     public AccountModel getAccountModel(){
-        return new AccountModel(getAccount());
+        Cursor cursor = getAccount();
+        cursor.moveToFirst();
+        return new AccountModel(cursor);
     }
 }

@@ -37,7 +37,6 @@ public abstract class EasyRecyclerAdapter<D extends DataProvider,T> extends Recy
     }
 
     public <C> void swap(C dataContainer){
-        //Log.e("S","" + ((Cursor) dataContainer).getCount());
         mDataProvider.swap(dataContainer);
         notifyDataSetChanged();
     }
@@ -93,7 +92,7 @@ public abstract class EasyRecyclerAdapter<D extends DataProvider,T> extends Recy
             }
         }
         else if(mHasFooter && !mHasHeader){
-            if(position == mDataProvider.size()){
+            if(position == getItemCount() - 1){
                 holder.bindView();
             }
             else{

@@ -25,6 +25,7 @@ import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.account.AccountActivity;
+import com.mnikn.purewei.feature.account.AccountAdapter;
 import com.mnikn.purewei.feature.settings.SettingsActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.feature.write.WriteActivity;
@@ -55,7 +56,7 @@ public class HomeActivity extends AppCompatActivity
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
-        mPresenter.authorizeCallBack(requestCode,resultCode,data);
+        mPresenter.authorizeCallBack(requestCode, resultCode, data);
     }
 
     @Override
@@ -118,6 +119,10 @@ public class HomeActivity extends AppCompatActivity
         mPresenter = getPresenter();
         setupViews(null);
 
+        boolean isAuthorize = getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE,false);
+        if(isAuthorize){
+            mPresenter.authorize();
+        }
     }
 
     @Override

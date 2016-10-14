@@ -61,7 +61,6 @@ public class WeiboObserver implements Observer<TimelineBean> {
             ContentValues[] weiboDetailValues = new WeiboPicsEntity(value,i).toContentValuesArray();
             resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
 
-            //先查询是否有这位用户信息,没有就插入数据
             resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
                     new UserEntity(value.statuses.get(i)).toContentValues());
 
