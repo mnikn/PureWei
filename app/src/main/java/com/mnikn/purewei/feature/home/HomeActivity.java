@@ -78,6 +78,13 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
+        Button btnSwitchAccount = ButterKnife.findById(navigationView.getHeaderView(0),R.id.btn_switch_account);
+        btnSwitchAccount.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                startActivity(new Intent(HomeActivity.this, AccountActivity.class));
+            }
+        });
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -204,13 +211,6 @@ public class HomeActivity extends AppCompatActivity
                 Intent intent = new Intent(HomeActivity.this, UserActivity.class);
                 intent.putExtra(WeiboViewHolder.EXTRA_USER,account);
                 startActivity(intent);
-            }
-        });
-        Button btnSwitchAccount = ButterKnife.findById(navigationView,R.id.btn_switch_account);
-        btnSwitchAccount.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                startActivity(new Intent(HomeActivity.this, AccountActivity.class));
             }
         });
 

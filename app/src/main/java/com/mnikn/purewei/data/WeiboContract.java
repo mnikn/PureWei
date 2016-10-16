@@ -234,18 +234,32 @@ public class WeiboContract {
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
                 + "/" + CONTENT_AUTHORITY + "/" + PATH_ACCOUNT;
 
-        public static final String COLUMN_TOKEN = "token";
         public static final String COLUMN_UID = "uid";
+        public static final String COLUMN_ACCESS_TOKEN = "access_token";
+        public static final String COLUMN_REFRESH_TOKEN = "refresh_token";
+        public static final String COLUMN_EXPIRES_TIME = "expires_time";
+        public static final String COLUMN_EXPIRES_IN = "expires_in";
 
         public static Uri buildAccountUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
 
-        public static String getToken(Cursor cursor){
-            return cursor.getString(cursor.getColumnIndex(COLUMN_TOKEN));
-        }
         public static long getUid(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_UID));
         }
+        public static String getAccessToken(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_ACCESS_TOKEN));
+        }
+        public static String getRefreshToken(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_REFRESH_TOKEN));
+        }
+        public static long getExpiresTime(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_EXPIRES_TIME));
+        }
+        public static long getExpiresIn(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_EXPIRES_IN));
+        }
+
+
     }
 }

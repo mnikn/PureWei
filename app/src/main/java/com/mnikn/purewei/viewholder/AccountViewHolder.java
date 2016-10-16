@@ -29,7 +29,7 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
     public AccountViewHolder(Context context,View itemView) {
         super(itemView);
         mContext = context;
-        ButterKnife.bind(this,itemView);
+        ButterKnife.bind(this, itemView);
     }
 
     @Override
@@ -43,5 +43,10 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
                 circleImgAvatars);
         txtUserName.setText(model.userName);
 
+        setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+            }
+        });
     }
 }

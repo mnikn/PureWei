@@ -6,12 +6,17 @@ import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
+import java.util.GregorianCalendar;
+
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class AccountEntity {
     private long uid;
-    private String token;
+    private long expireTime;
+    private long expireIn;
+    private String accessToken;
+    private String refreshToken;
 
     public AccountEntity() {}
 
@@ -21,13 +26,20 @@ public class AccountEntity {
 
     private void fromToken(Oauth2AccessToken accessToken){
         uid = NumberUtil.stringToLong(accessToken.getUid());
-        token = accessToken.getToken();
+        expireTime = accessToken.getExpiresTime();
+        this.accessToken = accessToken.getToken();
+        refreshToken = accessToken.getRefreshToken();
+
+        expireIn = new GregorianCalendar().getTimeInMillis();
     }
 
     public ContentValues toContentValues(){
         ContentValues values = new ContentValues();
         values.put(WeiboContract.AccountEntry.COLUMN_UID,uid);
-        values.put(WeiboContract.AccountEntry.COLUMN_TOKEN,token);
+        values.put(WeiboContract.AccountEntry.COLUMN_EXPIRES_TIME,expireTime);
+        values.put(WeiboContract.AccountEntry.COLUMN_EXPIRES_IN,expireIn);
+        values.put(WeiboContract.AccountEntry.COLUMN_ACCESS_TOKEN,accessToken);
+        values.put(WeiboContract.AccountEntry.COLUMN_REFRESH_TOKEN,refreshToken);
 
         return values;
     }
