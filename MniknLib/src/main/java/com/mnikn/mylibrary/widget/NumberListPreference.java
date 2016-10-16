@@ -2,6 +2,7 @@ package com.mnikn.mylibrary.widget;
 
 import android.app.AlertDialog;
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.res.TypedArray;
 import android.preference.DialogPreference;
 import android.util.AttributeSet;
@@ -20,7 +21,7 @@ public class NumberListPreference extends DialogPreference {
     private Context mContext;
     private NumberPicker mNumberPicker;
 
-    private Integer mNumber = 0;
+    private int mNumber;
 
     public NumberListPreference(Context context) {
         this(context, null);
@@ -42,7 +43,7 @@ public class NumberListPreference extends DialogPreference {
         mNumberPicker.setMinValue(mTypeArray.getInteger(R.styleable.NumberListPreference_minValue, 0));
         mNumberPicker.setMaxValue(mTypeArray.getInteger(R.styleable.NumberListPreference_maxValue, 100));
 
-        mNumber = mNumberPicker.getMinValue();
+        mNumber = getPersistedInt(mNumberPicker.getMinValue());
         mNumberPicker.setValue(mTypeArray.getInteger(R.styleable.NumberListPreference_value,mNumber));
 
         mTypeArray.recycle();
@@ -50,12 +51,19 @@ public class NumberListPreference extends DialogPreference {
         return mNumberPicker;
     }
 
-
     @Override
     protected void onPrepareDialogBuilder(AlertDialog.Builder builder) {
         super.onPrepareDialogBuilder(builder);
-
         builder.setView(mNumberPicker);
+
+        builder.setPositiveButton("确认", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                setValue(mNumberPicker.getValue());
+                persistInt(mNumber);
+                notifyChanged();
+            }
+        });
     }
 
     public void setMaxValue(int value){
@@ -67,7 +75,12 @@ public class NumberListPreference extends DialogPreference {
     }
 
     public void setValue(int value){
-        mNumberPicker.setValue(value);
+        final boolean changed = !(mNumber == value);
+        if (changed) {
+            mNumber = value;
+            persistInt(value);
+            notifyChanged();
+        }
     }
 
 

@@ -2,6 +2,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto">
 
     <com.mnikn.mylibrary.widget.NumberListPreference
+        android:key="key_load_num"
         android:title="@string/title_load_weibo_count"
         app:minValue="20"
         app:maxValue="100" />
@@ -9,6 +10,7 @@
     <ListPreference
         android:key="key_photo_qualify"
         android:title="@string/title_photo_qualify"
+        android:defaultValue="2"
         android:entries="@array/entry_photo_qualify"
         android:entryValues="@array/value_photo_qualify"/>
 
