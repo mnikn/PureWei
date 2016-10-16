@@ -12,13 +12,13 @@ import retrofit2.http.Query;
 public interface WeiboService {
     @GET("statuses/public_timeline.json")
     Observable<TimelineBean> getHotWeibo(
+            @Query("access_token") String token,
             @Query("page") int page,
-            @Query("access_token") String token
-    );
+            @Query("count") int count);
 
     @GET("statuses/home_timeline.json")
     Observable<TimelineBean> getHomeWeibo(
+            @Query("access_token") String token,
             @Query("page") int page,
-            @Query("access_token") String token
-    );
+            @Query("count") int count);
 }

@@ -2,6 +2,7 @@ package com.mnikn.purewei.support.net;
 
 import android.content.Context;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 
 import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
@@ -89,7 +90,9 @@ public class RequestManager {
     public static Observable getHomeWeibo(Context context,INetListView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.getHomeWeibo(page, token.getToken());
+        int count = PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt("key_load_num",20);
+        Observable observable = service.getHomeWeibo(token.getToken(),page,count);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new WeiboObserver(context,view,requestType));
@@ -100,7 +103,9 @@ public class RequestManager {
     public static Observable getHotWeibo(Context context,INetListView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.getHotWeibo(page, token.getToken());
+        int count = PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt("key_load_num",20);
+        Observable observable = service.getHotWeibo(token.getToken(),page,count);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new WeiboObserver(context,view,requestType));
