@@ -38,6 +38,15 @@ public class RequestManager {
     private static Retrofit sRetrofit = RetrofitBuilder.getInstance().retrofit(BaseApi.BASE_URL);
 
     public static void authorize(SsoHandler ssoHandler, final Context context){
+
+        context.getContentResolver().delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
+        context.getContentResolver().delete(WeiboContract.WeiboCommentEntry.CONTENT_URI, null, null);
+        context.getContentResolver().delete(WeiboContract.WeiboPicsEntry.CONTENT_URI, null, null);
+        context.getContentResolver().delete(
+                WeiboContract.UserEntry.CONTENT_URI,
+                WeiboContract.UserEntry.COLUMN_USER_TYPE + " = ?",
+                new String[]{"0"});
+
         ssoHandler.authorize(new WeiboAuthListener() {
             @Override
             public void onComplete(Bundle bundle) {
