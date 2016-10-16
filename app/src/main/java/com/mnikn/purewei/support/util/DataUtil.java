@@ -20,5 +20,15 @@ public class DataUtil {
         return !com.mnikn.mylibrary.util.DataUtil.isEmpty(cursor);
     }
 
+    public static boolean hasAccountId(Context context,long userId){
+        Cursor cursor = context.getContentResolver().query(
+                WeiboContract.AccountEntry.CONTENT_URI,
+                null,
+                WeiboContract.AccountEntry.COLUMN_UID + " = ?",
+                new String[]{NumberUtil.longToString(userId)},
+                null);
+        return !com.mnikn.mylibrary.util.DataUtil.isEmpty(cursor);
+    }
+
 
 }

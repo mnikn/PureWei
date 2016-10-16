@@ -27,6 +27,7 @@
         android:layout_weight="2" />
 
     <ImageButton
+        android:id="@+id/imgBtn_delete"
         style="@style/Base.Widget.AppCompat.Button.Borderless"
         android:src="@drawable/ic_delete"
         android:layout_width="wrap_content"

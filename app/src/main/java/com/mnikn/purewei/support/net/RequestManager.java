@@ -53,7 +53,7 @@ public class RequestManager {
                 Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
                 if (token.isSessionValid()) {
                     AccessTokenKeeper.writeAccessToken(context, token);
-                    if(!DataUtil.hasUserId(context,NumberUtil.stringToLong(token.getUid()))){
+                    if(!DataUtil.hasAccountId(context,NumberUtil.stringToLong(token.getUid()))){
                         context.getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
                                 new AccountEntity(token).toContentValues());
                     }

@@ -1,15 +1,21 @@
 package com.mnikn.purewei.viewholder;
 
 import android.content.Context;
+import android.content.Intent;
 import android.database.Cursor;
 import android.view.View;
+import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.WeiboDataHelper;
+import com.mnikn.purewei.feature.home.HomeActivity;
+import com.mnikn.purewei.model.AccountModel;
 import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
@@ -22,6 +28,7 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class AccountViewHolder extends EasyViewHolder<Cursor> {
 
     @BindView(R.id.circleImg_avatars) CircleImageView circleImgAvatars;
+    @BindView(R.id.imgBtn_delete) ImageButton imgBtnDelete;
     @BindView(R.id.txt_user_name) TextView txtUserName;
 
     private Context mContext;
@@ -33,8 +40,8 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
     }
 
     @Override
-    public void bindView(Cursor data) {
-        UserModel model = WeiboDataHelper.getInstance()
+    public void bindView(final Cursor data) {
+        final UserModel model = WeiboDataHelper.getInstance()
                 .getUserModel(WeiboContract.AccountEntry.getUid(data));
 
         ImageDisplayUtil.displayFromNet(
@@ -43,9 +50,27 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
                 circleImgAvatars);
         txtUserName.setText(model.userName);
 
+        imgBtnDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                mContext.getContentResolver().delete(
+                        WeiboContract.AccountEntry.CONTENT_URI,
+                        WeiboContract.AccountEntry.COLUMN_UID + " = ?",
+                        new String[]{NumberUtil.longToString(model.uid)});
+                if (AccessTokenKeeper.readAccessToken(mContext).getUid()
+                        .equals(NumberUtil.longToString(model.uid))) {
+                    AccessTokenKeeper.clear(mContext);
+                }
+            }
+        });
+
         setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                AccessTokenKeeper.clear(mContext);
+                AccessTokenKeeper.writeAccessToken(mContext,
+                        new AccountModel(data).toOauth2AccessToken());
+                mContext.startActivity(new Intent(mContext, HomeActivity.class));
             }
         });
     }

@@ -26,13 +26,14 @@ public class AccountModel{
         expireIn = WeiboContract.AccountEntry.getExpiresIn(cursor);
     }
 
-    public static Oauth2AccessToken toOauth2AccessToken(AccountModel model) {
-        Oauth2AccessToken accessToken = new Oauth2AccessToken();
-        accessToken.setToken(model.accessToken);
-        accessToken.setRefreshToken(model.refreshToken);
-        accessToken.setExpiresTime(model.expireTime);
-        accessToken.setExpiresIn(NumberUtil.longToString(model.expireIn));
+    public Oauth2AccessToken toOauth2AccessToken() {
+        Oauth2AccessToken token = new Oauth2AccessToken();
+        token.setUid(NumberUtil.longToString(uid));
+        token.setToken(accessToken);
+        token.setRefreshToken(refreshToken);
+        token.setExpiresTime(expireTime);
+        token.setExpiresIn(NumberUtil.longToString(expireIn));
 
-        return accessToken;
+        return token;
     }
 }
