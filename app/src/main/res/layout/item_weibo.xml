@@ -73,7 +73,8 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="@dimen/app_margin_14dp"
-        android:lineSpacingExtra="@dimen/app_margin_2dp"/>
+        android:lineSpacingExtra="@dimen/app_margin_2dp"
+        android:autoLink="web"/>
 
     <LinearLayout
         android:id="@+id/layout_retweet"
@@ -116,7 +117,8 @@
             android:id="@+id/txt_retweet_text"
             style="@style/baseTextView.normal.small"
             android:layout_width="wrap_content"
-            android:layout_height="wrap_content"/>
+            android:layout_height="wrap_content"
+            android:autoLink="web"/>
         <GridLayout
             android:id="@+id/layout_retweet_pics"
             android:layout_width="match_parent"

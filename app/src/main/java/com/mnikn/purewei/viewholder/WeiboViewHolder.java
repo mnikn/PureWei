@@ -82,7 +82,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             txtRetweetText.setText(mWeiboModel.retweetModel.text);
             txtRetweetUserName.setText(mWeiboModel.retweetModel.userName);
             txtRetweetTime.setText(mWeiboModel.retweetModel.createdTime);
-            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.avatarLargeUrl, circleImgRetweetAvatars);
+            ImageDisplayUtil.displayFromNet(mContext, mWeiboModel.retweetModel.avatarLargeUrl, circleImgRetweetAvatars);
             Cursor retweetPicsCursor = WeiboDataHelper.getInstance().getWeiboPics(mWeiboModel.retweetId);
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
