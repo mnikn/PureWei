@@ -205,19 +205,20 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void setUserView(final UserModel account) {
         CircleImageView circleImageView = ButterKnife.findById(navigationView, R.id.circle_img_account);
-        circleImageView.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-                Intent intent = new Intent(HomeActivity.this, UserActivity.class);
-                intent.putExtra(WeiboViewHolder.EXTRA_USER,account);
-                startActivity(intent);
-            }
-        });
-
-        ImageDisplayUtil.displayFromNet(this,account.avatarLargeUrl, circleImageView);
-
         TextView txtAccount = ButterKnife.findById(navigationView, R.id.txt_account_name);
-        txtAccount.setText(account.userName);
+
+        if(account != null){
+            ImageDisplayUtil.displayFromNet(this,account.avatarLargeUrl, circleImageView);
+            txtAccount.setText(account.userName);
+            circleImageView.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View v) {
+                    Intent intent = new Intent(HomeActivity.this, UserActivity.class);
+                    intent.putExtra(WeiboViewHolder.EXTRA_USER, account);
+                    startActivity(intent);
+                }
+            });
+        }
     }
 
     @Override

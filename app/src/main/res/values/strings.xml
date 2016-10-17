@@ -45,7 +45,9 @@
     <string name="title_others">其他</string>
 
     <!-- account settings -->
+    <string name="label_account">帐号管理</string>
     <string name="action_account_manage">帐号管理</string>
+
 
     <!-- reading settings -->
     <string name="action_read_settings">阅读设置</string>
