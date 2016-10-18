@@ -9,6 +9,7 @@ import android.support.v4.widget.DrawerLayout;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.app.ActionBarDrawerToggle;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
@@ -23,6 +24,7 @@ import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
 import com.mnikn.mylibrary.listener.RecyclerScrollListener;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.mylibrary.widget.RecyclerViewDivider;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.account.AccountActivity;
 import com.mnikn.purewei.feature.account.AccountAdapter;
@@ -85,6 +87,12 @@ public class HomeActivity extends AppCompatActivity
                 startActivity(new Intent(HomeActivity.this, AccountActivity.class));
             }
         });
+        if(App.isNightMode()){
+            navigationView.getMenu().findItem(R.id.nav_night_mode).setTitle(R.string.action_day_mode);
+        }
+        else{
+            navigationView.getMenu().findItem(R.id.nav_night_mode).setTitle(R.string.action_night_mode);
+        }
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
             @Override
@@ -195,6 +203,16 @@ public class HomeActivity extends AppCompatActivity
             case R.id.nav_around:
                 mPresenter.setWeiboType(Constant.HOME);
                 mPresenter.refresh();
+                break;
+            case R.id.nav_night_mode:
+                if(App.isNightMode()){
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
+                }
+                else{
+                    getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
+                }
+                App.nightModeChange();
+                recreate();
                 break;
         }
 
