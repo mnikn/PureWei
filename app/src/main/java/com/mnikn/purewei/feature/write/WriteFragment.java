@@ -17,6 +17,8 @@ import butterknife.OnClick;
 
 public class WriteFragment extends BaseFragment {
 
+    private static final int CODE_PHOTO = 100;
+
     @BindView(R.id.edit_weibo) EditText editText;
     @BindView(R.id.imgBtn_at) ImageButton imgBtnAt;
     @BindView(R.id.imgBtn_photo) ImageButton imgBtnPhoto;
@@ -49,6 +51,14 @@ public class WriteFragment extends BaseFragment {
         return mPresenter;
     }
 
+    @OnClick(R.id.imgBtn_photo)
+    void onPhotoClick(){
+        Intent intent = new Intent(Intent.ACTION_GET_CONTENT);
+        intent.addCategory(Intent.CATEGORY_OPENABLE);
+        intent.setType("image/*");
+        intent.putExtra("return-data",true);
+        getActivity().startActivityForResult(intent,CODE_PHOTO);
+    }
 
     @OnClick(R.id.imgBtn_send)
     void onSendClick(){
@@ -56,4 +66,6 @@ public class WriteFragment extends BaseFragment {
         mPresenter.postWeibo(content);
         startActivity(new Intent(getContext(), HomeActivity.class));
     }
+
+
 }
