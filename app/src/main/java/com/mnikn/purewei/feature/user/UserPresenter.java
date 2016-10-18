@@ -22,7 +22,7 @@ public class UserPresenter extends NetListPresenter<INetListView> {
 
     @Override
     public void refreshRequest(int page) {
-        homeWeiboObservale = RequestManager.getHomeWeibo(
+        homeWeiboObservale = RequestManager.getUserWeibo(
                 getContext(),
                 getView(),
                 Constant.REFRESH,
@@ -31,7 +31,7 @@ public class UserPresenter extends NetListPresenter<INetListView> {
 
     @Override
     public void loadMoreRequest(int page) {
-        homeWeiboObservale = RequestManager.getHomeWeibo(
+        homeWeiboObservale = RequestManager.getUserWeibo(
                 getContext(),
                 getView(),
                 Constant.LOAD_MORE,

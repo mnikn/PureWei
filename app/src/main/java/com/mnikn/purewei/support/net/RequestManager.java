@@ -111,6 +111,20 @@ public class RequestManager {
                 .subscribe(new WeiboObserver(context,view,requestType));
         return observable;
     }
+
+    @SuppressWarnings("unchecked")
+    public static Observable getUserWeibo(Context context,INetListView view,int requestType,int page){
+        WeiboService service = sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        int count = PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt("key_load_num",20);
+        Observable observable = service.getUserWeibo(token.getToken(), page, count);
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new WeiboObserver(context, view, requestType));
+        return observable;
+    }
+
     @SuppressWarnings("unchecked")
     public static Observable getComment(Context context,INetListView view,int requestType,int page,long weiboId){
         CommentService service = sRetrofit.create(CommentService.class);

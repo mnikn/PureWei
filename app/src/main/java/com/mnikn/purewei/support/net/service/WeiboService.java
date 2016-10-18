@@ -28,6 +28,12 @@ public interface WeiboService {
             @Query("page") int page,
             @Query("count") int count);
 
+    @GET("statuses/user_timeline.json")
+    Observable<TimelineBean> getUserWeibo(
+            @Query("access_token") String token,
+            @Query("page") int page,
+            @Query("count") int count);
+
     @GET("emotions.json")
     Observable<List<EmotionsBean>> getEmotions(
             @Field("access_token") String token);
