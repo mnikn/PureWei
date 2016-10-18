@@ -15,6 +15,7 @@ import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.WeiboDataHelper;
@@ -61,6 +62,12 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView() {
+
+        if(App.isNightMode()){
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_night),
+                    null, null, null);
+        }
+
         if(!NumberUtil.isZero(model.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(model.retweetModel.text);

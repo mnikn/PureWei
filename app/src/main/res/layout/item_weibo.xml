@@ -60,9 +60,9 @@
             android:layout_weight="2"/>
 
         <ImageButton
-            android:id="@+id/btn_more"
+            android:id="@+id/imgBtn_more"
             style="@android:style/Widget.Holo.Button.Borderless"
-            android:src="@drawable/ic_more"
+            android:src="@drawable/ic_more_day"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
     </LinearLayout>
@@ -140,17 +140,17 @@
         <Button
             android:id="@+id/btn_attitudes"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_thumb_up_black"
+            android:drawableLeft="@drawable/ic_thumb_up_day"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_comments"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_comment"
+            android:drawableLeft="@drawable/ic_comment_day"
             android:layout_weight="1"/>
         <Button
             android:id="@+id/btn_reports"
             style="@style/buttonWeibo"
-            android:drawableLeft="@drawable/ic_share"
+            android:drawableLeft="@drawable/ic_retweet_day"
             android:layout_weight="1"/>
     </LinearLayout>
 

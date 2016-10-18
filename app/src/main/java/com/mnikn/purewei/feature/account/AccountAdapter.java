@@ -5,13 +5,18 @@ import android.content.Intent;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
+import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.home.HomeActivity;
 import com.mnikn.purewei.viewholder.AccountViewHolder;
+
+import butterknife.ButterKnife;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -51,6 +56,11 @@ public class AccountAdapter extends EasyRecyclerAdapter<CursorDataProvider,Objec
                     mContext.startActivity(intent);
                 }
             });
+            if(App.isNightMode()){
+                ((TextView) ButterKnife.findById(holder.itemView,R.id.txt_add_account))
+                        .setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext,R.drawable.ic_add_night),
+                                null,null,null);
+            }
             return holder;
         }
         return new AccountViewHolder(mContext,LayoutInflater.from(mContext).inflate(

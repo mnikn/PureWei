@@ -19,6 +19,7 @@ import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.DataUtil;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.WeiboDataHelper;
@@ -53,7 +54,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.btn_attitudes) Button btnAttitudes;
     @BindView(R.id.btn_comments) Button btnComments;
     @BindView(R.id.btn_reports) Button btnReports;
-    @BindView(R.id.btn_more) ImageButton btnMore;
+    @BindView(R.id.imgBtn_more) ImageButton imgBtnMore;
     @BindView(R.id.layout_retweet) LinearLayout linearRetweet;
     @BindView(R.id.layout_pics) GridLayout gridPics;
     @BindView(R.id.layout_retweet_pics) GridLayout retweetGridPics;
@@ -74,6 +75,17 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView(Cursor data) {
+
+        if(App.isNightMode()){
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_night),
+                    null, null, null);
+            btnComments.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_comment_night),
+                    null, null, null);
+            btnReports.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext,R.drawable.ic_retweet_night),
+                    null,null,null);
+            imgBtnMore.setImageDrawable(ResourcesUtil.getDrawable(mContext, R.drawable.ic_more_night));
+        }
+
         mWeiboModel = new WeiboModel(data);
         mUserModel = new UserModel(data);
 
@@ -87,7 +99,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
 
-        ((AppCompatActivity) mContext).registerForContextMenu(btnMore);
+        ((AppCompatActivity) mContext).registerForContextMenu(imgBtnMore);
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
@@ -136,12 +148,12 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @OnClick({R.id.circleImg_retweet_avatars,R.id.txt_retweet_text})
     public void navRetweetDetail(){
         Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO,mWeiboModel.retweetModel);
+        intent.putExtra(EXTRA_WEIBO, mWeiboModel.retweetModel);
         mContext.startActivity(intent);
     }
 
     @Optional
-    @OnClick(R.id.btn_more)
+    @OnClick(R.id.imgBtn_more)
     void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
         builder.setItems(ResourcesUtil.getStringArray(mContext, R.array.entry_btn_more), new DialogInterface.OnClickListener() {

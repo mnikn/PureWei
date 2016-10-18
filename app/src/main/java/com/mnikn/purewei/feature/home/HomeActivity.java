@@ -88,10 +88,11 @@ public class HomeActivity extends AppCompatActivity
             }
         });
         if(App.isNightMode()){
-            navigationView.getMenu().findItem(R.id.nav_night_mode).setTitle(R.string.action_day_mode);
-        }
-        else{
-            navigationView.getMenu().findItem(R.id.nav_night_mode).setTitle(R.string.action_night_mode);
+            navigationView.getMenu().findItem(R.id.nav_draft).setIcon(R.drawable.ic_draft_night);
+            navigationView.getMenu().findItem(R.id.nav_group).setIcon(R.drawable.ic_group_night);
+            navigationView.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.ic_settings_night);
+            navigationView.getMenu().findItem(R.id.nav_mode).setIcon(R.drawable.ic_mode_night);
+            navigationView.getMenu().findItem(R.id.nav_mode).setTitle(R.string.action_day_mode);
         }
 
         refreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
@@ -204,7 +205,7 @@ public class HomeActivity extends AppCompatActivity
                 mPresenter.setWeiboType(Constant.HOME);
                 mPresenter.refresh();
                 break;
-            case R.id.nav_night_mode:
+            case R.id.nav_mode:
                 if(App.isNightMode()){
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
                 }
