@@ -95,7 +95,7 @@ public class RequestManager {
         Observable observable = service.getHomeWeibo(token.getToken(),page,count);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new WeiboObserver(context,view,requestType));
+                .subscribe(new WeiboObserver(context, view, requestType));
         return observable;
     }
 
@@ -105,7 +105,7 @@ public class RequestManager {
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         int count = PreferenceManager.getDefaultSharedPreferences(context)
                 .getInt("key_load_num",20);
-        Observable observable = service.getHotWeibo(token.getToken(),page,count);
+        Observable observable = service.getHotWeibo(token.getToken(), page, count);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new WeiboObserver(context,view,requestType));
@@ -131,6 +131,24 @@ public class RequestManager {
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new AccountObserver(context, view));
         return observable;
+    }
+
+    public static void postWeibo(Context context,String content){
+        WeiboService service = sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        service.postWeibo(token.getToken(), content)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    public static void destoryWeibo(Context context,long id){
+        WeiboService service = sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        service.destoryWeibo(token.getToken(), id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
     }
 
     public static void cancelRequest(Observable observable){

@@ -37,6 +37,14 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content" />
 
+        <ImageButton
+            android:id="@+id/imgBtn_emo"
+            style="@style/Base.Widget.AppCompat.Button.Borderless"
+            android:src="@drawable/ic_emo"
+            android:background="@drawable/selector_write_buttons"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content" />
+
         <View
             android:layout_width="0dp"
             android:layout_height="0dp"

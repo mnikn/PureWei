@@ -3,7 +3,10 @@ package com.mnikn.purewei.support.net.service;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
 import io.reactivex.Observable;
+import retrofit2.http.Field;
+import retrofit2.http.FormUrlEncoded;
 import retrofit2.http.GET;
+import retrofit2.http.POST;
 import retrofit2.http.Query;
 
 /**
@@ -21,4 +24,18 @@ public interface WeiboService {
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
+
+
+    @POST("statuses/update.json")
+    @FormUrlEncoded
+    Observable<Object> postWeibo(
+            @Field("access_token") String token,
+            @Field("status") String content);
+
+
+    @POST("statuses/destroy.json")
+    @FormUrlEncoded
+    Observable<Object> destoryWeibo(
+            @Field("access_token") String token,
+            @Field("id") long id);
 }

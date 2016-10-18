@@ -1,24 +1,28 @@
 package com.mnikn.purewei.feature.write;
 
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.mnikn.mylibrary.mvp.presenter.IPresenter;
 import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.home.HomeActivity;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
+import butterknife.OnClick;
 
 public class WriteFragment extends BaseFragment {
 
-    @BindView(R.id.edit_weibo) EditText mEditText;
-    @BindView(R.id.imgBtn_at) ImageButton mButtonAt;
-    @BindView(R.id.imgBtn_photo) ImageButton mButtonPhoto;
-    @BindView(R.id.imgBtn_send) ImageButton mButtonSend;
+    @BindView(R.id.edit_weibo) EditText editText;
+    @BindView(R.id.imgBtn_at) ImageButton imgBtnAt;
+    @BindView(R.id.imgBtn_photo) ImageButton imgBtnPhoto;
+    @BindView(R.id.imgBtn_send) ImageButton imgBtnSend;
+
+    private IWritePresenter mPresenter;
 
     public static WriteFragment newInstance() {
 
@@ -31,7 +35,7 @@ public class WriteFragment extends BaseFragment {
 
     @Override
     public void setupViews(View parent) {
-        ButterKnife.bind(this,parent);
+        ButterKnife.bind(this, parent);
     }
 
     @Override
@@ -40,7 +44,16 @@ public class WriteFragment extends BaseFragment {
     }
 
     @Override
-    public <P extends IPresenter> P getPresenter() {
-        return null;
+    public IWritePresenter getPresenter() {
+        mPresenter = new WritePresenter(getContext(),this);
+        return mPresenter;
+    }
+
+
+    @OnClick(R.id.imgBtn_send)
+    void onSendClick(){
+        String content = editText.getText().toString();
+        mPresenter.postWeibo(content);
+        startActivity(new Intent(getContext(), HomeActivity.class));
     }
 }
