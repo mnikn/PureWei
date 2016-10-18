@@ -7,7 +7,9 @@
     <color name="colorLightGreyBackground">#f4ecec</color>
     <color name="colorLightGrey">#e9e9e9</color>
     <color name="colorGrey">#666666</color>
+    
+    <color name="colorLightBlue">#6a9dda</color>
 
-    <color name="lightBlack">#161616</color>
+    <color name="colorLightBlack">#161616</color>
 
 </resources>
