@@ -133,6 +133,15 @@ public class RequestManager {
         return observable;
     }
 
+    public static void getEmotions(Context context){
+        WeiboService service = sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        service.getEmotions(token.getToken())
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
     public static void postWeibo(Context context,String content){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);

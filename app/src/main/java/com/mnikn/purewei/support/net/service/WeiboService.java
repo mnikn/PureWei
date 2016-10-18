@@ -1,6 +1,9 @@
 package com.mnikn.purewei.support.net.service;
 
+import com.mnikn.purewei.support.bean.EmotionsBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
+
+import java.util.List;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -25,6 +28,9 @@ public interface WeiboService {
             @Query("page") int page,
             @Query("count") int count);
 
+    @GET("emotions.json")
+    Observable<List<EmotionsBean>> getEmotions(
+            @Field("access_token") String token);
 
     @POST("statuses/update.json")
     @FormUrlEncoded
@@ -32,10 +38,11 @@ public interface WeiboService {
             @Field("access_token") String token,
             @Field("status") String content);
 
-
     @POST("statuses/destroy.json")
     @FormUrlEncoded
     Observable<Object> destoryWeibo(
             @Field("access_token") String token,
             @Field("id") long id);
+
+
 }
