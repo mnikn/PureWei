@@ -1,6 +1,7 @@
 package com.mnikn.purewei.support.net.service;
 
 import com.mnikn.purewei.support.bean.EmotionsBean;
+import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
 import java.util.List;
@@ -16,8 +17,8 @@ import retrofit2.http.Query;
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public interface WeiboService {
-    @GET("statuses/public_timeline.json")
-    Observable<TimelineBean> getHotWeibo(
+    @GET("suggestions/favorites/hot.json")
+    Observable<List<StatusesBean>> getHotWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
@@ -29,7 +30,7 @@ public interface WeiboService {
             @Query("count") int count);
 
     @GET("statuses/user_timeline.json")
-    Observable<TimelineBean> getUserWeibo(
+    Observable<List<StatusesBean>> getUserWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
