@@ -9,6 +9,8 @@ import android.widget.TextView;
 
 import com.mnikn.mylibrary.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.WeiboDataHelper;
@@ -41,6 +43,11 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
 
     @Override
     public void bindView(final Cursor data) {
+
+        if(App.isNightMode()){
+            imgBtnDelete.setImageDrawable(ResourcesUtil.getDrawable(mContext,R.drawable.ic_delete_night));
+        }
+
         final UserModel model = WeiboDataHelper.getInstance()
                 .getUserModel(WeiboContract.AccountEntry.getUid(data));
 

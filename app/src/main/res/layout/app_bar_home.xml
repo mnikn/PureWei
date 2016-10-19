@@ -32,8 +32,7 @@
         android:layout_gravity="bottom|end"
         android:layout_marginBottom="@dimen/app_margin_40dp"
         android:layout_marginRight="@dimen/app_margin_24dp"
-        app:backgroundTint="@android:color/black"
-        app:layout_scrollFlags="scroll|enterAlways"/>
+        app:backgroundTint="@android:color/black"/>
 
 
 
