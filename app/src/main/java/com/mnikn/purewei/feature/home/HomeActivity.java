@@ -119,6 +119,7 @@ public class HomeActivity extends AppCompatActivity
                 }
             }
         });
+
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
             android.R.color.holo_green_dark,
             android.R.color.holo_blue_dark);
@@ -151,10 +152,20 @@ public class HomeActivity extends AppCompatActivity
         mPresenter = getPresenter();
         setupViews(null);
 
-        boolean isAuthorize = getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE,false);
-        if(isAuthorize){
+
+        if(getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE,false)){
             mPresenter.authorize();
         }
+    }
+
+    @Override
+    protected void onSaveInstanceState(Bundle outState) {
+        super.onSaveInstanceState(outState);
+    }
+
+    @Override
+    public void onActivityReenter(int resultCode, Intent data) {
+        super.onActivityReenter(resultCode, data);
     }
 
     @Override

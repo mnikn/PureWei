@@ -38,7 +38,7 @@ public interface WeiboService {
 
 
     @GET("statuses/user_timeline.json")
-    Observable<List<StatusesBean>> getUserWeibo(
+    Observable<TimelineBean> getUserWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
