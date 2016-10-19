@@ -18,6 +18,7 @@ public final class Constant {
     public static final int HOME = 1;
     public static final int AROUND = 2;
     public static final int HOT = 3;
+    public static final int FAVORITE = 4;
 
     /**
      * User Type

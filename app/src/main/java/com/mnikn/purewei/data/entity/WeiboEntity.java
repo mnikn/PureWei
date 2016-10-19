@@ -4,6 +4,7 @@ import android.content.ContentValues;
 
 import com.mnikn.mylibrary.util.DateUtil;
 import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.support.bean.FavoriteBean;
 import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
@@ -26,12 +27,34 @@ public class WeiboEntity {
     public WeiboEntity(TimelineBean bean,int position){
         fromBean(bean, position);
     }
+    public WeiboEntity(FavoriteBean bean,int position){
+        fromBean(bean,position);
+    }
     public WeiboEntity(StatusesBean bean){
         fromBean(bean);
     }
 
     private void fromBean(TimelineBean bean,int position){
         fromBean(bean.statuses.get(position));
+    }
+
+    private void fromBean(FavoriteBean bean,int position){
+        fromBean(bean.favorites.get(position).status);
+    }
+
+    private void fromBean(FavoriteBean.FavoritesBean.StatusBean bean){
+        weiboId = bean.id;
+        userId = bean.user.id;
+        if(bean.retweetedStatus != null && bean.retweetedStatus.user != null){
+            retweetId = bean.retweetedStatus.id;
+        }
+        createdTime = DateUtil.dateToLong(bean.createdAt);
+        text = bean.text;
+        source = bean.source;
+        reportsCount = bean.repostsCount;
+        attitudesCount = bean.attitudesCount;
+        commentsCount = bean.commentsCount;
+        liked = bean.liked;
     }
 
     private void fromBean(StatusesBean bean){

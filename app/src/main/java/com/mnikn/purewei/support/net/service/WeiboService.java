@@ -1,6 +1,7 @@
 package com.mnikn.purewei.support.net.service;
 
 import com.mnikn.purewei.support.bean.EmotionsBean;
+import com.mnikn.purewei.support.bean.FavoriteBean;
 import com.mnikn.purewei.support.bean.StatusesBean;
 import com.mnikn.purewei.support.bean.TimelineBean;
 
@@ -28,6 +29,13 @@ public interface WeiboService {
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
+
+    @GET("favorites.json")
+    Observable<FavoriteBean> getFavoriteWeibo(
+            @Query("access_token") String token,
+            @Query("page") int page,
+            @Query("count") int count);
+
 
     @GET("statuses/user_timeline.json")
     Observable<List<StatusesBean>> getUserWeibo(

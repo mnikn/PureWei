@@ -205,6 +205,10 @@ public class HomeActivity extends AppCompatActivity
                 mPresenter.setWeiboType(Constant.HOME);
                 mPresenter.refresh();
                 break;
+            case R.id.nav_favorite:
+                mPresenter.setWeiboType(Constant.FAVORITE);
+                mPresenter.refresh();
+                break;
             case R.id.nav_mode:
                 if(App.isNightMode()){
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);

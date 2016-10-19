@@ -16,6 +16,7 @@ import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.net.observer.AccountObserver;
 import com.mnikn.purewei.support.net.observer.CommentObserver;
+import com.mnikn.purewei.support.net.observer.FavoritesWeiboObserver;
 import com.mnikn.purewei.support.net.observer.HotWeiboObserver;
 import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
@@ -109,7 +110,20 @@ public class RequestManager {
         Observable observable = service.getHotWeibo(token.getToken(), page, count);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HotWeiboObserver(context,view,requestType));
+                .subscribe(new HotWeiboObserver(context, view, requestType));
+        return observable;
+    }
+
+    @SuppressWarnings("unchecked")
+    public static Observable getFavoritesWeibo(Context context,INetListView view,int requestType,int page){
+        WeiboService service = sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        int count = PreferenceManager.getDefaultSharedPreferences(context)
+                .getInt("key_load_num",20);
+        Observable observable = service.getFavoriteWeibo(token.getToken(), page, count);
+        observable.subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe(new FavoritesWeiboObserver(context,view,requestType));
         return observable;
     }
 

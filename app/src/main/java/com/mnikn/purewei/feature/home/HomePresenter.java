@@ -92,6 +92,13 @@ public class HomePresenter extends NetListPresenter<IHomeView> implements IHomeP
                         Constant.REFRESH,
                         page);
                 break;
+            case Constant.FAVORITE:
+                hotWeiboObservable = RequestManager.getFavoritesWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.REFRESH,
+                        page);
+                break;
         }
     }
 
@@ -107,6 +114,13 @@ public class HomePresenter extends NetListPresenter<IHomeView> implements IHomeP
                 break;
             case Constant.HOT:
                 hotWeiboObservable = RequestManager.getHotWeibo(
+                        getContext(),
+                        getView(),
+                        Constant.LOAD_MORE,
+                        page);
+                break;
+            case Constant.FAVORITE:
+                hotWeiboObservable = RequestManager.getFavoritesWeibo(
                         getContext(),
                         getView(),
                         Constant.LOAD_MORE,
