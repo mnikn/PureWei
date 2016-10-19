@@ -13,8 +13,10 @@ import android.support.v7.app.AppCompatDelegate;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.Toolbar;
+import android.view.GestureDetector;
 import android.view.Menu;
 import android.view.MenuItem;
+import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
@@ -65,6 +67,20 @@ public class HomeActivity extends AppCompatActivity
     public void setupViews(View parent) {
 
         setSupportActionBar(toolbar);
+        final GestureDetector gestureDetector = new GestureDetector(this,
+                new GestureDetector.SimpleOnGestureListener(){
+                    @Override
+                    public boolean onDoubleTap(MotionEvent e) {
+                        recyclerView.scrollToPosition(0);
+                        return super.onDoubleTap(e);
+                    }
+                });
+        toolbar.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                return gestureDetector.onTouchEvent(event);
+            }
+        });
 
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -155,9 +171,6 @@ public class HomeActivity extends AppCompatActivity
         }
         else if(mPresenter.isLoading()){
             mPresenter.cancelLoading();
-        }
-        else if(((LinearLayoutManager) recyclerView.getLayoutManager()).findLastVisibleItemPosition() != 1){
-            recyclerView.smoothScrollToPosition(0);
         }
         else {
             super.onBackPressed();
