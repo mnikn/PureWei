@@ -9,7 +9,9 @@ import android.widget.ImageButton;
 
 import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.home.HomeActivity;
+import com.mnikn.purewei.model.WeiboModel;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -63,8 +65,16 @@ public class WriteFragment extends BaseFragment {
     @OnClick(R.id.imgBtn_send)
     void onSendClick(){
         String content = editText.getText().toString();
-        mPresenter.postWeibo(content);
-        startActivity(new Intent(getContext(), HomeActivity.class));
+        if(getActivity().getIntent().getIntExtra(WriteActivity.EXTRA_TYPE,1) == 1){
+            mPresenter.createWeibo(content);
+            startActivity(new Intent(getContext(), HomeActivity.class));
+        }
+        else{
+            WeiboModel model = getActivity().getIntent().getParcelableExtra(WriteActivity.EXTRA_WEIBO);
+            mPresenter.createComment(content,model.weiboId);
+            DetailActivity.startActivity(getContext(),model);
+        }
+
     }
 
 

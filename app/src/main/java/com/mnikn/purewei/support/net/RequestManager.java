@@ -144,7 +144,7 @@ public class RequestManager {
     public static Observable getComment(Context context,INetListView view,int requestType,int page,long weiboId){
         CommentService service = sRetrofit.create(CommentService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.request(page, token.getToken(), weiboId);
+        Observable observable = service.getComment(page, token.getToken(), weiboId);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe(new CommentObserver(context,view,page,requestType,weiboId));
@@ -171,10 +171,19 @@ public class RequestManager {
                 .subscribe();
     }
 
-    public static void postWeibo(Context context,String content){
+    public static void createComment(Context context,String content,long id){
+        CommentService service = sRetrofit.create(CommentService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
+        service.createComment(token.getToken(), content, id)
+                .subscribeOn(Schedulers.newThread())
+                .observeOn(AndroidSchedulers.mainThread())
+                .subscribe();
+    }
+
+    public static void createWeibo(Context context, String content){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        service.postWeibo(token.getToken(), content)
+        service.createWeibo(token.getToken(), content)
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();

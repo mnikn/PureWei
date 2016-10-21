@@ -45,7 +45,7 @@
             android:label="@string/lable_settings" />
         <activity
             android:name=".feature.write.WriteActivity"
-            android:label="@string/label_write" />
+            android:label="@string/label_write_weibo" />
         <activity
             android:name=".feature.account.AccountActivity"
             android:label="@string/label_account"/>

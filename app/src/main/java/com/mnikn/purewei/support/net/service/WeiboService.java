@@ -49,7 +49,7 @@ public interface WeiboService {
 
     @POST("statuses/update.json")
     @FormUrlEncoded
-    Observable<Object> postWeibo(
+    Observable<Object> createWeibo(
             @Field("access_token") String token,
             @Field("status") String content);
 

@@ -85,7 +85,7 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                startActivity(new Intent(HomeActivity.this, WriteActivity.class));
+                WriteActivity.startActivity(HomeActivity.this, Constant.WRITE_WEIBO);
             }
         });
 

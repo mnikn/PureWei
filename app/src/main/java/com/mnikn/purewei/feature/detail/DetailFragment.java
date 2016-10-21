@@ -15,7 +15,6 @@ import com.mnikn.mylibrary.widget.RecyclerViewDivider;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.DetailLoaderCallback;
-import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -36,7 +35,7 @@ public class DetailFragment extends NetRecyclerFragment {
     @Override
     public void onCreate(@Nullable Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        model = getActivity().getIntent().getParcelableExtra(WeiboViewHolder.EXTRA_WEIBO);
+        model = getActivity().getIntent().getParcelableExtra(DetailActivity.EXTRA_MODEL);
     }
 
 

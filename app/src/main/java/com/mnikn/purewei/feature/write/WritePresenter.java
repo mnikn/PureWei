@@ -19,8 +19,13 @@ public class WritePresenter implements IWritePresenter {
     }
 
     @Override
-    public void postWeibo(String content) {
-        RequestManager.postWeibo(mContext,content);
+    public void createWeibo(String content) {
+        RequestManager.createWeibo(mContext, content);
+    }
+
+    @Override
+    public void createComment(String content, long id) {
+        RequestManager.createComment(mContext,content,id);
     }
 
     @Override

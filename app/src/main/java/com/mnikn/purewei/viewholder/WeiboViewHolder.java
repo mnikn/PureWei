@@ -26,8 +26,10 @@ import com.mnikn.purewei.data.WeiboDataHelper;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
+import com.mnikn.purewei.feature.write.WriteActivity;
 import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
@@ -42,7 +44,6 @@ import de.hdodenhof.circleimageview.CircleImageView;
 public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
     public static final String EXTRA_USER = "extra_user";
-    public static final String EXTRA_WEIBO = "extra_weibo";
     public static final String EXTRA_PHOTO_URL = "extra_photo_url";
 
     @BindView(R.id.circleImg_avatars) CircleImageView circleImgUserAvatars;
@@ -139,17 +140,13 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @Optional
     @OnClick({R.id.txt_text,R.id.btn_comments})
     public void navDetail(){
-        Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO, mWeiboModel);
-        mContext.startActivity(intent);
+        DetailActivity.startActivity(mContext,mWeiboModel);
     }
 
     @Optional
     @OnClick({R.id.circleImg_retweet_avatars,R.id.txt_retweet_text})
     public void navRetweetDetail(){
-        Intent intent = new Intent(mContext,DetailActivity.class);
-        intent.putExtra(EXTRA_WEIBO, mWeiboModel.retweetModel);
-        mContext.startActivity(intent);
+        DetailActivity.startActivity(mContext,mWeiboModel.retweetModel);
     }
 
     @Optional
@@ -159,7 +156,17 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         builder.setItems(ResourcesUtil.getStringArray(mContext, R.array.entry_btn_more), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-
+                switch (which){
+                    case 0:
+                        WriteActivity.startActivity(mContext, Constant.WRITE_COMMENT,mWeiboModel);
+                        break;
+                    case 1:
+                        break;
+                    case 2:
+                        break;
+                    case 3:
+                        break;
+                }
             }
         });
         builder.show();

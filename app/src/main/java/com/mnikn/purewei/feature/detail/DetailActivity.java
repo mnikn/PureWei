@@ -1,17 +1,31 @@
 package com.mnikn.purewei.feature.detail;
 
+import android.content.Context;
+import android.content.Intent;
 import android.view.ContextMenu;
 import android.view.Menu;
+import android.view.MenuItem;
 import android.view.View;
 
 import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
 import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.feature.write.WriteActivity;
+import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.support.Constant;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class DetailActivity extends SingleFragmentActivity {
+
+    public static final String EXTRA_MODEL = "extra_model";
+
+    public static void startActivity(Context context,WeiboModel model){
+        Intent intent = new Intent(context,DetailActivity.class);
+        intent.putExtra(EXTRA_MODEL,model);
+        context.startActivity(intent);
+    }
 
     @Override
     public BaseFragment getFragment() {
@@ -22,6 +36,19 @@ public class DetailActivity extends SingleFragmentActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.detail, menu);
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        super.onOptionsItemSelected(item);
+        int id = item.getItemId();
+        switch (id){
+            case R.id.action_comment:
+                WeiboModel model = getIntent().getParcelableExtra(EXTRA_MODEL);
+                WriteActivity.startActivity(this, Constant.WRITE_COMMENT,model);
+                break;
+        }
+        return false;
     }
 
     @Override

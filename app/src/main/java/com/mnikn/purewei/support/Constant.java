@@ -23,6 +23,12 @@ public final class Constant {
     /**
      * User Type
      */
-    public static final int USER_NORAML = 0;
-    public static final int USER_ACCOUNT = 1;
+    public static final int USER_NORAML = 1;
+    public static final int USER_ACCOUNT = 2;
+
+    /**
+     * Write Type
+     */
+    public static final int WRITE_WEIBO = 1;
+    public static final int WRITE_COMMENT = 2;
 }

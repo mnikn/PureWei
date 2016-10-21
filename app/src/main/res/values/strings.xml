@@ -22,7 +22,8 @@
     <string name="navigation_drawer_close">Close navigation drawer</string>
 
     <!-- write -->
-    <string name="label_write">发微博</string>
+    <string name="label_write_weibo">发微博</string>
+    <string name="label_write_comment">评论</string>
     <string name="action_long_weibo">长微博</string>
     <string name="edit_weibo_hint">请输入微博内容</string>
 
