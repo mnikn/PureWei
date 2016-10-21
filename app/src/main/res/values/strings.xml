@@ -1,6 +1,10 @@
 <resources>
     <string name="app_name">PureWei</string>
 
+    <!-- dialog -->
+    <string name="yes">是</string>
+    <string name="no">否</string>
+
     <!-- home -->
     <string name="action_search">搜索</string>
     <string name="action_notification">通知</string>
@@ -26,6 +30,8 @@
     <string name="label_write_comment">评论</string>
     <string name="action_long_weibo">长微博</string>
     <string name="edit_weibo_hint">请输入微博内容</string>
+    <string name="dialog_empty">内容不能为空!</string>
+    <string name="dialog_draft">是否保存到草稿箱?</string>
 
     <!-- user -->
     <string name="label_user">用户详情</string>

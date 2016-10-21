@@ -1,13 +1,17 @@
 package com.mnikn.purewei.feature.write;
 
 import android.content.Context;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 
 import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
 import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.data.WeiboContract;
+import com.mnikn.purewei.data.entity.DraftEntity;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
 
@@ -15,6 +19,8 @@ public class WriteActivity extends SingleFragmentActivity {
 
     public static final String EXTRA_TYPE = "extra_type";
     public static final String EXTRA_WEIBO = "extra_weibo";
+
+    private WriteFragment mFragment;
 
     public static void startActivity(Context context,int type){
         Intent intent = new Intent(context,WriteActivity.class);
@@ -45,6 +51,44 @@ public class WriteActivity extends SingleFragmentActivity {
 
     @Override
     public BaseFragment getFragment() {
-        return WriteFragment.newInstance();
+        mFragment = WriteFragment.newInstance();
+        return mFragment;
+    }
+
+    @Override
+    public void onBackPressed() {
+        final String content = mFragment.edtWeibo.getText().toString();
+        if(content.length() != 0){
+            AlertDialog.Builder builder = new AlertDialog.Builder(this);
+            builder.setMessage(R.string.dialog_draft);
+            builder.setPositiveButton(R.string.yes, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    int type = getIntent().getIntExtra(EXTRA_TYPE,1);
+                    if(type == Constant.WRITE_COMMENT){
+                        long weiboId = ((WeiboModel) getIntent().getParcelableExtra(EXTRA_WEIBO)).weiboId;
+                        getContentResolver().insert(
+                                WeiboContract.DraftEntry.CONTENT_URI,
+                                new DraftEntity(type,weiboId,content).toContentValues());
+                    }
+                    else{
+                        getContentResolver().insert(
+                                WeiboContract.DraftEntry.CONTENT_URI,
+                                new DraftEntity(type,content).toContentValues());
+                    }
+                    WriteActivity.super.onBackPressed();
+                }
+            });
+            builder.setNegativeButton(R.string.no, new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    WriteActivity.super.onBackPressed();
+                }
+            });
+            builder.show();
+        }
+        else{
+            super.onBackPressed();
+        }
     }
 }

@@ -21,7 +21,6 @@ public class WeiboCommentEntity {
     public List<String> commentText = new ArrayList<>();
     public List<String> commentSource = new ArrayList<>();
 
-    public WeiboCommentEntity() {}
     public WeiboCommentEntity(CommentBean bean){
         fromBean(bean);
     }

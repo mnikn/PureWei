@@ -23,7 +23,6 @@ public class WeiboEntity {
     public long attitudesCount;
     public boolean liked;
 
-    public WeiboEntity() {}
     public WeiboEntity(TimelineBean bean,int position){
         fromBean(bean, position);
     }

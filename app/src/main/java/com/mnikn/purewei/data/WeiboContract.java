@@ -21,6 +21,7 @@ public class WeiboContract {
     public static final String PATH_WEIBO_COMMENT = "weibo_comment";
     public static final String PATH_USER = "user";
     public static final String PATH_ACCOUNT = "account";
+    public static final String PATH_DRAFT = "draft";
 
     public static class WeiboEntry implements BaseColumns{
         public static final String TABLE_NAME = "weibo";
@@ -259,7 +260,31 @@ public class WeiboContract {
         public static long getExpiresIn(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_EXPIRES_IN));
         }
+    }
 
+    public static class DraftEntry implements BaseColumns{
+        public static final String TABLE_NAME = "draft";
 
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_DRAFT).build();
+        public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
+                + "/" + CONTENT_AUTHORITY + "/" + PATH_DRAFT;
+
+        public static final String COLUMN_TYPE = "type";
+        public static final String COLUMN_WEIBO_ID = "weibo_id";
+        public static final String COLUMN_CONTENT = "content";
+
+        public static Uri buildDraftUri(long id){
+            return ContentUris.withAppendedId(CONTENT_URI, id);
+        }
+
+        public static long getType(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_TYPE));
+        }
+        public static long getWeiboId(Cursor cursor){
+            return cursor.getInt(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        }
+        public static String getContent(Cursor cursor){
+            return cursor.getString(cursor.getColumnIndex(COLUMN_CONTENT));
+        }
     }
 }

@@ -22,8 +22,6 @@ public class UserEntity {
     public boolean fllowing;
     public boolean fllowMe;
 
-
-    public UserEntity() {}
     public UserEntity(StatusesBean bean){
         fromTimelineBean(bean);
     }

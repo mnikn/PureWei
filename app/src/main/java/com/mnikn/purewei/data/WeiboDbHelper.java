@@ -84,11 +84,19 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
                 AccountEntry.COLUMN_EXPIRES_IN + " INTEGER NOT NULL, " +
                 AccountEntry.COLUMN_UID + " INTEGER NOT NULL" + ")";
 
+        final String SQL_CREATE_TABLE_DRAFT = "CREATE TABLE " +
+                DraftEntry.TABLE_NAME + " (" +
+                DraftEntry._ID + " INTEGER PRIMARY KEY AUTOINCREMENT, " +
+                DraftEntry.COLUMN_TYPE + " INTEGER NOT NULL, " +
+                DraftEntry.COLUMN_WEIBO_ID + " INTEGER, " +
+                DraftEntry.COLUMN_CONTENT + " TEXT NOT NULL" + ")";
+
         db.execSQL(SQL_CREATE_TABLE_WEIBO);
         db.execSQL(SQL_CREATE_TABLE_WEIBO_PICS);
         db.execSQL(SQL_CREATE_TABLE_WEIBO_COMMENT);
         db.execSQL(SQL_CREATE_TABLE_USER);
         db.execSQL(SQL_CREATE_TABLE_ACCOUNT);
+        db.execSQL(SQL_CREATE_TABLE_DRAFT);
     }
 
     @Override
@@ -98,6 +106,7 @@ public class WeiboDbHelper extends SQLiteOpenHelper {
         db.execSQL("DROP TABLE IF EXISTS " + WeiboCommentEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + UserEntry.TABLE_NAME);
         db.execSQL("DROP TABLE IF EXISTS " + AccountEntry.TABLE_NAME);
+        db.execSQL("DROP TABLE IF EXISTS " + DraftEntry.TABLE_NAME);
         onCreate(db);
     }
 

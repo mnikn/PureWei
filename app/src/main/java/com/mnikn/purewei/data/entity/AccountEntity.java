@@ -18,8 +18,6 @@ public class AccountEntity {
     private String accessToken;
     private String refreshToken;
 
-    public AccountEntity() {}
-
     public AccountEntity(Oauth2AccessToken accessToken){
         fromToken(accessToken);
     }

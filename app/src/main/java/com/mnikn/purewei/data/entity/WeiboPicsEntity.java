@@ -17,10 +17,7 @@ import java.util.List;
 public class WeiboPicsEntity {
     public long weiboId;
     public List<String> thumbnailUrl = new ArrayList<>();
-    public List<String> middleUrl = new ArrayList<>();
-    public List<String> largeUrl = new ArrayList<>();
 
-    public WeiboPicsEntity() {}
     public WeiboPicsEntity(TimelineBean bean, int position){
         fromBean(bean, position);
     }

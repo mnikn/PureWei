@@ -22,8 +22,9 @@ public class WeiboProvider extends ContentProvider {
     private static final int WEIBO_COMMENT = 102;
     private static final int USER = 103;
     private static final int ACCOUNT = 104;
-    private static final int WEIBO_WITH_USER = 105;
-    private static final int COMMENT_WITH_USER = 106;
+    private static final int DRAFT = 105;
+    private static final int WEIBO_WITH_USER = 106;
+    private static final int COMMENT_WITH_USER = 107;
     private static UriMatcher sUriMatcher;
 
     private WeiboDbHelper mDbHelper;
@@ -36,6 +37,7 @@ public class WeiboProvider extends ContentProvider {
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT,WEIBO_COMMENT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_USER,USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_ACCOUNT,ACCOUNT);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_DRAFT,DRAFT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/user",WEIBO_WITH_USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT + "/user",COMMENT_WITH_USER);
     }
@@ -107,6 +109,16 @@ public class WeiboProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
+            case DRAFT:
+                cursor = db.query(
+                        DraftEntry.TABLE_NAME,
+                        projection,
+                        selection,
+                        selectionArgs,
+                        null,
+                        null,
+                        sortOrder);
+                break;
             case WEIBO_WITH_USER:
                 tableName = WeiboEntry.TABLE_NAME + " INNER JOIN " +
                         UserEntry.TABLE_NAME +" ON " + WeiboEntry.TABLE_NAME +
@@ -165,6 +177,9 @@ public class WeiboProvider extends ContentProvider {
             case ACCOUNT:
                 type = AccountEntry.CONTENT_TYPE;
                 break;
+            case DRAFT:
+                type = DraftEntry.CONTENT_TYPE;
+                break;
             default:
                 throw new IllegalArgumentException("No such a uri: " + uri.toString());
         }
@@ -198,6 +213,10 @@ public class WeiboProvider extends ContentProvider {
             case ACCOUNT:
                 rowId = db.replace(AccountEntry.TABLE_NAME,null,values);
                 retUri = insertSuccessfulOrThrow(rowId, uri, AccountEntry.buildAccountUri(rowId));
+                break;
+            case DRAFT:
+                rowId = db.replace(DraftEntry.TABLE_NAME,null,values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, DraftEntry.buildDraftUri(rowId));
                 break;
             default:
                 throw new IllegalArgumentException("No such a uri: " + uri.toString());
@@ -272,6 +291,9 @@ public class WeiboProvider extends ContentProvider {
             case ACCOUNT:
                 rowId = db.delete(AccountEntry.TABLE_NAME, selection, selectionArgs);
                 break;
+            case DRAFT:
+                rowId = db.delete(DraftEntry.TABLE_NAME, selection, selectionArgs);
+                break;
             default:
                 throw new android.database.SQLException("No such a uri" + uri);
         }
@@ -305,6 +327,10 @@ public class WeiboProvider extends ContentProvider {
                 break;
             case ACCOUNT:
                 rowId = db.update(AccountEntry.TABLE_NAME, values, selection, selectionArgs);
+                insertSuccessfulOrThrow(rowId,uri,null);
+                break;
+            case DRAFT:
+                rowId = db.update(DraftEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId,uri,null);
                 break;
             default:

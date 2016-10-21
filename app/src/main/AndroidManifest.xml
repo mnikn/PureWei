@@ -48,16 +48,20 @@
             android:label="@string/label_write_weibo" />
         <activity
             android:name=".feature.account.AccountActivity"
-            android:label="@string/label_account"/>
+            android:label="@string/label_account" />
         <activity
             android:name="com.sina.weibo.sdk.component.WeiboSdkBrowser"
             android:configChanges="keyboardHidden|orientation"
             android:exported="false"
             android:windowSoftInputMode="adjustResize" />
 
+        <activity android:name=".feature.draft.DraftActivity" />
+
         <service
             android:name="com.sina.weibo.sdk.net.DownloadService"
             android:exported="false" />
+
+
     </application>
 
 </manifest>
