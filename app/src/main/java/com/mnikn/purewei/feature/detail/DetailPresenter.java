@@ -3,10 +3,15 @@ package com.mnikn.purewei.feature.detail;
 import android.content.Context;
 
 import com.mnikn.library.view.net.NetPresenter;
+import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.net.RequestManager;
+import com.mnikn.purewei.support.net.observer.CommentObserver;
+import com.mnikn.purewei.support.net.service.CommentService;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -21,29 +26,22 @@ public class DetailPresenter extends NetPresenter<DetailFragment> {
         mWeiboId = weiboId;
     }
 
-    public void cancelLoading() {
-        mIsLoading = false;
-        RequestManager.cancelRequest(commentObservable);
-    }
-
-
-    @Override
-    protected void request(int page) {
-        if(page == 1){
-            commentObservable = RequestManager.getComment(
-                    this,
-                    Constant.REFRESH,
-                    mWeiboId);
-        }
-        else{
-            commentObservable = RequestManager.getComment(
-                    this,
-                    Constant.LOAD_MORE,
-                    mWeiboId);
-        }
-    }
-
     public long getWeiboId(){
         return mWeiboId;
+    }
+
+    @Override
+    protected Observable request() {
+        CommentService service = RequestManager.sRetrofit.create(CommentService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(getContext());
+        return service.getComment(getPage(),token.getToken(),mWeiboId);
+    }
+
+    @Override
+    protected Observer handleRequest() {
+        if(getPage() == 1){
+            return new CommentObserver(this,Constant.REFRESH,mWeiboId);
+        }
+        return new CommentObserver(this,Constant.LOAD_MORE,mWeiboId);
     }
 }

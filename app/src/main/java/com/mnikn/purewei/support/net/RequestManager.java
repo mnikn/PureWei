@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.library.view.net.INetView;
+import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
@@ -17,8 +17,6 @@ import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.net.observer.AccountObserver;
 import com.mnikn.purewei.support.net.observer.CommentObserver;
-import com.mnikn.purewei.support.net.observer.FavoritesWeiboObserver;
-import com.mnikn.purewei.support.net.observer.HotWeiboObserver;
 import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
 import com.mnikn.purewei.support.net.service.UserService;
@@ -40,7 +38,7 @@ import retrofit2.converter.gson.GsonConverterFactory;
  */
 public class RequestManager {
 
-    private static Retrofit sRetrofit = new Retrofit.Builder()
+    public static Retrofit sRetrofit = new Retrofit.Builder()
             .baseUrl(BaseApi.BASE_URL)
             .addConverterFactory(GsonConverterFactory.create())
             .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
@@ -92,45 +90,6 @@ public class RequestManager {
                 ToastUtil.makeToastShort(context, "授权取消");
             }
         });
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable getHomeWeibo(Context context,INetView view,int requestType,int page){
-        WeiboService service = sRetrofit.create(WeiboService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        int count = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("key_load_num",20);
-        Observable observable = service.getHomeWeibo(token.getToken(),page,count);
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new WeiboObserver(context, view, requestType));
-        return observable;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable getHotWeibo(Context context,INetView view,int requestType,int page){
-        WeiboService service = sRetrofit.create(WeiboService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        int count = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("key_load_num",20);
-        Observable observable = service.getHotWeibo(token.getToken(), page, count);
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new HotWeiboObserver(context, view, requestType));
-        return observable;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable getFavoritesWeibo(Context context,INetView view,int requestType,int page){
-        WeiboService service = sRetrofit.create(WeiboService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        int count = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("key_load_num",20);
-        Observable observable = service.getFavoriteWeibo(token.getToken(), page, count);
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new FavoritesWeiboObserver(context,view,requestType));
-        return observable;
     }
 
     @SuppressWarnings("unchecked")

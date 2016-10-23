@@ -1,12 +1,18 @@
 package com.mnikn.purewei.feature.user;
 
 import android.content.Context;
+import android.preference.PreferenceManager;
 
 import com.mnikn.library.view.net.NetPresenter;
+import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.net.RequestManager;
+import com.mnikn.purewei.support.net.observer.WeiboObserver;
+import com.mnikn.purewei.support.net.service.WeiboService;
+import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
 import io.reactivex.Observable;
+import io.reactivex.Observer;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -19,27 +25,20 @@ public class UserPresenter extends NetPresenter<UserFragment> {
         super(context);
     }
 
-
-    public void cancelLoading() {
-        mIsLoading = false;
-        RequestManager.cancelRequest(homeWeiboObservale);
+    @Override
+    protected Observable request() {
+        WeiboService service = RequestManager.sRetrofit.create(WeiboService.class);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(getContext());
+        int count = PreferenceManager.getDefaultSharedPreferences(getContext())
+                .getInt("key_load_num",20);
+        return service.getUserWeibo(token.getToken(),getPage(), count);
     }
 
     @Override
-    protected void request(int page) {
-        if(page == 1){
-            homeWeiboObservale = RequestManager.getUserWeibo(
-                    getContext(),
-                    getView(),
-                    Constant.REFRESH,
-                    page);
+    protected Observer handleRequest() {
+        if(getPage() == 1){
+            return new WeiboObserver(getContext(),getView(),Constant.REFRESH);
         }
-        else{
-            homeWeiboObservale = RequestManager.getUserWeibo(
-                    getContext(),
-                    getView(),
-                    Constant.LOAD_MORE,
-                    page);
-        }
+        return new WeiboObserver(getContext(),getView(),Constant.LOAD_MORE);
     }
 }
