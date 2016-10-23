@@ -88,13 +88,6 @@ public abstract class NetPresenter<View extends INetView> extends Presenter<View
     public void cancelLoading(){
         mObservable.unsubscribeOn(Schedulers.newThread());
         mIsLoading = false;
-        if(mPage == 1){
-            getView().onRefreshFinish();
-        }
-        else{
-            getView().onLoadMoreFinish();
-        }
-
     }
 
 }

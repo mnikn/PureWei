@@ -2,11 +2,8 @@ package com.mnikn.purewei.support.net;
 
 import android.content.Context;
 import android.os.Bundle;
-import android.preference.PreferenceManager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.mnikn.library.view.net.INetView;
-import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
@@ -16,8 +13,6 @@ import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.net.observer.AccountObserver;
-import com.mnikn.purewei.support.net.observer.CommentObserver;
-import com.mnikn.purewei.support.net.observer.WeiboObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
 import com.mnikn.purewei.support.net.service.UserService;
 import com.mnikn.purewei.support.net.service.WeiboService;
@@ -93,33 +88,6 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getUserWeibo(Context context,INetView view,int requestType,int page){
-        WeiboService service = sRetrofit.create(WeiboService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        int count = PreferenceManager.getDefaultSharedPreferences(context)
-                .getInt("key_load_num",20);
-        Observable observable = service.getUserWeibo(token.getToken(), page, count);
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new WeiboObserver(context, view, requestType));
-        return observable;
-    }
-
-    @SuppressWarnings("unchecked")
-    public static Observable getComment(NetPresenter presenter,int requestType,long weiboId){
-        CommentService service = sRetrofit.create(CommentService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(presenter.getContext());
-        Observable observable = service.getComment(presenter.getPage(), token.getToken(), weiboId);
-        observable.subscribeOn(Schedulers.newThread())
-                .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommentObserver(
-                        presenter,
-                        requestType,
-                        weiboId));
-        return observable;
-    }
-
-    @SuppressWarnings("unchecked")
     public static Observable getAccountInfo(Context context,IHomeView view,long uid){
         UserService service = sRetrofit.create(UserService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
@@ -164,10 +132,5 @@ public class RequestManager {
                 .subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
                 .subscribe();
-    }
-
-    public static void cancelRequest(Observable observable){
-        if(observable == null) return;
-        observable.unsubscribeOn(Schedulers.newThread());
     }
 }

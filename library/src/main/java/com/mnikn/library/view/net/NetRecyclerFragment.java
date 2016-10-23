@@ -45,13 +45,22 @@ public abstract class NetRecyclerFragment<P extends NetPresenter> extends Recycl
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         return new RecyclerViewConfig.Builder()
                 .layoutManager(manager)
-                .onScorllListener(new LoadMoreScrollListener(getRecyclerAdapter(),getPresenter(),manager));
+                .onScorllListener(new LoadMoreScrollListener(
+                        getRecyclerAdapter(),
+                        getPresenter(),
+                        manager));
     }
 
     @Override
     public void onStart() {
         super.onStart();
         getPresenter().refresh();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        getPresenter().cancelLoading();
     }
 
     @Override
