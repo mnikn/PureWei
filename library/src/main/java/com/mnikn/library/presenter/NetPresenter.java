@@ -23,7 +23,7 @@ public abstract class NetPresenter<View extends INetView> extends Presenter<View
     public void loadMore(){
         if(!mIsLoading){
             mIsLoading = true;
-            mPage = mPageSize > 1 ? mPageSize : 2;
+            mPage = mPageSize <= 1 ? mPageSize : 2;
             getView().onLoadMore();
             request(mPage);
         }
