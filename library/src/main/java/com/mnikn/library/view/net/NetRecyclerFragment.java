@@ -8,7 +8,7 @@ import android.widget.ProgressBar;
 
 import com.mnikn.library.R;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
-import com.mnikn.library.support.listener.RecyclerScrollListener;
+import com.mnikn.library.support.adapter.LoadMoreScrollListener;
 import com.mnikn.library.utils.ViewUtils;
 import com.mnikn.library.view.common.RecyclerFragment;
 
@@ -45,7 +45,7 @@ public abstract class NetRecyclerFragment<P extends NetPresenter> extends Recycl
         LinearLayoutManager manager = new LinearLayoutManager(getContext());
         return new RecyclerViewConfig.Builder()
                 .layoutManager(manager)
-                .onScorllListener(new RecyclerScrollListener(getRecyclerAdapter(),getPresenter(),manager));
+                .onScorllListener(new LoadMoreScrollListener(getRecyclerAdapter(),getPresenter(),manager));
     }
 
     @Override

@@ -1,5 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
 <resources>
+    <declare-styleable name="NumberListPreference">
+        <attr name="value" format="integer" />
+        <attr name="minValue" format="integer" />
+        <attr name="maxValue" format="integer" />
+    </declare-styleable>
     <declare-styleable name="EmptyRequestView">
         <attr name="txt_content" format="string" />
         <attr name="btn_text" format="string" />

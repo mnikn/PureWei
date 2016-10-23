@@ -6,7 +6,7 @@ import android.widget.LinearLayout;
 
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
-import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.support.adapter.divider.RecyclerDivider;
 import com.mnikn.library.view.net.NetRecyclerFragment;
 import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.support.Constant;
@@ -50,7 +50,7 @@ public class UserFragment extends NetRecyclerFragment<UserPresenter> {
         getRecyclerAdapter().setHasHeader(true);
 
         getRecyclerBuilder()
-                .itemDecoration(new HorizontalDivider(getContext(), LinearLayout.VERTICAL))
+                .itemDecoration(new RecyclerDivider(getContext(), LinearLayout.VERTICAL))
                 .build();
     }
 

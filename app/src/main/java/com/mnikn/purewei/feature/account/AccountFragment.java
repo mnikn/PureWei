@@ -10,7 +10,7 @@ import android.widget.LinearLayout;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
-import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.support.adapter.divider.RecyclerDivider;
 import com.mnikn.library.view.common.RecyclerFragment;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.AccountLoaderCallback;
@@ -52,7 +52,7 @@ public class AccountFragment extends RecyclerFragment {
     @Override
     protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
         return new RecyclerViewConfig.Builder()
-                .itemDecoration(new HorizontalDivider(
+                .itemDecoration(new RecyclerDivider(
                         getContext(),
                         LinearLayout.VERTICAL))
                 .layoutManager(new LinearLayoutManager(getContext()));

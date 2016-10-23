@@ -22,8 +22,8 @@ import android.widget.Button;
 import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
-import com.mnikn.library.support.adapter.divider.HorizontalDivider;
-import com.mnikn.library.support.listener.RecyclerScrollListener;
+import com.mnikn.library.support.adapter.divider.RecyclerDivider;
+import com.mnikn.library.support.adapter.LoadMoreScrollListener;
 import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
@@ -126,8 +126,8 @@ public class HomeActivity extends AppCompatActivity
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(
-                new HorizontalDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
-        recyclerView.addOnScrollListener(new RecyclerScrollListener(mAdapter,mPresenter, layoutManager));
+                new RecyclerDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
+        recyclerView.addOnScrollListener(new LoadMoreScrollListener(mAdapter,mPresenter, layoutManager));
 
         recyclerView.setAdapter(mAdapter);
     }

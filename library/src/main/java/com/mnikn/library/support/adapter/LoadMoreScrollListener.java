@@ -1,22 +1,21 @@
-package com.mnikn.library.support.listener;
+package com.mnikn.library.support.adapter;
 
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
 import com.mnikn.library.view.net.NetPresenter;
-import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class RecyclerScrollListener extends RecyclerView.OnScrollListener {
+public class LoadMoreScrollListener extends RecyclerView.OnScrollListener {
 
     private int mLastVisibleItem;
     private EasyRecyclerAdapter mAdapter;
     private NetPresenter mPresenter;
     private LinearLayoutManager mLayoutManager;
 
-    public RecyclerScrollListener(EasyRecyclerAdapter adapter, NetPresenter presenter,
+    public LoadMoreScrollListener(EasyRecyclerAdapter adapter, NetPresenter presenter,
                                   LinearLayoutManager layoutManager) {
         mAdapter = adapter;
         mPresenter = presenter;

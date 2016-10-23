@@ -12,7 +12,7 @@ import android.view.View;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HorizontalDivider extends RecyclerView.ItemDecoration{
+public class RecyclerDivider extends RecyclerView.ItemDecoration{
     private Context mContext;
     private Drawable mDivider;
     private int mOrientation;
@@ -24,7 +24,7 @@ public class HorizontalDivider extends RecyclerView.ItemDecoration{
             android.R.attr.listDivider
     };
 
-    public HorizontalDivider(Context context, int orientation) {
+    public RecyclerDivider(Context context, int orientation) {
         this.mContext = context;
         final TypedArray ta = context.obtainStyledAttributes(ATRRS);
         this.mDivider = ta.getDrawable(0);
@@ -32,7 +32,7 @@ public class HorizontalDivider extends RecyclerView.ItemDecoration{
         setOrientation(orientation);
     }
 
-    public HorizontalDivider(Context context,int orientation,int drawable) {
+    public RecyclerDivider(Context context, int orientation, int drawable) {
         this.mContext = context;
         final TypedArray ta = context.obtainStyledAttributes(ATRRS);
         this.mDivider = context.getResources().getDrawable(drawable);
