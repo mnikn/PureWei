@@ -16,6 +16,7 @@ public abstract class RecyclerFragment<P extends Presenter> extends BaseFragment
 
     private RecyclerView mRecyclerView;
     private EasyRecyclerAdapter<?,?> mRecyclerAdapter;
+    private RecyclerViewConfig.Builder mBuilder;
 
     @Override
     public void onViewCreated(View view, Bundle savedInstanceState) {
@@ -24,10 +25,15 @@ public abstract class RecyclerFragment<P extends Presenter> extends BaseFragment
         mRecyclerView = (RecyclerView) view.findViewById(getRecyclerViewId());
         mRecyclerAdapter = onCreateAdapter();
 
-        onCreateRecyclerBuilder()
+        mBuilder = onCreateRecyclerBuilder()
                 .recyclerView(mRecyclerView)
-                .recyclerAdapter(mRecyclerAdapter)
-                .build();
+                .recyclerAdapter(mRecyclerAdapter);
+    }
+
+    @Override
+    public void onStart() {
+        super.onStart();
+        mBuilder.build();
     }
 
     @Override
@@ -41,6 +47,10 @@ public abstract class RecyclerFragment<P extends Presenter> extends BaseFragment
 
     public EasyRecyclerAdapter getRecyclerAdapter(){
         return mRecyclerAdapter;
+    }
+
+    public RecyclerViewConfig.Builder getRecyclerBuilder(){
+        return mBuilder;
     }
 
     /**

@@ -2,11 +2,14 @@ package com.mnikn.library.view;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.ProgressBar;
 
 import com.mnikn.library.R;
 import com.mnikn.library.presenter.NetPresenter;
+import com.mnikn.library.support.adapter.RecyclerViewConfig;
+import com.mnikn.library.support.listener.RecyclerScrollListener;
 import com.mnikn.library.utils.ViewUtils;
 
 /**
@@ -31,11 +34,25 @@ public abstract class NetRecyclerFragment<P extends NetPresenter> extends Recycl
                 getPresenter().refresh();
             }
         });
-
-        getPresenter().refresh();
+        mRefreshLayout.setColorSchemeResources(
+                android.R.color.holo_red_dark,
+                android.R.color.holo_green_dark,
+                android.R.color.holo_blue_dark);
     }
 
+    @Override
+    protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
+        LinearLayoutManager manager = new LinearLayoutManager(getContext());
+        return new RecyclerViewConfig.Builder()
+                .layoutManager(manager)
+                .onScorllListener(new RecyclerScrollListener(getRecyclerAdapter(),getPresenter(),manager));
+    }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+        getPresenter().refresh();
+    }
 
     @Override
     protected int getLayoutId() {
@@ -58,6 +75,7 @@ public abstract class NetRecyclerFragment<P extends NetPresenter> extends Recycl
     }
     @Override
     public void onLoadMore() {
+        mRefreshLayout.setRefreshing(true);
         ViewUtils.setGone(mProgressBar,false);
     }
 

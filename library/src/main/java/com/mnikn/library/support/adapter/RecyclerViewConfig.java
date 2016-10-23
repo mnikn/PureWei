@@ -11,6 +11,7 @@ public class RecyclerViewConfig {
     private RecyclerView.LayoutManager mLayoutManager;
     private RecyclerView.ItemDecoration mItemDecoration;
     private EasyRecyclerAdapter mRecyclerAdapter;
+    private RecyclerView.OnScrollListener mScrolllListener;
 
     private RecyclerViewConfig() {}
 
@@ -25,6 +26,9 @@ public class RecyclerViewConfig {
         if(mItemDecoration != null){
             mRecyclerView.addItemDecoration(mItemDecoration);
         }
+        if(mScrolllListener != null){
+            mRecyclerView.addOnScrollListener(mScrolllListener);
+        }
     }
 
     public static class Builder{
@@ -33,6 +37,7 @@ public class RecyclerViewConfig {
         private RecyclerView.LayoutManager mLayoutManager;
         private RecyclerView.ItemDecoration mItemDecoration;
         private EasyRecyclerAdapter mRecyclerAdapter;
+        private RecyclerView.OnScrollListener mScrolllListener;
 
         public Builder() {}
 
@@ -42,6 +47,7 @@ public class RecyclerViewConfig {
             config.mLayoutManager = mLayoutManager;
             config.mItemDecoration = mItemDecoration;
             config.mRecyclerAdapter = mRecyclerAdapter;
+            config.mScrolllListener = mScrolllListener;
             config.bind();
             return config;
         }
@@ -63,6 +69,11 @@ public class RecyclerViewConfig {
 
         public Builder itemDecoration(RecyclerView.ItemDecoration itemDecoration){
             mItemDecoration = itemDecoration;
+            return this;
+        }
+
+        public Builder onScorllListener(RecyclerView.OnScrollListener listener){
+            mScrolllListener = listener;
             return this;
         }
     }

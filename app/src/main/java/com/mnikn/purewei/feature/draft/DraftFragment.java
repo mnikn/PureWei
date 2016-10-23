@@ -2,6 +2,7 @@ package com.mnikn.purewei.feature.draft;
 
 import android.os.Bundle;
 
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.view.RecyclerFragment;
 
@@ -20,7 +21,7 @@ public class DraftFragment extends RecyclerFragment {
     }
 
     @Override
-    protected com.mnikn.library.support.adapter.EasyRecyclerAdapter onCreateAdapter() {
+    protected EasyRecyclerAdapter onCreateAdapter() {
         return null;
     }
 

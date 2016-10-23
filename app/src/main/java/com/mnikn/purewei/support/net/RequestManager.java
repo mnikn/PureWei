@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
+import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.library.view.INetView;
-import com.mnikn.mylibrary.mvp.view.INetListView;
-import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
@@ -33,13 +33,18 @@ import io.reactivex.Observable;
 import io.reactivex.android.schedulers.AndroidSchedulers;
 import io.reactivex.schedulers.Schedulers;
 import retrofit2.Retrofit;
+import retrofit2.converter.gson.GsonConverterFactory;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
 public class RequestManager {
 
-    private static Retrofit sRetrofit = RetrofitBuilder.getInstance().retrofit(BaseApi.BASE_URL);
+    private static Retrofit sRetrofit = new Retrofit.Builder()
+            .baseUrl(BaseApi.BASE_URL)
+            .addConverterFactory(GsonConverterFactory.create())
+            .addCallAdapterFactory(RxJava2CallAdapterFactory.create())
+            .build();
 
     public static void authorize(SsoHandler ssoHandler, final Context context){
         ssoHandler.authorize(new WeiboAuthListener() {
@@ -142,13 +147,16 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getComment(Context context,INetView view,int requestType,int page,long weiboId){
+    public static Observable getComment(NetPresenter presenter,int requestType,long weiboId){
         CommentService service = sRetrofit.create(CommentService.class);
-        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
-        Observable observable = service.getComment(page, token.getToken(), weiboId);
+        Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(presenter.getContext());
+        Observable observable = service.getComment(presenter.getPage(), token.getToken(), weiboId);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new CommentObserver(context,view,page,requestType,weiboId));
+                .subscribe(new CommentObserver(
+                        presenter,
+                        requestType,
+                        weiboId));
         return observable;
     }
 

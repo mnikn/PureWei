@@ -2,8 +2,8 @@ package com.mnikn.purewei.support.net.observer;
 
 import android.content.ContentResolver;
 import android.content.ContentValues;
-import android.content.Context;
 
+import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.library.view.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
@@ -21,17 +21,13 @@ import io.reactivex.disposables.Disposable;
  */
 public class CommentObserver implements Observer<CommentBean>{
 
-    private Context mContext;
-    private INetView mView;
+    private NetPresenter mPresenter;
     private int mType;
-    private int mPage;
     private long mWeiboId;
 
-    public CommentObserver(Context context,INetView view,int requestType,int page,long weiboId){
-        mContext = context;
-        mView = view;
+    public CommentObserver(NetPresenter presenter,int requestType,long weiboId){
+        mPresenter = presenter;
         mType = requestType;
-        mPage = page;
         mWeiboId = weiboId;
     }
 
@@ -42,7 +38,7 @@ public class CommentObserver implements Observer<CommentBean>{
 
     @Override
     public void onNext(CommentBean value) {
-        ContentResolver resolver = mContext.getContentResolver();
+        ContentResolver resolver = mPresenter.getContext().getContentResolver();
 
         if(mType == Constant.REFRESH){
             resolver.delete(
@@ -58,7 +54,7 @@ public class CommentObserver implements Observer<CommentBean>{
 
             //先查询是否有这位用户信息,没有就插入数据
             long userId = value.comments.get(i).user.id;
-            if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mContext, userId)){
+            if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mPresenter.getContext(), userId)){
                 resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
                         new UserEntity(value.comments.get(i).user).toContentValues(Constant.USER_NORAML));
             }
@@ -68,12 +64,19 @@ public class CommentObserver implements Observer<CommentBean>{
 
     @Override
     public void onError(Throwable e) {
-        ToastUtil.makeToastShort(mContext, e.getMessage());
-        mView.onLoadMoreFinish();
+        ToastUtil.makeToastShort(mPresenter.getContext(), e.getMessage());
+        ((INetView) mPresenter.getView()).onLoadMoreFinish();
     }
 
     @Override
     public void onComplete() {
-        mView.onLoadMoreFinish();
+        switch (mType){
+            case Constant.REFRESH:
+                mPresenter.refreshFinish();
+                break;
+            case Constant.LOAD_MORE:
+                mPresenter.loadMoreFinish();
+                break;
+        }
     }
 }

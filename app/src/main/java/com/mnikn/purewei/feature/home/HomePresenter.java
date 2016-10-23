@@ -26,28 +26,27 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
     private Observable homeWeiboObservable;
     private Observable hotWeiboObservable;
 
-    private Context mContext;
     private int mType = Constant.HOME;
 
     public HomePresenter(Context context){
-        mContext = context;
+        super(context);
     }
 
     @Override
     protected void onTakeView() {
         super.onTakeView();
-        AuthInfo authInfo = new AuthInfo(mContext,Constant.APP_KEY, Constant.REDIRECT_URL, null);
-        mSsoHandler = new SsoHandler((Activity) mContext,authInfo);
+        AuthInfo authInfo = new AuthInfo(getContext(),Constant.APP_KEY, Constant.REDIRECT_URL, null);
+        mSsoHandler = new SsoHandler((Activity) getContext(),authInfo);
 
         //从SharePreference中读取token,若失败就请求授权
-        mToken = AccessTokenKeeper.readAccessToken(mContext);
+        mToken = AccessTokenKeeper.readAccessToken(getContext());
         if (!mToken.isSessionValid()) {
             authorize();
-            mToken = AccessTokenKeeper.readAccessToken(mContext);
+            mToken = AccessTokenKeeper.readAccessToken(getContext());
         }
         else{
             RequestManager.getAccountInfo(
-                    mContext,
+                    getContext(),
                     getView(),
                     NumberUtil.stringToLong(mToken.getUid()));
             refresh();
@@ -56,7 +55,7 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
 
     @Override
     public void authorize() {
-        RequestManager.authorize(mSsoHandler,mContext);
+        RequestManager.authorize(mSsoHandler,getContext());
     }
 
     @Override
@@ -83,21 +82,21 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
             switch (mType){
                 case Constant.HOME:
                     homeWeiboObservable = RequestManager.getHomeWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.REFRESH,
                             page);
                     break;
                 case Constant.HOT:
                     hotWeiboObservable = RequestManager.getHotWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.REFRESH,
                             page);
                     break;
                 case Constant.FAVORITE:
                     hotWeiboObservable = RequestManager.getFavoritesWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.REFRESH,
                             page);
@@ -108,21 +107,21 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
             switch (mType){
                 case Constant.HOME:
                     homeWeiboObservable = RequestManager.getHomeWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.LOAD_MORE,
                             page);
                     break;
                 case Constant.HOT:
                     hotWeiboObservable = RequestManager.getHotWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.LOAD_MORE,
                             page);
                     break;
                 case Constant.FAVORITE:
                     hotWeiboObservable = RequestManager.getFavoritesWeibo(
-                            mContext,
+                            getContext(),
                             getView(),
                             Constant.LOAD_MORE,
                             page);

@@ -16,6 +16,7 @@ import com.mnikn.library.presenter.Presenter;
 public abstract class BaseFragment<P extends Presenter> extends Fragment {
 
     private P mPresenter;
+    private boolean mHasPresenter;
 
     @Nullable
     @Override
@@ -27,18 +28,30 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         mPresenter = onCreatePresenter();
-        mPresenter.create();
-        mPresenter.takeView(this);
+
+        if(mPresenter != null){
+            mHasPresenter = true;
+            mPresenter.create();
+            mPresenter.takeView(this);
+        }
     }
     @Override
     public void onDestroyView() {
         super.onDestroyView();
-        mPresenter.dropView();
+        if(mHasPresenter){
+            mPresenter.dropView();
+        }
     }
     @Override
     public void onDestroy() {
         super.onDestroy();
-        mPresenter.destroy();
+        if(mHasPresenter){
+            mPresenter.destroy();
+        }
+    }
+
+    public boolean hasPresenter(){
+        return mHasPresenter;
     }
 
     public P getPresenter(){
@@ -47,9 +60,10 @@ public abstract class BaseFragment<P extends Presenter> extends Fragment {
 
     @SuppressWarnings("unchecked")
     protected P onCreatePresenter() {
-        return (P) new Presenter(null);
+        return null;
     }
 
     protected abstract int getLayoutId();
+
 
 }

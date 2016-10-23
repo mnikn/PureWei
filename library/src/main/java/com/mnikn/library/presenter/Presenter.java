@@ -1,7 +1,5 @@
 package com.mnikn.library.presenter;
 
-import android.os.Bundle;
-
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  * All presenter need to extends this
@@ -10,14 +8,10 @@ import android.os.Bundle;
 public class Presenter<View> {
 
     private View mView;
-    private Bundle mBundle;
 
     public Presenter() {}
-    public Presenter(Bundle bundle) {
-        mBundle = bundle;
-    }
 
-    protected void onCreate(Bundle bundle) {}
+    protected void onCreate() {}
     protected void onTakeView() {}
     protected void onDropView() {}
     protected void onDestroy() {}
@@ -25,15 +19,12 @@ public class Presenter<View> {
     public View getView(){
         return mView;
     }
-    public Bundle getBundle(){
-        return mBundle;
-    }
 
     /**
      * Create presenter
      */
     public void create(){
-        onCreate(mBundle);
+        onCreate();
     }
     public void destroy(){
         onDestroy();

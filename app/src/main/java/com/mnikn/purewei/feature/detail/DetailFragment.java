@@ -4,12 +4,10 @@ package com.mnikn.purewei.feature.detail;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
-import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
-import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.library.support.adapter.divider.HorizontalDivider;
 import com.mnikn.library.view.NetRecyclerFragment;
@@ -45,10 +43,12 @@ public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(),getRecyclerAdapter(),model.weiboId));
+                new DetailLoaderCallback(getContext(), getRecyclerAdapter(), model.weiboId));
 
         getActivity().registerForContextMenu(getRecyclerView());
         getPresenter().refresh();
+
+        getRecyclerBuilder().itemDecoration(new HorizontalDivider(getContext(), LinearLayout.VERTICAL));
     }
 
     @Override
@@ -59,14 +59,5 @@ public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
     @Override
     protected EasyRecyclerAdapter onCreateAdapter() {
         return new DetailAdapter(new CursorDataProvider(),getContext(),model);
-    }
-
-    @Override
-    protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
-        return new RecyclerViewConfig.Builder()
-                .itemDecoration(new HorizontalDivider(
-                        getContext(),
-                        LinearLayout.VERTICAL))
-                .layoutManager(new LinearLayoutManager(getContext()));
     }
 }

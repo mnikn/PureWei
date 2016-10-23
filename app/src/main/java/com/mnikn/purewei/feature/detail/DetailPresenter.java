@@ -15,11 +15,10 @@ public class DetailPresenter extends NetPresenter<DetailFragment> {
 
     private long mWeiboId;
     private Observable commentObservable;
-    private Context mContext;
 
     public DetailPresenter(Context context,long weiboId) {
+        super(context);
         mWeiboId = weiboId;
-        mContext = context;
     }
 
     public void cancelLoading() {
@@ -32,19 +31,19 @@ public class DetailPresenter extends NetPresenter<DetailFragment> {
     protected void request(int page) {
         if(page == 1){
             commentObservable = RequestManager.getComment(
-                    mContext,
-                    getView(),
+                    this,
                     Constant.REFRESH,
-                    page,
                     mWeiboId);
         }
         else{
             commentObservable = RequestManager.getComment(
-                    mContext,
-                    getView(),
+                    this,
                     Constant.LOAD_MORE,
-                    page,
                     mWeiboId);
         }
+    }
+
+    public long getWeiboId(){
+        return mWeiboId;
     }
 }

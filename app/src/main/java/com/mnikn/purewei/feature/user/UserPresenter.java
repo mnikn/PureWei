@@ -13,11 +13,10 @@ import io.reactivex.Observable;
  */
 public class UserPresenter extends NetPresenter<UserFragment> {
 
-    private Context mContext;
     private Observable homeWeiboObservale;
 
     public UserPresenter(Context context) {
-        mContext = context;
+        super(context);
     }
 
 
@@ -30,14 +29,14 @@ public class UserPresenter extends NetPresenter<UserFragment> {
     protected void request(int page) {
         if(page == 1){
             homeWeiboObservale = RequestManager.getUserWeibo(
-                    mContext,
+                    getContext(),
                     getView(),
                     Constant.REFRESH,
                     page);
         }
         else{
             homeWeiboObservale = RequestManager.getUserWeibo(
-                    mContext,
+                    getContext(),
                     getView(),
                     Constant.LOAD_MORE,
                     page);
