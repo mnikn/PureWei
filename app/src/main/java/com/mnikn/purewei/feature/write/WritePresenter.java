@@ -2,7 +2,7 @@ package com.mnikn.purewei.feature.write;
 
 import android.content.Context;
 
-import com.mnikn.library.presenter.Presenter;
+import com.mnikn.library.view.base.Presenter;
 import com.mnikn.purewei.support.net.RequestManager;
 
 /**

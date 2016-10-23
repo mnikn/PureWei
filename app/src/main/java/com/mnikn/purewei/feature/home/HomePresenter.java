@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mnikn.library.presenter.NetPresenter;
+import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;

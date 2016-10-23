@@ -1,4 +1,4 @@
-package com.mnikn.library.presenter;
+package com.mnikn.library.view.base;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

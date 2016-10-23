@@ -1,4 +1,4 @@
-package com.mnikn.library.view;
+package com.mnikn.library.view.net;
 
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
@@ -7,10 +7,10 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.mnikn.library.R;
-import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.support.listener.RecyclerScrollListener;
 import com.mnikn.library.utils.ViewUtils;
+import com.mnikn.library.view.common.RecyclerFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

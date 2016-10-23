@@ -7,8 +7,6 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mnikn.library.presenter.Presenter;
-
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  * All fragment need to extends BaseFragment

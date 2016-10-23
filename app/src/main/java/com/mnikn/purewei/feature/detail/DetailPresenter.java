@@ -2,7 +2,7 @@ package com.mnikn.purewei.feature.detail;
 
 import android.content.Context;
 
-import com.mnikn.library.presenter.NetPresenter;
+import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.net.RequestManager;
 

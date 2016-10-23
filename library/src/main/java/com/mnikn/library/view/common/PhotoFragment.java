@@ -1,4 +1,4 @@
-package com.mnikn.library.view;
+package com.mnikn.library.view.common;
 
 
 import android.os.Bundle;

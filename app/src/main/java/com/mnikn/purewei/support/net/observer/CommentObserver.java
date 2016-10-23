@@ -3,8 +3,8 @@ package com.mnikn.purewei.support.net.observer;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 
-import com.mnikn.library.presenter.NetPresenter;
-import com.mnikn.library.view.INetView;
+import com.mnikn.library.view.net.NetPresenter;
+import com.mnikn.library.view.net.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;

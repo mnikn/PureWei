@@ -1,13 +1,13 @@
-package com.mnikn.library.presenter;
+package com.mnikn.library.view.net;
 
 import android.content.Context;
 
-import com.mnikn.library.view.INetView;
+import com.mnikn.library.view.base.Presenter;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetPresenter<View extends INetView> extends Presenter<View>{
+public abstract class NetPresenter<View extends INetView> extends Presenter<View> {
 
     private Context mContext;
     protected boolean mIsLoading;

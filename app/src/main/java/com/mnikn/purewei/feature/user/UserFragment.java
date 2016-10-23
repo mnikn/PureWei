@@ -7,7 +7,7 @@ import android.widget.LinearLayout;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.library.support.adapter.divider.HorizontalDivider;
-import com.mnikn.library.view.NetRecyclerFragment;
+import com.mnikn.library.view.net.NetRecyclerFragment;
 import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.UserLoaderCallback;

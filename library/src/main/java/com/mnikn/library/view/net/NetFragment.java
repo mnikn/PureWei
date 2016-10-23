@@ -1,10 +1,9 @@
-package com.mnikn.library.view;
+package com.mnikn.library.view.net;
 
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.view.View;
 
-import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.library.view.base.BaseFragment;
 
 /**
@@ -15,6 +14,5 @@ public abstract class NetFragment extends BaseFragment<NetPresenter> implements 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
-        getPresenter().refresh();
     }
 }

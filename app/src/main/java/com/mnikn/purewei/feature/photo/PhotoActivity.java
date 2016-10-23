@@ -2,7 +2,7 @@ package com.mnikn.purewei.feature.photo;
 
 import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.library.view.base.BaseSingleFragmentActivity;
-import com.mnikn.library.view.PhotoFragment;
+import com.mnikn.library.view.common.PhotoFragment;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 public class PhotoActivity extends BaseSingleFragmentActivity {

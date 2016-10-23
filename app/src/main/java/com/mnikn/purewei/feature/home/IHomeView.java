@@ -1,6 +1,6 @@
 package com.mnikn.purewei.feature.home;
 
-import com.mnikn.library.view.INetView;
+import com.mnikn.library.view.net.INetView;
 import com.mnikn.purewei.model.UserModel;
 
 /**

@@ -4,7 +4,7 @@ import android.os.Bundle;
 
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
-import com.mnikn.library.view.RecyclerFragment;
+import com.mnikn.library.view.common.RecyclerFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

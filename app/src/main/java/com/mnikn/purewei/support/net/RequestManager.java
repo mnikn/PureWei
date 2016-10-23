@@ -5,8 +5,8 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.mnikn.library.presenter.NetPresenter;
-import com.mnikn.library.view.INetView;
+import com.mnikn.library.view.net.NetPresenter;
+import com.mnikn.library.view.net.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.TextUtil;
 import com.mnikn.mylibrary.util.ToastUtil;

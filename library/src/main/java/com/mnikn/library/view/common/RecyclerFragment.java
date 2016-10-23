@@ -1,11 +1,11 @@
-package com.mnikn.library.view;
+package com.mnikn.library.view.common;
 
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mnikn.library.R;
-import com.mnikn.library.presenter.Presenter;
+import com.mnikn.library.view.base.Presenter;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.view.base.BaseFragment;

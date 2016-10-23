@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.mnikn.library.view.INetView;
+import com.mnikn.library.view.net.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;

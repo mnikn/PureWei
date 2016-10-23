@@ -11,7 +11,7 @@ import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.library.support.adapter.divider.HorizontalDivider;
-import com.mnikn.library.view.RecyclerFragment;
+import com.mnikn.library.view.common.RecyclerFragment;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.AccountLoaderCallback;
 

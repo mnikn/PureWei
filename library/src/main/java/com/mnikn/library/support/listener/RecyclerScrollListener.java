@@ -3,7 +3,7 @@ package com.mnikn.library.support.listener;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 
-import com.mnikn.library.presenter.NetPresenter;
+import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 
 /**
