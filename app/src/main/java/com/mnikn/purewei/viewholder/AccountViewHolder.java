@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageButton;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ResourcesUtil;
 import com.mnikn.purewei.App;
@@ -42,14 +42,13 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
     }
 
     @Override
-    public void bindView(final Cursor data) {
-
+    public void bindView(int position, final Cursor cursor) {
         if(App.isNightMode()){
             imgBtnDelete.setImageDrawable(ResourcesUtil.getDrawable(mContext,R.drawable.ic_delete_night));
         }
 
         final UserModel model = WeiboDataHelper.getInstance()
-                .getUserModel(WeiboContract.AccountEntry.getUid(data));
+                .getUserModel(WeiboContract.AccountEntry.getUid(cursor));
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
@@ -76,7 +75,7 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
             public void onClick(View v) {
                 AccessTokenKeeper.clear(mContext);
                 AccessTokenKeeper.writeAccessToken(mContext,
-                        new AccountModel(data).toOauth2AccessToken());
+                        new AccountModel(cursor).toOauth2AccessToken());
                 mContext.startActivity(new Intent(mContext, HomeActivity.class));
             }
         });

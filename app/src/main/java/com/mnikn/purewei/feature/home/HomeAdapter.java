@@ -5,21 +5,22 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.adapter.data.DataProvider;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.support.adapter.EasyViewHolder;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomeAdapter extends EasyRecyclerAdapter {
+public class HomeAdapter extends EasyRecyclerAdapter<CursorDataProvider,WeiboModel> {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;
 
-    public HomeAdapter(DataProvider dataProvider,Context context) {
+    public HomeAdapter(CursorDataProvider dataProvider,Context context) {
         super(dataProvider);
         mContext = context;
         mLayoutInflater = LayoutInflater.from(context);

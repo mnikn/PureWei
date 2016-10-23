@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.view.INetListView;
+import com.mnikn.library.view.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -22,12 +22,12 @@ import io.reactivex.disposables.Disposable;
 public class CommentObserver implements Observer<CommentBean>{
 
     private Context mContext;
-    private INetListView mView;
+    private INetView mView;
     private int mType;
     private int mPage;
     private long mWeiboId;
 
-    public CommentObserver(Context context,INetListView view,int requestType,int page,long weiboId){
+    public CommentObserver(Context context,INetView view,int requestType,int page,long weiboId){
         mContext = context;
         mView = view;
         mType = requestType;
@@ -64,8 +64,6 @@ public class CommentObserver implements Observer<CommentBean>{
             }
         }
         resolver.bulkInsert(WeiboContract.WeiboCommentEntry.CONTENT_URI,commentValuesArray);
-
-        mView.onLoadMoreFinish();
     }
 
     @Override
@@ -76,15 +74,6 @@ public class CommentObserver implements Observer<CommentBean>{
 
     @Override
     public void onComplete() {
-        switch (mType){
-            case Constant.REFRESH:
-                mView.onRefreshFinish();
-                break;
-            case Constant.LOAD_MORE:
-                mView.onLoadMoreFinish();
-                break;
-            default:
-                mView.onLoadMoreFinish();
-        }
+        mView.onLoadMoreFinish();
     }
 }

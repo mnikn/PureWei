@@ -7,8 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseSingleFragmentActivity;
+import com.mnikn.library.view.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.write.WriteActivity;
 import com.mnikn.purewei.model.WeiboModel;
@@ -17,7 +17,7 @@ import com.mnikn.purewei.support.Constant;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class DetailActivity extends SingleFragmentActivity {
+public class DetailActivity extends BaseSingleFragmentActivity {
 
     public static final String EXTRA_MODEL = "extra_model";
 
@@ -28,7 +28,7 @@ public class DetailActivity extends SingleFragmentActivity {
     }
 
     @Override
-    public BaseFragment getFragment() {
+    protected BaseFragment onCreateFragment() {
         return DetailFragment.newInstance();
     }
 

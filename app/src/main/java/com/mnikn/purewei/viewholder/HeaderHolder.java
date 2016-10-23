@@ -7,7 +7,7 @@ import android.view.View;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
 import com.mnikn.purewei.model.UserModel;
@@ -44,7 +44,7 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     }
 
     @Override
-    public void bindView() {
+    public void bindView(int positon,Cursor cursor) {
         ImageDisplayUtil.displayFromNet(
                 mContext,
                 mModel.avatarHdUrl,

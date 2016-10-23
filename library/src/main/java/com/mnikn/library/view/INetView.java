@@ -6,5 +6,7 @@ package com.mnikn.library.view;
 public interface INetView {
     void onRefresh();
     void onLoadMore();
-    void onLoadFinish();
+    void onRefreshFinish();
+    void onLoadMoreFinish();
+
 }

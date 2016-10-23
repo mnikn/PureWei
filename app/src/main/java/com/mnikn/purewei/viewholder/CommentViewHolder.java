@@ -6,7 +6,7 @@ import android.database.Cursor;
 import android.view.View;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
+import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.model.CommentModel;
@@ -48,9 +48,9 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Override
-    public void bindView(Cursor data) {
-        mCommentModel = new CommentModel(data);
-        mUserModel = new UserModel(data);
+    public void bindView(int position,Cursor cursor) {
+        mCommentModel = new CommentModel(cursor);
+        mUserModel = new UserModel(cursor);
 
         ImageDisplayUtil.displayFromNet(
                 mContext,

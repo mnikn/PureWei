@@ -4,12 +4,11 @@ import android.os.Bundle;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
-import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
-import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
-import com.mnikn.purewei.R;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.support.adapter.RecyclerViewConfig;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
+import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.view.NetRecyclerFragment;
 import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.UserLoaderCallback;
@@ -18,7 +17,7 @@ import com.mnikn.purewei.viewholder.WeiboViewHolder;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserFragment extends NetRecyclerFragment {
+public class UserFragment extends NetRecyclerFragment<UserPresenter> {
 
     private UserModel mUserModel;
 
@@ -38,27 +37,31 @@ public class UserFragment extends NetRecyclerFragment {
     }
 
     @Override
-    public INetListPresenter getPresenter() {
-        return new UserPresenter(getContext(),this);
+    protected UserPresenter onCreatePresenter() {
+        return new UserPresenter(getContext());
     }
 
     @Override
-    public EasyRecyclerAdapter getAdapter() {
-        UserAdapter adapter = new UserAdapter(new CursorDataProvider(),getContext(),mUserModel);
-        adapter.setHasHeader(true);
-        return adapter;
-    }
-
-    @Override
-    public void setupViews(View parent) {
-        getRecyclerView().addItemDecoration(new RecyclerViewDivider(
-                getContext(),
-                LinearLayout.VERTICAL,
-                R.drawable.item_divider));
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_USER,
                 null,
-                new UserLoaderCallback(getContext(),(EasyRecyclerAdapter) mAdapter,mUserModel.uid));
+                new UserLoaderCallback(getContext(),getRecyclerAdapter(), mUserModel.uid));
+        getRecyclerAdapter().setHasHeader(true);
+    }
+
+
+    @Override
+    protected EasyRecyclerAdapter onCreateAdapter() {
+        return new UserAdapter(new CursorDataProvider(),getContext(),mUserModel);
+    }
+
+    @Override
+    protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
+        return new RecyclerViewConfig.Builder()
+                .itemDecoration(new HorizontalDivider(
+                        getContext(),
+                        LinearLayout.VERTICAL));
     }
 }

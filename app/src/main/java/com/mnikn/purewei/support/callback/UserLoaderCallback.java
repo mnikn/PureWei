@@ -6,9 +6,9 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.utils.BaseCursorLoaderCallback;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
@@ -30,7 +30,7 @@ public class UserLoaderCallback extends BaseCursorLoaderCallback{
                 WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
                 null,
                 WeiboContract.UserEntry.TABLE_NAME + "." + WeiboContract.UserEntry.COLUMN_USER_ID + " = ?",
-                new String[]{NumberUtil.longToString(mUid)},
+                new String[]{Numbers.longToString(mUid)},
                 WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
     }
 }

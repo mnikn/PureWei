@@ -4,9 +4,9 @@ import android.content.Context;
 import android.view.LayoutInflater;
 import android.view.ViewGroup;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.support.adapter.EasyViewHolder;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.model.UserModel;
 import com.mnikn.purewei.viewholder.HeaderHolder;

@@ -11,10 +11,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.library.support.adapter.EasyViewHolder;
+import com.mnikn.library.utils.DataUtils;
+import com.mnikn.library.utils.Numbers;
+import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
@@ -61,14 +61,14 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Override
-    public void bindView() {
+    public void bindView(int position,Cursor cursor) {
 
         if(App.isNightMode()){
-            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_night),
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtils.getDrawable(mContext, R.drawable.ic_thumb_up_night),
                     null, null, null);
         }
 
-        if(!NumberUtil.isZero(model.retweetId)){
+        if(!Numbers.isZero(model.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(model.retweetModel.text);
             txtRetweetUserName.setText(model.retweetModel.userName);
@@ -90,7 +90,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         btnAttitudes.setText(model.attitudesCount);
         if(model.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-                    ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_red),
+                    ResourcesUtils.getDrawable(mContext, R.drawable.ic_thumb_up_red),
                     null,
                     null,
                     null);
@@ -103,7 +103,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     }
 
     private void setWeiboPics(GridLayout gridLayout,Cursor cursor){
-        if(DataUtil.isEmpty(cursor)) return;
+        if(DataUtils.isEmpty(cursor)) return;
         cursor.moveToFirst();
         int rowCount = cursor.getCount() / 3;
         if(rowCount >= 0 && cursor.getCount() % 3 != 0){

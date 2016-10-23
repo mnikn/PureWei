@@ -6,8 +6,8 @@ import android.os.Bundle;
 import android.support.v4.content.CursorLoader;
 import android.support.v4.content.Loader;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.callback.BaseCursorLoaderCallback;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.utils.BaseCursorLoaderCallback;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**

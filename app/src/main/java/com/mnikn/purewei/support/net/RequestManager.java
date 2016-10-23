@@ -4,6 +4,7 @@ import android.content.Context;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 
+import com.mnikn.library.view.INetView;
 import com.mnikn.mylibrary.mvp.view.INetListView;
 import com.mnikn.mylibrary.retrofit.RetrofitBuilder;
 import com.mnikn.mylibrary.util.NumberUtil;
@@ -89,7 +90,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getHomeWeibo(Context context,INetListView view,int requestType,int page){
+    public static Observable getHomeWeibo(Context context,INetView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         int count = PreferenceManager.getDefaultSharedPreferences(context)
@@ -102,7 +103,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getHotWeibo(Context context,INetListView view,int requestType,int page){
+    public static Observable getHotWeibo(Context context,INetView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         int count = PreferenceManager.getDefaultSharedPreferences(context)
@@ -115,7 +116,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getFavoritesWeibo(Context context,INetListView view,int requestType,int page){
+    public static Observable getFavoritesWeibo(Context context,INetView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         int count = PreferenceManager.getDefaultSharedPreferences(context)
@@ -128,7 +129,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getUserWeibo(Context context,INetListView view,int requestType,int page){
+    public static Observable getUserWeibo(Context context,INetView view,int requestType,int page){
         WeiboService service = sRetrofit.create(WeiboService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         int count = PreferenceManager.getDefaultSharedPreferences(context)
@@ -141,7 +142,7 @@ public class RequestManager {
     }
 
     @SuppressWarnings("unchecked")
-    public static Observable getComment(Context context,INetListView view,int requestType,int page,long weiboId){
+    public static Observable getComment(Context context,INetView view,int requestType,int page,long weiboId){
         CommentService service = sRetrofit.create(CommentService.class);
         Oauth2AccessToken token = AccessTokenKeeper.readAccessToken(context);
         Observable observable = service.getComment(page, token.getToken(), weiboId);

@@ -2,9 +2,7 @@ package com.mnikn.purewei.feature.detail;
 
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
-import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
-import com.mnikn.mylibrary.mvp.view.INetListView;
+import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.net.RequestManager;
 
@@ -13,41 +11,40 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class DetailPresenter extends NetListPresenter<INetListView> implements INetListPresenter {
+public class DetailPresenter extends NetPresenter<DetailFragment> {
 
     private long mWeiboId;
     private Observable commentObservable;
+    private Context mContext;
 
-    public DetailPresenter(Context context,INetListView view,long weiboId) {
-        super(context,view);
+    public DetailPresenter(Context context,long weiboId) {
         mWeiboId = weiboId;
+        mContext = context;
     }
 
-    @Override
-    public void refreshRequest(int page) {
-        commentObservable = RequestManager.getComment(
-                getContext(),
-                getView(),
-                Constant.REFRESH,
-                page,
-                mWeiboId);
-    }
-
-    @Override
-    public void loadMoreRequest(int page) {
-        commentObservable = RequestManager.getComment(
-                getContext(),
-                getView(),
-                Constant.LOAD_MORE,
-                page,
-                mWeiboId);
-    }
-
-    @Override
     public void cancelLoading() {
-        setIsLoading(false);
+        mIsLoading = false;
         RequestManager.cancelRequest(commentObservable);
     }
 
 
+    @Override
+    protected void request(int page) {
+        if(page == 1){
+            commentObservable = RequestManager.getComment(
+                    mContext,
+                    getView(),
+                    Constant.REFRESH,
+                    page,
+                    mWeiboId);
+        }
+        else{
+            commentObservable = RequestManager.getComment(
+                    mContext,
+                    getView(),
+                    Constant.LOAD_MORE,
+                    page,
+                    mWeiboId);
+        }
+    }
 }

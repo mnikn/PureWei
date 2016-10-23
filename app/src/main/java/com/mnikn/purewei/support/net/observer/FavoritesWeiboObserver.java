@@ -4,7 +4,7 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
-import com.mnikn.mylibrary.mvp.view.INetListView;
+import com.mnikn.library.view.INetView;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
@@ -26,10 +26,10 @@ import io.reactivex.disposables.Disposable;
 public class FavoritesWeiboObserver implements Observer<FavoriteBean> {
 
     private Context mContext;
-    private INetListView mView;
+    private INetView mView;
     private int mRequestType;
 
-    public FavoritesWeiboObserver(Context context, INetListView view, int requestType){
+    public FavoritesWeiboObserver(Context context, INetView view, int requestType){
         mContext = context;
         mView = view;
         mRequestType = requestType;

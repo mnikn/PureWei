@@ -15,10 +15,10 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.util.DataUtil;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.library.support.adapter.EasyViewHolder;
+import com.mnikn.library.utils.DataUtils;
+import com.mnikn.library.utils.Numbers;
+import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
@@ -75,22 +75,22 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     }
 
     @Override
-    public void bindView(Cursor data) {
+    public void bindView(int positoin,Cursor data) {
 
         if(App.isNightMode()){
-            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_thumb_up_night),
+            btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtils.getDrawable(mContext, R.drawable.ic_thumb_up_night),
                     null, null, null);
-            btnComments.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext, R.drawable.ic_comment_night),
+            btnComments.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtils.getDrawable(mContext, R.drawable.ic_comment_night),
                     null, null, null);
-            btnReports.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtil.getDrawable(mContext,R.drawable.ic_retweet_night),
+            btnReports.setCompoundDrawablesWithIntrinsicBounds(ResourcesUtils.getDrawable(mContext,R.drawable.ic_retweet_night),
                     null,null,null);
-            imgBtnMore.setImageDrawable(ResourcesUtil.getDrawable(mContext, R.drawable.ic_more_night));
+            imgBtnMore.setImageDrawable(ResourcesUtils.getDrawable(mContext, R.drawable.ic_more_night));
         }
 
         mWeiboModel = new WeiboModel(data);
         mUserModel = new UserModel(data);
 
-        if(!NumberUtil.isZero(mWeiboModel.retweetId)){
+        if(!Numbers.isZero(mWeiboModel.retweetId)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(mWeiboModel.retweetModel.text);
             txtRetweetUserName.setText(mWeiboModel.retweetModel.userName);
@@ -117,7 +117,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         btnReports.setText(mWeiboModel.reportsCount);
         if(mWeiboModel.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
-                    ResourcesUtil.getDrawable(mContext,R.drawable.ic_thumb_up_red),
+                    ResourcesUtils.getDrawable(mContext,R.drawable.ic_thumb_up_red),
                     null,
                     null,
                     null);
@@ -153,7 +153,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
     @OnClick(R.id.imgBtn_more)
     void showDialog(){
         AlertDialog.Builder builder = new AlertDialog.Builder(mContext);
-        builder.setItems(ResourcesUtil.getStringArray(mContext, R.array.entry_btn_more), new DialogInterface.OnClickListener() {
+        builder.setItems(ResourcesUtils.getStringArray(mContext, R.array.entry_btn_more), new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 switch (which){
@@ -174,7 +174,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
 
 
     private void setWeiboPics(GridLayout gridLayout,Cursor cursor){
-        if(DataUtil.isEmpty(cursor)) return;
+        if(DataUtils.isEmpty(cursor)) return;
         cursor.moveToFirst();
 
         int rowCount = cursor.getCount() / 3;

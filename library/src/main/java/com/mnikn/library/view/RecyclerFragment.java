@@ -5,13 +5,14 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 
 import com.mnikn.library.R;
+import com.mnikn.library.presenter.Presenter;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class RecyclerFragment extends BaseFragment {
+public abstract class RecyclerFragment<P extends Presenter> extends BaseFragment<P> {
 
     private RecyclerView mRecyclerView;
     private EasyRecyclerAdapter<?,?> mRecyclerAdapter;

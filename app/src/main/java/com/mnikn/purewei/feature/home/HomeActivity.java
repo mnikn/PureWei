@@ -21,11 +21,10 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
-import com.mnikn.mylibrary.listener.RecyclerScrollListener;
-import com.mnikn.mylibrary.util.ToastUtil;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
+import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.support.listener.RecyclerScrollListener;
+import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.account.AccountActivity;
@@ -55,7 +54,7 @@ public class HomeActivity extends AppCompatActivity
     @BindView(R.id.layout_refresh) SwipeRefreshLayout refreshLayout;
 
     private HomeAdapter mAdapter;
-    private IHomePresenter mPresenter;
+    private HomePresenter mPresenter;
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
@@ -63,8 +62,8 @@ public class HomeActivity extends AppCompatActivity
         mPresenter.authorizeCallBack(requestCode, resultCode, data);
     }
 
-    @Override
-    public void setupViews(View parent) {
+
+    public void setupViews() {
 
         setSupportActionBar(toolbar);
         final GestureDetector gestureDetector = new GestureDetector(this,
@@ -127,18 +126,18 @@ public class HomeActivity extends AppCompatActivity
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(
-                new RecyclerViewDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
-        recyclerView.addOnScrollListener(new RecyclerScrollListener(mAdapter, mPresenter, layoutManager));
+                new HorizontalDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
+        recyclerView.addOnScrollListener(new RecyclerScrollListener(mAdapter,mPresenter, layoutManager));
 
         recyclerView.setAdapter(mAdapter);
     }
 
     private void initVariables(){
-        mAdapter = (HomeAdapter) getAdapter();
+        mAdapter = new HomeAdapter(new CursorDataProvider(),this);
         getSupportLoaderManager().initLoader(
                 Constant.LOADER_HOME,
                 null,
-                new HomeLoaderCallback(this, mAdapter));
+                new HomeLoaderCallback(this,mAdapter));
     }
 
     @Override
@@ -149,8 +148,10 @@ public class HomeActivity extends AppCompatActivity
         ButterKnife.bind(this);
 
         initVariables();
-        mPresenter = getPresenter();
-        setupViews(null);
+        mPresenter = new HomePresenter(this);
+        mPresenter.takeView(this);
+        setupViews();
+
 
 
         if(getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE,false)){
@@ -278,14 +279,12 @@ public class HomeActivity extends AppCompatActivity
         });
     }
 
-
-
     @Override
     public void onRefreshFinish() {
         refreshLayout.setRefreshing(false);
-        mPresenter.setIsLoading(false);
+        mPresenter.setLoading(false);
         recyclerView.scrollToPosition(0);
-        ToastUtil.makeToastShort(this, "刷新完成");
+        ToastUtils.makeToastShort(this, "刷新完成");
     }
 
     @Override
@@ -296,19 +295,8 @@ public class HomeActivity extends AppCompatActivity
     @Override
     public void onLoadMoreFinish() {
         refreshLayout.setRefreshing(false);
-        mPresenter.setIsLoading(false);
-        ToastUtil.makeToastShort(this, "加载完成");
+        mPresenter.setLoading(false);
+        ToastUtils.makeToastShort(this, "加载完成");
     }
 
-    @Override
-    @SuppressWarnings("unchecked")
-    public IHomePresenter getPresenter() {
-        return new HomePresenter(this);
-    }
-
-    @Override
-    @SuppressWarnings("unchecked")
-    public EasyRecyclerAdapter getAdapter() {
-        return new HomeAdapter(new CursorDataProvider(),this);
-    }
 }

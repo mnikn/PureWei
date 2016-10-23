@@ -7,11 +7,11 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
-import com.mnikn.mylibrary.mvp.presenter.INetListPresenter;
-import com.mnikn.mylibrary.mvp.view.fragment.NetRecyclerFragment;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.support.adapter.RecyclerViewConfig;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
+import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.view.NetRecyclerFragment;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.DetailLoaderCallback;
@@ -19,7 +19,7 @@ import com.mnikn.purewei.support.callback.DetailLoaderCallback;
 /**
  * A simple {@link Fragment} subclass.
  */
-public class DetailFragment extends NetRecyclerFragment {
+public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
 
     private WeiboModel model;
 
@@ -38,34 +38,33 @@ public class DetailFragment extends NetRecyclerFragment {
         model = getActivity().getIntent().getParcelableExtra(DetailActivity.EXTRA_MODEL);
     }
 
-
     @Override
-    public INetListPresenter getPresenter() {
-        return new DetailPresenter(getContext(),this,model.weiboId);
-    }
-
-    @Override
-    public EasyRecyclerAdapter getAdapter() {
-        DetailAdapter adapter = new DetailAdapter(new CursorDataProvider(),getContext(),model);
-        adapter.setHasHeader(true);
-        return adapter;
-    }
-
-    @Override
-    public void setupViews(View parent) {
-        
-        getRecyclerView().addItemDecoration(new RecyclerViewDivider(
-                getContext(),
-                LinearLayout.VERTICAL));
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getActivity().getSupportLoaderManager().initLoader(
                 Constant.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(),mAdapter,model.weiboId));
+                new DetailLoaderCallback(getContext(),getRecyclerAdapter(),model.weiboId));
 
         getActivity().registerForContextMenu(getRecyclerView());
-
-        mPresenter.refresh();
+        getPresenter().refresh();
     }
 
+    @Override
+    protected DetailPresenter onCreatePresenter() {
+        return new DetailPresenter(getContext(),model.weiboId);
+    }
+
+    @Override
+    protected EasyRecyclerAdapter onCreateAdapter() {
+        return new DetailAdapter(new CursorDataProvider(),getContext(),model);
+    }
+
+    @Override
+    protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
+        return new RecyclerViewConfig.Builder()
+                .itemDecoration(new HorizontalDivider(
+                        getContext(),
+                        LinearLayout.VERTICAL));
+    }
 }

@@ -4,7 +4,7 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mnikn.mylibrary.mvp.presenter.NetListPresenter;
+import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
@@ -18,7 +18,7 @@ import io.reactivex.Observable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomePresenter extends NetListPresenter<IHomeView> implements IHomePresenter {
+public class HomePresenter extends NetPresenter<IHomeView> implements IHomePresenter {
 
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
@@ -26,34 +26,37 @@ public class HomePresenter extends NetListPresenter<IHomeView> implements IHomeP
     private Observable homeWeiboObservable;
     private Observable hotWeiboObservable;
 
+    private Context mContext;
     private int mType = Constant.HOME;
 
-    public HomePresenter(IHomeView view){
-        super((Context) view, view);
+    public HomePresenter(Context context){
+        mContext = context;
+    }
 
-        AuthInfo authInfo = new AuthInfo((Context) view, Constant.APP_KEY, Constant.REDIRECT_URL, null);
-        mSsoHandler = new SsoHandler((Activity) view,authInfo);
+    @Override
+    protected void onTakeView() {
+        super.onTakeView();
+        AuthInfo authInfo = new AuthInfo(mContext,Constant.APP_KEY, Constant.REDIRECT_URL, null);
+        mSsoHandler = new SsoHandler((Activity) mContext,authInfo);
 
-        Context context = getContext();
         //从SharePreference中读取token,若失败就请求授权
-        mToken = AccessTokenKeeper.readAccessToken(context);
+        mToken = AccessTokenKeeper.readAccessToken(mContext);
         if (!mToken.isSessionValid()) {
             authorize();
-            mToken = AccessTokenKeeper.readAccessToken(context);
+            mToken = AccessTokenKeeper.readAccessToken(mContext);
         }
         else{
             RequestManager.getAccountInfo(
-                    getContext(),
+                    mContext,
                     getView(),
                     NumberUtil.stringToLong(mToken.getUid()));
             refresh();
         }
-
     }
 
     @Override
     public void authorize() {
-        RequestManager.authorize(mSsoHandler,getContext());
+        RequestManager.authorize(mSsoHandler,mContext);
     }
 
     @Override
@@ -68,64 +71,63 @@ public class HomePresenter extends NetListPresenter<IHomeView> implements IHomeP
         }
     }
 
-    @Override
     public void cancelLoading() {
-        setIsLoading(false);
+        mIsLoading = false;
         RequestManager.cancelRequest(homeWeiboObservable);
         RequestManager.cancelRequest(hotWeiboObservable);
     }
 
     @Override
-    public void refreshRequest(int page) {
-        switch (mType){
-            case Constant.HOME:
-                homeWeiboObservable = RequestManager.getHomeWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.REFRESH,
-                        page);
-                break;
-            case Constant.HOT:
-                hotWeiboObservable = RequestManager.getHotWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.REFRESH,
-                        page);
-                break;
-            case Constant.FAVORITE:
-                hotWeiboObservable = RequestManager.getFavoritesWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.REFRESH,
-                        page);
-                break;
+    protected void request(int page) {
+        if(page == 1){
+            switch (mType){
+                case Constant.HOME:
+                    homeWeiboObservable = RequestManager.getHomeWeibo(
+                            mContext,
+                            getView(),
+                            Constant.REFRESH,
+                            page);
+                    break;
+                case Constant.HOT:
+                    hotWeiboObservable = RequestManager.getHotWeibo(
+                            mContext,
+                            getView(),
+                            Constant.REFRESH,
+                            page);
+                    break;
+                case Constant.FAVORITE:
+                    hotWeiboObservable = RequestManager.getFavoritesWeibo(
+                            mContext,
+                            getView(),
+                            Constant.REFRESH,
+                            page);
+                    break;
+            }
         }
-    }
-
-    @Override
-    public void loadMoreRequest(int page) {
-        switch (mType){
-            case Constant.HOME:
-                homeWeiboObservable = RequestManager.getHomeWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.LOAD_MORE,
-                        page);
-                break;
-            case Constant.HOT:
-                hotWeiboObservable = RequestManager.getHotWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.LOAD_MORE,
-                        page);
-                break;
-            case Constant.FAVORITE:
-                hotWeiboObservable = RequestManager.getFavoritesWeibo(
-                        getContext(),
-                        getView(),
-                        Constant.LOAD_MORE,
-                        page);
-                break;
+        else{
+            switch (mType){
+                case Constant.HOME:
+                    homeWeiboObservable = RequestManager.getHomeWeibo(
+                            mContext,
+                            getView(),
+                            Constant.LOAD_MORE,
+                            page);
+                    break;
+                case Constant.HOT:
+                    hotWeiboObservable = RequestManager.getHotWeibo(
+                            mContext,
+                            getView(),
+                            Constant.LOAD_MORE,
+                            page);
+                    break;
+                case Constant.FAVORITE:
+                    hotWeiboObservable = RequestManager.getFavoritesWeibo(
+                            mContext,
+                            getView(),
+                            Constant.LOAD_MORE,
+                            page);
+                    break;
+            }
         }
     }
 }

@@ -1,12 +1,12 @@
 package com.mnikn.purewei.feature.account;
 
-import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.BaseSingleFragmentActivity;
 
-public class AccountActivity extends SingleFragmentActivity {
+public class AccountActivity extends BaseSingleFragmentActivity {
 
     @Override
-    public BaseFragment getFragment() {
-        return AccountFragment.newInstance();
+    protected BaseFragment onCreateFragment() {
+        return null;
     }
 }

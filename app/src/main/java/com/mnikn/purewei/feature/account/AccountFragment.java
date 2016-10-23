@@ -6,10 +6,11 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 import android.widget.LinearLayout;
 
-import com.mnikn.mylibrary.adapter.EasyRecyclerAdapter;
-import com.mnikn.mylibrary.adapter.data.CursorDataProvider;
-import com.mnikn.mylibrary.mvp.view.fragment.RecyclerFragment;
-import com.mnikn.mylibrary.widget.RecyclerViewDivider;
+import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
+import com.mnikn.library.support.adapter.RecyclerViewConfig;
+import com.mnikn.library.support.adapter.data.CursorDataProvider;
+import com.mnikn.library.support.adapter.divider.HorizontalDivider;
+import com.mnikn.library.view.RecyclerFragment;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.callback.AccountLoaderCallback;
 
@@ -33,26 +34,25 @@ public class AccountFragment extends RecyclerFragment {
     }
 
     @Override
-    public void setupViews(View parent) {
-
-        mAdapter.setHasFooter(true);
-        getRecyclerView().addItemDecoration(new RecyclerViewDivider(
-                getContext(),
-                LinearLayout.VERTICAL));
-
+    public void onViewCreated(View view, Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
         getLoaderManager().initLoader(
                 Constant.LOADER_ACCOUNT,
                 null,
-                new AccountLoaderCallback(getContext(),mAdapter));
+                new AccountLoaderCallback(getContext(), getRecyclerAdapter()));
+        getRecyclerAdapter().setHasFooter(true);
     }
 
     @Override
-    public AccountPresenter getPresenter() {
-        return new AccountPresenter(getContext(),this);
-    }
-
-    @Override
-    public EasyRecyclerAdapter getAdapter() {
+    protected EasyRecyclerAdapter onCreateAdapter() {
         return new AccountAdapter(new CursorDataProvider(),getContext());
+    }
+
+    @Override
+    protected RecyclerViewConfig.Builder onCreateRecyclerBuilder() {
+        return new RecyclerViewConfig.Builder()
+                .itemDecoration(new HorizontalDivider(
+                        getContext(),
+                        LinearLayout.VERTICAL));
     }
 }

@@ -6,12 +6,14 @@ import android.view.View;
 import android.widget.ProgressBar;
 
 import com.mnikn.library.R;
+import com.mnikn.library.presenter.NetPresenter;
 import com.mnikn.library.utils.ViewUtils;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetRecyclerFragment extends RecyclerFragment implements INetView {
+public abstract class NetRecyclerFragment<P extends NetPresenter> extends RecyclerFragment<P>
+        implements INetView {
 
     private SwipeRefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
@@ -22,7 +24,18 @@ public abstract class NetRecyclerFragment extends RecyclerFragment implements IN
 
         mRefreshLayout = (SwipeRefreshLayout) view.findViewById(getRefreshViewId());
         mProgressBar = (ProgressBar) view.findViewById(getProgressBarId());
+
+        mRefreshLayout.setOnRefreshListener(new SwipeRefreshLayout.OnRefreshListener() {
+            @Override
+            public void onRefresh() {
+                getPresenter().refresh();
+            }
+        });
+
+        getPresenter().refresh();
     }
+
+
 
     @Override
     protected int getLayoutId() {
@@ -47,8 +60,13 @@ public abstract class NetRecyclerFragment extends RecyclerFragment implements IN
     public void onLoadMore() {
         ViewUtils.setGone(mProgressBar,false);
     }
+
     @Override
-    public void onLoadFinish() {
+    public void onRefreshFinish() {
+        mRefreshLayout.setRefreshing(false);
+    }
+    @Override
+    public void onLoadMoreFinish() {
         mRefreshLayout.setRefreshing(false);
         ViewUtils.setGone(mProgressBar,true);
     }

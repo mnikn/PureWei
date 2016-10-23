@@ -2,17 +2,17 @@ package com.mnikn.purewei.feature.user;
 
 import android.view.Menu;
 
-import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.BaseSingleFragmentActivity;
 import com.mnikn.purewei.R;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserActivity extends SingleFragmentActivity {
+public class UserActivity extends BaseSingleFragmentActivity {
 
     @Override
-    public BaseFragment getFragment() {
+    protected BaseFragment onCreateFragment() {
         return UserFragment.newInstance();
     }
 
