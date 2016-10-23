@@ -1,6 +1,7 @@
 package com.mnikn.purewei.feature.user;
 
 import android.os.Bundle;
+import android.support.v7.widget.LinearLayoutManager;
 import android.view.View;
 import android.widget.LinearLayout;
 
@@ -62,6 +63,7 @@ public class UserFragment extends NetRecyclerFragment<UserPresenter> {
         return new RecyclerViewConfig.Builder()
                 .itemDecoration(new HorizontalDivider(
                         getContext(),
-                        LinearLayout.VERTICAL));
+                        LinearLayout.VERTICAL))
+                .layoutManager(new LinearLayoutManager(getContext()));
     }
 }
