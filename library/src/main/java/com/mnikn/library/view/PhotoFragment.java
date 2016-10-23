@@ -7,7 +7,8 @@ import android.support.v4.app.Fragment;
 import android.view.View;
 
 import com.mnikn.library.R;
-import com.mnikn.library.utils.ImageDisplayUtils;
+import com.mnikn.library.support.image.ImageDisplayUtils;
+import com.mnikn.library.view.base.BaseFragment;
 
 import java.io.File;
 

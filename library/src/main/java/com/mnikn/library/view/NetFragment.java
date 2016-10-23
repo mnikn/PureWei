@@ -5,6 +5,7 @@ import android.support.annotation.Nullable;
 import android.view.View;
 
 import com.mnikn.library.presenter.NetPresenter;
+import com.mnikn.library.view.base.BaseFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>

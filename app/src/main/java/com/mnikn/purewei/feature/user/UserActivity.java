@@ -2,8 +2,8 @@ package com.mnikn.purewei.feature.user;
 
 import android.view.Menu;
 
-import com.mnikn.library.view.BaseFragment;
-import com.mnikn.library.view.BaseSingleFragmentActivity;
+import com.mnikn.library.view.base.BaseFragment;
+import com.mnikn.library.view.base.BaseSingleFragmentActivity;
 import com.mnikn.purewei.R;
 
 /**

@@ -1,4 +1,4 @@
-package com.mnikn.library.utils;
+package com.mnikn.library.support.image;
 
 import android.content.Context;
 import android.graphics.Bitmap;

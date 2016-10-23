@@ -1,4 +1,4 @@
-package com.mnikn.library.view;
+package com.mnikn.library.view.base;
 
 import android.support.v7.app.AppCompatActivity;
 

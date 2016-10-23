@@ -9,7 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.home.HomeActivity;

@@ -1,7 +1,7 @@
 package com.mnikn.purewei.feature.account;
 
-import com.mnikn.library.view.BaseFragment;
-import com.mnikn.library.view.BaseSingleFragmentActivity;
+import com.mnikn.library.view.base.BaseFragment;
+import com.mnikn.library.view.base.BaseSingleFragmentActivity;
 
 public class AccountActivity extends BaseSingleFragmentActivity {
 

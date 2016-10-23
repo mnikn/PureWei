@@ -7,8 +7,8 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 
-import com.mnikn.library.view.BaseSingleFragmentActivity;
-import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.base.BaseSingleFragmentActivity;
+import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.write.WriteActivity;
 import com.mnikn.purewei.model.WeiboModel;

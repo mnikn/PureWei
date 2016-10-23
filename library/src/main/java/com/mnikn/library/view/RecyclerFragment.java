@@ -8,6 +8,7 @@ import com.mnikn.library.R;
 import com.mnikn.library.presenter.Presenter;
 import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.RecyclerViewConfig;
+import com.mnikn.library.view.base.BaseFragment;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
