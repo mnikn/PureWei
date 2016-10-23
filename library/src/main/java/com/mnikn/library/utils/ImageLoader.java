@@ -39,7 +39,7 @@ public class ImageLoader {
         mLoaderImpl.setPlaceHolder(resourceId);
     }
     public void displayFromFile(Context context,File file,ImageView imageView) {
-        mLoaderImpl.displayFromFile(context,file,imageView);
+        mLoaderImpl.displayFromFile(context, file, imageView);
     }
     public void displayFromNet(Context context,String url,ImageView imageView) {
         mLoaderImpl.displayFromNet(context, url, imageView);
