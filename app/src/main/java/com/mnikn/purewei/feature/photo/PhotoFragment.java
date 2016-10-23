@@ -2,11 +2,11 @@ package com.mnikn.purewei.feature.photo;
 
 
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.View;
 
-import com.mnikn.mylibrary.mvp.presenter.IPresenter;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -32,18 +32,13 @@ public class PhotoFragment extends BaseFragment {
     }
 
     @Override
-    public void setupViews(View parent) {
-        ButterKnife.bind(this,parent);
-
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this,view);
         String url = getActivity().getIntent().getStringExtra(WeiboViewHolder.EXTRA_PHOTO_URL);
         if(url != null){
             ImageDisplayUtil.displayFromNet(getContext(), url, photoView);
         }
-    }
-
-    @Override
-    public <P extends IPresenter> P getPresenter() {
-        return null;
     }
 
     @Override
