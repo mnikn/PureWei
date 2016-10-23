@@ -9,7 +9,7 @@ import com.mnikn.library.presenter.NetPresenter;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetFragment extends BaseFragment<NetPresenter> implements NetView{
+public abstract class NetFragment extends BaseFragment<NetPresenter> implements INetView {
 
     @Override
     public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {

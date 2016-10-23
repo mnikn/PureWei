@@ -3,10 +3,10 @@ package com.mnikn.purewei.feature.draft;
 import android.content.Context;
 import android.content.Intent;
 
-import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.BaseSingleFragmentActivity;
 
-public class DraftActivity extends SingleFragmentActivity {
+public class DraftActivity extends BaseSingleFragmentActivity {
 
     public static void startActivity(Context context){
         Intent intent = new Intent(context,DraftActivity.class);
@@ -14,7 +14,7 @@ public class DraftActivity extends SingleFragmentActivity {
     }
 
     @Override
-    public BaseFragment getFragment() {
+    protected BaseFragment onCreateFragment() {
         return DraftFragment.newInstance();
     }
 }

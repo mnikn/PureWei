@@ -1,21 +1,15 @@
 package com.mnikn.library.presenter;
 
-import android.os.Bundle;
-
-import com.mnikn.library.view.NetView;
+import com.mnikn.library.view.INetView;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetPresenter extends Presenter<NetView>{
+public abstract class NetPresenter extends Presenter<INetView>{
 
     private boolean mIsLoading;
     private int mPage = 1;
     private int mPageSize = Integer.MAX_VALUE;
-
-    public NetPresenter(Bundle bundle) {
-        super(bundle);
-    }
 
     protected abstract void request(int page);
     public void refresh(){

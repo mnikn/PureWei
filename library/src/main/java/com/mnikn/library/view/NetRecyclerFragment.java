@@ -11,7 +11,7 @@ import com.mnikn.library.utils.ViewUtils;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public abstract class NetRecyclerFragment extends RecyclerFragment implements NetView{
+public abstract class NetRecyclerFragment extends RecyclerFragment implements INetView {
 
     private SwipeRefreshLayout mRefreshLayout;
     private ProgressBar mProgressBar;
