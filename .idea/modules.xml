@@ -5,6 +5,7 @@
       <module fileurl="file://$PROJECT_DIR$/MniknLib/MniknLib.iml" filepath="$PROJECT_DIR$/MniknLib/MniknLib.iml" />
       <module fileurl="file://$PROJECT_DIR$/PureWei.iml" filepath="$PROJECT_DIR$/PureWei.iml" />
       <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/library/library.iml" filepath="$PROJECT_DIR$/library/library.iml" />
     </modules>
   </component>
 </project>

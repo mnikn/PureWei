@@ -3,12 +3,13 @@ package com.mnikn.purewei.feature.write;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.support.annotation.Nullable;
 import android.support.v7.app.AlertDialog;
 import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageButton;
 
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.home.HomeActivity;
@@ -18,7 +19,7 @@ import butterknife.BindView;
 import butterknife.ButterKnife;
 import butterknife.OnClick;
 
-public class WriteFragment extends BaseFragment {
+public class WriteFragment extends BaseFragment<WritePresenter> {
 
     private static final int CODE_PHOTO = 100;
 
@@ -27,7 +28,6 @@ public class WriteFragment extends BaseFragment {
     @BindView(R.id.imgBtn_photo) ImageButton imgBtnPhoto;
     @BindView(R.id.imgBtn_send) ImageButton imgBtnSend;
 
-    private IWritePresenter mPresenter;
 
     public static WriteFragment newInstance() {
 
@@ -39,8 +39,9 @@ public class WriteFragment extends BaseFragment {
     }
 
     @Override
-    public void setupViews(View parent) {
-        ButterKnife.bind(this, parent);
+    public void onViewCreated(View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        ButterKnife.bind(this, view);
     }
 
     @Override
@@ -49,9 +50,8 @@ public class WriteFragment extends BaseFragment {
     }
 
     @Override
-    public IWritePresenter getPresenter() {
-        mPresenter = new WritePresenter(getContext(),this);
-        return mPresenter;
+    protected WritePresenter onCreatePresenter() {
+        return new WritePresenter(getContext());
     }
 
     @OnClick(R.id.imgBtn_photo)
@@ -73,12 +73,12 @@ public class WriteFragment extends BaseFragment {
         }
         else{
             if(getActivity().getIntent().getIntExtra(WriteActivity.EXTRA_TYPE, 1) == 1){
-                mPresenter.createWeibo(content);
+                getPresenter().createWeibo(content);
                 startActivity(new Intent(getContext(), HomeActivity.class));
             }
             else{
                 WeiboModel model = getActivity().getIntent().getParcelableExtra(WriteActivity.EXTRA_WEIBO);
-                mPresenter.createComment(content,model.weiboId);
+                getPresenter().createComment(content, model.weiboId);
                 DetailActivity.startActivity(getContext(),model);
             }
         }

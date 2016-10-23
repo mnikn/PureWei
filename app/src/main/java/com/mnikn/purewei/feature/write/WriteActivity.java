@@ -7,20 +7,18 @@ import android.os.Bundle;
 import android.support.v7.app.AlertDialog;
 import android.view.Menu;
 
-import com.mnikn.mylibrary.mvp.view.activity.SingleFragmentActivity;
-import com.mnikn.mylibrary.mvp.view.fragment.BaseFragment;
+import com.mnikn.library.view.BaseFragment;
+import com.mnikn.library.view.BaseSingleFragmentActivity;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.DraftEntity;
 import com.mnikn.purewei.model.WeiboModel;
 import com.mnikn.purewei.support.Constant;
 
-public class WriteActivity extends SingleFragmentActivity {
+public class WriteActivity extends BaseSingleFragmentActivity {
 
     public static final String EXTRA_TYPE = "extra_type";
     public static final String EXTRA_WEIBO = "extra_weibo";
-
-    private WriteFragment mFragment;
 
     public static void startActivity(Context context,int type){
         Intent intent = new Intent(context,WriteActivity.class);
@@ -44,20 +42,19 @@ public class WriteActivity extends SingleFragmentActivity {
     }
 
     @Override
+    protected BaseFragment onCreateFragment() {
+        return WriteFragment.newInstance();
+    }
+
+    @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         getMenuInflater().inflate(R.menu.write,menu);
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public BaseFragment getFragment() {
-        mFragment = WriteFragment.newInstance();
-        return mFragment;
-    }
-
-    @Override
     public void onBackPressed() {
-        final String content = mFragment.edtWeibo.getText().toString();
+        final String content = ((WriteFragment) getFragment()).edtWeibo.getText().toString();
         if(content.length() != 0){
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
             builder.setMessage(R.string.dialog_draft);
