@@ -3,7 +3,7 @@ package com.mnikn.purewei.data;
 import android.content.ContentResolver;
 import android.database.Cursor;
 
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.model.AccountModel;
 import com.mnikn.purewei.model.CommentModel;
@@ -43,7 +43,7 @@ public class WeiboDataHelper {
                 WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
                 null,
                 WeiboContract.WeiboEntry.COLUMN_WEIBO_ID + " = ?",
-                new String[]{NumberUtil.longToString(weiboId)},
+                new String[]{Numbers.longToString(weiboId)},
                 WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
     }
     public WeiboModel getWeiboModel(){
@@ -55,7 +55,7 @@ public class WeiboDataHelper {
                 WeiboContract.WeiboPicsEntry.CONTENT_URI,
                 null,
                 WeiboContract.WeiboPicsEntry.COLUMN_WEIBO_ID + " = ?",
-                new String[]{NumberUtil.longToString(weiboId)},
+                new String[]{Numbers.longToString(weiboId)},
                 null);
     }
 
@@ -64,7 +64,7 @@ public class WeiboDataHelper {
                 WeiboContract.UserEntry.CONTENT_URI,
                 null,
                 WeiboContract.UserEntry.COLUMN_USER_ID + " = ?",
-                new String[]{NumberUtil.longToString(uid)},
+                new String[]{Numbers.longToString(uid)},
                 null);
     }
     public UserModel getUserModel(long uid){
@@ -78,7 +78,7 @@ public class WeiboDataHelper {
                 WeiboContract.WeiboCommentEntry.buildWeiboCommentWithUserUri(),
                 null,
                 WeiboContract.UserEntry.TABLE_NAME + "." + WeiboContract.UserEntry.COLUMN_USER_ID + " = ?",
-                new String[]{NumberUtil.longToString(uid)},
+                new String[]{Numbers.longToString(uid)},
                 WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
     }
     public CommentModel getCommentModel(long uid){

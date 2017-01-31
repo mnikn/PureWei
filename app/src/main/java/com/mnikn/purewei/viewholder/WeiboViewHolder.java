@@ -17,7 +17,6 @@ import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.utils.DataUtils;
-import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
@@ -90,7 +89,7 @@ public class WeiboViewHolder extends EasyViewHolder<Cursor>{
         mWeiboModel = new WeiboModel(data);
         mUserModel = new UserModel(data);
 
-        if(!Numbers.isZero(mWeiboModel.retweetId)){
+        if(!(mWeiboModel.retweetId == 0)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(mWeiboModel.retweetModel.text);
             txtRetweetUserName.setText(mWeiboModel.retweetModel.userName);

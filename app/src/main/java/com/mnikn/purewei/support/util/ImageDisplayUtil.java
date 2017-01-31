@@ -7,7 +7,7 @@ import android.support.v4.graphics.drawable.RoundedBitmapDrawableFactory;
 import android.widget.ImageView;
 
 import com.bumptech.glide.request.target.BitmapImageViewTarget;
-import com.mnikn.mylibrary.util.ImageLoader;
+import com.mnikn.library.support.image.ImageLoader;
 
 import java.io.File;
 

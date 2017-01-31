@@ -4,9 +4,9 @@ import android.content.Context;
 import android.os.Bundle;
 
 import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.TextUtil;
-import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.library.utils.Numbers;
+import com.mnikn.library.utils.Strings;
+import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.AccountEntity;
 import com.mnikn.purewei.feature.home.IHomeView;
@@ -55,24 +55,24 @@ public class RequestManager {
                 Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
                 if (token.isSessionValid()) {
                     AccessTokenKeeper.writeAccessToken(context, token);
-                    if(!DataUtil.hasAccountId(context,NumberUtil.stringToLong(token.getUid()))){
+                    if(!DataUtil.hasAccountId(context, Numbers.stringToLong(token.getUid()))){
                         context.getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
                                 new AccountEntity(token).toContentValues());
                     }
-                    ToastUtil.makeToastShort(context, "授权成功");
+                    ToastUtils.makeToastShort(context, "授权成功");
                     RequestManager.getAccountInfo(
                             context,
                             (IHomeView) context,
-                            NumberUtil.stringToLong(token.getUid()));
+                            Numbers.stringToLong(token.getUid()));
                 }
                 else {
                     String errorMessage = "授权失败";
                     String code = bundle.getString("code");
-                    if(!TextUtil.isEmpty(code)){
-                        ToastUtil.makeToastLong(context, errorMessage + String.format(",错误代码:%s",code));
+                    if(!Strings.isBlank(code)){
+                        ToastUtils.makeToastLong(context, errorMessage + String.format(",错误代码:%s",code));
                     }
                     else{
-                        ToastUtil.makeToastLong(context,errorMessage);
+                        ToastUtils.makeToastLong(context,errorMessage);
                     }
                 }
             }
@@ -82,7 +82,7 @@ public class RequestManager {
             }
             @Override
             public void onCancel() {
-                ToastUtil.makeToastShort(context, "授权取消");
+                ToastUtils.makeToastShort(context, "授权取消");
             }
         });
     }

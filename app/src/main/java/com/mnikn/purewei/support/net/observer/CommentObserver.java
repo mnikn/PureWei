@@ -3,10 +3,10 @@ package com.mnikn.purewei.support.net.observer;
 import android.content.ContentResolver;
 import android.content.ContentValues;
 
-import com.mnikn.library.view.net.NetPresenter;
+import com.mnikn.library.utils.Numbers;
+import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.library.view.net.INetView;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.ToastUtil;
+import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.data.entity.WeiboCommentEntity;
@@ -44,7 +44,7 @@ public class CommentObserver implements Observer<CommentBean>{
             resolver.delete(
                     WeiboContract.WeiboCommentEntry.CONTENT_URI,
                     WeiboContract.WeiboCommentEntry.COLUMN_WEIBO_ID + " = ?",
-                    new String[]{NumberUtil.longToString(mWeiboId)});
+                    new String[]{Numbers.longToString(mWeiboId)});
         }
 
         //把bean转换成ContentValues,并插入到数据库中
@@ -64,7 +64,7 @@ public class CommentObserver implements Observer<CommentBean>{
 
     @Override
     public void onError(Throwable e) {
-        ToastUtil.makeToastShort(mPresenter.getContext(), e.getMessage());
+        ToastUtils.makeToastShort(mPresenter.getContext(), e.getMessage());
         ((INetView) mPresenter.getView()).onLoadMoreFinish();
     }
 

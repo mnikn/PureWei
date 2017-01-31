@@ -2,7 +2,7 @@ package com.mnikn.purewei.data.entity;
 
 import android.content.ContentValues;
 
-import com.mnikn.mylibrary.util.DateUtil;
+import com.mnikn.library.utils.DateUtils;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.CommentBean;
 import com.mnikn.purewei.support.bean.CommentsBean;
@@ -30,7 +30,7 @@ public class WeiboCommentEntity {
             weiboId.add(commentsBean.status.id);
             commentId.add(commentsBean.id);
             commentUserId.add(commentsBean.user.id);
-            commentTime.add(DateUtil.dateToLong(commentsBean.createdAt));
+            commentTime.add(DateUtils.dateToLong(commentsBean.createdAt));
             commentText.add(commentsBean.text);
             commentSource.add(commentsBean.source);
         }

@@ -13,7 +13,6 @@ import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.utils.DataUtils;
-import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
@@ -68,7 +67,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
                     null, null, null);
         }
 
-        if(!Numbers.isZero(model.retweetId)){
+        if(!(model.retweetId == 0)){
             linearRetweet.setVisibility(View.VISIBLE);
             txtRetweetText.setText(model.retweetModel.text);
             txtRetweetUserName.setText(model.retweetModel.userName);

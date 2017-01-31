@@ -5,8 +5,8 @@ import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.view.net.NetPresenter;
-import com.mnikn.mylibrary.util.NumberUtil;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.Constant;
 import com.mnikn.purewei.support.net.RequestManager;
@@ -88,7 +88,7 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
             RequestManager.getAccountInfo(
                     getContext(),
                     getView(),
-                    NumberUtil.stringToLong(mToken.getUid()));
+                    Numbers.stringToLong(mToken.getUid()));
             refresh();
         }
     }

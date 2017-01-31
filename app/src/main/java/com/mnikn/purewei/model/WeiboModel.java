@@ -5,8 +5,8 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mnikn.mylibrary.util.DateUtil;
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.utils.DateUtils;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.util.TextUtil;
@@ -41,14 +41,14 @@ public class WeiboModel implements Parcelable {
         if(cursor == null) return;
 
         retweetId = WeiboContract.WeiboEntry.getRetweetId(cursor);
-        if(!NumberUtil.isZero(retweetId)){
+        if(!(retweetId == 0)){
             Context context = App.getAppContext();
             Cursor retweetCursor = context.getContentResolver().query(
                     WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
                     null,
                     "(" + WeiboContract.WeiboEntry.COLUMN_WEIBO_ID+ " = ?"
                             + ") GROUP BY (" + WeiboContract.WeiboEntry.COLUMN_WEIBO_ID + ")",
-                    new String[]{NumberUtil.longToString(retweetId)},
+                    new String[]{Numbers.longToString(retweetId)},
                     null);
             if(retweetCursor != null){
                 retweetCursor.moveToFirst();
@@ -60,10 +60,10 @@ public class WeiboModel implements Parcelable {
 
         weiboId = WeiboContract.WeiboEntry.getWeiboId(cursor);
         userId = WeiboContract.WeiboEntry.getUserId(cursor);
-        reportsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor));
-        commentsCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor));
-        attitudesCount = NumberUtil.longToString(WeiboContract.WeiboEntry.getAttitudesCount(cursor));
-        createdTime = DateUtil.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor));
+        reportsCount = Numbers.longToString(WeiboContract.WeiboEntry.getReportsCount(cursor));
+        commentsCount = Numbers.longToString(WeiboContract.WeiboEntry.getCommentsCount(cursor));
+        attitudesCount = Numbers.longToString(WeiboContract.WeiboEntry.getAttitudesCount(cursor));
+        createdTime = DateUtils.getShowDay(WeiboContract.WeiboEntry.getCreatedTime(cursor));
         text = WeiboContract.WeiboEntry.getText(cursor);
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboEntry.getSource(cursor));
         liked = WeiboContract.WeiboEntry.getLiked(cursor);

@@ -2,7 +2,7 @@ package com.mnikn.purewei.data.entity;
 
 import android.content.ContentValues;
 
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.data.WeiboContract;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
@@ -23,7 +23,7 @@ public class AccountEntity {
     }
 
     private void fromToken(Oauth2AccessToken accessToken){
-        uid = NumberUtil.stringToLong(accessToken.getUid());
+        uid = Numbers.stringToLong(accessToken.getUid());
         expireTime = accessToken.getExpiresTime();
         this.accessToken = accessToken.getToken();
         refreshToken = accessToken.getRefreshToken();

@@ -1,1 +1,1 @@
-include ':app', ':MniknLib', ':library'
+include ':app', ':library'

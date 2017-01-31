@@ -2,7 +2,7 @@ package com.mnikn.purewei.model;
 
 import android.database.Cursor;
 
-import com.mnikn.mylibrary.util.DateUtil;
+import com.mnikn.library.utils.DateUtils;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.util.TextUtil;
 
@@ -30,7 +30,7 @@ public class CommentModel {
 
         weiboId = WeiboContract.WeiboCommentEntry.getWeiboId(cursor);
         userId = WeiboContract.WeiboCommentEntry.getUserId(cursor);
-        createdTime = DateUtil.getShowDay(WeiboContract.WeiboCommentEntry.getCommentTime(cursor));
+        createdTime = DateUtils.getShowDay(WeiboContract.WeiboCommentEntry.getCommentTime(cursor));
         text = WeiboContract.WeiboCommentEntry.getCommentText(cursor);
         source = TextUtil.cutHerfInfo(WeiboContract.WeiboCommentEntry.getCommentSource(cursor));
         userName = WeiboContract.UserEntry.getName(cursor);

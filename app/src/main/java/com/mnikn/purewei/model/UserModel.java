@@ -4,7 +4,7 @@ import android.database.Cursor;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.data.WeiboContract;
 
 /**
@@ -41,9 +41,9 @@ public class UserModel implements Parcelable {
         avatarLargeUrl = WeiboContract.UserEntry.getAvatarLargeUrl(cursor);
         avatarHdUrl = WeiboContract.UserEntry.getAvatarHdUrl(cursor);
         coverUrl = WeiboContract.UserEntry.getCoverUrl(cursor);
-        followersCount = NumberUtil.longToString(WeiboContract.UserEntry.getFollowerCount(cursor));
-        friendsCount = NumberUtil.longToString(WeiboContract.UserEntry.getFriendsCount(cursor));
-        weiboCount = NumberUtil.longToString(WeiboContract.UserEntry.getWeiboCount(cursor));
+        followersCount = Numbers.longToString(WeiboContract.UserEntry.getFollowerCount(cursor));
+        friendsCount = Numbers.longToString(WeiboContract.UserEntry.getFriendsCount(cursor));
+        weiboCount = Numbers.longToString(WeiboContract.UserEntry.getWeiboCount(cursor));
         following = WeiboContract.UserEntry.getFollowing(cursor);
         followMe = WeiboContract.UserEntry.getFollowMe(cursor);
     }

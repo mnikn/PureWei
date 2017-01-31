@@ -2,7 +2,7 @@ package com.mnikn.purewei.data.entity;
 
 import android.content.ContentValues;
 
-import com.mnikn.mylibrary.util.DateUtil;
+import com.mnikn.library.utils.DateUtils;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.support.bean.FavoriteBean;
 import com.mnikn.purewei.support.bean.StatusesBean;
@@ -47,7 +47,7 @@ public class WeiboEntity {
         if(bean.retweetedStatus != null && bean.retweetedStatus.user != null){
             retweetId = bean.retweetedStatus.id;
         }
-        createdTime = DateUtil.dateToLong(bean.createdAt);
+        createdTime = DateUtils.dateToLong(bean.createdAt);
         text = bean.text;
         source = bean.source;
         reportsCount = bean.repostsCount;
@@ -62,7 +62,7 @@ public class WeiboEntity {
         if(bean.retweetedStatus != null && bean.retweetedStatus.user != null){
             retweetId = bean.retweetedStatus.id;
         }
-        createdTime = DateUtil.dateToLong(bean.createdAt);
+        createdTime = DateUtils.dateToLong(bean.createdAt);
         text = bean.text;
         source = bean.source;
         reportsCount = bean.repostsCount;

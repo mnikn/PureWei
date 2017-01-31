@@ -2,7 +2,7 @@ package com.mnikn.purewei.model;
 
 import android.database.Cursor;
 
-import com.mnikn.mylibrary.util.NumberUtil;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.data.WeiboContract;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
@@ -28,11 +28,11 @@ public class AccountModel{
 
     public Oauth2AccessToken toOauth2AccessToken() {
         Oauth2AccessToken token = new Oauth2AccessToken();
-        token.setUid(NumberUtil.longToString(uid));
+        token.setUid(Numbers.longToString(uid));
         token.setToken(accessToken);
         token.setRefreshToken(refreshToken);
         token.setExpiresTime(expireTime);
-        token.setExpiresIn(NumberUtil.longToString(expireIn));
+        token.setExpiresIn(Numbers.longToString(expireIn));
 
         return token;
     }

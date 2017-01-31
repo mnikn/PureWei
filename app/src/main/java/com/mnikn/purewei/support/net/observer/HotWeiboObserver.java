@@ -4,9 +4,8 @@ import android.content.ContentResolver;
 import android.content.ContentValues;
 import android.content.Context;
 
+import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.library.view.net.INetView;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.ToastUtil;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.entity.UserEntity;
 import com.mnikn.purewei.data.entity.WeiboEntity;
@@ -65,7 +64,7 @@ public class HotWeiboObserver implements Observer<List<StatusesBean>> {
                     new UserEntity(value.get(i)).toContentValues(Constant.USER_NORAML));
 
             //若该微博为转发,就把原微博插入数据库
-            if(NumberUtil.notZero(weiboEntity.retweetId)){
+            if(weiboEntity.retweetId != 0){
                 WeiboEntity retweetEntity = new WeiboEntity(value.get(i).retweetedStatus);
                 retweetValues.add(retweetEntity.toContentValues());
 
@@ -83,7 +82,7 @@ public class HotWeiboObserver implements Observer<List<StatusesBean>> {
 
     @Override
     public void onError(Throwable e) {
-        ToastUtil.makeToastShort(mContext,e.getMessage());
+        ToastUtils.makeToastShort(mContext,e.getMessage());
         mView.onLoadMoreFinish();
     }
 

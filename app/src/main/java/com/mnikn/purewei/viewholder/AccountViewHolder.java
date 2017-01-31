@@ -8,8 +8,8 @@ import android.widget.ImageButton;
 import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
-import com.mnikn.mylibrary.util.NumberUtil;
-import com.mnikn.mylibrary.util.ResourcesUtil;
+import com.mnikn.library.utils.Numbers;
+import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
@@ -44,7 +44,7 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
     @Override
     public void bindView(int position, final Cursor cursor) {
         if(App.isNightMode()){
-            imgBtnDelete.setImageDrawable(ResourcesUtil.getDrawable(mContext,R.drawable.ic_delete_night));
+            imgBtnDelete.setImageDrawable(ResourcesUtils.getDrawable(mContext,R.drawable.ic_delete_night));
         }
 
         final UserModel model = WeiboDataHelper.getInstance()
@@ -62,9 +62,9 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
                 mContext.getContentResolver().delete(
                         WeiboContract.AccountEntry.CONTENT_URI,
                         WeiboContract.AccountEntry.COLUMN_UID + " = ?",
-                        new String[]{NumberUtil.longToString(model.uid)});
+                        new String[]{Numbers.longToString(model.uid)});
                 if (AccessTokenKeeper.readAccessToken(mContext).getUid()
-                        .equals(NumberUtil.longToString(model.uid))) {
+                        .equals(Numbers.longToString(model.uid))) {
                     AccessTokenKeeper.clear(mContext);
                 }
             }
