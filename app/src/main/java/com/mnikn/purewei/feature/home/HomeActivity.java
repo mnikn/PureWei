@@ -173,7 +173,7 @@ public class HomeActivity extends AppCompatActivity
     protected void onStop() {
         super.onStop();
         refreshLayout.setRefreshing(false);
-        mPresenter.cancelLoading();
+        //mPresenter.cancelLoading();
     }
 
     @Override
