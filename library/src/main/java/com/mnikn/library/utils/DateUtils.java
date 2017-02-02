@@ -2,6 +2,7 @@ package com.mnikn.library.utils;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.GregorianCalendar;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -41,6 +42,18 @@ public class DateUtils {
             showStr = recordMonth + "月" +  recordDay + "日";
         }
         return showStr;
+    }
+
+    public static String getShowDay(String time){
+        return getShowDay(dateToLong(time));
+    }
+
+    public static String getNowTime(){
+        return getNowDate().toString();
+    }
+
+    public static Date getNowDate(){
+        return GregorianCalendar.getInstance().getTime();
     }
 
     public static long dateToLong(String date){

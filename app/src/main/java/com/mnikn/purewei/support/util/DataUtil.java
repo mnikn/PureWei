@@ -25,7 +25,7 @@ public class DataUtil {
         Cursor cursor = context.getContentResolver().query(
                 WeiboContract.AccountEntry.CONTENT_URI,
                 null,
-                WeiboContract.AccountEntry.COLUMN_UID + " = ?",
+                WeiboContract.AccountEntry.COLUMN_ID + " = ?",
                 new String[]{Numbers.longToString(userId)},
                 null);
         return !DataUtils.isEmpty(cursor);

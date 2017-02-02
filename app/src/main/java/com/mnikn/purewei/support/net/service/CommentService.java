@@ -1,6 +1,6 @@
 package com.mnikn.purewei.support.net.service;
 
-import com.mnikn.purewei.support.bean.CommentBean;
+import com.mnikn.purewei.model.Comments;
 
 import io.reactivex.Observable;
 import retrofit2.http.Field;
@@ -14,7 +14,7 @@ import retrofit2.http.Query;
  */
 public interface CommentService {
     @GET("comments/show.json")
-    Observable<CommentBean> getComment(
+    Observable<Comments> getComment(
             @Query("page") int page,
             @Query("access_token") String token,
             @Query("id") long id);

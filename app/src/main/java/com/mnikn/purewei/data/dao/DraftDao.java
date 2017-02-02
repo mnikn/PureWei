@@ -1,4 +1,4 @@
-package com.mnikn.purewei.data.entity;
+package com.mnikn.purewei.data.dao;
 
 import android.content.ContentValues;
 
@@ -7,16 +7,16 @@ import com.mnikn.purewei.data.WeiboContract;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class DraftEntity {
+public class DraftDao {
     private int type;
     private long weiboId;
     private String content;
 
-    public DraftEntity(int type,String content){
+    public DraftDao(int type, String content){
         this.type = type;
         this.content = content;
     }
-    public DraftEntity(int type,long weiboId,String content){
+    public DraftDao(int type, long weiboId, String content){
         this.type = type;
         this.weiboId = weiboId;
         this.content = content;

@@ -8,7 +8,7 @@ import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.model.User;
 import com.mnikn.purewei.viewholder.HeaderHolder;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
@@ -21,9 +21,9 @@ public class UserAdapter extends EasyRecyclerAdapter<CursorDataProvider,Object> 
     private static final int WEIBO = 2;
 
     private Context mContext;
-    private UserModel mUserModel;
+    private User mUserModel;
 
-    public UserAdapter(CursorDataProvider dataProvider,Context context,UserModel model){
+    public UserAdapter(CursorDataProvider dataProvider,Context context,User model){
         super(dataProvider);
         mContext = context;
         mUserModel = model;

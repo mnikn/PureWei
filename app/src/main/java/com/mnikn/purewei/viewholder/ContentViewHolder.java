@@ -13,13 +13,14 @@ import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.utils.DataUtils;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.WeiboDataHelper;
+import com.mnikn.purewei.data.dao.PictureDao;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
-import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.model.Status;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
@@ -49,9 +50,9 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_retweet_time) TextView txtRetweetTime;
 
     private Context mContext;
-    private WeiboModel model;
+    private Status model;
 
-    public ContentViewHolder(Context context,View itemView,WeiboModel model) {
+    public ContentViewHolder(Context context,View itemView,Status model) {
         super(itemView);
         mContext = context;
         this.model = model;
@@ -67,26 +68,26 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
                     null, null, null);
         }
 
-        if(!(model.retweetId == 0)){
+        if(model.retweetStatus != null){
             linearRetweet.setVisibility(View.VISIBLE);
-            txtRetweetText.setText(model.retweetModel.text);
-            txtRetweetUserName.setText(model.retweetModel.userName);
-            txtRetweetTime.setText(model.retweetModel.createdTime);
-            ImageDisplayUtil.displayFromNet(mContext, model.retweetModel.avatarLargeUrl, circleImgRetweetAvatars);
-            Cursor retweetPicsCursor = WeiboDataHelper.getInstance().getWeiboPics(model.retweetId);
+            txtRetweetText.setText(model.retweetStatus.text);
+            txtRetweetUserName.setText(model.retweetStatus.user.name);
+            txtRetweetTime.setText(model.retweetStatus.createdAt);
+            ImageDisplayUtil.displayFromNet(mContext, model.retweetStatus.user.avatarLarge, circleImgRetweetAvatars);
+            Cursor retweetPicsCursor = PictureDao.getPicturesCursor(model.retweetStatus.id);
             setWeiboPics(retweetGridPics,retweetPicsCursor);
         }
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                model.avatarLargeUrl,
+                model.user.avatarLarge,
                 circleImgUserAvatars
         );
         txtText.setText(model.text);
-        txtCreatedTime.setText(model.createdTime);
+        txtCreatedTime.setText(model.createdAt);
         txtSource.setText(model.source);
-        txtUserName.setText(model.userName);
-        btnAttitudes.setText(model.attitudesCount);
+        txtUserName.setText(model.user.name);
+        btnAttitudes.setText(Numbers.longToString(model.attitudesCount));
         if(model.liked){
             btnAttitudes.setCompoundDrawablesWithIntrinsicBounds(
                     ResourcesUtils.getDrawable(mContext, R.drawable.ic_thumb_up_red),
@@ -96,7 +97,7 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         }
 
         //加载图片
-        Cursor picsCursor = WeiboDataHelper.getInstance().getWeiboPics(model.weiboId);
+        Cursor picsCursor = PictureDao.getPicturesCursor(model.id);
         gridPics.setVisibility(View.VISIBLE);
         setWeiboPics(gridPics, picsCursor);
     }
@@ -111,8 +112,8 @@ public class ContentViewHolder extends EasyViewHolder<Cursor>{
         gridLayout.setRowCount(rowCount);
         gridLayout.setColumnCount(3);
         do {
-            String middleUrl = WeiboContract.WeiboPicsEntry.getMiddleUrl(cursor);
-            final String largeUrl = WeiboContract.WeiboPicsEntry.getLargeUrl(cursor);
+            String middleUrl = WeiboContract.PictureEntry.getMiddleUrl(cursor);
+            final String largeUrl = WeiboContract.PictureEntry.getLargeUrl(cursor);
             ImageView imageView = new ImageView(mContext);
             GridLayout.LayoutParams param = new GridLayout.LayoutParams();
             param.height = 160;

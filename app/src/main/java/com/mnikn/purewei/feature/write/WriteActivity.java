@@ -11,9 +11,9 @@ import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.library.view.base.BaseSingleFragmentActivity;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.entity.DraftEntity;
-import com.mnikn.purewei.model.WeiboModel;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.data.dao.DraftDao;
+import com.mnikn.purewei.model.Status;
+import com.mnikn.purewei.support.Constants;
 
 public class WriteActivity extends BaseSingleFragmentActivity {
 
@@ -26,7 +26,7 @@ public class WriteActivity extends BaseSingleFragmentActivity {
         context.startActivity(intent);
     }
 
-    public static void startActivity(Context context,int type,WeiboModel model){
+    public static void startActivity(Context context,int type,Status model){
         Intent intent = new Intent(context,WriteActivity.class);
         intent.putExtra(EXTRA_TYPE,type);
         intent.putExtra(EXTRA_WEIBO,model);
@@ -36,7 +36,7 @@ public class WriteActivity extends BaseSingleFragmentActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        if(getIntent().getIntExtra(EXTRA_TYPE,1) == Constant.WRITE_COMMENT){
+        if(getIntent().getIntExtra(EXTRA_TYPE,1) == Constants.WRITE_COMMENT){
             setTitle(R.string.label_write_comment);
         }
     }
@@ -62,16 +62,16 @@ public class WriteActivity extends BaseSingleFragmentActivity {
                 @Override
                 public void onClick(DialogInterface dialog, int which) {
                     int type = getIntent().getIntExtra(EXTRA_TYPE,1);
-                    if(type == Constant.WRITE_COMMENT){
-                        long weiboId = ((WeiboModel) getIntent().getParcelableExtra(EXTRA_WEIBO)).weiboId;
+                    if(type == Constants.WRITE_COMMENT){
+                        long weiboId = ((Status) getIntent().getParcelableExtra(EXTRA_WEIBO)).id;
                         getContentResolver().insert(
                                 WeiboContract.DraftEntry.CONTENT_URI,
-                                new DraftEntity(type,weiboId,content).toContentValues());
+                                new DraftDao(type,weiboId,content).toContentValues());
                     }
                     else{
                         getContentResolver().insert(
                                 WeiboContract.DraftEntry.CONTENT_URI,
-                                new DraftEntity(type,content).toContentValues());
+                                new DraftDao(type,content).toContentValues());
                     }
                     WriteActivity.super.onBackPressed();
                 }

@@ -5,9 +5,9 @@ import android.preference.PreferenceManager;
 
 import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.support.AccessTokenKeeper;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.support.Constants;
 import com.mnikn.purewei.support.net.RequestManager;
-import com.mnikn.purewei.support.net.observer.WeiboObserver;
+import com.mnikn.purewei.support.net.observer.StatusObserver;
 import com.mnikn.purewei.support.net.service.WeiboService;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
 
@@ -37,8 +37,8 @@ public class UserPresenter extends NetPresenter<UserFragment> {
     @Override
     protected Observer handleRequest() {
         if(getPage() == 1){
-            return new WeiboObserver(getContext(),getView(),Constant.REFRESH);
+            return new StatusObserver(getContext(),getView(), Constants.REFRESH);
         }
-        return new WeiboObserver(getContext(),getView(),Constant.LOAD_MORE);
+        return new StatusObserver(getContext(),getView(), Constants.LOAD_MORE);
     }
 }

@@ -21,9 +21,9 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.mnikn.library.support.adapter.LoadMoreScrollListener;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.library.support.adapter.divider.RecyclerDivider;
-import com.mnikn.library.support.adapter.LoadMoreScrollListener;
 import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
@@ -32,8 +32,8 @@ import com.mnikn.purewei.feature.account.AccountAdapter;
 import com.mnikn.purewei.feature.settings.SettingsActivity;
 import com.mnikn.purewei.feature.user.UserActivity;
 import com.mnikn.purewei.feature.write.WriteActivity;
-import com.mnikn.purewei.model.UserModel;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.model.User;
+import com.mnikn.purewei.support.Constants;
 import com.mnikn.purewei.support.callback.HomeLoaderCallback;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
@@ -44,14 +44,20 @@ import de.hdodenhof.circleimageview.CircleImageView;
 
 
 public class HomeActivity extends AppCompatActivity
-        implements NavigationView.OnNavigationItemSelectedListener, IHomeView{
+        implements NavigationView.OnNavigationItemSelectedListener, IHomeView {
 
-    @BindView(R.id.toolbar) Toolbar toolbar;
-    @BindView(R.id.drawer_layout) DrawerLayout drawer;
-    @BindView(R.id.nav_view) NavigationView navigationView;
-    @BindView(R.id.recycler) RecyclerView recyclerView;
-    @BindView(R.id.fab) FloatingActionButton fab;
-    @BindView(R.id.layout_refresh) SwipeRefreshLayout refreshLayout;
+    @BindView(R.id.toolbar)
+    Toolbar toolbar;
+    @BindView(R.id.drawer_layout)
+    DrawerLayout drawer;
+    @BindView(R.id.nav_view)
+    NavigationView navigationView;
+    @BindView(R.id.recycler)
+    RecyclerView recyclerView;
+    @BindView(R.id.fab)
+    FloatingActionButton fab;
+    @BindView(R.id.layout_refresh)
+    SwipeRefreshLayout refreshLayout;
 
     private HomeAdapter mAdapter;
     private HomePresenter mPresenter;
@@ -67,7 +73,7 @@ public class HomeActivity extends AppCompatActivity
 
         setSupportActionBar(toolbar);
         final GestureDetector gestureDetector = new GestureDetector(this,
-                new GestureDetector.SimpleOnGestureListener(){
+                new GestureDetector.SimpleOnGestureListener() {
                     @Override
                     public boolean onDoubleTap(MotionEvent e) {
                         recyclerView.scrollToPosition(0);
@@ -84,7 +90,7 @@ public class HomeActivity extends AppCompatActivity
         fab.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                WriteActivity.startActivity(HomeActivity.this, Constant.WRITE_WEIBO);
+                WriteActivity.startActivity(HomeActivity.this, Constants.WRITE_WEIBO);
             }
         });
 
@@ -95,14 +101,14 @@ public class HomeActivity extends AppCompatActivity
 
         navigationView.setNavigationItemSelectedListener(this);
         navigationView.setItemIconTintList(null);
-        Button btnSwitchAccount = ButterKnife.findById(navigationView.getHeaderView(0),R.id.btn_switch_account);
+        Button btnSwitchAccount = ButterKnife.findById(navigationView.getHeaderView(0), R.id.btn_switch_account);
         btnSwitchAccount.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
                 startActivity(new Intent(HomeActivity.this, AccountActivity.class));
             }
         });
-        if(App.isNightMode()){
+        if (App.isNightMode()) {
             navigationView.getMenu().findItem(R.id.nav_draft).setIcon(R.drawable.ic_draft_night);
             navigationView.getMenu().findItem(R.id.nav_group).setIcon(R.drawable.ic_group_night);
             navigationView.getMenu().findItem(R.id.nav_settings).setIcon(R.drawable.ic_settings_night);
@@ -120,24 +126,24 @@ public class HomeActivity extends AppCompatActivity
         });
 
         refreshLayout.setColorSchemeResources(android.R.color.holo_red_dark,
-            android.R.color.holo_green_dark,
-            android.R.color.holo_blue_dark);
+                android.R.color.holo_green_dark,
+                android.R.color.holo_blue_dark);
 
         LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         recyclerView.setLayoutManager(layoutManager);
         recyclerView.addItemDecoration(
                 new RecyclerDivider(this, LinearLayoutManager.VERTICAL, R.drawable.item_divider));
-        recyclerView.addOnScrollListener(new LoadMoreScrollListener(mAdapter,mPresenter, layoutManager));
+        recyclerView.addOnScrollListener(new LoadMoreScrollListener(mAdapter, mPresenter, layoutManager));
 
         recyclerView.setAdapter(mAdapter);
     }
 
-    private void initVariables(){
-        mAdapter = new HomeAdapter(new CursorDataProvider(),this);
+    private void initVariables() {
+        mAdapter = new HomeAdapter(new CursorDataProvider(), this);
         getSupportLoaderManager().initLoader(
-                Constant.LOADER_HOME,
+                Constants.LOADER_HOME,
                 null,
-                new HomeLoaderCallback(this,mAdapter));
+                new HomeLoaderCallback(this, mAdapter));
     }
 
     @Override
@@ -153,8 +159,7 @@ public class HomeActivity extends AppCompatActivity
         setupViews();
 
 
-
-        if(getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE,false)){
+        if (getIntent().getBooleanExtra(AccountAdapter.EXTRA_AUTHORIZE, false)) {
             mPresenter.authorize();
         }
     }
@@ -180,11 +185,9 @@ public class HomeActivity extends AppCompatActivity
     public void onBackPressed() {
         if (drawer.isDrawerOpen(GravityCompat.START)) {
             drawer.closeDrawer(GravityCompat.START);
-        }
-        else if(mPresenter.isLoading()){
+        } else if (mPresenter.isLoading()) {
             mPresenter.cancelLoading();
-        }
-        else {
+        } else {
             super.onBackPressed();
         }
     }
@@ -214,31 +217,30 @@ public class HomeActivity extends AppCompatActivity
         // Handle navigation view item clicks here.
         int id = item.getItemId();
 
-        switch (id){
+        switch (id) {
             case R.id.nav_settings:
                 startActivity(new Intent(this, SettingsActivity.class));
                 break;
             case R.id.nav_home:
-                mPresenter.setWeiboType(Constant.HOME);
+                mPresenter.setWeiboType(Constants.HOME);
                 mPresenter.refresh();
                 break;
             case R.id.nav_hot:
-                mPresenter.setWeiboType(Constant.HOT);
+                mPresenter.setWeiboType(Constants.HOT);
                 mPresenter.refresh();
                 break;
             case R.id.nav_around:
-                mPresenter.setWeiboType(Constant.HOME);
+                mPresenter.setWeiboType(Constants.HOME);
                 mPresenter.refresh();
                 break;
             case R.id.nav_favorite:
-                mPresenter.setWeiboType(Constant.FAVORITE);
+                mPresenter.setWeiboType(Constants.FAVORITE);
                 mPresenter.refresh();
                 break;
             case R.id.nav_mode:
-                if(App.isNightMode()){
+                if (App.isNightMode()) {
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_NO);
-                }
-                else{
+                } else {
                     getDelegate().setLocalNightMode(AppCompatDelegate.MODE_NIGHT_YES);
                 }
                 App.nightModeChange();
@@ -251,13 +253,13 @@ public class HomeActivity extends AppCompatActivity
     }
 
     @Override
-    public void setUserView(final UserModel account) {
+    public void setUserView(final User account) {
         CircleImageView circleImageView = ButterKnife.findById(navigationView, R.id.circle_img_account);
         TextView txtAccount = ButterKnife.findById(navigationView, R.id.txt_account_name);
 
-        if(account != null){
-            ImageDisplayUtil.displayFromNet(this,account.avatarLargeUrl, circleImageView);
-            txtAccount.setText(account.userName);
+        if (account != null) {
+            ImageDisplayUtil.displayFromNet(this, account.avatarLarge, circleImageView);
+            txtAccount.setText(account.name);
             circleImageView.setOnClickListener(new View.OnClickListener() {
                 @Override
                 public void onClick(View v) {

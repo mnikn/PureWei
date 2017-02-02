@@ -4,14 +4,15 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.Intent;
 import android.preference.PreferenceManager;
+import android.util.Log;
 
 import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.support.AccessTokenKeeper;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.support.Constants;
 import com.mnikn.purewei.support.net.RequestManager;
 import com.mnikn.purewei.support.net.observer.FavoritesWeiboObserver;
-import com.mnikn.purewei.support.net.observer.WeiboObserver;
+import com.mnikn.purewei.support.net.observer.StatusObserver;
 import com.mnikn.purewei.support.net.service.WeiboService;
 import com.sina.weibo.sdk.auth.AuthInfo;
 import com.sina.weibo.sdk.auth.Oauth2AccessToken;
@@ -28,7 +29,7 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
     private SsoHandler mSsoHandler;
     private Oauth2AccessToken mToken;
 
-    private int mType = Constant.HOME;
+    private int mType = Constants.HOME;
 
     public HomePresenter(Context context){
         super(context);
@@ -40,11 +41,11 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
         int count = PreferenceManager.getDefaultSharedPreferences(getContext())
                 .getInt("key_load_num", 20);
         switch (mType){
-            case Constant.HOME:
+            case Constants.HOME:
                 return service.getHomeWeibo(mToken.getToken(),getPage(),count);
-            case Constant.HOT:
+            case Constants.HOT:
                 return service.getHotWeibo(mToken.getToken(), getPage(), count);
-            case Constant.FAVORITE:
+            case Constants.FAVORITE:
                 return service.getFavoriteWeibo(mToken.getToken(), getPage(), count);
         }
         return null;
@@ -53,21 +54,21 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
     @Override
     protected Observer handleRequest() {
         switch (mType){
-            case Constant.HOME:
+            case Constants.HOME:
                 if(getPage() == 1) {
-                    return new WeiboObserver(getContext(),getView(),Constant.REFRESH);
+                    return new StatusObserver(getContext(),getView(), Constants.REFRESH);
                 }
-                return new WeiboObserver(getContext(),getView(),Constant.LOAD_MORE);
-            case Constant.HOT:
+                return new StatusObserver(getContext(),getView(), Constants.LOAD_MORE);
+            case Constants.HOT:
                 if(getPage() == 1) {
-                    return new WeiboObserver(getContext(),getView(),Constant.REFRESH);
+                    return new StatusObserver(getContext(),getView(), Constants.REFRESH);
                 }
-                return new WeiboObserver(getContext(),getView(),Constant.LOAD_MORE);
-            case Constant.FAVORITE:
+                return new StatusObserver(getContext(),getView(), Constants.LOAD_MORE);
+            case Constants.FAVORITE:
                 if(getPage() == 1) {
-                    return new FavoritesWeiboObserver(getContext(),getView(),Constant.REFRESH);
+                    return new FavoritesWeiboObserver(getContext(),getView(), Constants.REFRESH);
                 }
-                return new FavoritesWeiboObserver(getContext(),getView(),Constant.LOAD_MORE);
+                return new FavoritesWeiboObserver(getContext(),getView(), Constants.LOAD_MORE);
         }
         return null;
     }
@@ -75,7 +76,7 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
     @Override
     protected void onTakeView() {
         super.onTakeView();
-        AuthInfo authInfo = new AuthInfo(getContext(),Constant.APP_KEY, Constant.REDIRECT_URL, null);
+        AuthInfo authInfo = new AuthInfo(getContext(), Constants.APP_KEY, Constants.REDIRECT_URL, null);
         mSsoHandler = new SsoHandler((Activity) getContext(),authInfo);
 
         //从SharePreference中读取token,若失败就请求授权
@@ -85,6 +86,7 @@ public class HomePresenter extends NetPresenter<IHomeView> implements IHomePrese
             mToken = AccessTokenKeeper.readAccessToken(getContext());
         }
         else{
+            Log.e("Dsa",mToken.getToken() + " " + mToken.getUid());
             RequestManager.getAccountInfo(
                     getContext(),
                     getView(),

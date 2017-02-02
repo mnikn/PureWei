@@ -8,8 +8,9 @@ import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.Strings;
 import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.entity.AccountEntity;
+import com.mnikn.purewei.data.dao.AccountDao;
 import com.mnikn.purewei.feature.home.IHomeView;
+import com.mnikn.purewei.model.Account;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.api.BaseApi;
 import com.mnikn.purewei.support.net.observer.AccountObserver;
@@ -44,9 +45,9 @@ public class RequestManager {
             @Override
             public void onComplete(Bundle bundle) {
 
-                context.getContentResolver().delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
-                context.getContentResolver().delete(WeiboContract.WeiboCommentEntry.CONTENT_URI, null, null);
-                context.getContentResolver().delete(WeiboContract.WeiboPicsEntry.CONTENT_URI, null, null);
+                context.getContentResolver().delete(WeiboContract.StatusEntry.CONTENT_URI, null, null);
+                context.getContentResolver().delete(WeiboContract.CommentEntry.CONTENT_URI, null, null);
+                context.getContentResolver().delete(WeiboContract.PictureEntry.CONTENT_URI, null, null);
                 context.getContentResolver().delete(
                         WeiboContract.UserEntry.CONTENT_URI,
                         WeiboContract.UserEntry.COLUMN_USER_TYPE + " = ?",
@@ -56,8 +57,7 @@ public class RequestManager {
                 if (token.isSessionValid()) {
                     AccessTokenKeeper.writeAccessToken(context, token);
                     if(!DataUtil.hasAccountId(context, Numbers.stringToLong(token.getUid()))){
-                        context.getContentResolver().insert(WeiboContract.AccountEntry.CONTENT_URI,
-                                new AccountEntity(token).toContentValues());
+                        AccountDao.insertAccount(new Account(token));
                     }
                     ToastUtils.makeToastShort(context, "授权成功");
                     RequestManager.getAccountInfo(
@@ -94,7 +94,7 @@ public class RequestManager {
         Observable observable = service.request(token.getToken(), uid);
         observable.subscribeOn(Schedulers.newThread())
                 .observeOn(AndroidSchedulers.mainThread())
-                .subscribe(new AccountObserver(context, view));
+                .subscribe(new AccountObserver(view));
         return observable;
     }
 

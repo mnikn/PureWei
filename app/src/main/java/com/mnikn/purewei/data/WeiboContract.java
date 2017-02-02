@@ -16,21 +16,21 @@ public class WeiboContract {
     public static final String CONTENT_AUTHORITY = "purewei";
     public static final Uri BASE_CONTENT_URI = Uri.parse(SCHEME + CONTENT_AUTHORITY);
 
-    public static final String PATH_WEIBO = "weibo";
-    public static final String PATH_WEIBO_PICS = "weibo_pics";
-    public static final String PATH_WEIBO_COMMENT = "weibo_comment";
+    public static final String PATH_STATUS = "status";
+    public static final String PATH_PICTURE = "picture";
+    public static final String PATH_COMMENT = "comment";
     public static final String PATH_USER = "user";
     public static final String PATH_ACCOUNT = "account";
     public static final String PATH_DRAFT = "draft";
 
-    public static class WeiboEntry implements BaseColumns{
-        public static final String TABLE_NAME = "weibo";
+    public static class StatusEntry implements BaseColumns{
+        public static final String TABLE_NAME = "status";
 
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEIBO).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_STATUS).build();
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-                + "/" + CONTENT_AUTHORITY + "/" + PATH_WEIBO;
+                + "/" + CONTENT_AUTHORITY + "/" + PATH_STATUS;
 
-        public static final String COLUMN_WEIBO_ID = "weibo_id";
+        public static final String COLUMN_STATUS_ID = "status_id";
         public static final String COLUMN_USER_ID = "user_id";
         public static final String COLUMN_RETWEET_ID = "retweet_id";
         public static final String COLUMN_TEXT = "text";
@@ -41,18 +41,18 @@ public class WeiboContract {
         public static final String COLUMN_COMMENTS_COUNT = "comments_count";
         public static final String COLUMN_CREATED_TIME = "created_time";
 
-        public static Uri buildWeiboUri(long id){
+        public static Uri buildStatusUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
-        public static Uri buildWeiboUriWithUser(){
+        public static Uri buildStatusUriWithUser(){
             return CONTENT_URI.buildUpon().appendPath("user").build();
         }
         public static Uri buildWeiboUriWithPics(){
             return CONTENT_URI.buildUpon().appendPath("detail").build();
         }
 
-        public static long getWeiboId(Cursor cursor){
-            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        public static long getStatusId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_STATUS_ID));
         }
         public static long getUserId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_USER_ID));
@@ -83,24 +83,24 @@ public class WeiboContract {
         }
     }
 
-    public static class WeiboPicsEntry implements BaseColumns{
-        public static final String TABLE_NAME = "weibo_pics";
+    public static class PictureEntry implements BaseColumns{
+        public static final String TABLE_NAME = "picture";
 
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEIBO_PICS).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_PICTURE).build();
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-                + "/" + CONTENT_AUTHORITY + "/" + PATH_WEIBO_COMMENT;
+                + "/" + CONTENT_AUTHORITY + "/" + PATH_COMMENT;
 
-        public static final String COLUMN_WEIBO_ID = "weibo_id";
+        public static final String COLUMN_STATUS_ID = "status_id";
         public static final String COLUMN_THUMBNAIL_URL = "thumbnail_url";
         public static final String COLUMN_MIDDLE_URL = "middle_url";
         public static final String COLUMN_LARGE_URL = "large_url";
 
-        public static Uri buildWeiboPicsUri(long id){
+        public static Uri buildPictureUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
 
-        public static long getWeiboId(Cursor cursor){
-            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        public static long getStatusId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_STATUS_ID));
         }
         public static String getThumnbnailUrl(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_THUMBNAIL_URL));
@@ -113,29 +113,29 @@ public class WeiboContract {
         }
     }
 
-    public static class WeiboCommentEntry implements BaseColumns{
-        public static final String TABLE_NAME = "weibo_detail";
+    public static class CommentEntry implements BaseColumns{
+        public static final String TABLE_NAME = "comment";
 
-        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_WEIBO_COMMENT).build();
+        public static final Uri CONTENT_URI = BASE_CONTENT_URI.buildUpon().appendPath(PATH_COMMENT).build();
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
-                + "/" + CONTENT_AUTHORITY + "/" + PATH_WEIBO_COMMENT;
+                + "/" + CONTENT_AUTHORITY + "/" + PATH_COMMENT;
 
-        public static final String COLUMN_WEIBO_ID = "weibo_id";
+        public static final String COLUMN_STATUS_ID = "status_id";
         public static final String COLUMN_COMMENT_ID = "comment_id";
         public static final String COLUMN_COMMENT_USER_ID = "comment_user_id";
         public static final String COLUMN_COMMENT_TEXT = "comment_text";
         public static final String COLUMN_COMMENT_SOURCE = "comment_source";
         public static final String COLUMN_COMMENT_TIME = "comment_time";
 
-        public static Uri buildWeiboCommentUri(long id){
+        public static Uri buildCommentUri(long id){
             return ContentUris.withAppendedId(CONTENT_URI, id);
         }
-        public static Uri buildWeiboCommentWithUserUri(){
+        public static Uri buildCommentWithUserUri(){
             return CONTENT_URI.buildUpon().appendPath("user").build();
         }
 
-        public static long getWeiboId(Cursor cursor){
-            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_ID));
+        public static long getStatusId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_STATUS_ID));
         }
         public static long getUserId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_COMMENT_USER_ID));
@@ -176,7 +176,7 @@ public class WeiboContract {
         public static final String COLUMN_FOLLOW_ME = "follow_me";
         public static final String COLUMN_DESCRIPTION = "description";
         public static final String COLUMN_FOLLOWERS_COUNT = "followers_count";
-        public static final String COLUMN_WEIBO_COUNT = "weibo_count";
+        public static final String COLUMN_STATUS_COUNT = "status_count";
         public static final String COLUMN_FRIENDS_COUNT = "friends_count";
         public static final String COLUMN_PROFILE_IMAGE_URL = "profile_image_url";
         public static final String COLUMN_AVATAR_LARGE_URL = "avatar_large_url";
@@ -220,7 +220,7 @@ public class WeiboContract {
             return cursor.getLong(cursor.getColumnIndex(COLUMN_FOLLOWERS_COUNT));
         }
         public static long getWeiboCount(Cursor cursor){
-            return cursor.getLong(cursor.getColumnIndex(COLUMN_WEIBO_COUNT));
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_STATUS_COUNT));
         }
         public static long getFriendsCount(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_FRIENDS_COUNT));
@@ -235,7 +235,7 @@ public class WeiboContract {
         public static final String CONTENT_TYPE = ContentResolver.CURSOR_DIR_BASE_TYPE
                 + "/" + CONTENT_AUTHORITY + "/" + PATH_ACCOUNT;
 
-        public static final String COLUMN_UID = "uid";
+        public static final String COLUMN_ID = "id";
         public static final String COLUMN_ACCESS_TOKEN = "access_token";
         public static final String COLUMN_REFRESH_TOKEN = "refresh_token";
         public static final String COLUMN_EXPIRES_TIME = "expires_time";
@@ -245,8 +245,8 @@ public class WeiboContract {
             return ContentUris.withAppendedId(CONTENT_URI,id);
         }
 
-        public static long getUid(Cursor cursor){
-            return cursor.getLong(cursor.getColumnIndex(COLUMN_UID));
+        public static long getId(Cursor cursor){
+            return cursor.getLong(cursor.getColumnIndex(COLUMN_ID));
         }
         public static String getAccessToken(Cursor cursor){
             return cursor.getString(cursor.getColumnIndex(COLUMN_ACCESS_TOKEN));

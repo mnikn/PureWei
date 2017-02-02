@@ -1,13 +1,11 @@
 package com.mnikn.purewei.support.net.observer;
 
-import android.content.Context;
+import android.util.Log;
 
-import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.WeiboDataHelper;
-import com.mnikn.purewei.data.entity.UserEntity;
+import com.mnikn.purewei.data.dao.UserDao;
 import com.mnikn.purewei.feature.home.IHomeView;
-import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.bean.UserBean;
+import com.mnikn.purewei.model.User;
+import com.mnikn.purewei.support.Constants;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -15,13 +13,11 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class AccountObserver implements Observer<UserBean>{
+public class AccountObserver implements Observer<User>{
 
-    private Context mContext;
     private IHomeView mView;
 
-    public AccountObserver(Context context,IHomeView view){
-        mContext = context;
+    public AccountObserver(IHomeView view){
         mView = view;
     }
 
@@ -31,11 +27,11 @@ public class AccountObserver implements Observer<UserBean>{
     }
 
     @Override
-    public void onNext(UserBean value) {
-        UserEntity entity = new UserEntity(value);
-        mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,
-                entity.toContentValues(Constant.USER_ACCOUNT));
-        mView.setUserView(WeiboDataHelper.getInstance().getUserModel(value.id));
+    public void onNext(User value) {
+        Log.e("sad","in");
+        value.type = Constants.USER_ACCOUNT;
+        UserDao.insertUser(value);
+        mView.setUserView(value);
     }
 
     @Override

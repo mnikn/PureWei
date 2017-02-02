@@ -1,12 +1,12 @@
-package com.mnikn.purewei.support.bean;
+package com.mnikn.purewei.model;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class EmotionsBean {
-    
+public class Emotions {
+
     @SerializedName("phrase")
     public String phrase;
     @SerializedName("type")

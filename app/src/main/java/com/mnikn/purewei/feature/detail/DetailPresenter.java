@@ -4,7 +4,7 @@ import android.content.Context;
 
 import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.support.AccessTokenKeeper;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.support.Constants;
 import com.mnikn.purewei.support.net.RequestManager;
 import com.mnikn.purewei.support.net.observer.CommentObserver;
 import com.mnikn.purewei.support.net.service.CommentService;
@@ -40,8 +40,8 @@ public class DetailPresenter extends NetPresenter<DetailFragment> {
     @Override
     protected Observer handleRequest() {
         if(getPage() == 1){
-            return new CommentObserver(this,Constant.REFRESH,mWeiboId);
+            return new CommentObserver(this, Constants.REFRESH,mWeiboId);
         }
-        return new CommentObserver(this,Constant.LOAD_MORE,mWeiboId);
+        return new CommentObserver(this, Constants.LOAD_MORE,mWeiboId);
     }
 }

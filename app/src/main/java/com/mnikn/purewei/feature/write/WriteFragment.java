@@ -13,7 +13,7 @@ import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.detail.DetailActivity;
 import com.mnikn.purewei.feature.home.HomeActivity;
-import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.model.Status;
 
 import butterknife.BindView;
 import butterknife.ButterKnife;
@@ -77,8 +77,8 @@ public class WriteFragment extends BaseFragment<WritePresenter> {
                 startActivity(new Intent(getContext(), HomeActivity.class));
             }
             else{
-                WeiboModel model = getActivity().getIntent().getParcelableExtra(WriteActivity.EXTRA_WEIBO);
-                getPresenter().createComment(content, model.weiboId);
+                Status model = getActivity().getIntent().getParcelableExtra(WriteActivity.EXTRA_WEIBO);
+                getPresenter().createComment(content, model.id);
                 DetailActivity.startActivity(getContext(),model);
             }
         }

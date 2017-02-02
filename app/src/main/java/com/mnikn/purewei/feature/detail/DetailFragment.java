@@ -11,8 +11,8 @@ import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.library.support.adapter.divider.RecyclerDivider;
 import com.mnikn.library.view.net.NetRecyclerFragment;
-import com.mnikn.purewei.model.WeiboModel;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.model.Status;
+import com.mnikn.purewei.support.Constants;
 import com.mnikn.purewei.support.callback.DetailLoaderCallback;
 
 /**
@@ -20,7 +20,7 @@ import com.mnikn.purewei.support.callback.DetailLoaderCallback;
  */
 public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
 
-    private WeiboModel model;
+    private Status model;
 
     public static DetailFragment newInstance() {
 
@@ -41,9 +41,9 @@ public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
     public void onViewCreated(View view, Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
         getActivity().getSupportLoaderManager().initLoader(
-                Constant.LOADER_DETAIL,
+                Constants.LOADER_DETAIL,
                 null,
-                new DetailLoaderCallback(getContext(), getRecyclerAdapter(), model.weiboId));
+                new DetailLoaderCallback(getContext(), getRecyclerAdapter(), model.id));
 
         getActivity().registerForContextMenu(getRecyclerView());
         getPresenter().refresh();
@@ -53,7 +53,7 @@ public class DetailFragment extends NetRecyclerFragment<DetailPresenter> {
 
     @Override
     protected DetailPresenter onCreatePresenter() {
-        return new DetailPresenter(getContext(),model.weiboId);
+        return new DetailPresenter(getContext(),model.id);
     }
 
     @Override

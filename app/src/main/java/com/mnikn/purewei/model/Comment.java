@@ -1,11 +1,12 @@
-package com.mnikn.purewei.support.bean;
+package com.mnikn.purewei.model;
 
 import com.google.gson.annotations.SerializedName;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class CommentsBean {
+public class Comment {
+
     @SerializedName("created_at")
     public String createdAt;
     @SerializedName("id")
@@ -17,7 +18,7 @@ public class CommentsBean {
     @SerializedName("source")
     public String source;
     @SerializedName("user")
-    public UserBean user;
+    public User user;
     @SerializedName("status")
-    public StatusesBean status;
+    public Status status;
 }

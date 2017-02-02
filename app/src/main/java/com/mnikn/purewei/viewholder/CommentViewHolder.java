@@ -8,9 +8,11 @@ import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.purewei.R;
+import com.mnikn.purewei.data.dao.CommentDao;
+import com.mnikn.purewei.data.dao.UserDao;
 import com.mnikn.purewei.feature.user.UserActivity;
-import com.mnikn.purewei.model.CommentModel;
-import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.model.Comment;
+import com.mnikn.purewei.model.User;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
@@ -31,8 +33,8 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
     @BindView(R.id.txt_text) TextView txtText;
 
     private Context mContext;
-    private CommentModel mCommentModel;
-    private UserModel mUserModel;
+    private Comment mCommentModel;
+    private User mUserModel;
 
     public CommentViewHolder(Context context,View itemView) {
         super(itemView);
@@ -49,18 +51,18 @@ public class CommentViewHolder extends EasyViewHolder<Cursor>{
 
     @Override
     public void bindView(int position,Cursor cursor) {
-        mCommentModel = new CommentModel(cursor);
-        mUserModel = new UserModel(cursor);
+        mCommentModel = CommentDao.getComment(cursor);
+        mUserModel = UserDao.getUser(cursor);
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                mCommentModel.avatarLargeUrl,
+                mCommentModel.user.avatarLarge,
                 circleImgUserAvatars
         );
         txtText.setText(mCommentModel.text);
-        txtCreatedTime.setText(mCommentModel.createdTime);
+        txtCreatedTime.setText(mCommentModel.createdAt);
         txtSource.setText(mCommentModel.source);
-        txtUserName.setText(mCommentModel.userName);
+        txtUserName.setText(mCommentModel.user.name);
     }
 
     @Optional

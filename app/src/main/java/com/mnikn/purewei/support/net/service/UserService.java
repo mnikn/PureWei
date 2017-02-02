@@ -1,6 +1,6 @@
 package com.mnikn.purewei.support.net.service;
 
-import com.mnikn.purewei.support.bean.UserBean;
+import com.mnikn.purewei.model.User;
 
 import io.reactivex.Observable;
 import retrofit2.http.GET;
@@ -11,8 +11,8 @@ import retrofit2.http.Query;
  */
 public interface UserService {
     @GET("users/show.json")
-    Observable<UserBean> request(
+    Observable<User> request(
             @Query("access_token") String token,
-            @Query("uid") long uid
+            @Query("id") long uid
     );
 }

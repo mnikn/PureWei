@@ -1,4 +1,4 @@
-package com.mnikn.purewei.support.bean;
+package com.mnikn.purewei.model;
 
 import com.google.gson.annotations.SerializedName;
 
@@ -7,9 +7,7 @@ import java.util.List;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class TimelineBean {
-    @SerializedName("has_unread")
-    public long hasUnread;
+public class Timeline {
     @SerializedName("statuses")
-    public List<StatusesBean> statuses;
+    public List<Status> statuses;
 }

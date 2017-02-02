@@ -9,13 +9,13 @@ import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.model.Status;
 import com.mnikn.purewei.viewholder.WeiboViewHolder;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HomeAdapter extends EasyRecyclerAdapter<CursorDataProvider,WeiboModel> {
+public class HomeAdapter extends EasyRecyclerAdapter<CursorDataProvider,Status> {
 
     private Context mContext;
     private LayoutInflater mLayoutInflater;

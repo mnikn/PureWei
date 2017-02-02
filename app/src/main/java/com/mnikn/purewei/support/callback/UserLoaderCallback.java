@@ -27,10 +27,10 @@ public class UserLoaderCallback extends BaseCursorLoaderCallback{
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 getContext(),
-                WeiboContract.WeiboEntry.buildWeiboUriWithUser(),
+                WeiboContract.StatusEntry.buildStatusUriWithUser(),
                 null,
                 WeiboContract.UserEntry.TABLE_NAME + "." + WeiboContract.UserEntry.COLUMN_USER_ID + " = ?",
                 new String[]{Numbers.longToString(mUid)},
-                WeiboContract.WeiboEntry.COLUMN_CREATED_TIME + " DESC");
+                WeiboContract.StatusEntry.COLUMN_CREATED_TIME + " DESC");
     }
 }

@@ -1,19 +1,16 @@
 package com.mnikn.purewei.support.net.observer;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 import android.content.Context;
 
 import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.library.view.net.INetView;
-import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.entity.UserEntity;
-import com.mnikn.purewei.data.entity.WeiboEntity;
-import com.mnikn.purewei.data.entity.WeiboPicsEntity;
-import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.bean.StatusesBean;
+import com.mnikn.purewei.data.dao.PictureDao;
+import com.mnikn.purewei.data.dao.StatusDao;
+import com.mnikn.purewei.data.dao.UserDao;
+import com.mnikn.purewei.model.Status;
+import com.mnikn.purewei.support.Constants;
 
-import java.util.ArrayList;
 import java.util.List;
 
 import io.reactivex.Observer;
@@ -22,7 +19,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class HotWeiboObserver implements Observer<List<StatusesBean>> {
+public class HotWeiboObserver implements Observer<List<Status>> {
 
     private Context mContext;
     private INetView mView;
@@ -40,44 +37,29 @@ public class HotWeiboObserver implements Observer<List<StatusesBean>> {
     }
 
     @Override
-    public void onNext(List<StatusesBean> value) {
+    public void onNext(List<Status> value) {
         ContentResolver resolver = mContext.getContentResolver();
 
         //刷新时先删除数据
-        if(mRequestType == Constant.REFRESH){
-            resolver.delete(WeiboContract.WeiboEntry.CONTENT_URI, null, null);
-            resolver.delete(WeiboContract.WeiboPicsEntry.CONTENT_URI,null,null);
+        if(mRequestType == Constants.REFRESH){
+            StatusDao.clear();
+            PictureDao.clear();
         }
 
-        //把bean转换成ContentValues,并插入到数据库中
         int size = value.size();
-        ContentValues[] weiboValues = new ContentValues[size];
-        List<ContentValues> retweetValues = new ArrayList<>();
         for(int i = 0;i < size; ++i){
-            WeiboEntity weiboEntity = new WeiboEntity(value.get(i));
-            weiboValues[i] = weiboEntity.toContentValues();
-
-            ContentValues[] weiboDetailValues = new WeiboPicsEntity(value.get(i)).toContentValuesArray();
-            resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI,weiboDetailValues);
-
-            resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                    new UserEntity(value.get(i)).toContentValues(Constant.USER_NORAML));
+            PictureDao.insertPictures(value.get(i).pictures);
+            value.get(i).user.type = Constants.USER_NORMAL;
+            UserDao.insertUser(value.get(i).user);
 
             //若该微博为转发,就把原微博插入数据库
-            if(weiboEntity.retweetId != 0){
-                WeiboEntity retweetEntity = new WeiboEntity(value.get(i).retweetedStatus);
-                retweetValues.add(retweetEntity.toContentValues());
-
-                resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserEntity(value.get(i).retweetedStatus.user).toContentValues(Constant.USER_NORAML));
-
-                ContentValues[] retweetDetailValues = new WeiboPicsEntity(value.get(i).retweetedStatus).toContentValuesArray();
-                resolver.bulkInsert(WeiboContract.WeiboPicsEntry.CONTENT_URI, retweetDetailValues);
+            if(value.get(i).retweetStatus != null){
+                StatusDao.insertStatus(value.get(i).retweetStatus);
+                PictureDao.insertPictures(value.get(i).retweetStatus.pictures);
             }
         }
-        resolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI, weiboValues);
-        resolver.bulkInsert(WeiboContract.WeiboEntry.CONTENT_URI,
-                retweetValues.toArray(new ContentValues[retweetValues.size()]));
+
+        StatusDao.insertStatuses(value);
     }
 
     @Override
@@ -89,10 +71,10 @@ public class HotWeiboObserver implements Observer<List<StatusesBean>> {
     @Override
     public void onComplete() {
         switch (mRequestType){
-            case Constant.REFRESH:
+            case Constants.REFRESH:
                 mView.onRefreshFinish();
                 break;
-            case Constant.LOAD_MORE:
+            case Constants.LOAD_MORE:
                 mView.onLoadMoreFinish();
                 break;
             default:

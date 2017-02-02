@@ -27,10 +27,10 @@ public class DetailLoaderCallback extends BaseCursorLoaderCallback {
     public Loader<Cursor> onCreateLoader(int id, Bundle args) {
         return new CursorLoader(
                 getContext(),
-                WeiboContract.WeiboCommentEntry.buildWeiboCommentWithUserUri(),
+                WeiboContract.CommentEntry.buildCommentWithUserUri(),
                 null,
-                WeiboContract.WeiboCommentEntry.COLUMN_WEIBO_ID + " = ?",
+                WeiboContract.CommentEntry.COLUMN_STATUS_ID + " = ?",
                 new String[]{Numbers.longToString(mWeiboId)},
-                WeiboContract.WeiboCommentEntry.COLUMN_COMMENT_TIME + " DESC");
+                WeiboContract.CommentEntry.COLUMN_COMMENT_TIME + " DESC");
     }
 }

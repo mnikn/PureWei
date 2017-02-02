@@ -13,10 +13,10 @@ import com.mnikn.library.utils.ResourcesUtils;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.WeiboDataHelper;
+import com.mnikn.purewei.data.dao.AccountDao;
+import com.mnikn.purewei.data.dao.UserDao;
 import com.mnikn.purewei.feature.home.HomeActivity;
-import com.mnikn.purewei.model.AccountModel;
-import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.model.User;
 import com.mnikn.purewei.support.AccessTokenKeeper;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
@@ -29,13 +29,16 @@ import de.hdodenhof.circleimageview.CircleImageView;
  */
 public class AccountViewHolder extends EasyViewHolder<Cursor> {
 
-    @BindView(R.id.circleImg_avatars) CircleImageView circleImgAvatars;
-    @BindView(R.id.imgBtn_delete) ImageButton imgBtnDelete;
-    @BindView(R.id.txt_user_name) TextView txtUserName;
+    @BindView(R.id.circleImg_avatars)
+    CircleImageView circleImgAvatars;
+    @BindView(R.id.imgBtn_delete)
+    ImageButton imgBtnDelete;
+    @BindView(R.id.txt_user_name)
+    TextView txtUserName;
 
     private Context mContext;
 
-    public AccountViewHolder(Context context,View itemView) {
+    public AccountViewHolder(Context context, View itemView) {
         super(itemView);
         mContext = context;
         ButterKnife.bind(this, itemView);
@@ -43,28 +46,24 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
 
     @Override
     public void bindView(int position, final Cursor cursor) {
-        if(App.isNightMode()){
-            imgBtnDelete.setImageDrawable(ResourcesUtils.getDrawable(mContext,R.drawable.ic_delete_night));
+        if (App.isNightMode()) {
+            imgBtnDelete.setImageDrawable(ResourcesUtils.getDrawable(mContext, R.drawable.ic_delete_night));
         }
 
-        final UserModel model = WeiboDataHelper.getInstance()
-                .getUserModel(WeiboContract.AccountEntry.getUid(cursor));
+        final User model = UserDao.getUser(WeiboContract.AccountEntry.getId(cursor));
 
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                model.avatarLargeUrl,
+                model.avatarLarge,
                 circleImgAvatars);
-        txtUserName.setText(model.userName);
+        txtUserName.setText(model.name);
 
         imgBtnDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                mContext.getContentResolver().delete(
-                        WeiboContract.AccountEntry.CONTENT_URI,
-                        WeiboContract.AccountEntry.COLUMN_UID + " = ?",
-                        new String[]{Numbers.longToString(model.uid)});
+                UserDao.delete(model.id);
                 if (AccessTokenKeeper.readAccessToken(mContext).getUid()
-                        .equals(Numbers.longToString(model.uid))) {
+                        .equals(Numbers.longToString(model.id))) {
                     AccessTokenKeeper.clear(mContext);
                 }
             }
@@ -74,8 +73,7 @@ public class AccountViewHolder extends EasyViewHolder<Cursor> {
             @Override
             public void onClick(View v) {
                 AccessTokenKeeper.clear(mContext);
-                AccessTokenKeeper.writeAccessToken(mContext,
-                        new AccountModel(cursor).toOauth2AccessToken());
+                AccessTokenKeeper.writeAccessToken(mContext, AccountDao.getAccount(cursor).toOauth2AccessToken());
                 mContext.startActivity(new Intent(mContext, HomeActivity.class));
             }
         });

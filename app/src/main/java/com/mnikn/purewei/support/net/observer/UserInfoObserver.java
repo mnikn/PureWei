@@ -2,10 +2,9 @@ package com.mnikn.purewei.support.net.observer;
 
 import android.content.Context;
 
-import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.entity.UserEntity;
-import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.bean.UserBean;
+import com.mnikn.purewei.data.dao.UserDao;
+import com.mnikn.purewei.model.User;
+import com.mnikn.purewei.support.Constants;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -13,7 +12,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class UserInfoObserver implements Observer<UserBean> {
+public class UserInfoObserver implements Observer<User> {
 
     private Context mContext;
 
@@ -27,10 +26,9 @@ public class UserInfoObserver implements Observer<UserBean> {
     }
 
     @Override
-    public void onNext(UserBean value) {
-        UserEntity entity = new UserEntity(value);
-        mContext.getContentResolver().insert(WeiboContract.UserEntry.CONTENT_URI,
-                entity.toContentValues(Constant.USER_NORAML));
+    public void onNext(User value) {
+        value.type = Constants.USER_NORMAL;
+        UserDao.insertUser(value);
     }
 
     @Override

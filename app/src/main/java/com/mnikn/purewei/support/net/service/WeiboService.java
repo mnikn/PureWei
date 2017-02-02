@@ -1,9 +1,9 @@
 package com.mnikn.purewei.support.net.service;
 
-import com.mnikn.purewei.support.bean.EmotionsBean;
-import com.mnikn.purewei.support.bean.FavoriteBean;
-import com.mnikn.purewei.support.bean.StatusesBean;
-import com.mnikn.purewei.support.bean.TimelineBean;
+import com.mnikn.purewei.model.Emotions;
+import com.mnikn.purewei.model.Favorite;
+import com.mnikn.purewei.model.Status;
+import com.mnikn.purewei.model.Timeline;
 
 import java.util.List;
 
@@ -19,32 +19,32 @@ import retrofit2.http.Query;
  */
 public interface WeiboService {
     @GET("suggestions/favorites/hot.json")
-    Observable<List<StatusesBean>> getHotWeibo(
+    Observable<List<Status>> getHotWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
 
     @GET("statuses/home_timeline.json")
-    Observable<TimelineBean> getHomeWeibo(
+    Observable<Timeline> getHomeWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
 
     @GET("favorites.json")
-    Observable<FavoriteBean> getFavoriteWeibo(
+    Observable<Favorite> getFavoriteWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
 
 
     @GET("statuses/user_timeline.json")
-    Observable<TimelineBean> getUserWeibo(
+    Observable<Timeline> getUserWeibo(
             @Query("access_token") String token,
             @Query("page") int page,
             @Query("count") int count);
 
     @GET("emotions.json")
-    Observable<List<EmotionsBean>> getEmotions(
+    Observable<List<Emotions>> getEmotions(
             @Field("access_token") String token);
 
     @POST("statuses/update.json")

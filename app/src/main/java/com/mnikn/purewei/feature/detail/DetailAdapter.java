@@ -8,7 +8,7 @@ import com.mnikn.library.support.adapter.EasyRecyclerAdapter;
 import com.mnikn.library.support.adapter.EasyViewHolder;
 import com.mnikn.library.support.adapter.data.CursorDataProvider;
 import com.mnikn.purewei.R;
-import com.mnikn.purewei.model.WeiboModel;
+import com.mnikn.purewei.model.Status;
 import com.mnikn.purewei.viewholder.CommentViewHolder;
 import com.mnikn.purewei.viewholder.ContentViewHolder;
 
@@ -21,12 +21,12 @@ public class DetailAdapter extends EasyRecyclerAdapter<CursorDataProvider,Object
     private static final int COMMENT = 2;
 
     private Context mContext;
-    private WeiboModel mWeiboModel;
+    private Status mStatus;
 
-    public DetailAdapter(CursorDataProvider dataProvider,Context context, WeiboModel model) {
+    public DetailAdapter(CursorDataProvider dataProvider,Context context, Status model) {
         super(dataProvider);
         mContext = context;
-        mWeiboModel = model;
+        mStatus = model;
     }
 
     @Override
@@ -37,7 +37,7 @@ public class DetailAdapter extends EasyRecyclerAdapter<CursorDataProvider,Object
                 holder = new ContentViewHolder(
                         mContext,
                         LayoutInflater.from(mContext).inflate(R.layout.item_content,parent,false),
-                        mWeiboModel);
+                        mStatus);
                 break;
             case COMMENT:
                 holder = new CommentViewHolder(mContext,

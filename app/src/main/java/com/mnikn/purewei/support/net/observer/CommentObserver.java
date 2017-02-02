@@ -1,17 +1,17 @@
 package com.mnikn.purewei.support.net.observer;
 
 import android.content.ContentResolver;
-import android.content.ContentValues;
 
 import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.ToastUtils;
 import com.mnikn.library.view.net.INetView;
 import com.mnikn.library.view.net.NetPresenter;
 import com.mnikn.purewei.data.WeiboContract;
-import com.mnikn.purewei.data.entity.UserEntity;
-import com.mnikn.purewei.data.entity.WeiboCommentEntity;
-import com.mnikn.purewei.support.Constant;
-import com.mnikn.purewei.support.bean.CommentBean;
+import com.mnikn.purewei.data.dao.CommentDao;
+import com.mnikn.purewei.data.dao.UserDao;
+import com.mnikn.purewei.model.Comments;
+import com.mnikn.purewei.support.Constants;
+import com.mnikn.purewei.support.util.DataUtil;
 
 import io.reactivex.Observer;
 import io.reactivex.disposables.Disposable;
@@ -19,7 +19,7 @@ import io.reactivex.disposables.Disposable;
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
  */
-public class CommentObserver implements Observer<CommentBean>{
+public class CommentObserver implements Observer<Comments>{
 
     private NetPresenter mPresenter;
     private int mType;
@@ -37,29 +37,28 @@ public class CommentObserver implements Observer<CommentBean>{
     }
 
     @Override
-    public void onNext(CommentBean value) {
+    public void onNext(Comments value) {
         ContentResolver resolver = mPresenter.getContext().getContentResolver();
 
-        if(mType == Constant.REFRESH){
+        if(mType == Constants.REFRESH){
             resolver.delete(
-                    WeiboContract.WeiboCommentEntry.CONTENT_URI,
-                    WeiboContract.WeiboCommentEntry.COLUMN_WEIBO_ID + " = ?",
+                    WeiboContract.CommentEntry.CONTENT_URI,
+                    WeiboContract.CommentEntry.COLUMN_STATUS_ID + " = ?",
                     new String[]{Numbers.longToString(mWeiboId)});
         }
 
         //把bean转换成ContentValues,并插入到数据库中
         int size = value.comments.size();
-        ContentValues[] commentValuesArray = new WeiboCommentEntity(value).toContentValuesArray();
         for(int i = 0;i < size; ++i){
 
             //先查询是否有这位用户信息,没有就插入数据
             long userId = value.comments.get(i).user.id;
-            if(!com.mnikn.purewei.support.util.DataUtil.hasUserId(mPresenter.getContext(), userId)){
-                resolver.insert(WeiboContract.UserEntry.CONTENT_URI,
-                        new UserEntity(value.comments.get(i).user).toContentValues(Constant.USER_NORAML));
+            if(!DataUtil.hasUserId(mPresenter.getContext(), userId)){
+                value.comments.get(i).user.type = Constants.USER_NORMAL;
+                UserDao.insertUser(value.comments.get(i).user);
             }
         }
-        resolver.bulkInsert(WeiboContract.WeiboCommentEntry.CONTENT_URI,commentValuesArray);
+        CommentDao.insertComments(value.comments);
     }
 
     @Override
@@ -71,10 +70,10 @@ public class CommentObserver implements Observer<CommentBean>{
     @Override
     public void onComplete() {
         switch (mType){
-            case Constant.REFRESH:
+            case Constants.REFRESH:
                 mPresenter.refreshFinish();
                 break;
-            case Constant.LOAD_MORE:
+            case Constants.LOAD_MORE:
                 mPresenter.loadMoreFinish();
                 break;
         }

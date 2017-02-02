@@ -8,9 +8,10 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.mnikn.library.support.adapter.EasyViewHolder;
+import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.photo.PhotoActivity;
-import com.mnikn.purewei.model.UserModel;
+import com.mnikn.purewei.model.User;
 import com.mnikn.purewei.support.util.ImageDisplayUtil;
 
 import butterknife.BindView;
@@ -34,9 +35,9 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     @BindView(R.id.img_cover) ImageView imgCover;
 
     private Context mContext;
-    private UserModel mModel;
+    private User mModel;
 
-    public HeaderHolder(Context context,View itemView,UserModel model) {
+    public HeaderHolder(Context context,View itemView,User model) {
         super(itemView);
         mContext = context;
         mModel = model;
@@ -44,35 +45,35 @@ public class HeaderHolder extends EasyViewHolder<Cursor> {
     }
 
     @Override
-    public void bindView(int positon,Cursor cursor) {
+    public void bindView(int position,Cursor cursor) {
         ImageDisplayUtil.displayFromNet(
                 mContext,
-                mModel.avatarHdUrl,
+                mModel.avatarHd,
                 circleImgUserAvatars
         );
 
-        txtFollowersCount.setText(mModel.followersCount);
-        txtFriendsCount.setText(mModel.friendsCount);
-        txtWeiboCount.setText(mModel.weiboCount);
-        txtUserName.setText(mModel.userName);
+        txtFollowersCount.setText(Numbers.longToString(mModel.followersCount));
+        txtFriendsCount.setText(Numbers.longToString(mModel.friendsCount));
+        txtWeiboCount.setText(Numbers.longToString(mModel.statusesCount));
+        txtUserName.setText(mModel.name);
         txtDescription.setText(mModel.description);
 
-        if(mModel.coverUrl != null){
-            ImageDisplayUtil.displayFromNet(mContext, mModel.coverUrl, imgCover);
+        if(mModel.coverImage != null){
+            ImageDisplayUtil.displayFromNet(mContext, mModel.coverImage, imgCover);
         }
     }
 
     @OnClick(R.id.circleImg_avatars)
     void navUserIcon(){
         Intent intent = new Intent(mContext,PhotoActivity.class);
-        intent.putExtra(EXTRA_PHOTO_URL, mModel.avatarHdUrl);
+        intent.putExtra(EXTRA_PHOTO_URL, mModel.avatarHd);
         mContext.startActivity(intent);
     }
 
     @OnClick(R.id.img_cover)
     void navCover(){
         Intent intent = new Intent(mContext,PhotoActivity.class);
-        intent.putExtra(EXTRA_PHOTO_URL,mModel.coverUrl);
+        intent.putExtra(EXTRA_PHOTO_URL,mModel.coverImage);
         mContext.startActivity(intent);
     }
 

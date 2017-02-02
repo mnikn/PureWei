@@ -11,8 +11,8 @@ import com.mnikn.library.view.base.BaseSingleFragmentActivity;
 import com.mnikn.library.view.base.BaseFragment;
 import com.mnikn.purewei.R;
 import com.mnikn.purewei.feature.write.WriteActivity;
-import com.mnikn.purewei.model.WeiboModel;
-import com.mnikn.purewei.support.Constant;
+import com.mnikn.purewei.model.Status;
+import com.mnikn.purewei.support.Constants;
 
 /**
  * @author <a href="mailto:iamtruelyking@gmail.com">mnikn</a>
@@ -21,7 +21,7 @@ public class DetailActivity extends BaseSingleFragmentActivity {
 
     public static final String EXTRA_MODEL = "extra_model";
 
-    public static void startActivity(Context context,WeiboModel model){
+    public static void startActivity(Context context,Status model){
         Intent intent = new Intent(context,DetailActivity.class);
         intent.putExtra(EXTRA_MODEL,model);
         context.startActivity(intent);
@@ -44,8 +44,8 @@ public class DetailActivity extends BaseSingleFragmentActivity {
         int id = item.getItemId();
         switch (id){
             case R.id.action_comment:
-                WeiboModel model = getIntent().getParcelableExtra(EXTRA_MODEL);
-                WriteActivity.startActivity(this, Constant.WRITE_COMMENT,model);
+                Status model = getIntent().getParcelableExtra(EXTRA_MODEL);
+                WriteActivity.startActivity(this, Constants.WRITE_COMMENT,model);
                 break;
         }
         return false;

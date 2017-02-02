@@ -17,13 +17,13 @@ import com.mnikn.purewei.data.WeiboContract.*;;
  */
 public class WeiboProvider extends ContentProvider {
 
-    private static final int WEIBO = 100;
-    private static final int WEIBO_PICS = 101;
-    private static final int WEIBO_COMMENT = 102;
+    private static final int STATUS = 100;
+    private static final int PICTURE = 101;
+    private static final int COMMENT = 102;
     private static final int USER = 103;
     private static final int ACCOUNT = 104;
     private static final int DRAFT = 105;
-    private static final int WEIBO_WITH_USER = 106;
+    private static final int STATUS_WITH_USER = 106;
     private static final int COMMENT_WITH_USER = 107;
     private static UriMatcher sUriMatcher;
 
@@ -32,14 +32,14 @@ public class WeiboProvider extends ContentProvider {
 
     static {
         sUriMatcher = new UriMatcher(UriMatcher.NO_MATCH);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO,WEIBO);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_PICS,WEIBO_PICS);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT,WEIBO_COMMENT);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_STATUS, STATUS);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_PICTURE, PICTURE);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_COMMENT, COMMENT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_USER,USER);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_ACCOUNT,ACCOUNT);
         sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_DRAFT,DRAFT);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO + "/user",WEIBO_WITH_USER);
-        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_WEIBO_COMMENT + "/user",COMMENT_WITH_USER);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_STATUS + "/user", STATUS_WITH_USER);
+        sUriMatcher.addURI(WeiboContract.CONTENT_AUTHORITY,WeiboContract.PATH_COMMENT + "/user",COMMENT_WITH_USER);
     }
 
     @Override
@@ -59,9 +59,9 @@ public class WeiboProvider extends ContentProvider {
         Cursor cursor;
         String tableName;
         switch (code){
-            case WEIBO:
+            case STATUS:
                 cursor = db.query(
-                        WeiboEntry.TABLE_NAME,
+                        StatusEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -69,9 +69,9 @@ public class WeiboProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
-            case WEIBO_PICS:
+            case PICTURE:
                 cursor = db.query(
-                        WeiboPicsEntry.TABLE_NAME,
+                        PictureEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -79,9 +79,9 @@ public class WeiboProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
-            case WEIBO_COMMENT:
+            case COMMENT:
                 cursor = db.query(
-                        WeiboCommentEntry.TABLE_NAME,
+                        CommentEntry.TABLE_NAME,
                         projection,
                         selection,
                         selectionArgs,
@@ -119,10 +119,10 @@ public class WeiboProvider extends ContentProvider {
                         null,
                         sortOrder);
                 break;
-            case WEIBO_WITH_USER:
-                tableName = WeiboEntry.TABLE_NAME + " INNER JOIN " +
-                        UserEntry.TABLE_NAME +" ON " + WeiboEntry.TABLE_NAME +
-                        "." + WeiboEntry.COLUMN_USER_ID + " = " + UserEntry.TABLE_NAME +
+            case STATUS_WITH_USER:
+                tableName = StatusEntry.TABLE_NAME + " INNER JOIN " +
+                        UserEntry.TABLE_NAME +" ON " + StatusEntry.TABLE_NAME +
+                        "." + StatusEntry.COLUMN_USER_ID + " = " + UserEntry.TABLE_NAME +
                         "." + UserEntry.COLUMN_USER_ID;
                 cursor = db.query(
                             tableName,
@@ -134,9 +134,9 @@ public class WeiboProvider extends ContentProvider {
                             sortOrder);
                 break;
             case COMMENT_WITH_USER:
-                tableName = WeiboCommentEntry.TABLE_NAME + " INNER JOIN " +
-                        UserEntry.TABLE_NAME +" ON " + WeiboCommentEntry.TABLE_NAME +
-                        "." + WeiboCommentEntry.COLUMN_COMMENT_USER_ID + " = " + UserEntry.TABLE_NAME +
+                tableName = CommentEntry.TABLE_NAME + " INNER JOIN " +
+                        UserEntry.TABLE_NAME +" ON " + CommentEntry.TABLE_NAME +
+                        "." + CommentEntry.COLUMN_COMMENT_USER_ID + " = " + UserEntry.TABLE_NAME +
                         "." + UserEntry.COLUMN_USER_ID;
                 cursor = db.query(
                         tableName,
@@ -162,14 +162,14 @@ public class WeiboProvider extends ContentProvider {
         int code = sUriMatcher.match(uri);
         String type;
         switch (code){
-            case WEIBO:
-                type = WeiboEntry.CONTENT_TYPE;
+            case STATUS:
+                type = StatusEntry.CONTENT_TYPE;
                 break;
-            case WEIBO_PICS:
-                type = WeiboPicsEntry.CONTENT_TYPE;
+            case PICTURE:
+                type = PictureEntry.CONTENT_TYPE;
                 break;
-            case WEIBO_COMMENT:
-                type = WeiboCommentEntry.CONTENT_TYPE;
+            case COMMENT:
+                type = CommentEntry.CONTENT_TYPE;
                 break;
             case USER:
                 type = UserEntry.CONTENT_TYPE;
@@ -194,17 +194,17 @@ public class WeiboProvider extends ContentProvider {
         Uri retUri;
         long rowId;
         switch (code){
-            case WEIBO:
-                rowId = db.replace(WeiboEntry.TABLE_NAME, null, values);
-                retUri = insertSuccessfulOrThrow(rowId,uri, WeiboEntry.buildWeiboUri(rowId));
+            case STATUS:
+                rowId = db.replace(StatusEntry.TABLE_NAME, null, values);
+                retUri = insertSuccessfulOrThrow(rowId,uri, StatusEntry.buildStatusUri(rowId));
                 break;
-            case WEIBO_PICS:
-                rowId = db.replace(WeiboPicsEntry.TABLE_NAME, null, values);
-                retUri = insertSuccessfulOrThrow(rowId, uri, WeiboPicsEntry.buildWeiboPicsUri(rowId));
+            case PICTURE:
+                rowId = db.replace(PictureEntry.TABLE_NAME, null, values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, PictureEntry.buildPictureUri(rowId));
                 break;
-            case WEIBO_COMMENT:
-                rowId = db.replace(WeiboCommentEntry.TABLE_NAME, null, values);
-                retUri = insertSuccessfulOrThrow(rowId, uri, WeiboCommentEntry.buildWeiboCommentUri(rowId));
+            case COMMENT:
+                rowId = db.replace(CommentEntry.TABLE_NAME, null, values);
+                retUri = insertSuccessfulOrThrow(rowId, uri, CommentEntry.buildCommentUri(rowId));
                 break;
             case USER:
                 rowId = db.replace(UserEntry.TABLE_NAME, null, values);
@@ -233,30 +233,30 @@ public class WeiboProvider extends ContentProvider {
         int count= 0;
         long rowId;
         switch (code){
-            case WEIBO:
+            case STATUS:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.replace(WeiboEntry.TABLE_NAME, null, contentValues);
+                    rowId = db.replace(StatusEntry.TABLE_NAME, null, contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
                 db.setTransactionSuccessful();
                 db.endTransaction();
                 break;
-            case WEIBO_PICS:
+            case PICTURE:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.insert(WeiboPicsEntry.TABLE_NAME,null,contentValues);
+                    rowId = db.insert(PictureEntry.TABLE_NAME,null,contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
                 db.setTransactionSuccessful();
                 db.endTransaction();
                 break;
-            case WEIBO_COMMENT:
+            case COMMENT:
                 db.beginTransaction();
                 for(ContentValues contentValues : values){
-                    rowId = db.insert(WeiboCommentEntry.TABLE_NAME,null,contentValues);
+                    rowId = db.insert(CommentEntry.TABLE_NAME,null,contentValues);
                     insertSuccessfulOrThrow(rowId,uri,null);
                     ++count;
                 }
@@ -276,14 +276,14 @@ public class WeiboProvider extends ContentProvider {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int rowId;
         switch (code){
-            case WEIBO:
-                rowId = db.delete(WeiboEntry.TABLE_NAME, selection, selectionArgs);
+            case STATUS:
+                rowId = db.delete(StatusEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case WEIBO_PICS:
-                rowId = db.delete(WeiboPicsEntry.TABLE_NAME, selection, selectionArgs);
+            case PICTURE:
+                rowId = db.delete(PictureEntry.TABLE_NAME, selection, selectionArgs);
                 break;
-            case WEIBO_COMMENT:
-                rowId = db.delete(WeiboCommentEntry.TABLE_NAME, selection, selectionArgs);
+            case COMMENT:
+                rowId = db.delete(CommentEntry.TABLE_NAME, selection, selectionArgs);
                 break;
             case USER:
                 rowId = db.delete(UserEntry.TABLE_NAME, selection, selectionArgs);
@@ -309,16 +309,16 @@ public class WeiboProvider extends ContentProvider {
         SQLiteDatabase db = mDbHelper.getWritableDatabase();
         int rowId;
         switch (matchCode){
-            case WEIBO:
-                rowId = db.update(WeiboEntry.TABLE_NAME, values, selection, selectionArgs);
+            case STATUS:
+                rowId = db.update(StatusEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId, uri,null);
                 break;
-            case WEIBO_PICS:
-                rowId = db.update(WeiboPicsEntry.TABLE_NAME, values, selection, selectionArgs);
+            case PICTURE:
+                rowId = db.update(PictureEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId, uri,null);
                 break;
-            case WEIBO_COMMENT:
-                rowId = db.update(WeiboCommentEntry.TABLE_NAME, values, selection, selectionArgs);
+            case COMMENT:
+                rowId = db.update(CommentEntry.TABLE_NAME, values, selection, selectionArgs);
                 insertSuccessfulOrThrow(rowId,uri,null);
                 break;
             case USER:
