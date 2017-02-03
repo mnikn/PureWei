@@ -47,10 +47,6 @@ public class WeiboContract {
         public static Uri buildStatusUriWithUser(){
             return CONTENT_URI.buildUpon().appendPath("user").build();
         }
-        public static Uri buildWeiboUriWithPics(){
-            return CONTENT_URI.buildUpon().appendPath("detail").build();
-        }
-
         public static long getStatusId(Cursor cursor){
             return cursor.getLong(cursor.getColumnIndex(COLUMN_STATUS_ID));
         }

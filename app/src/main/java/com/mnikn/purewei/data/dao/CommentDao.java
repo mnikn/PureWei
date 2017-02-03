@@ -8,8 +8,6 @@ import com.mnikn.library.utils.Numbers;
 import com.mnikn.purewei.App;
 import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.model.Comment;
-import com.mnikn.purewei.model.Status;
-import com.mnikn.purewei.model.User;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,16 +26,7 @@ public class CommentDao {
                 WeiboContract.StatusEntry.COLUMN_CREATED_TIME + " DESC");
         List<Comment> comments = new ArrayList<>();
         while (cursor.moveToNext()) {
-            Comment comment = new Comment();
-            comment.id = WeiboContract.CommentEntry.getCommentId(cursor);
-            comment.status = new Status();
-            comment.status.user.id = WeiboContract.CommentEntry.getStatusId(cursor);
-            comment.user = new User();
-            comment.user.id = WeiboContract.CommentEntry.getUserId(cursor);
-            comment.text = WeiboContract.CommentEntry.getCommentText(cursor);
-            comment.source = WeiboContract.CommentEntry.getCommentSource(cursor);
-            comment.createdAt = DateUtils.longToDate(WeiboContract.CommentEntry.getCommentTime(cursor));
-            comments.add(comment);
+            comments.add(getComment(cursor));
         }
         return comments;
     }
@@ -45,10 +34,8 @@ public class CommentDao {
     public static Comment getComment(Cursor cursor) {
         Comment comment = new Comment();
         comment.id = WeiboContract.CommentEntry.getCommentId(cursor);
-        comment.status = new Status();
-        comment.status.user.id = WeiboContract.CommentEntry.getStatusId(cursor);
-        comment.user = new User();
-        comment.user.id = WeiboContract.CommentEntry.getUserId(cursor);
+        comment.status = StatusDao.getStatus(WeiboContract.CommentEntry.getStatusId(cursor));
+        comment.user = UserDao.getUser(WeiboContract.CommentEntry.getUserId(cursor));
         comment.text = WeiboContract.CommentEntry.getCommentText(cursor);
         comment.source = WeiboContract.CommentEntry.getCommentSource(cursor);
         comment.createdAt = DateUtils.longToDate(WeiboContract.CommentEntry.getCommentTime(cursor));

@@ -2,6 +2,7 @@ package com.mnikn.purewei.data.dao;
 
 import android.content.ContentValues;
 import android.database.Cursor;
+import android.util.Log;
 
 import com.mnikn.library.utils.DateUtils;
 import com.mnikn.library.utils.Numbers;
@@ -18,6 +19,7 @@ import java.util.List;
  */
 public class StatusDao {
 
+    private final static String LOG_TAG = StatusDao.class.getSimpleName();
 
     public static List<Status> getStatuses() {
         Cursor cursor = App.getAppContext().getContentResolver().query(
@@ -46,6 +48,10 @@ public class StatusDao {
     }
 
     public static Status getStatus(Cursor cursor) {
+        if(cursor.getCount() == 0 || cursor.isClosed() || cursor.isAfterLast()){
+            Log.e(LOG_TAG,"Cannot get status from cursor");
+            return null;
+        }
         Status status = new Status();
         status.id = WeiboContract.StatusEntry.getStatusId(cursor);
         status.user = UserDao.getUser(WeiboContract.StatusEntry.getUserId(cursor));

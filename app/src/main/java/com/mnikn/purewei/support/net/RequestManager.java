@@ -7,8 +7,11 @@ import com.jakewharton.retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import com.mnikn.library.utils.Numbers;
 import com.mnikn.library.utils.Strings;
 import com.mnikn.library.utils.ToastUtils;
-import com.mnikn.purewei.data.WeiboContract;
 import com.mnikn.purewei.data.dao.AccountDao;
+import com.mnikn.purewei.data.dao.CommentDao;
+import com.mnikn.purewei.data.dao.PictureDao;
+import com.mnikn.purewei.data.dao.StatusDao;
+import com.mnikn.purewei.data.dao.UserDao;
 import com.mnikn.purewei.feature.home.IHomeView;
 import com.mnikn.purewei.model.Account;
 import com.mnikn.purewei.support.AccessTokenKeeper;
@@ -45,13 +48,14 @@ public class RequestManager {
             @Override
             public void onComplete(Bundle bundle) {
 
-                context.getContentResolver().delete(WeiboContract.StatusEntry.CONTENT_URI, null, null);
-                context.getContentResolver().delete(WeiboContract.CommentEntry.CONTENT_URI, null, null);
-                context.getContentResolver().delete(WeiboContract.PictureEntry.CONTENT_URI, null, null);
-                context.getContentResolver().delete(
-                        WeiboContract.UserEntry.CONTENT_URI,
-                        WeiboContract.UserEntry.COLUMN_USER_TYPE + " = ?",
-                        new String[]{"0"});
+                StatusDao.clear();
+                CommentDao.clear();
+                PictureDao.clear();
+                UserDao.clear();
+//                context.getContentResolver().delete(
+//                        WeiboContract.UserEntry.CONTENT_URI,
+//                        WeiboContract.UserEntry.COLUMN_USER_TYPE + " = ?",
+//                        new String[]{"0"});
 
                 Oauth2AccessToken token = Oauth2AccessToken.parseAccessToken(bundle);
                 if (token.isSessionValid()) {
